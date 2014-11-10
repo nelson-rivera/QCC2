@@ -10,6 +10,9 @@ function css_bootstrap_datetimepicker(){return '<link rel="stylesheet" type="tex
 function css_select2(){return '<link rel="stylesheet" type="text/css" href="js/jquery.select2/select2.css" />';}
 function css_slider(){return '<link rel="stylesheet" type="text/css" href="js/bootstrap.slider/css/slider.css" />';}
 function css_introjs(){return '<link rel="stylesheet" type="text/css" href="js/intro.js/introjs.css" />';}
+function css_datatable(){return '<link rel="stylesheet" type="text/css" href="js/jquery.datatables/bootstrap-adapter/css/datatables.css" />';}
+function css_fonts(){return '<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800" rel="stylesheet" type="text/css">
+<link href="http://fonts.googleapis.com/css?family=Raleway:300,200,100" rel="stylesheet" type="text/css">';}
 
 
 //JS
@@ -33,6 +36,8 @@ function js_flot_pie(){return '<script type="text/javascript" src="js/jquery.flo
 function js_flot_resize(){return '<script type="text/javascript" src="js/jquery.flot/jquery.flot.resize.js"></script>';}
 function js_flot_labels(){return '<script type="text/javascript" src="js/jquery.flot/jquery.flot.labels.js"></script>';}
 function js_voice_command(){return '<script src="js/behaviour/voice-commands.js"></script>';}
+function js_jquery_datatable(){return '<script type="text/javascript" src="js/jquery.datatables/jquery.datatables.min.js"></script>';}
+function js_jquery_datatable_adapter(){return '<script type="text/javascript" src="js/jquery.datatables/bootstrap-adapter/js/datatables.js"></script>';}
 ?>
 
 

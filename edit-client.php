@@ -237,5 +237,4 @@
   <?= js_bootstrap() ?>
 </body>
 
-<!-- Mirrored from foxypixel.net/cleanzone/pages-blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Nov 2014 04:57:43 GMT -->
 </html>

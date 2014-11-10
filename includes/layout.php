@@ -61,8 +61,8 @@ function lytSideMenu($menuSelected){
                 </li>
                 <li><a href="#"><i class="fa fa-list-alt"></i><span>Proveedores</span></a>
                   <ul class="sub-menu">
-                    <li class="'.$isActiveM5.'"><a href="form-elements.html">Listar Proveedores</a></li>
-                    <li class="'.$isActiveM6.'"><a href="form-validation.html">Agregar proveedor</a></li>
+                    <li class="'.$isActiveM5.'"><a href="list-suppliers.php">Listar Proveedores</a></li>
+                    <li class="'.$isActiveM6.'"><a href="add-supplier.php">Agregar proveedor</a></li>
                   </ul>
                 </li>
                 <li><a href="#"><i class="fa fa-table"></i><span>Cotizaciones</span></a>

@@ -11,7 +11,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Listar Clientes</title>
+	<title>QCC - Listar de Contactos de los Proveedores</title>
 	<?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -41,7 +41,7 @@
           <a class="navbar-brand" href="#"><span>QCC</span></a>
         </div>
         <div class="navbar-collapse collapse">
-            <?= lytTopBarMenu() ?>		
+            <?= lytTopBarMenu(5) ?>		
 
         </div><!--/.nav-collapse -->
       </div>
@@ -60,7 +60,7 @@
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>
-                    <?= lytSideMenu(1) ?>
+                    <?= lytSideMenu(5) ?>
                   </div>
                 </div>
                 
@@ -72,7 +72,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Clientes</h2>
+                <h2>Contactos de <a href="edit-supplier.php">INTCOMEX</a></h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
@@ -81,21 +81,25 @@
                             <table class="table table-bordered" id="datatable-icons" >
                                 <thead>
                                         <tr>
-                                            <th>Nombre</th>
-                                            <th>Rubro</th>
-                                            <th>Municipio</th>
-                                            <th>Departamento</th>
+                                            <th>Cotacto</th>
+                                            <th>Cargo</th>
+                                            <th>Correo 1</th>
+                                            <th>Teléfono 1</th>
+                                            <th>Correo 2</th>
+                                            <th>Teléfono 2</th>
                                             <th>Acciones</th>
                                         </tr>
                                 </thead>
                                 <tbody>
                                         <tr class="odd gradeA">
-                                            <td>ACAVISA</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
-                                            <td class="center">San Salvador</td>
+                                            <td>JOSÉ PEREZ</td>
+                                            <td>Vendedor</td>
+                                            <td>carolinasv.perez@tecnoavance.com</td>
+                                            <td>503 2211-1215</td>
+                                            <td>&nbsp;</td>
+                                            <td>&nbsp;</td>
                                             <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-supplier.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
@@ -103,34 +107,7 @@
                                                 </a>
                                             </td>
                                         </tr>
-                                        <tr class="odd gradeA">
-                                            <td>Claro</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeA">
-                                            <td>UCA</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+                                     
                                 </tbody>
                             </table>
                         </div>

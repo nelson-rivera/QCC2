@@ -11,7 +11,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Listar Clientes</title>
+	<title>QCC - Listar Proveedores</title>
 	<?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -60,7 +60,7 @@
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>
-                    <?= lytSideMenu(1) ?>
+                    <?= lytSideMenu(5) ?>
                   </div>
                 </div>
                 
@@ -82,20 +82,23 @@
                                 <thead>
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Rubro</th>
-                                            <th>Municipio</th>
-                                            <th>Departamento</th>
+                                            <th>Tipo</th>
+                                            <th>Rubro principal</th>
+                                            <th>Contacto</th>
                                             <th>Acciones</th>
                                         </tr>
                                 </thead>
                                 <tbody>
                                         <tr class="odd gradeA">
-                                            <td>ACAVISA</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
-                                            <td class="center">San Salvador</td>
+                                            <td>TECNOAVANCE</td>
+                                            <td>LOCAL</td>
+                                            <td>TECNOLOGIA</td>
+                                            <td><a href="mailto:carolinasv.perez@tecnoavance.com">CAROLINA PEREZ</a></td>
                                             <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de proveedores" href="contacts-supplier.php">
+                                                    <i class="fa fa-users"></i>
+                                                </a>
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-supplier.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
@@ -104,12 +107,15 @@
                                             </td>
                                         </tr>
                                         <tr class="odd gradeA">
-                                            <td>Claro</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
-                                            <td class="center">San Salvador</td>
+                                            <td>RAF</td>
+                                            <td>LOCAL</td>
+                                            <td>FOTOS</td>
+                                            <td><a href="mailto:carolinasv.perez@tecnoavance.com">MARIA RAF</a></td>
                                             <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de proveedores" href="contacts-supplier.php">
+                                                    <i class="fa fa-users"></i>
+                                                </a>
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-supplier.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
@@ -118,12 +124,15 @@
                                             </td>
                                         </tr>
                                         <tr class="odd gradeA">
-                                            <td>UCA</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
-                                            <td class="center">San Salvador</td>
+                                            <td>INTCOMEX</td>
+                                            <td>INTERNACIONAL</td>
+                                            <td>TECNOLOGIA</td>
+                                            <td><a href="mailto:carolinasv.perez@tecnoavance.com">JOSÉ PEREZ</a></td>
                                             <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de proveedores" href="contacts-supplier.php">
+                                                    <i class="fa fa-users"></i>
+                                                </a>
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-supplier.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
@@ -131,6 +140,7 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                  
                                 </tbody>
                             </table>
                         </div>
@@ -140,7 +150,7 @@
             </div>
 	</div> 
     </div>
-   <?= js_jquery() ?>
+  <?= js_jquery() ?>
   <?= js_jquery_ui() ?>
   <?= js_bootstrap_datetimepicker() ?>
   <?= js_jquery_nanoscroller() ?>

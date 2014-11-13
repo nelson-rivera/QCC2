@@ -84,17 +84,17 @@
                                 <h3>Datos de cliente</h3>
                             </div>
                             <div class="content">
-                                <form class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-add-client" class="form-horizontal" style="border-radius: 0px;" action="#">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre Empresa</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control">
+                                            <select class="form-control" required>
                                                 <option>Emiliana</option>
                                                 <option>José</option>
                                                 <option>Nelson</option>
@@ -105,7 +105,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rubro</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control">
+                                            <select class="form-control" required>
                                                 <option>Final</option>
                                                 
                                             </select>
@@ -114,7 +114,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Departamento</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control">
+                                            <select class="form-control" required>
                                                 <option>San Salvador</option>
                                                 <option>Morazán</option>
                                                 <option>Ahuachapan</option>
@@ -135,26 +135,26 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Municipio</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" required>
                                         </div>
                                     </div>
                                     
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contacto</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -172,13 +172,13 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="email" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="email">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -216,6 +216,7 @@
   <?= js_bootstrap_switch() ?>
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
+  <?= js_jquery_parsley() ?>
   <?= js_general() ?>
      
 	
@@ -224,6 +225,14 @@
       $(document).ready(function(){
         //initialize the javascript
         App.init();
+        
+        $("#frm-add-client").parsley().subscribe('parsley:form:validate', function (formInstance) {
+            formInstance.submitEvent.preventDefault();
+            if(formInstance.isValid('', true)){
+                alert('Cliente Editado con éxito');
+            }
+            return;
+        });
       });
     </script>
 

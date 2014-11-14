@@ -55,8 +55,8 @@ function lytSideMenu($menuSelected){
                 </li>
                 <li><a href="#"><i class="fa fa-smile-o"></i><span>Vendedores</span></a>
                   <ul class="sub-menu">
-                    <li class="'.$isActiveM3.'"><a href="ui-elements.html">Listar vendedores</a></li>
-                    <li class="'.$isActiveM4.'"><a href="ui-buttons.html">Agregar vendedor</a></li>
+                    <li class="'.$isActiveM3.'"><a href="list-users.php">Listar vendedores</a></li>
+                    <li class="'.$isActiveM4.'"><a href="add-user.php">Agregar vendedor</a></li>
                   </ul>
                 </li>
                 <li><a href="#"><i class="fa fa-list-alt"></i><span>Proveedores</span></a>
@@ -72,7 +72,7 @@ function lytSideMenu($menuSelected){
                   </ul>
                 </li>                         
                 <li class="'.$isActiveM9.'">
-                  <a href="#"><i class="fa fa-signal nav-icon"></i><span>Reporteria</span></a>
+                  <a href="charts.php"><i class="fa fa-signal nav-icon"></i><span>Reportes</span></a>
                 </li>
             </ul>';
 }

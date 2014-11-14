@@ -5749,3 +5749,13 @@ ul.timeline li > .date {
     display: none;
   }
 }
+
+#frm-quote-items{
+    margin: 10px 0;
+}
+.input-condition{
+    text-align: right;
+}
+#frm-conditions .container-btn-delete-condition{
+   padding: 5px 0; 
+}

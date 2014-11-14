@@ -95,7 +95,7 @@
                                         <label class="col-sm-3 control-label">Cliente</label>
                                         <div class="col-sm-6">
                                             <select class="form-control" required>
-                                                <option>ACAVISA</option>
+                                                <option selected="selected">ACAVISA</option>
                                                 <option>Claro</option>
                                                 <option>UCA</option>
                                                 <option>Tigo</option>
@@ -107,7 +107,7 @@
                                         <label class="col-sm-3 control-label">Departamento</label>
                                         <div class="col-sm-6">
                                             <select class="form-control" required>
-                                                <option>San Salvador</option>
+                                                <option selected="selected">San Salvador</option>
                                                 <option>Morazán</option>
                                                 <option>Ahuachapan</option>
                                                 <option>Santa Ana</option>
@@ -127,14 +127,14 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Municipio</label>
                                         <div class="col-sm-6">
-                                            <input id="input-city" class="form-control" type="text" placeholder="San Salvador" required>
+                                            <input id="input-city" class="form-control" type="text" placeholder="San Salvador" value="San Salvador" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre contacto</label>
                                         <div class="col-sm-6">
                                             <select id="input-contact" class="form-control" required>
-                                                <option value="1">José Perez</option>
+                                                <option value="1" selected="selected">José Perez</option>
                                                 <option value="2">Ernesto Monterrosa</option>
                                                 <option value="3">Ivana Chavarria</option>
                                             </select>
@@ -205,19 +205,48 @@
                                                     1
                                                 </td>
                                                 <td>
-                                                    <input class="input-amount form-control" type="text" required=""/>
+                                                    <input class="input-amount form-control" value="5" type="text" required=""/>
                                                 </td>
                                                 <td>
                                                     <select class="input-rubro form-control" required="">
-                                                        <option>UPS</option>
+                                                        <option selected="selected">UPS</option>
                                                     </select>
                                                 </td>
                                                 <td>
-                                                    <textarea class="input-description form-control"required></textarea>
+                                                    <textarea class="input-description form-control"required>Tinta HP C4844A</textarea>
                                                 </td>
                                                 <td>
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">$</span><input class="input-unit-price form-control" type="text" required/>
+                                                        <span class="input-group-addon">$</span><input class="input-unit-price form-control" value="25" type="text" required/>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">$</span><input class="input-total-price form-control" type="text" required readonly="readonly"/>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr class="item">
+                                                <td class="text-center">
+                                                    <button class="btn btn-danger btn-xs btn-delete-item" type="button"><i class="fa fa-times"></i></button>
+                                                </td>
+                                                <td class="text-center">
+                                                    1
+                                                </td>
+                                                <td>
+                                                    <input class="input-amount form-control" value="1" type="text" required=""/>
+                                                </td>
+                                                <td>
+                                                    <select class="input-rubro form-control" required="">
+                                                        <option selected="selected">UPS</option>
+                                                    </select>
+                                                </td>
+                                                <td>
+                                                    <textarea class="input-description form-control"required>Impresora HP</textarea>
+                                                </td>
+                                                <td>
+                                                    <div class="input-group">
+                                                        <span class="input-group-addon">$</span><input class="input-unit-price form-control" value="150" type="text" required/>
                                                     </div>
                                                 </td>
                                                 <td>
@@ -316,10 +345,10 @@
 	
 
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(function(){
             //initialize the javascript
             App.init();
-
+            
             $("#frm-quote-items").parsley().subscribe('parsley:form:validate', function (formInstance) {
                 formInstance.submitEvent.preventDefault();
                 if(formInstance.isValid('', true)){
@@ -417,6 +446,10 @@
             $("#frm-conditions").on('click','.btn-delete-condition',function(){
                $(this).parents('.form-group').remove(); 
             });
+            $(".input-amount").each(function(){
+               $(this).trigger('change'); 
+            });
+            totalize();
         });
         function totalize(){
             var subTotal=0;

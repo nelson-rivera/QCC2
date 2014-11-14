@@ -40,7 +40,7 @@ function js_jquery_datatable(){return '<script type="text/javascript" src="js/jq
 function js_jquery_datatable_adapter(){return '<script type="text/javascript" src="js/jquery.datatables/bootstrap-adapter/js/datatables.js"></script>';}
 function js_highcharts(){return '<script src="js/highcharts/js/highcharts.js"></script>';}
 function js_highcharts_exporting(){return '<script src="js/highcharts/js/modules/exporting.js"></script>';}
-
+function js_jquery_parsley(){return '<script src="js/jquery.parsley/dist/parsley.min.js" type="text/javascript"></script>';}
 ?>
 
 

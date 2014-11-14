@@ -60,7 +60,7 @@
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>
-                    <?= lytSideMenu(1) ?>
+                    <?= lytSideMenu(9) ?>
                   </div>
                 </div>
                 
@@ -72,68 +72,12 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Clientes</h2>
+                <h2>Reportes</h2>
             </div>
             <div class="cl-mcont">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="block-flat">
-                            <table class="table table-bordered" id="datatable-icons" >
-                                <thead>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Rubro</th>
-                                            <th>Municipio</th>
-                                            <th>Departamento</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                </thead>
-                                <tbody>
-                                        <tr class="odd gradeA">
-                                            <td>ACAVISA</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeA">
-                                            <td>Claro</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeA">
-                                            <td>UCA</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                <div class="row col-md-8">
+                    <div id="charts_funnel" >
+                        
                     </div>
                 </div>
                 
@@ -148,21 +92,73 @@
   <?= js_bootstrap_switch() ?>
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
-  <?= js_jquery_datatable() ?>
-  <?= js_jquery_datatable_adapter() ?>
   <?= js_general() ?>
-     
-	
+  <?= js_highcharts() ?>
+  <?= js_highcharts_exporting() ?>
 
     <script type="text/javascript">
       $(document).ready(function(){
         App.init();
-        $('#datatable-icons').dataTable();
-        $("#datatable").dataTable();
-    
-        //Search input style
-        $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
-        $('.dataTables_length select').addClass('form-control');
+         $('#charts_funnel').highcharts({
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Monthly Average Rainfall'
+            },
+            subtitle: {
+                text: 'Source: WorldClimate.com'
+            },
+            xAxis: {
+                categories: [
+                    'F1',
+                    'F2',
+                    'F3',
+                    'F4',
+                    'F5',
+                    'FX'
+                ]
+            },
+            yAxis: {
+                min: 0,
+                title: {
+                    text: 'Monto'
+                }
+            },
+            tooltip: {
+                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
+                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
+                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
+                footerFormat: '</table>',
+                shared: true,
+                useHTML: true
+            },
+            plotOptions: {
+                column: {
+                    pointPadding: 0.2,
+                    borderWidth: 0
+                }
+            },
+            series: [{
+                name: 'F1',
+                data: [150000]
+            }, {
+                name: 'F2',
+                data: [160000]
+            }, {
+                name: 'F3',
+                data: [20000]
+            }, {
+                name: 'F4',
+                data: [10000]
+            }, {
+                name: 'F5',
+                data: [9000]
+            }, {
+                name: 'FX',
+                data: [1000]
+            }]
+        });
       });
     </script>
 

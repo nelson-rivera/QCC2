@@ -60,7 +60,7 @@
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>
-                    <?= lytSideMenu(8) ?>
+                    <?= lytSideMenu(7) ?>
                   </div>
                 </div>
                 

@@ -158,7 +158,6 @@
       $(document).ready(function(){
         App.init();
         $('#datatable-icons').dataTable();
-        $("#datatable").dataTable();
     
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');

@@ -38,6 +38,9 @@ function js_flot_labels(){return '<script type="text/javascript" src="js/jquery.
 function js_voice_command(){return '<script src="js/behaviour/voice-commands.js"></script>';}
 function js_jquery_datatable(){return '<script type="text/javascript" src="js/jquery.datatables/jquery.datatables.min.js"></script>';}
 function js_jquery_datatable_adapter(){return '<script type="text/javascript" src="js/jquery.datatables/bootstrap-adapter/js/datatables.js"></script>';}
+function js_highcharts(){return '<script src="js/highcharts/js/highcharts.js"></script>';}
+function js_highcharts_exporting(){return '<script src="js/highcharts/js/modules/exporting.js"></script>';}
+
 ?>
 
 

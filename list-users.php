@@ -60,7 +60,7 @@
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>
-                    <?= lytSideMenu(1) ?>
+                    <?= lytSideMenu(3) ?>
                   </div>
                 </div>
                 
@@ -72,7 +72,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Clientes</h2>
+                <h2>Usuarios</h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
@@ -82,20 +82,26 @@
                                 <thead>
                                         <tr>
                                             <th>Nombre</th>
-                                            <th>Rubro</th>
-                                            <th>Municipio</th>
+                                            <th>Cargo</th>
+                                            <th>Correo electrónico</th>
+                                            <th>Teléfono 1</th>
                                             <th>Departamento</th>
-                                            <th>Acciones</th>
+                                            <th>Municipio</th>
                                         </tr>
                                 </thead>
                                 <tbody>
                                         <tr class="odd gradeA">
-                                            <td>ACAVISA</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
+                                            <td>Raymundo Romero</td>
+                                            <td>Gerente de ventas</td>
+                                            <td>raymund.romero@qcc.com</td>
+                                            <td class="center">503 2256-1212</td>
+                                            <td class="center">San Salvador</td>
                                             <td class="center">San Salvador</td>
                                             <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php">
+                                                    <i class="fa fa-users"></i>
+                                                </a>
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
@@ -104,12 +110,17 @@
                                             </td>
                                         </tr>
                                         <tr class="odd gradeA">
-                                            <td>Claro</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
+                                            <td>Rasputin Meza</td>
+                                            <td>Vendedor</td>
+                                            <td>rasputin.meza@qcc.com</td>
+                                            <td class="center">503 2256-1213</td>
                                             <td class="center">San Salvador</td>
+                                            <td class="center">Soyapango</td>
                                             <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php">
+                                                    <i class="fa fa-users"></i>
+                                                </a>
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
@@ -118,12 +129,17 @@
                                             </td>
                                         </tr>
                                         <tr class="odd gradeA">
-                                            <td>UCA</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
+                                            <td>Verónica Torres</td>
+                                            <td>Vendedor</td>
+                                            <td>veronica.torres@qcc.com</td>
+                                            <td class="center">503 2256-1214</td>
+                                            <td class="center">San Salvador</td>
                                             <td class="center">San Salvador</td>
                                             <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php">
+                                                    <i class="fa fa-users"></i>
+                                                </a>
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
@@ -131,6 +147,7 @@
                                                 </a>
                                             </td>
                                         </tr>
+                                        
                                 </tbody>
                             </table>
                         </div>

@@ -72,7 +72,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Clientes</h2>
+                <h2>Proveedores</h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">

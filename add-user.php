@@ -12,7 +12,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Agregar Cliente</title>
+	<title>QCC - Agregar usuario</title>
         <?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -60,7 +60,7 @@
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>
-                    <?= lytSideMenu(2) ?>
+                    <?= lytSideMenu(4) ?>
                   </div>
                 </div>
                 
@@ -72,7 +72,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Agregar Cliente</h2>
+                <h2>Agregar Usuario</h2>
             </div>
             <div class="cl-mcont">
                 
@@ -81,34 +81,67 @@
                     <div class="col-md-12">
                         <div class="block-flat">
                             <div class="header">
-                                <h3>Datos de cliente</h3>
+                                <h3>Datos del usuario</h3>
                             </div>
                             <div class="content">
                                 <form class="form-horizontal" style="border-radius: 0px;" action="#">
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Nombre Empresa</label>
+                                        <label class="col-sm-3 control-label">Nombre</label>
                                         <div class="col-sm-6">
                                             <input class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Vendedor</label>
+                                        <label class="col-sm-3 control-label">Apellido</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
                                             <select class="form-control">
-                                                <option>Emiliana</option>
-                                                <option>José</option>
-                                                <option>Nelson</option>
-                                                <option>Ernesto</option>
+                                                <option>Gerente de ventas</option>
+                                                <option>Vendedor</option>
+                                                <option>Asistente de ventas</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Rubro</label>
+                                        <label class="col-sm-3 control-label">Contraseña</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control">
-                                                <option>Final</option>
-                                                
-                                            </select>
+                                            <input class="form-control" type="password">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Confirmar Contraseña</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="password">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Teléfono 1</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Teléfono 2</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Correo 1</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Correo 2</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -139,59 +172,66 @@
                                         </div>
                                     </div>
                                     
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Contacto</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Cargo</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Teléfono 1</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Teléfono 2</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Teléfono 3</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Correo 1</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Correo 2</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
+                                 
+                                    
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
-                                            <div class="checkbox">
+                                            <div class="checkbox-inline">
                                                 <label>
                                                     <input type="checkbox">
-                                                    Enviar correos de mercadeo
+                                                    Agregar, Editar Clientes
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-inline">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    Listar, ver Clientes
+                                                </label>
+                                            </div>
+                                            <div class="clear" ></div>
+                                            <div class="checkbox-inline">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    Agregar, Editar Usuarios
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-inline">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    Listar, Ver Usuarios
+                                                </label>
+                                            </div>
+                                             <div class="clear" ></div>
+                                            <div class="checkbox-inline">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    Agregar, Editar Proveedores
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-inline">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    Listar, Ver Proveedores
+                                                </label>
+                                            </div>
+                                              <div class="clear" ></div>
+                                            <div class="checkbox-inline">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    Agregar, Editar Cotizaciones
+                                                </label>
+                                            </div>
+                                            <div class="checkbox-inline">
+                                                <label>
+                                                    <input type="checkbox">
+                                                    Listar, Ver Cotizaciones
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
+                                    
+                                    
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button class="btn btn-primary" type="submit">Agregar</button>

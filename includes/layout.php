@@ -67,8 +67,8 @@ function lytSideMenu($menuSelected){
                 </li>
                 <li><a href="#"><i class="fa fa-table"></i><span>Cotizaciones</span></a>
                   <ul class="sub-menu">
-                    <li class="'.$isActiveM7.'"><a href="tables-general.html">Listar cotizaciones</a></li>
-                    <li class="'.$isActiveM8.'"><a href="tables-datatables.html">Crear Cotización</a></li>
+                    <li class="'.$isActiveM7.'"><a href="list-quotes.php">Listar cotizaciones</a></li>
+                    <li class="'.$isActiveM8.'"><a href="add-quote.php">Crear Cotización</a></li>
                   </ul>
                 </li>                         
                 <li class="'.$isActiveM9.'">

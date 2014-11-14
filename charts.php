@@ -75,12 +75,26 @@
                 <h2>Reportes</h2>
             </div>
             <div class="cl-mcont">
+                <div class="row col-md-4">
+                    <form class="form-horizontal group-border-dashed" action="#" style="border-radius: 0px;">
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Funnel</label>
+                          <div class="col-sm-6">
+                            <select class="form-control">
+                              <option>General</option>
+                              <option>Vendedor</option>
+                              <option>Cliente</option>
+                              <option>Rubro</option>
+                            </select>									
+                          </div>
+                        </div>
+                      </form>
+                </div>
                 <div class="row col-md-8">
                     <div id="charts_funnel" >
                         
                     </div>
                 </div>
-                
             </div>
 	</div> 
     </div>
@@ -104,10 +118,10 @@
                 type: 'column'
             },
             title: {
-                text: 'Monthly Average Rainfall'
+                text: 'Gráfica Funnel General/Vendedor/Cliente'
             },
             subtitle: {
-                text: 'Source: WorldClimate.com'
+                text: 'Fuente: QCC'
             },
             xAxis: {
                 categories: [
@@ -117,7 +131,10 @@
                     'F4',
                     'F5',
                     'FX'
-                ]
+                ],
+                title: {
+                    text: 'Fases'
+                }
             },
             yAxis: {
                 min: 0,

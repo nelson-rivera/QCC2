@@ -56,7 +56,7 @@
                     <div class="side-user">
                       <div class="avatar"><img src="images/avatar1_50.jpg" alt="Avatar" /></div>
                       <div class="info">
-                        <a href="#">Usuario 1</a>
+                        <a href="#">José Perez</a>
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>

@@ -2,12 +2,12 @@
 function lytTopBarMenu(){
     return '<ul class="nav navbar-nav navbar-right user-nav">
               <li class="dropdown profile_menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img alt="Avatar" src="images/avatar2.jpg" />Usuario 1<b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img alt="Avatar" src="images/avatar2.jpg" />José Perez<b class="caret"></b></a>
                 <ul class="dropdown-menu">
-                  <li><a href="#">Mi Empresa</a></li>
-                  <li><a href="#">Mi Perfil</a></li>
+                  <li><a href="my-company.php">Mi Empresa</a></li>
+                  <li><a href="my-profile.php">Mi Perfil</a></li>
                   <li class="divider"></li>
-                  <li><a href="#">Cerrar sesión</a></li>
+                  <li><a href="login.php">Cerrar sesión</a></li>
                 </ul>
               </li>
             </ul>';

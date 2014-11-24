@@ -12,7 +12,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Agregar Cotización</title>
+	<title>QCC - Editar Cotización</title>
         <?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -56,7 +56,7 @@
                     <div class="side-user">
                       <div class="avatar"><img src="images/avatar1_50.jpg" alt="Avatar" /></div>
                       <div class="info">
-                        <a href="#">Usuario 1</a>
+                        <a href="#">José Perez</a>
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>
@@ -72,7 +72,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Agregar Cotización</h2>
+                <h2>Editar Cotización ACAVISA_00001</h2>
             </div>
             <div class="cl-mcont">
                 
@@ -86,9 +86,15 @@
                             <div class="content">
                                 <form id="frm-quote-info" class="form-horizontal" style="border-radius: 0px;" action="#">
                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label"># Cotización</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" required value="ACAVISA_00001" readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" required value="Nelson Rivera" readonly="readonly">
+                                            <input class="form-control" type="text" required value="José Perez" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -134,7 +140,7 @@
                                         <label class="col-sm-3 control-label">Nombre contacto</label>
                                         <div class="col-sm-6">
                                             <select id="input-contact" class="form-control" required>
-                                                <option value="1" selected="selected">José Perez</option>
+                                                <option value="1" selected="selected">Nelson Rivera</option>
                                                 <option value="2">Ernesto Monterrosa</option>
                                                 <option value="3">Ivana Chavarria</option>
                                             </select>
@@ -149,7 +155,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo Contacto</label>
                                         <div class="col-sm-6">
-                                            <input id="input-email" class="form-control" type="email" value="jperez@email.com" required readonly="readonly">
+                                            <input id="input-email" class="form-control" type="email" value="nrivera@acavisa.com" required readonly="readonly">
                                         </div>
                                     </div>
                                 </form>
@@ -340,6 +346,7 @@
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
   <?= js_jquery_parsley() ?>
+  <?= js_i18n_es() ?>
   <?= js_general() ?>
      
 	
@@ -348,7 +355,7 @@
         $(function(){
             //initialize the javascript
             App.init();
-            
+            window.ParsleyValidator.setLocale('es');
             $("#frm-quote-items").parsley().subscribe('parsley:form:validate', function (formInstance) {
                 formInstance.submitEvent.preventDefault();
                 if(formInstance.isValid('', true)){

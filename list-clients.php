@@ -56,7 +56,7 @@
                     <div class="side-user">
                       <div class="avatar"><img src="images/avatar1_50.jpg" alt="Avatar" /></div>
                       <div class="info">
-                        <a href="#">Usuario 1</a>
+                        <a href="#">José Perez</a>
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>
@@ -157,11 +157,16 @@
     <script type="text/javascript">
       $(document).ready(function(){
         App.init();
-        $('#datatable-icons').dataTable();
+        var oTable=$('#datatable-icons').dataTable();
     
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
+        
+        $('#datatable-icons tbody').on( 'click', '.btn-danger', function () {
+            var row = $(this).closest("tr").get(0);
+            oTable.fnDeleteRow(oTable.fnGetPosition(row));
+        } );
       });
     </script>
 

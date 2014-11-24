@@ -41,6 +41,7 @@ function js_jquery_datatable_adapter(){return '<script type="text/javascript" sr
 function js_highcharts(){return '<script src="js/highcharts/js/highcharts.js"></script>';}
 function js_highcharts_exporting(){return '<script src="js/highcharts/js/modules/exporting.js"></script>';}
 function js_jquery_parsley(){return '<script src="js/jquery.parsley/dist/parsley.min.js" type="text/javascript"></script>';}
+function js_i18n_es(){return '<script src="js/i18n/es.js" type="text/javascript"></script>';}
 ?>
 
 

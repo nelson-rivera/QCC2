@@ -12,7 +12,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Agregar Proveedor</title>
+	<title>QCC</title>
         <?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -60,7 +60,7 @@
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>
-                    <?= lytSideMenu(6) ?>
+                    <?= lytSideMenu(1) ?>
                   </div>
                 </div>
                 
@@ -71,9 +71,6 @@
 	</div>
 	
 	<div class="container-fluid" id="pcont">
-            <div class="page-head">
-                <h2>Agregar Proveedor</h2>
-            </div>
             <div class="cl-mcont">
                 
                 
@@ -81,81 +78,68 @@
                     <div class="col-md-12">
                         <div class="block-flat">
                             <div class="header">
-                                <h3>Datos del proveedor</h3>
+                                <h3>Datos de perfil</h3>
                             </div>
                             <div class="content">
-                                <form class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-update-profile" class="form-horizontal" style="border-radius: 0px;" action="#">
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Nombre Empresa</label>
+                                        <label class="col-sm-3 control-label">Nombre</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" value="José" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Tipo</label>
+                                        <label class="col-sm-3 control-label">Apellido</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control">
-                                                <option>Local</option>
-                                                <option>Internacional</option>
+                                            <input class="form-control" type="text" value="Perez" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Correo</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="email" value="jperez@qcc.com" required>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Perfil</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control"  required>
+                                                <option value="1" selected="selected">
+                                                    Vendedor
+                                                </option>
+                                                <option value="2">
+                                                    Adinistrador
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Rubro</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control">
-                                                <option>Tecnología</option>
-                                                <option>Servicios profesionales</option>
-                                                <option>Desarrollo de software</option>
-                                            </select>
-                                        </div>
+                                    <div class="form-group spacer2">
+                                        <div class="col-sm-3"></div>
+                                        <label class="col-sm-9" for="input-old-password">Cambiar contraseña</label>
                                     </div>
-
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Contacto</label>
+                                        <label class="col-sm-3 control-label">Contraseña antigua</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input id="input-old-password" class="form-control" type="password">
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Cargo</label>
+                                        <label class="col-sm-3 control-label">Nueva contraseña</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input id="input-new-password" class="form-control" type="password">
                                         </div>
                                     </div>
+                                    
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Teléfono 1</label>
+                                        <label class="col-sm-3 control-label">Repita su nueva contraseña</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input id="input-new-password-r" data-parsley-equalto="#input-new-password" class="form-control" type="password">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Teléfono 2</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Teléfono 3</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Correo 1</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Correo 2</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
+                                    
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-primary" type="submit">Agregar</button>
+                                            <button class="btn btn-primary" type="submit">Actualizar</button>
                                             <button type="reset" class="btn btn-default">Limpiar</button>
                                         </div>
                                     </div>
@@ -177,6 +161,8 @@
   <?= js_bootstrap_switch() ?>
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
+  <?= js_jquery_parsley() ?>
+  <?= js_i18n_es() ?>
   <?= js_general() ?>
      
 	
@@ -185,6 +171,14 @@
       $(document).ready(function(){
         //initialize the javascript
         App.init();
+        window.ParsleyValidator.setLocale('es');
+        $("#frm-update-profile").parsley().subscribe('parsley:form:validate', function (formInstance) {
+            formInstance.submitEvent.preventDefault();
+            if(formInstance.isValid('', true)){
+                alert('Perfil Editado con éxito');
+            }
+            return;
+        });
       });
     </script>
 
@@ -194,5 +188,4 @@
   <?= js_bootstrap() ?>
 </body>
 
-<!-- Mirrored from foxypixel.net/cleanzone/pages-blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Nov 2014 04:57:43 GMT -->
 </html>

@@ -56,7 +56,7 @@
                     <div class="side-user">
                       <div class="avatar"><img src="images/avatar1_50.jpg" alt="Avatar" /></div>
                       <div class="info">
-                        <a href="#">Usuario 1</a>
+                        <a href="#">José Perez</a>
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>
@@ -311,6 +311,7 @@
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
   <?= js_jquery_parsley() ?>
+  <?= js_i18n_es() ?>
   <?= js_general() ?>
      
 	
@@ -319,7 +320,7 @@
         $(document).ready(function(){
             //initialize the javascript
             App.init();
-
+            window.ParsleyValidator.setLocale('es');
             $("#frm-quote-items").parsley().subscribe('parsley:form:validate', function (formInstance) {
                 formInstance.submitEvent.preventDefault();
                 if(formInstance.isValid('', true)){

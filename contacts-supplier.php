@@ -83,10 +83,11 @@
                                         <tr>
                                             <th>Cotacto</th>
                                             <th>Cargo</th>
-                                            <th>Correo 1</th>
                                             <th>Teléfono 1</th>
-                                            <th>Correo 2</th>
                                             <th>Teléfono 2</th>
+                                            <th>Teléfono 3</th>
+                                            <th>Correo 1</th>
+                                            <th>Correo 2</th>
                                             <th>Acciones</th>
                                         </tr>
                                 </thead>
@@ -94,10 +95,11 @@
                                         <tr class="odd gradeA">
                                             <td>JOSÉ PEREZ</td>
                                             <td>Vendedor</td>
-                                            <td>carolinasv.perez@tecnoavance.com</td>
                                             <td>503 2211-1215</td>
-                                            <td>&nbsp;</td>
-                                            <td>&nbsp;</td>
+                                            <td>503 2211-1216</td>
+                                            <td>503 2211-1217</td>
+                                            <td>carolinasv.perez@tecnoavance.com</td>
+                                            <td>carolinasv.perez2@tecnoavance.com</td>
                                             <td class="center">
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-supplier.php">
                                                     <i class="fa fa-pencil"></i>
@@ -135,11 +137,11 @@
       $(document).ready(function(){
         App.init();
         $('#datatable-icons').dataTable();
-        $("#datatable").dataTable();
-    
+       
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
+        $('<a href="add-contact-supplier.php" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
       });
     </script>
 

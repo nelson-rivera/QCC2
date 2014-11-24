@@ -78,6 +78,20 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="block-flat">
+                            <div class="col-sm-3 pull-right" >
+                                <form  action="#" class="form-horizontal">
+                                    <div class="form-group">
+                                      <label class="col-sm-5 control-label">Vendedor</label>
+                                      <div class="col-sm-7 no-padding">
+                                        <select class="form-control">
+                                          <option>Raymundo</option>
+                                          <option>Yolanda</option>
+                                          <option>Pepe</option>
+                                        </select>									
+                                      </div>
+                                    </div>
+                                  </form>
+                            </div>
                             <table class="table table-bordered" id="datatable-icons" >
                                 <thead>
                                         <tr>
@@ -94,12 +108,16 @@
                                             <td><a href="">000001</a></td>
                                             <td><a href="">ACAVISA</a></td>
                                             <td>Nelson Rivera</td>
-                                            <td class="center">F1 - Cotizado</td>
+                                            <td class="center">F1</td>
                                             <td class="center">San Salvador</td>
                                             <td class="center">
+                                               <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="edit-quote.php">
+                                                    <i class="fa fa-save"></i>
+                                                </a>
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                               
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
                                                     <i class="fa fa-times"></i>
                                                 </a>
@@ -109,12 +127,16 @@
                                             <td><a href="">000002</a></td>
                                             <td><a href="">ACAVISA</a></td>
                                             <td>Nelson Rivera</td>
-                                            <td class="center">F1 - Cotizado</td>
+                                            <td class="center">F1</td>
                                             <td class="center">San Salvador</td>
                                             <td class="center">
+                                                <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="edit-quote.php">
+                                                    <i class="fa fa-save"></i>
+                                                </a>
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                               
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
                                                     <i class="fa fa-times"></i>
                                                 </a>
@@ -124,12 +146,16 @@
                                             <td><a href="">000003</a></td>
                                             <td><a href="">ACAVISA</a></td>
                                             <td>Nelson Rivera</td>
-                                            <td class="center">F1 - Cotizado</td>
+                                            <td class="center">F1</td>
                                             <td class="center">San Salvador</td>
                                             <td class="center">
+                                                <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="edit-quote.php">
+                                                    <i class="fa fa-save"></i>
+                                                </a>
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                               
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
                                                     <i class="fa fa-times"></i>
                                                 </a>
@@ -139,12 +165,16 @@
                                             <td><a href="">000004</a></td>
                                             <td><a href="">ACAVISA</a></td>
                                             <td>Nelson Rivera</td>
-                                            <td class="center">F1 - Cotizado</td>
+                                            <td class="center">F1</td>
                                             <td class="center">San Salvador</td>
                                             <td class="center">
+                                               <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="edit-quote.php">
+                                                    <i class="fa fa-save"></i>
+                                                </a>
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                               
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
                                                     <i class="fa fa-times"></i>
                                                 </a>
@@ -154,12 +184,16 @@
                                             <td><a href="">000005</a></td>
                                             <td><a href="">ACAVISA</a></td>
                                             <td>Nelson Rivera</td>
-                                            <td class="center">F1 - Cotizado</td>
+                                            <td class="center">F1</td>
                                             <td class="center">San Salvador</td>
                                             <td class="center">
+                                                <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="edit-quote.php">
+                                                    <i class="fa fa-save"></i>
+                                                </a>
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                               
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
                                                     <i class="fa fa-times"></i>
                                                 </a>
@@ -169,12 +203,16 @@
                                             <td><a href="">000006</a></td>
                                             <td><a href="">ACAVISA</a></td>
                                             <td>Nelson Rivera</td>
-                                            <td class="center">F1 - Cotizado</td>
+                                            <td class="center">F1</td>
                                             <td class="center">San Salvador</td>
                                             <td class="center">
+                                                <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="edit-quote.php">
+                                                    <i class="fa fa-save"></i>
+                                                </a>
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                               
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
                                                     <i class="fa fa-times"></i>
                                                 </a>
@@ -184,12 +222,16 @@
                                             <td><a href="">000007</a></td>
                                             <td><a href="">ACAVISA</a></td>
                                             <td>Nelson Rivera</td>
-                                            <td class="center">F1 - Cotizado</td>
+                                            <td class="center">F1</td>
                                             <td class="center">San Salvador</td>
                                             <td class="center">
+                                               <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="edit-quote.php">
+                                                    <i class="fa fa-save"></i>
+                                                </a>
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                               
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
                                                     <i class="fa fa-times"></i>
                                                 </a>
@@ -199,12 +241,16 @@
                                             <td><a href="">000008</a></td>
                                             <td><a href="">ACAVISA</a></td>
                                             <td>Nelson Rivera</td>
-                                            <td class="center">F1 - Cotizado</td>
+                                            <td class="center">F1</td>
                                             <td class="center">San Salvador</td>
                                             <td class="center">
+                                                <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="edit-quote.php">
+                                                    <i class="fa fa-save"></i>
+                                                </a>
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                               
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
                                                     <i class="fa fa-times"></i>
                                                 </a>
@@ -214,12 +260,16 @@
                                             <td><a href="">000009</a></td>
                                             <td><a href="">ACAVISA</a></td>
                                             <td>Nelson Rivera</td>
-                                            <td class="center">F1 - Cotizado</td>
+                                            <td class="center">F1</td>
                                             <td class="center">San Salvador</td>
                                             <td class="center">
+                                               <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="edit-quote.php">
+                                                    <i class="fa fa-save"></i>
+                                                </a>
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                               
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
                                                     <i class="fa fa-times"></i>
                                                 </a>
@@ -229,12 +279,16 @@
                                             <td><a href="">000010</a></td>
                                             <td><a href="">ACAVISA</a></td>
                                             <td>Nelson Rivera</td>
-                                            <td class="center">F1 - Cotizado</td>
+                                            <td class="center">F1</td>
                                             <td class="center">San Salvador</td>
                                             <td class="center">
+                                                <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="edit-quote.php">
+                                                    <i class="fa fa-save"></i>
+                                                </a>
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                               
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
                                                     <i class="fa fa-times"></i>
                                                 </a>
@@ -244,12 +298,16 @@
                                             <td><a href="">000011</a></td>
                                             <td><a href="">ACAVISA</a></td>
                                             <td>Nelson Rivera</td>
-                                            <td class="center">F1 - Cotizado</td>
+                                            <td class="center">F1</td>
                                             <td class="center">San Salvador</td>
                                             <td class="center">
+                                               <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="edit-quote.php">
+                                                    <i class="fa fa-save"></i>
+                                                </a>
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
+                                               
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
                                                     <i class="fa fa-times"></i>
                                                 </a>

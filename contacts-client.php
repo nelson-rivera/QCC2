@@ -11,7 +11,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Listar Clientes</title>
+	<title>QCC - Listar de Contactos de los Proveedores</title>
 	<?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -60,7 +60,7 @@
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>
-                    <?= lytSideMenu(3) ?>
+                    <?= lytSideMenu(1) ?>
                   </div>
                 </div>
                 
@@ -72,36 +72,54 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Vendedores</h2>
+                <h2>Contactos de <a href="edit-client.php">ACAVISA</a></h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="block-flat">
+                                    
                             <table class="table table-bordered" id="datatable-icons" >
                                 <thead>
                                         <tr>
-                                            <th>Nombre</th>
+                                            <th>Cotacto</th>
                                             <th>Cargo</th>
-                                            <th>Correo electrónico</th>
                                             <th>Teléfono 1</th>
-                                            <th>Departamento</th>
-                                            <th>Municipio</th>
+                                            <th>Teléfono 2</th>
+                                            <th>Teléfono 3</th>
+                                            <th>Correo 1</th>
+                                            <th>Correo 2</th>
+                                            <th>Acciones</th>
                                         </tr>
                                 </thead>
                                 <tbody>
                                         <tr class="odd gradeA">
-                                            <td>Raymundo Romero</td>
-                                            <td>Gerente de ventas</td>
-                                            <td>raymund.romero@qcc.com</td>
-                                            <td class="center">503 2256-1212</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">San Salvador</td>
+                                            <td>JOSÉ PEREZ</td>
+                                            <td>Vendedor</td>
+                                            <td>503 2211-1215</td>
+                                            <td>503 2211-1216</td>
+                                            <td>503 2211-1217</td>
+                                            <td>carolinasv.perez@acavisa.com</td>
+                                            <td>carolinasv.perez@acavisa.com</td>
                                             <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php">
-                                                    <i class="fa fa-users"></i>
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-client.php">
+                                                    <i class="fa fa-pencil"></i>
                                                 </a>
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php">
+                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="odd gradeB">
+                                            <td>Ruby Regalado</td>
+                                            <td>Vendedor</td>
+                                            <td>503 2266-1215</td>
+                                            <td>503 2266-1216</td>
+                                            <td>503 2266-1217</td>
+                                            <td>ruby.regalado@acavisa.com</td>
+                                            <td>ruby.regalado2@acavisa.com</td>
+                                            <td class="center">
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-client.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
@@ -110,17 +128,15 @@
                                             </td>
                                         </tr>
                                         <tr class="odd gradeA">
-                                            <td>Rasputin Meza</td>
+                                            <td>Mario Bross</td>
                                             <td>Vendedor</td>
-                                            <td>rasputin.meza@qcc.com</td>
-                                            <td class="center">503 2256-1213</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">Soyapango</td>
+                                            <td>503 2234-1215</td>
+                                            <td>503 2234-1216</td>
+                                            <td>503 2234-1217</td>
+                                            <td>mario.bross@nintendo.com</td>
+                                            <td>mario.bross2@nintendo.com</td>
                                             <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php">
-                                                    <i class="fa fa-users"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php">
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-client.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
@@ -128,26 +144,7 @@
                                                 </a>
                                             </td>
                                         </tr>
-                                        <tr class="odd gradeA">
-                                            <td>Verónica Torres</td>
-                                            <td>Vendedor</td>
-                                            <td>veronica.torres@qcc.com</td>
-                                            <td class="center">503 2256-1214</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php">
-                                                    <i class="fa fa-users"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        
+                                     
                                 </tbody>
                             </table>
                         </div>
@@ -175,11 +172,11 @@
       $(document).ready(function(){
         App.init();
         $('#datatable-icons').dataTable();
-        $("#datatable").dataTable();
     
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
+        $('<a href="add-contact-client.php" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
       });
     </script>
 

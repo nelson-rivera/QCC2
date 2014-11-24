@@ -72,7 +72,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Editar Usuario</h2>
+                <h2>Editar vendedor</h2>
             </div>
             <div class="cl-mcont">
                 
@@ -80,38 +80,51 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="block-flat">
-                            <div class="header">
-                                <h3>Datos del usuario</h3>
+                           <div id="client" class="panel-group accordion accordion-semi">
+                            <div class="panel panel-default">
+                            <div class="panel-heading success">
+                              <h4 class="panel-title">
+                              <a href="#ac4-1" data-parent="#accordion4" data-toggle="collapse" class="collapsed">
+                                <i class="fa fa-angle-right"></i> Ver estadísticas del vendedor
+                              </a>
+                              </h4>
                             </div>
-                            <div class="stats_bar">
-				<div class="butpro butstyle" data-step="2" data-intro="<strong>Beautiful Elements</strong> <br/> If you are looking for a different UI, this is for you!.">
+
+                            <div class="panel-collapse collapse" id="ac4-1" style="height: 0px;">
+                              <div class="panel-body">
+                                    <div class="butpro butstyle" >
 					<div class="sub"><h2>Clientes</h2><span id="total_clientes">170</span></div>
 					<div class="stat"><span class="spk1"></span></div>
-				</div>
-				<div class="butpro butstyle" data-step="2" data-intro="<strong>Beautiful Elements</strong> <br/> If you are looking for a different UI, this is for you!.">
-					<div class="sub"><h2>F1</h2><span id="total_clientes">$2,500</span></div>
-					<div class="stat"><span class="spk1"></span></div>
-				</div>
-				<div class="butpro butstyle" data-step="2" data-intro="<strong>Beautiful Elements</strong> <br/> If you are looking for a different UI, this is for you!.">
-					<div class="sub"><h2>F2</h2><span id="total_clientes">$1,500</span></div>
-					<div class="stat"><span class="spk1"></span></div>
-				</div>
-				<div class="butpro butstyle" data-step="2" data-intro="<strong>Beautiful Elements</strong> <br/> If you are looking for a different UI, this is for you!.">
-					<div class="sub"><h2>F3</h2><span id="total_clientes">$500</span></div>
-					<div class="stat"><span class="spk1"></span></div>
-				</div>
-				<div class="butpro butstyle" data-step="2" data-intro="<strong>Beautiful Elements</strong> <br/> If you are looking for a different UI, this is for you!.">
-					<div class="sub"><h2>F4</h2><span id="total_clientes">$500</span></div>
-					<div class="stat"><span class="spk1"></span></div>
-				</div>
-				<div class="butpro butstyle" data-step="2" data-intro="<strong>Beautiful Elements</strong> <br/> If you are looking for a different UI, this is for you!.">
-					<div class="sub"><h2>F5</h2><span id="total_clientes">$500</span></div>
-					<div class="stat"><span class="spk1"></span></div>
-				</div>
-				
-				
-
-			</div>
+                                    </div>
+                                    <div class="butpro butstyle">
+                                            <div class="sub"><h2>F1</h2><span id="total_clientes">$2,500</span></div>
+                                            <div class="stat"><span class="spk1"></span></div>
+                                    </div>
+                                    <div class="butpro butstyle">
+                                            <div class="sub"><h2>F2</h2><span id="total_clientes">$1,500</span></div>
+                                            <div class="stat"><span class="spk1"></span></div>
+                                    </div>
+                                    <div class="butpro butstyle">
+                                            <div class="sub"><h2>F3</h2><span id="total_clientes">$500</span></div>
+                                            <div class="stat"><span class="spk1"></span></div>
+                                    </div>
+                                    <div class="butpro butstyle" >
+                                            <div class="sub"><h2>F4</h2><span id="total_clientes">$500</span></div>
+                                            <div class="stat"><span class="spk1"></span></div>
+                                    </div>
+                                    <div class="butpro butstyle">
+                                            <div class="sub"><h2>F5</h2><span id="total_clientes">$500</span></div>
+                                            <div class="stat"><span class="spk1"></span></div>
+                                    </div>
+                                    <div class="butpro butstyle">
+                                            <div class="sub"><h2>FX</h2><span id="total_clientes">$500</span></div>
+                                            <div class="stat"><span class="spk1"></span></div>
+                                    </div>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
+			
                             <div class="content">
                                 <form class="form-horizontal" style="border-radius: 0px;" action="#">
                                     <div class="form-group">

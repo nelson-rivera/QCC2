@@ -72,7 +72,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Agregar Usuario</h2>
+                <h2>Agregar vendedor</h2>
             </div>
             <div class="cl-mcont">
                 

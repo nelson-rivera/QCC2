@@ -254,6 +254,15 @@
                                     <h3>Condiciones</h3>
                                 </div>
                                 <form id="frm-conditions" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                    <div class="form-group" id="div_condicion1" style="display: none;" >
+                                        <label class="col-sm-2 control-label">Precios</label>
+                                        <div class="col-sm-3">
+                                            <select class="form-control" required>
+                                                <option>No incluyen IVA</option>
+                                                <option>Incluyen IVA</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Valides de la oferta</label>
                                         <div class="col-sm-3">
@@ -346,9 +355,11 @@
                 var ivaflag=parseInt($(this).val(),10);
                 if(ivaflag===1){
                     $("#tr-iva").show();
+                    $("#div_condicion1").hide();
                 }
                 else{
                     $("#tr-iva").hide();
+                    $("#div_condicion1").show();
                 }
                 totalize();
             });

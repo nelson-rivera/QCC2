@@ -56,11 +56,11 @@
                     <div class="side-user">
                       <div class="avatar"><img src="images/avatar1_50.jpg" alt="Avatar" /></div>
                       <div class="info">
-                        <a href="#">José Perez</a>
+                        <a href="#">Usuario 1</a>
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>
-                    <?= lytSideMenu(2) ?>
+                    <?= lytSideMenu(1) ?>
                   </div>
                 </div>
                 
@@ -69,28 +69,16 @@
                 </div>
             </div>
 	</div>
-	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Agregar Cliente</h2>
+                <h2>Agregar contacto de <a href="edit-client.php">ACAVISA</a></h2>
             </div>
             <div class="cl-mcont">
-                
-                
                 <div class="row">
                     <div class="col-md-12">
                         <div class="block-flat">
-                            <div class="header">
-                                <h3>Datos de cliente</h3>
-                            </div>
                             <div class="content">
                                 <form id="frm-add-client" class="form-horizontal" style="border-radius: 0px;" action="#">
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Nombre Empresa</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text" required>
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
@@ -102,43 +90,6 @@
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Rubro</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control" required>
-                                                <option>Final</option>
-                                                
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Departamento</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control" required>
-                                                <option>San Salvador</option>
-                                                <option>Morazán</option>
-                                                <option>Ahuachapan</option>
-                                                <option>Santa Ana</option>
-                                                <option>Sonsonate</option>
-                                                <option>Chalatenango</option>
-                                                <option>Cuscatlan</option>
-                                                <option>La Libertad</option>
-                                                <option>La Paz</option>
-                                                <option>San Vicente</option>
-                                                <option>Usulutan</option>
-                                                <option>San Miguel</option>
-                                                <option>Cabañas</option>
-                                                <option>La Union</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Municipio</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text" required>
-                                        </div>
-                                    </div>
-                                    
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contacto</label>
                                         <div class="col-sm-6">
@@ -181,17 +132,12 @@
                                             <input class="form-control" type="email">
                                         </div>
                                     </div>
-                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Imagen</label>
-                                        <div class="col-sm-6 ">
-                                            <input id="img_client" type="file" type="file" title="Subir una imagen" ><i></i>
-                                        </div>
-                                    </div>
+                                   
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
                                             <div class="checkbox">
-                                                <label  >
+                                                <label>
                                                     <input type="checkbox">
                                                     Enviar correos de mercadeo
                                                 </label>
@@ -223,9 +169,7 @@
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
   <?= js_jquery_parsley() ?>
-  <?= js_i18n_es() ?>
   <?= js_general() ?>
-  <?= js_bootstrap_file_input() ?>
      
 	
 
@@ -233,7 +177,7 @@
       $(document).ready(function(){
         //initialize the javascript
         App.init();
-        window.ParsleyValidator.setLocale('es');
+        
         $("#frm-add-client").parsley().subscribe('parsley:form:validate', function (formInstance) {
             formInstance.submitEvent.preventDefault();
             if(formInstance.isValid('', true)){
@@ -241,7 +185,6 @@
             }
             return;
         });
-        $('#img_client').bootstrapFileInput();
       });
     </script>
 

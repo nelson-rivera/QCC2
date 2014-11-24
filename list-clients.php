@@ -42,7 +42,6 @@
         </div>
         <div class="navbar-collapse collapse">
             <?= lytTopBarMenu() ?>		
-
         </div><!--/.nav-collapse -->
       </div>
     </div>
@@ -72,67 +71,94 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Clientes</h2>
+                <h2 class="" >Clientes</h2>
+                
             </div>
             <div class="cl-mcont">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="block-flat">
-                            <table class="table table-bordered" id="datatable-icons" >
-                                <thead>
-                                        <tr>
-                                            <th>Nombre</th>
-                                            <th>Rubro</th>
-                                            <th>Municipio</th>
-                                            <th>Departamento</th>
-                                            <th>Acciones</th>
-                                        </tr>
-                                </thead>
-                                <tbody>
-                                        <tr class="odd gradeA">
-                                            <td>ACAVISA</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeA">
-                                            <td>Claro</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeA">
-                                            <td>UCA</td>
-                                            <td>FINAL</td>
-                                            <td>San Salvador</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                </tbody>
-                            </table>
+                            
+                                <div class="col-sm-3 pull-right" >
+                                    <form  action="#" class="form-horizontal">
+                                        <div class="form-group">
+                                          <label class="col-sm-5 control-label">Vendedor</label>
+                                          <div class="col-sm-7 no-padding">
+                                            <select class="form-control">
+                                              <option>Raymundo</option>
+                                              <option>Yolanda</option>
+                                              <option>Pepe</option>
+                                            </select>									
+                                          </div>
+                                        </div>
+                                      </form>
+                                </div>
+                            
+                                <table class="table table-bordered" id="datatable-icons" >
+                                    <thead>
+                                            <tr>
+                                                <th>Nombre</th>
+                                                <th>Rubro</th>
+                                                <th>Municipio</th>
+                                                <th>Departamento</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                    </thead>
+                                    <tbody>
+                                            <tr class="odd gradeA">
+                                                <td>ACAVISA</td>
+                                                <td>FINAL</td>
+                                                <td>San Salvador</td>
+                                                <td class="center">San Salvador</td>
+                                                <td class="center">
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php">
+                                                        <i class="fa fa-users"></i>
+                                                    </a>
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr class="odd gradeA">
+                                                <td>Claro</td>
+                                                <td>FINAL</td>
+                                                <td>San Salvador</td>
+                                                <td class="center">San Salvador</td>
+                                                <td class="center">
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php">
+                                                        <i class="fa fa-users"></i>
+                                                    </a>
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                            <tr class="odd gradeA">
+                                                <td>UCA</td>
+                                                <td>FINAL</td>
+                                                <td>San Salvador</td>
+                                                <td class="center">San Salvador</td>
+                                                <td class="center">
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php">
+                                                        <i class="fa fa-users"></i>
+                                                    </a>
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
+                                                        <i class="fa fa-pencil"></i>
+                                                    </a>
+                                                    <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
+                                                        <i class="fa fa-times"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                    </tbody>
+                                </table>
+                           
                         </div>
                     </div>
                 </div>

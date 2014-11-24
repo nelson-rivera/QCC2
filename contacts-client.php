@@ -41,7 +41,7 @@
           <a class="navbar-brand" href="#"><span>QCC</span></a>
         </div>
         <div class="navbar-collapse collapse">
-            <?= lytTopBarMenu(5) ?>		
+            <?= lytTopBarMenu() ?>		
 
         </div><!--/.nav-collapse -->
       </div>
@@ -56,11 +56,11 @@
                     <div class="side-user">
                       <div class="avatar"><img src="images/avatar1_50.jpg" alt="Avatar" /></div>
                       <div class="info">
-                        <a href="#">José Perez</a>
+                        <a href="#">Usuario 1</a>
                         <img src="images/state_online.png" alt="Status" /> <span>Online</span>
                       </div>
                     </div>
-                    <?= lytSideMenu(5) ?>
+                    <?= lytSideMenu(1) ?>
                   </div>
                 </div>
                 
@@ -72,12 +72,13 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Contactos de <a href="edit-supplier.php">INTCOMEX</a></h2>
+                <h2>Contactos de <a href="edit-client.php">ACAVISA</a></h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
                     <div class="col-md-12">
                         <div class="block-flat">
+                                    
                             <table class="table table-bordered" id="datatable-icons" >
                                 <thead>
                                         <tr>
@@ -98,10 +99,44 @@
                                             <td>503 2211-1215</td>
                                             <td>503 2211-1216</td>
                                             <td>503 2211-1217</td>
-                                            <td>carolinasv.perez@tecnoavance.com</td>
-                                            <td>carolinasv.perez2@tecnoavance.com</td>
+                                            <td>carolinasv.perez@acavisa.com</td>
+                                            <td>carolinasv.perez@acavisa.com</td>
                                             <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-supplier.php">
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-client.php">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="odd gradeB">
+                                            <td>Ruby Regalado</td>
+                                            <td>Vendedor</td>
+                                            <td>503 2266-1215</td>
+                                            <td>503 2266-1216</td>
+                                            <td>503 2266-1217</td>
+                                            <td>ruby.regalado@acavisa.com</td>
+                                            <td>ruby.regalado2@acavisa.com</td>
+                                            <td class="center">
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-client.php">
+                                                    <i class="fa fa-pencil"></i>
+                                                </a>
+                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
+                                                    <i class="fa fa-times"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <tr class="odd gradeA">
+                                            <td>Mario Bross</td>
+                                            <td>Vendedor</td>
+                                            <td>503 2234-1215</td>
+                                            <td>503 2234-1216</td>
+                                            <td>503 2234-1217</td>
+                                            <td>mario.bross@nintendo.com</td>
+                                            <td>mario.bross2@nintendo.com</td>
+                                            <td class="center">
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-client.php">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
@@ -137,11 +172,11 @@
       $(document).ready(function(){
         App.init();
         $('#datatable-icons').dataTable();
-       
+    
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
-        $('<a href="add-contact-supplier.php" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
+        $('<a href="add-contact-client.php" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
       });
     </script>
 

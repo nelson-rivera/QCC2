@@ -49,25 +49,26 @@ function lytSideMenu($menuSelected){
                 <li>
                   <a href="#"><i class="fa fa-users"></i><span>Clientes</span></a>
                   <ul class="sub-menu">
-                    <li class="'.$isActiveM1.'"><a href="list-clients.php">Listar clientes</a></li>
+                    <li class="'.$isActiveM1.'"><a href="list-clients.php">Listado de clientes</a></li>
+                    <li class="'.$isActiveM1.'"><a href="view-client-gallery.php">Listado de imagenes</a></li>
                     <li class="'.$isActiveM2.'"><a href="add-client.php">Agregar cliente</a></li>
                   </ul>
                 </li>
                 <li><a href="#"><i class="fa fa-smile-o"></i><span>Vendedores</span></a>
                   <ul class="sub-menu">
-                    <li class="'.$isActiveM3.'"><a href="list-users.php">Listar vendedores</a></li>
+                    <li class="'.$isActiveM3.'"><a href="list-users.php">Listado de vendedores</a></li>
                     <li class="'.$isActiveM4.'"><a href="add-user.php">Agregar vendedor</a></li>
                   </ul>
                 </li>
                 <li><a href="#"><i class="fa fa-list-alt"></i><span>Proveedores</span></a>
                   <ul class="sub-menu">
-                    <li class="'.$isActiveM5.'"><a href="list-suppliers.php">Listar Proveedores</a></li>
+                    <li class="'.$isActiveM5.'"><a href="list-suppliers.php">Listado de Proveedores</a></li>
                     <li class="'.$isActiveM6.'"><a href="add-supplier.php">Agregar proveedor</a></li>
                   </ul>
                 </li>
                 <li><a href="#"><i class="fa fa-table"></i><span>Cotizaciones</span></a>
                   <ul class="sub-menu">
-                    <li class="'.$isActiveM7.'"><a href="list-quotes.php">Listar cotizaciones</a></li>
+                    <li class="'.$isActiveM7.'"><a href="list-quotes.php">Listado de cotizaciones</a></li>
                     <li class="'.$isActiveM8.'"><a href="add-quote.php">Crear Cotización</a></li>
                   </ul>
                 </li>                         

@@ -96,6 +96,28 @@
                     </div>
                 </div>
             </div>
+            <div class="cl-mcont">
+                <div class="row col-md-4">
+                    <form class="form-horizontal group-border-dashed" action="#" style="border-radius: 0px;">
+                        <div class="form-group">
+                          <label class="col-sm-3 control-label">Funnel</label>
+                          <div class="col-sm-6">
+                            <select class="form-control">
+                              <option>General</option>
+                              <option>Vendedor</option>
+                              <option>Cliente</option>
+                              <option>Rubro</option>
+                            </select>									
+                          </div>
+                        </div>
+                      </form>
+                </div>
+                <div class="row col-md-8">
+                    <div id="pastel" >
+                        
+                    </div>
+                </div>
+            </div>
 	</div> 
     </div>
    <?= js_jquery() ?>
@@ -143,10 +165,9 @@
                 }
             },
             tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
-                pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' +
-                    '<td style="padding:0"><b>{point.y:.1f} mm</b></td></tr>',
-                footerFormat: '</table>',
+                headerFormat: '<span style="font-size:10px">{point.key}</span>',
+                pointFormat: '',
+                footerFormat: '',
                 shared: true,
                 useHTML: true
             },
@@ -176,6 +197,48 @@
                 data: [1000]
             }]
         });
+        
+        $('#pastel').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: 'Browser market shares at a specific website, 2014'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                data: [
+                    ['Firefox',   45.0],
+                    ['IE',       26.8],
+                    {
+                        name: 'Chrome',
+                        y: 12.8,
+                        sliced: true,
+                        selected: true
+                    },
+                    ['Safari',    8.5],
+                    ['Opera',     6.2],
+                    ['Others',   0.7]
+                ]
+            }]
+        });
+        
       });
     </script>
 

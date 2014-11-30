@@ -12,7 +12,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Agregar usuario</title>
+	<title>QCC - Agregar vendedor</title>
         <?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -144,36 +144,6 @@
                                             <input class="form-control" type="text">
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Departamento</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control">
-                                                <option>San Salvador</option>
-                                                <option>Morazán</option>
-                                                <option>Ahuachapan</option>
-                                                <option>Santa Ana</option>
-                                                <option>Sonsonate</option>
-                                                <option>Chalatenango</option>
-                                                <option>Cuscatlan</option>
-                                                <option>La Libertad</option>
-                                                <option>La Paz</option>
-                                                <option>San Vicente</option>
-                                                <option>Usulutan</option>
-                                                <option>San Miguel</option>
-                                                <option>Cabañas</option>
-                                                <option>La Union</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Municipio</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text">
-                                        </div>
-                                    </div>
-                                    
-                                 
-                                    
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">

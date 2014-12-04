@@ -85,8 +85,6 @@
                                             <th>Cargo</th>
                                             <th>Correo electrónico</th>
                                             <th>Teléfono 1</th>
-                                            <th>Departamento</th>
-                                            <th>Municipio</th>
                                         </tr>
                                 </thead>
                                 <tbody>
@@ -95,8 +93,6 @@
                                             <td>Gerente de ventas</td>
                                             <td>raymund.romero@qcc.com</td>
                                             <td class="center">503 2256-1212</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">San Salvador</td>
                                             <td class="center">
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php">
                                                     <i class="fa fa-users"></i>
@@ -114,8 +110,6 @@
                                             <td>Vendedor</td>
                                             <td>rasputin.meza@qcc.com</td>
                                             <td class="center">503 2256-1213</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">Soyapango</td>
                                             <td class="center">
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php">
                                                     <i class="fa fa-users"></i>
@@ -133,8 +127,6 @@
                                             <td>Vendedor</td>
                                             <td>veronica.torres@qcc.com</td>
                                             <td class="center">503 2256-1214</td>
-                                            <td class="center">San Salvador</td>
-                                            <td class="center">San Salvador</td>
                                             <td class="center">
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php">
                                                     <i class="fa fa-users"></i>

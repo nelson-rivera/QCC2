@@ -110,7 +110,16 @@
                                             </select>
                                         </div>
                                     </div>
-
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Sub-Rubro</label>
+                                        <div class="col-sm-6">
+                                            <select class="form-control">
+                                                <option>Servidores</option>
+                                                <option>Cableado</option>
+                                                <option>Cámaras de video</option>
+                                            </select>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contacto</label>
                                         <div class="col-sm-6">

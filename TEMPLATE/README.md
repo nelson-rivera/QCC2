@@ -1,4 +1,0 @@
-QCC
-===
-
-QCC CRM

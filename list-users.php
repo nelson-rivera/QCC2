@@ -86,13 +86,14 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="block-flat">
-                            <table class="table table-bordered" id="datatable-icons" >
+                            <table class="table table-bordered" id="datatable-users" >
                                 <thead>
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Cargo</th>
                                             <th>Correo electrónico</th>
                                             <th>Teléfono 1</th>
+                                            <th>Acciones</th>
                                         </tr>
                                 </thead>
                                 <tbody>
@@ -104,7 +105,7 @@
                                             ?>
                                                 <tr class="odd gradeA">
                                                     <td><?= $value['nombre'] ?></td>
-                                                    <td><?= $value['cargo'] ?></td>
+                                                    <td><?= $value['perfil'] ?></td>
                                                     <td><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['email_1'] ?></a></td>
                                                     <td class="center"><?= $value['telefono_1'] ?></td>
                                                     <td class="center">
@@ -114,7 +115,7 @@
                                                         <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php?us=<?= encryptString($value['idusuario']) ?>">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
-                                                        <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
+                                                        <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" data-target="#mod-delete"  >
                                                             <i class="fa fa-times"></i>
                                                         </a>
                                                     </td>
@@ -123,6 +124,29 @@
                                 </tbody>
                             </table>
                         </div>
+                        
+                         <!-- Modal -->
+                        <div class="modal fade" id="mod-delete" tabindex="-1" role="dialog">
+                            <div class="modal-dialog">
+                              <div class="modal-content">
+                              <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              </div>
+                              <div class="modal-body">
+                                <div class="text-center">
+                                  <div class="i-circle danger"><i class="fa fa-times"></i></div>
+                                  <h4>Oh god!</h4>
+                                  <p>You're by your own now, good luck!</p>
+                                </div>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                                <button type="button" class="btn btn-danger" data-dismiss="modal">Proceed</button>
+                              </div>
+                              </div><!-- /.modal-content -->
+                            </div><!-- /.modal-dialog -->
+                        </div><!-- /.modal -->
+                        
                     </div>
                 </div>
                 
@@ -140,14 +164,11 @@
   <?= js_jquery_datatable() ?>
   <?= js_jquery_datatable_adapter() ?>
   <?= js_general() ?>
-     
-	
 
     <script type="text/javascript">
       $(document).ready(function(){
         App.init();
-        $('#datatable-icons').dataTable();
-        $("#datatable").dataTable();
+        $('#datatable-users').dataTable();
     
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');

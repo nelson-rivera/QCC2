@@ -1,10 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
         <?php
+        session_start();
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        
+        $connection=  openConnection();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,120 +90,88 @@
                                 <h3>Datos del usuario</h3>
                             </div>
                             <div class="content">
-                                <form class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form name="frm-add-user" id="frm-add-user" class="form-horizontal" style="border-radius: 0px;" action="#">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="nombre" id="nombre" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Apellido</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="apellido" id="apellido" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control">
-                                                <option>Gerente de ventas</option>
-                                                <option>Vendedor</option>
-                                                <option>Asistente de ventas</option>
+                                            <select class="form-control" id="cargo" name="cargo" required >
+                                                <?php 
+                                                $query=$connection->prepare(sql_select_perfiles_all());
+                                                $query->execute();
+                                                $perfilesArray=$query->fetchAll();
+                                                if($query->rowCount()>0){}
+                                                foreach ($perfilesArray as $value) { ?>
+                                                <option value="<?= $value['idperfil']; ?>" ><?= $value['perfil']; ?></option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contraseña</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="password">
+                                            <input class="form-control" type="password" name="password" id="password" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Confirmar Contraseña</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="password">
+                                            <input class="form-control" type="password" name="cpassword" id="cpassword" required >
                                         </div>
                                     </div>
                                     
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="telefono1" id="telefono1" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="telefono2" id="telefono2" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="correo1" id="correo1" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="correo2" id="correo2" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
+                                            <?php 
+                                            $query=$connection->prepare(sql_select_permisos_all());
+                                            $query->execute();
+                                            $permisosArray=$query->fetchAll();
+                                            if($query->rowCount()>0){}
+                                            foreach ($permisosArray as $value) {
+                                            ?>
                                             <div class="checkbox-inline">
                                                 <label>
-                                                    <input type="checkbox">
-                                                    Agregar, Editar Clientes
+                                                    <input type="checkbox" name="<?= "op_".$value['idpermiso'] ?>" >
+                                                    <?= $value['permiso'] ?>
                                                 </label>
                                             </div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Listar, ver Clientes
-                                                </label>
-                                            </div>
-                                            <div class="clear" ></div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Agregar, Editar Usuarios
-                                                </label>
-                                            </div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Listar, Ver Usuarios
-                                                </label>
-                                            </div>
-                                             <div class="clear" ></div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Agregar, Editar Proveedores
-                                                </label>
-                                            </div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Listar, Ver Proveedores
-                                                </label>
-                                            </div>
-                                              <div class="clear" ></div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Agregar, Editar Cotizaciones
-                                                </label>
-                                            </div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Listar, Ver Cotizaciones
-                                                </label>
-                                            </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                     
@@ -227,14 +201,33 @@
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
   <?= js_general() ?>
-     
+  <?= js_jquery_parsley() ?>
+  <?= js_i18n_es() ?>
 	
 
     <script type="text/javascript">
       $(document).ready(function(){
         //initialize the javascript
         App.init();
+        window.ParsleyValidator.setLocale('es');
+        $("#frm-add-user").parsley().subscribe('parsley:form:validate', function (formInstance) {
+            formInstance.submitEvent.preventDefault();
+                if(formInstance.isValid('', true)){
+                    $.ajax({
+                    url:"ajax/user.php",
+                    type:'POST',
+                    dataType:"json",
+                    data:$("#frm-add-user").serialize()+"&option=save",
+                    success:function(data){
+
+                    }
+                });
+            }
+            return;
+        });
+        
       });
+      
     </script>
 
 <!-- Bootstrap core JavaScript

@@ -1,18 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
         <?php
+        session_start();
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
-        ?>
+        include_once './includes/functions.php';
+        $connection = openConnection();
+        $query=$connection->prepare(sql_select_usuario_byId());
+        $query->bindParam(':idusuario', decryptString($_GET['us']),PDO::PARAM_INT);
+        $query->execute();
+        if($query->rowCount()>0){}
+        $usuario=$query->fetch();
+        
+    ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="">
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Agregar vendedor</title>
+	<title>QCC - Editar vendedor</title>
         <?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -72,7 +84,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Editar vendedor</h2>
+                <h2>Editar vendedor: <?= $usuario['nombre'] ?></h2>
             </div>
             <div class="cl-mcont">
                 
@@ -89,7 +101,7 @@
                               </a>
                               </h4>
                             </div>
-
+                                
                             <div class="panel-collapse collapse" id="ac4-1" style="height: 0px;">
                               <div class="panel-body">
                                     <div class="butpro butstyle" >
@@ -126,120 +138,104 @@
                           </div>
 			
                             <div class="content">
-                                <form class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form name="frm-add-user" id="frm-add-user" class="form-horizontal" style="border-radius: 0px;" action="#">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="nombre" id="nombre" value="<?= $usuario['nombre'] ?>" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Apellido</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="apellido" id="apellido" value="<?= $usuario['apellido'] ?>" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control">
-                                                <option>Gerente de ventas</option>
-                                                <option>Vendedor</option>
-                                                <option>Asistente de ventas</option>
+                                            <select class="form-control" id="cargo" name="cargo" required >
+                                                <?php 
+                                                $query=$connection->prepare(sql_select_perfiles_all());
+                                                $query->execute();
+                                                $perfilesArray=$query->fetchAll();
+                                                if($query->rowCount()>0){}
+                                                foreach ($perfilesArray as $value) { 
+                                                     $uperfil= ($value['idperfil'] == $usuario['idperfil'] ) ? "selected" : "" ;
+                                                    ?>
+                                                <option value="<?= $value['idperfil']; ?>" <?= $uperfil ?> ><?= $value['perfil']; ?>  </option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contraseña</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="password">
+                                            <input class="form-control" type="password" name="password" id="password" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Confirmar Contraseña</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="password">
+                                            <input class="form-control" type="password" name="cpassword" id="cpassword" required >
                                         </div>
                                     </div>
                                     
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="telefono1" id="telefono1" value="<?= $usuario['telefono_1'] ?>" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="telefono2" id="telefono2" value="<?= $usuario['telefono_2'] ?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="correo1" id="correo1" value="<?= $usuario['email_1'] ?>" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="correo2" id="correo2" value="<?= $usuario['email_2'] ?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
+                                            
+                                            <?php 
+                                            
+                                            $query=$connection->prepare(sql_select_permisos_byIdusuario() );
+                                            $query->bindParam(':idusuario', decryptString($_GET['us']),PDO::PARAM_INT);
+                                            $query->execute();
+                                            if($query->rowCount()>0){}
+                                            $permisos=$query->fetchAll(PDO::FETCH_ASSOC);
+                                            $apermisos = array();
+                                            foreach ($permisos as $value) {
+                                                $apermisos[] =  $value['idpermiso'];
+                                            }
+                                            
+                                            $query=$connection->prepare(sql_select_permisos_all());
+                                            $query->execute();
+                                            $permisosArray=$query->fetchAll();
+
+                                            if($query->rowCount()>0){}
+                                            foreach ($permisosArray as $value) {
+                                                $upermiso= (in_array($value['idpermiso'], $apermisos) ) ? "checked" : "" ; 
+                                            ?>
                                             <div class="checkbox-inline">
                                                 <label>
-                                                    <input type="checkbox">
-                                                    Agregar, Editar Clientes
+                                                    <input type="checkbox" name="<?= "op_".$value['idpermiso'] ?>" <?= $upermiso ?> >
+                                                    <?= $value['permiso'] ?>
                                                 </label>
                                             </div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Listar, ver Clientes
-                                                </label>
-                                            </div>
-                                            <div class="clear" ></div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Agregar, Editar Usuarios
-                                                </label>
-                                            </div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Listar, Ver Usuarios
-                                                </label>
-                                            </div>
-                                             <div class="clear" ></div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Agregar, Editar Proveedores
-                                                </label>
-                                            </div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Listar, Ver Proveedores
-                                                </label>
-                                            </div>
-                                              <div class="clear" ></div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Agregar, Editar Cotizaciones
-                                                </label>
-                                            </div>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox">
-                                                    Listar, Ver Cotizaciones
-                                                </label>
-                                            </div>
+                                            <?php } ?>
                                         </div>
                                     </div>
                                     

@@ -2,8 +2,16 @@
 <html lang="en">
 <head>
         <?php
+        session_start();
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
+        
+        $connection=  openConnection();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,58 +96,30 @@
                                         </tr>
                                 </thead>
                                 <tbody>
-                                        <tr class="odd gradeA">
-                                            <td>Raymundo Romero</td>
-                                            <td>Gerente de ventas</td>
-                                            <td>raymund.romero@qcc.com</td>
-                                            <td class="center">503 2256-1212</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php">
-                                                    <i class="fa fa-users"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeA">
-                                            <td>Rasputin Meza</td>
-                                            <td>Vendedor</td>
-                                            <td>rasputin.meza@qcc.com</td>
-                                            <td class="center">503 2256-1213</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php">
-                                                    <i class="fa fa-users"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeA">
-                                            <td>Verónica Torres</td>
-                                            <td>Vendedor</td>
-                                            <td>veronica.torres@qcc.com</td>
-                                            <td class="center">503 2256-1214</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php">
-                                                    <i class="fa fa-users"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        
+                                      <?php 
+                                            $query=$connection->prepare(sql_select_usuarios_all());
+                                            $query->execute();
+                                            $usuarios=$query->fetchAll();
+                                            foreach ($usuarios as $value) {
+                                            ?>
+                                                <tr class="odd gradeA">
+                                                    <td><?= $value['nombre'] ?></td>
+                                                    <td><?= $value['cargo'] ?></td>
+                                                    <td><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['email_1'] ?></a></td>
+                                                    <td class="center"><?= $value['telefono_1'] ?></td>
+                                                    <td class="center">
+                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php?us=<?= encryptString($value['idusuario']) ?>">
+                                                            <i class="fa fa-users"></i>
+                                                        </a>
+                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php?us=<?= encryptString($value['idusuario']) ?>">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                        <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php } ?>
                                 </tbody>
                             </table>
                         </div>

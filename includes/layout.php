@@ -128,4 +128,36 @@ function selectVendedor($id,$name,$class,$required,$onchange,$idSelected){
     $select.='</select>';
     return $select;
 }
+function selectClientes($id,$name,$class,$required,$onchange,$idSelected){
+    $connection= openConnection();
+    $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'"><option value="">Selecciones un cliente</option>';
+                                                                    
+    $queryClientes=$connection->prepare(sql_select_clientes());
+    $queryClientes->execute();
+    $selected='';
+    foreach ($queryClientes->fetchAll() as $cliente){
+        if($idSelected==$cliente['idcliente'])
+                $selected='selected="true"';
+        $select.='<option '.$selected.' value="'.$cliente['idcliente'].'">'.utf8_encode($cliente['nombre_cliente']).'</option>';
+        $selected='';
+    }
+    $select.='</select>';
+    return $select;
+}
+function selectRubro($id,$name,$class,$required,$onchange,$idSelected){
+    $connection= openConnection();
+    $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'">';
+                                                                    
+    $queryRubros=$connection->prepare(sql_select_rubros());
+    $queryRubros->execute();
+    $selected='';
+    foreach ($queryRubros->fetchAll() as $rubro){
+        if($idSelected==$rubro['idrubro'])
+                $selected='selected="true"';
+        $select.='<option '.$selected.' value="'.$rubro['idrubro'].'">'.utf8_encode($rubro['rubro']).'</option>';
+        $selected='';
+    }
+    $select.='</select>';
+    return $select;
+}
 ?>

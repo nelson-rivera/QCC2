@@ -100,10 +100,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rubro</label>
                                         <div class="col-sm-6">
-                                            <select name="input-rubro" class="form-control" required>
-                                                <option value="1">Final</option>
-                                                
-                                            </select>
+                                            <?= selectRubro('input-rubro','input-rubro','form-control','required','','') ?>
                                         </div>
                                     </div>
                                     <div class="form-group">

@@ -97,7 +97,7 @@
                                 <h3>Datos de cliente</h3>
                             </div>
                             <div class="content">
-                                <form id="frm-edit" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-edit" class="form-horizontal" style="border-radius: 0px;" data-parsley-validate>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre Empresa</label>
                                         <div class="col-sm-6">
@@ -113,10 +113,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rubro</label>
                                         <div class="col-sm-6">
-                                            <select name="input-rubro" class="form-control" required>
-                                                <option value="1">Final</option>
-                                                
-                                            </select>
+                                            <?= selectRubro('input-rubro','input-rubro','form-control','required','',$clientArray['idrubro']) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">

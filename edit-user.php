@@ -138,7 +138,7 @@
                           </div>
 			
                             <div class="content">
-                                <form name="frm-add-user" id="frm-add-user" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form name="frm-edit-user" id="frm-edit-user" class="form-horizontal" style="border-radius: 0px;" action="#">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre</label>
                                         <div class="col-sm-6">
@@ -171,13 +171,13 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contraseña</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="password" name="password" id="password" required >
+                                            <input class="form-control" type="password" name="password" id="password"  >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Confirmar Contraseña</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="password" name="cpassword" id="cpassword" required >
+                                            <input class="form-control" type="password" name="cpassword" id="cpassword"  >
                                         </div>
                                     </div>
                                     
@@ -242,7 +242,7 @@
                                     
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-primary" type="submit">Agregar</button>
+                                            <button class="btn btn-primary" type="submit">Actualizar</button>
                                             <button type="reset" class="btn btn-default">Limpiar</button>
                                         </div>
                                     </div>
@@ -265,6 +265,8 @@
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
   <?= js_general() ?>
+  <?= js_jquery_parsley() ?>
+  <?= js_i18n_es() ?>
      
 	
 
@@ -272,6 +274,22 @@
       $(document).ready(function(){
         //initialize the javascript
         App.init();
+        window.ParsleyValidator.setLocale('es');
+        $("#frm-edit-user").parsley().subscribe('parsley:form:validate', function (formInstance) {
+            formInstance.submitEvent.preventDefault();
+                if(formInstance.isValid('', true)){
+                    $.ajax({
+                    url:"ajax/user.php",
+                    type:'POST',
+                    dataType:"json",
+                    data:$("#frm-edit-user").serialize()+"&option=update&us=<?= encryptString(decryptString( $_GET['us'])) ?>",
+                    success:function(data){
+                        
+                    }
+                });
+            }
+            return;
+        });
       });
     </script>
 

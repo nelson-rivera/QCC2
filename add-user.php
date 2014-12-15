@@ -113,7 +113,7 @@
                                                 $perfilesArray=$query->fetchAll();
                                                 if($query->rowCount()>0){}
                                                 foreach ($perfilesArray as $value) { ?>
-                                                <option value="<?= $value['idperfil']; ?>" ><?= $value['perfil']; ?></option>
+                                                    <option value="<?= $value['idperfil']; ?>" ><?= $value['perfil']; ?></option>
                                                 <?php } ?>
                                             </select>
                                         </div>

@@ -84,29 +84,24 @@
                                 <h3>Datos de cliente</h3>
                             </div>
                             <div class="content">
-                                <form id="frm-add-client" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-add-client" class="form-horizontal" style="border-radius: 0px;" action="#" data-parsley-validate>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre Empresa</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" required>
+                                            <input name="input-name-company" class="form-control" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" required>
-                                                <option>Emiliana</option>
-                                                <option>José</option>
-                                                <option>Nelson</option>
-                                                <option>Ernesto</option>
-                                            </select>
+                                            <?= selectVendedor('input-vendedor','input-vendedor','form-control','required','','') ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rubro</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" required>
-                                                <option>Final</option>
+                                            <select name="input-rubro" class="form-control" required>
+                                                <option value="1">Final</option>
                                                 
                                             </select>
                                         </div>
@@ -114,77 +109,64 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Departamento</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" required>
-                                                <option>San Salvador</option>
-                                                <option>Morazán</option>
-                                                <option>Ahuachapan</option>
-                                                <option>Santa Ana</option>
-                                                <option>Sonsonate</option>
-                                                <option>Chalatenango</option>
-                                                <option>Cuscatlan</option>
-                                                <option>La Libertad</option>
-                                                <option>La Paz</option>
-                                                <option>San Vicente</option>
-                                                <option>Usulutan</option>
-                                                <option>San Miguel</option>
-                                                <option>Cabañas</option>
-                                                <option>La Union</option>
-                                            </select>
+                                            <?= selectDepartamento('input-departamento','input-departamento','form-control','required','loadMunicipios()','') ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Municipio</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" required>
+                                            <select class="form-control" name="input-municipio" id="input-municipio" required>
+                                                <option value="">Selecciones un municipio...</option>
+                                            </select>
                                         </div>
                                     </div>
                                     
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contacto</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" required>
+                                            <input name="input-contacto" class="form-control" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" required>
+                                            <input name="input-cargo" class="form-control" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" required>
+                                            <input name="input-telefono-1" class="form-control" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input name="input-telefono-2" class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 3</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input name="input-telefono-3" class="form-control" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="email" required>
+                                            <input name="input-correo-1" class="form-control" type="email" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="email">
+                                            <input name="input-correo-2" class="form-control" type="email">
                                         </div>
                                     </div>
                                      <div class="form-group">
                                         <label class="col-sm-3 control-label">Imagen</label>
                                         <div class="col-sm-6 ">
-                                            <input id="img_client" type="file" type="file" title="Subir una imagen" ><i></i>
+                                            <input name="input-logo" id="img-client" type="file" title="Subir una imagen" ><i></i>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -192,7 +174,7 @@
                                         <div class="col-sm-6">
                                             <div class="checkbox">
                                                 <label  >
-                                                    <input type="checkbox">
+                                                    <input name="input-newsletter" type="checkbox" value="1">
                                                     Enviar correos de mercadeo
                                                 </label>
                                             </div>
@@ -234,15 +216,55 @@
         //initialize the javascript
         App.init();
         window.ParsleyValidator.setLocale('es');
-        $("#frm-add-client").parsley().subscribe('parsley:form:validate', function (formInstance) {
-            formInstance.submitEvent.preventDefault();
-            if(formInstance.isValid('', true)){
-                alert('Cliente Editado con éxito');
-            }
-            return;
+        
+        $("#frm-add-client").submit(function(event){
+            event.preventDefault();
+            if($( '#frm-add-client' ).parsley().isValid()){
+                var clientData = $('#frm-add-client').serializeArray();
+                clientData.push({name: 'opt', value: 1});
+                $.ajax({
+                    url:'ajax/client.php',
+                    type: 'post',
+                    dataType: 'json',
+                    data: clientData
+                }).done(function(response) {
+                    if(response.status==0){
+                        alert(response.msg);
+                    }
+                    else{
+                        alert('error');
+                    }
+                })
+                .fail(function() {
+                    
+                });
+           }
         });
-        $('#img_client').bootstrapFileInput();
+        $('#img-client').bootstrapFileInput();
+        
+        
       });
+      function loadMunicipios(){
+        if($("#input-departamento").val()!=''){
+            var departamento=$("#input-departamento").val();
+            var opt=1;
+            $.ajax({
+                url: "ajax/ajax-calls.php",
+                data: ({'departamento':departamento,'opt':opt}),
+                type: "POST",
+                dataType: "json"
+
+            })
+            .done(function(response){
+                if (response.status == "0") {
+                    $("#input-municipio").html(response.select);
+                }
+                else {
+
+                }
+            });
+        }
+      }
     </script>
 
 <!-- Bootstrap core JavaScript

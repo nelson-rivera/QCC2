@@ -3,8 +3,21 @@
 
 <head>
         <?php
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        $connection=  openConnection();
+        if(empty($_GET['id']) && !is_numeric($_GET['id'])){
+            header('location: list-clients.php');
+            exit();
+        }
+        $idClient=$_GET['id'];
+        $getClient=$connection->prepare(sql_select_cliente_extended_by_idcliente());
+        $getClient->execute(array($idClient));
+        $clientArray=$getClient->fetch();
+        $recibirCorreosIsChecked=(empty($clientArray['recibir_correos']))?'':'checked';
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -88,97 +101,83 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre Empresa</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="ACAVISA" required>
+                                            <input name="input-name-company" class="form-control" type="text" value="<?= $clientArray['nombre_cliente'] ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" required>
-                                                <option>Emiliana</option>
-                                                <option>José</option>
-                                                <option>Nelson</option>
-                                                <option>Ernesto</option>
-                                            </select>
+                                            <?= selectVendedor('input-vendedor','input-vendedor','form-control','required','',$clientArray['idusuario']) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rubro</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" required>
-                                                <option>Final</option>
+                                            <select name="input-rubro" class="form-control" required>
+                                                <option value="1">Final</option>
                                                 
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Departamento</label>
+                                        <label class="col-sm-3 control-label">Departamento <?= $clientArray['iddepartamento'] ?></label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" required>
-                                                <option>San Salvador</option>
-                                                <option>Morazán</option>
-                                                <option>Ahuachapan</option>
-                                                <option>Santa Ana</option>
-                                                <option>Sonsonate</option>
-                                                <option>Chalatenango</option>
-                                                <option>Cuscatlan</option>
-                                                <option>La Libertad</option>
-                                                <option>La Paz</option>
-                                                <option>San Vicente</option>
-                                                <option>Usulutan</option>
-                                                <option>San Miguel</option>
-                                                <option>Cabañas</option>
-                                                <option>La Union</option>
-                                            </select>
+                                            <?= selectDepartamento('input-departamento','input-departamento','form-control','required','loadMunicipios()',$clientArray['iddepartamento']) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Municipio</label>
+                                        <label class="col-sm-3 control-label">Municipio </label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="San Salvador" required>
+                                            <?= selectMunicipio($clientArray['iddepartamento'],'input-municipio','input-municipio','form-control','required','',$clientArray['idmunicipio']) ?>
                                         </div>
                                     </div>
                                     
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contacto</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="Nelson Rivera" required>
+                                            <input name="input-contacto" class="form-control" type="text" value="<?= $clientArray['nombre_contacto'] ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="Encargado de informática" required>
+                                            <input name="input-cargo" class="form-control" type="text" value="<?= $clientArray['cargo'] ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="2223-2301" required>
+                                            <input name="input-telefono-1" class="form-control" type="text" value="<?= $clientArray['telefono_1'] ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input name="input-telefono-2" class="form-control" value="<?= $clientArray['telefono_2'] ?>" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 3</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input name="input-telefono-3" class="form-control" value="<?= $clientArray['telefono_2'] ?>" type="text">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="email" value="nrivera@acavisa.com" required>
+                                            <input name="input-correo-1" class="form-control" type="email" value="<?= $clientArray['email_1'] ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="email">
+                                            <input name="input-correo-2" class="form-control" value="<?= $clientArray['email_2'] ?>" type="email">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Imagen</label>
+                                        <div class="col-sm-6 ">
+                                            <input name="input-logo" id="img-client" type="file" title="Subir una imagen" ><i></i>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -186,7 +185,7 @@
                                         <div class="col-sm-6">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox">
+                                                    <input name="input-newsletter" type="checkbox" <?= $recibirCorreosIsChecked ?>>
                                                     Enviar correos de mercadeo
                                                 </label>
                                             </div>
@@ -218,6 +217,7 @@
   <?= js_jquery_parsley() ?>  
   <?= js_i18n_es() ?>  
   <?= js_general() ?>
+  <?= js_bootstrap_file_input() ?>
      
 	
 
@@ -226,14 +226,55 @@
         //initialize the javascript
         App.init();
         window.ParsleyValidator.setLocale('es');
-        $("#frm-edit").parsley().subscribe('parsley:form:validate', function (formInstance) {
-            formInstance.submitEvent.preventDefault();
-            if(formInstance.isValid('', true)){
-                alert('Cliente Editado con éxito');
-            }
-            return;
+        
+        $("#frm-edit").submit(function(event){
+            event.preventDefault();
+            if($( '#frm-edit' ).parsley().isValid()){
+                var clientData = $('#frm-edit').serializeArray();
+                clientData.push({name: 'opt', value: 2});
+                clientData.push({name: 'id1', value: <?= $clientArray['idcliente']?>});
+                clientData.push({name: 'id2', value: <?= $clientArray['idcontacto']?>});
+                $.ajax({
+                    url:'ajax/client.php',
+                    type: 'post',
+                    dataType: 'json',
+                    data: clientData
+                }).done(function(response) {
+                    if(response.status==0){
+                        alert(response.msg);
+                    }
+                    else{
+                        alert('error');
+                    }
+                })
+                .fail(function() {
+                    
+                });
+           }
         });
+        $('#img-client').bootstrapFileInput();
       });
+      function loadMunicipios(){
+        if($("#input-departamento").val()!=''){
+            var departamento=$("#input-departamento").val();
+            var opt=1;
+            $.ajax({
+                url: "ajax/ajax-calls.php",
+                data: ({'departamento':departamento,'opt':opt}),
+                type: "POST",
+                dataType: "json"
+
+            })
+            .done(function(response){
+                if (response.status == "0") {
+                    $("#input-municipio").html(response.select);
+                }
+                else {
+
+                }
+            });
+        }
+      }
     </script>
 
 <!-- Bootstrap core JavaScript

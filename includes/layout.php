@@ -1,4 +1,7 @@
 <?php
+include_once 'file_const.php';
+include_once 'connection.php';
+include_once 'sql.php';
 function lytTopBarMenu(){
     return '<ul class="nav navbar-nav navbar-right user-nav">
               <li class="dropdown profile_menu">
@@ -77,8 +80,52 @@ function lytSideMenu($menuSelected){
                 </li>
             </ul>';
 }
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+function selectDepartamento($id,$name,$class,$required,$onchange,$idSelected){
+    $connection= openConnection();
+    $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'"><option value="">Selecciones un departamento</option>';
+                                                                    
+    $queryDepartamentos=$connection->prepare(sql_get_departamentos());
+    $queryDepartamentos->execute();
+    $selected='';
+    foreach ($queryDepartamentos->fetchAll() as $departamento){
+        if($idSelected==$departamento['iddepartamento'])
+            $selected='selected="true"';
+        $select.='<option '.$selected.' value="'.$departamento['iddepartamento'].'">'.utf8_encode($departamento['departamento']).'</option>';
+        $selected='';
+    }
+    $select.='</select>';
+    return $select;
+}
+function selectMunicipio($idDepartamento,$id,$name,$class,$required,$onchange,$idSelected){
+    $connection= openConnection();
+    $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'"><option value="">Selecciones un municipio</option>';
+                                                                    
+    $queryMunicipios=$connection->prepare(sql_get_municipios_by_iddepartamento());
+    $queryMunicipios->execute(array($idDepartamento));
+    $selected='';
+    foreach ($queryMunicipios->fetchAll() as $municipio){
+        if($idSelected==$municipio['idmunicipio'])
+            $selected='selected="true"';
+        $select.='<option '.$selected.' value="'.$municipio['idmunicipio'].'">'.utf8_encode($municipio['municipio']).'</option>';
+        $selected='';
+    }
+    $select.='</select>';
+    return $select;
+}
+function selectVendedor($id,$name,$class,$required,$onchange,$idSelected){
+    $connection= openConnection();
+    $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'">';
+                                                                    
+    $queryUsuarios=$connection->prepare(sql_select_usuarios_all());
+    $queryUsuarios->execute();
+    $selected='';
+    foreach ($queryUsuarios->fetchAll() as $usuario){
+        if($idSelected==$usuario['idusuario'])
+                $selected='selected="true"';
+        $select.='<option '.$selected.' value="'.$usuario['idusuario'].'">'.utf8_encode($usuario['nombre'].' '.$usuario['apellido']).'</option>';
+        $selected='';
+    }
+    $select.='</select>';
+    return $select;
+}
 ?>

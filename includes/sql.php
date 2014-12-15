@@ -49,5 +49,47 @@ function sql_select_usuario_byId(){
 function sql_select_perfiles_all(){
     return 'SELECT * FROM perfiles';
 }
+function sql_insert_client(){
+    return 'INSERT INTO clientes (nombre_cliente, idmunicipio, logo, idrubro, idvendedor, recibir_correos) values(?,?,?,?,?,?)';
+}
+function sql_update_client(){
+    return 'UPDATE clientes SET nombre_cliente=?, idmunicipio=?, logo=?, idrubro=?, idvendedor=?, recibir_correos=? WHERE idcliente=?';
+}
+function sql_delete_cliente(){
+    return 'DELETE FROM clientes WHERE idcliente=?';
+}
+function sql_get_departamentos(){
+    return 'SELECT * from departamentos';
+}
+function sql_get_municipios_by_iddepartamento(){
+    return 'SELECT * from municipios WHERE iddepartamento=?';
+}
+function sql_get_municipio_by_iddepartamento(){
+    return "SELECT * from municipios where iddepartamento=?";
+}
+function sql_save_contacto(){
+    return 'INSERT INTO contactos (nombre_contacto, cargo, idcliente, email_1, email_2, telefono_1,telefono_2,telefono_3) values(?,?,?,?,?,?,?,?)';
+}
+function sql_update_contacto(){
+    return 'UPDATE contactos SET nombre_contacto=?, cargo=?, email_1=?, email_2=?, telefono_1=?,telefono_2=?,telefono_3=? WHERE idcontacto=?';
+}
+function sql_select_clientes_extended(){
+    return 'SELECT clientes.idcliente, clientes.nombre_cliente, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
+         .' FROM clientes' 
+         .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
+         .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
+         .' INNER JOIN rubros ON clientes.idrubro=rubros.idrubro'
+         .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario';
+}
+function sql_select_cliente_extended_by_idcliente(){
+    return 'SELECT clientes.idcliente, clientes.nombre_cliente, clientes.recibir_correos, municipios.idmunicipio, departamentos.iddepartamento, rubros.rubro, usuarios.idusuario, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, '
+         .' contactos.nombre_contacto, contactos.idcontacto, contactos.cargo, contactos.email_1, contactos.email_2, contactos.telefono_1, contactos.telefono_2, contactos.telefono_3'
+         .' FROM clientes' 
+         .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
+         .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
+         .' INNER JOIN rubros ON clientes.idrubro=rubros.idrubro'
+         .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario'
+         .' INNER JOIN contactos ON clientes.idcliente=contactos.idcliente'
+         .' WHERE clientes.idcliente=? LIMIT 1';
+}
 
-?>

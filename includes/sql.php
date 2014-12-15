@@ -78,7 +78,7 @@ function sql_select_clientes_extended(){
          .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario';
 }
 function sql_select_cliente_extended_by_idcliente(){
-    return 'SELECT clientes.idcliente, clientes.nombre_cliente, clientes.recibir_correos, municipios.idmunicipio, departamentos.iddepartamento, rubros.rubro, usuarios.idusuario, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, '
+    return 'SELECT clientes.idcliente, clientes.nombre_cliente, clientes.recibir_correos, municipios.idmunicipio, departamentos.iddepartamento, rubros.idrubro, usuarios.idusuario, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, '
          .' contactos.nombre_contacto, contactos.idcontacto, contactos.cargo, contactos.email_1, contactos.email_2, contactos.telefono_1, contactos.telefono_2, contactos.telefono_3'
          .' FROM clientes' 
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
@@ -88,4 +88,22 @@ function sql_select_cliente_extended_by_idcliente(){
          .' INNER JOIN contactos ON clientes.idcliente=contactos.idcliente'
          .' WHERE clientes.idcliente=? LIMIT 1';
 }
-
+function sql_select_rubros(){
+    return 'SELECT * FROM rubros';
+}
+function sql_select_clientes(){
+    return 'SELECT * FROM clientes';
+}
+function sql_get_cliente_departamento_contacto(){
+    return 'SELECT clientes.idmunicipio, departamentos.iddepartamento, contactos.idcontacto FROM clientes'
+            .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
+            .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
+            .' INNER JOIN contactos ON clientes.idcliente=contactos.idcliente'
+            .' WHERE clientes.idcliente=? LIMIT 1';
+}
+function sql_select_contactos(){
+    return 'SELECT * FROM contactos';
+}
+function sql_select_contacto_by_idcontacto(){
+    return 'SELECT * FROM contactos WHERE idcontacto=?';
+}

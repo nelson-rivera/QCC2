@@ -116,9 +116,30 @@ if($option=="update"){
     $response['msg']=  txt_vendedor_actualizado();
     
     echo json_encode($response);
-   
-   
-    
 }
 
+if($option=="delete"){
+    $idusuario= decryptString($_POST['us']);
+    $now=date("Y-m-d H:i:s");
+    
+    $connection=openConnection();
+    try {
+    $connection->beginTransaction();
+    $query=$connection->prepare(sql_disable_user());
+        $query->bindParam(':idusuario', $idusuario);
+        $query->bindParam(':fecha_inactivo', $now);
+    $query->execute();
+    $connection->commit();
+        
+    $response['status']=1;
+    $response['msg']= txt_vendedor_eliminado();
+    exit(json_encode($response));
+    } catch (Exception $exc) {
+        $response['status']=0;
+        $response['msg']= txt_error_vendedor_eliminado();
+        $response['error']=$exc->getTraceAsString();
+        exit(json_encode($response));
+    }
+    
+}
 ?>

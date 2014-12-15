@@ -13,7 +13,7 @@ function css_introjs(){return '<link rel="stylesheet" type="text/css" href="js/i
 function css_datatable(){return '<link rel="stylesheet" type="text/css" href="js/jquery.datatables/bootstrap-adapter/css/datatables.css" />';}
 function css_fonts(){return '<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800" rel="stylesheet" type="text/css">
 <link href="http://fonts.googleapis.com/css?family=Raleway:300,200,100" rel="stylesheet" type="text/css">';}
-
+function css_niftymodals(){return '<link rel="stylesheet" type="text/css" href="js/jquery.niftymodals/css/component.css" />';}
 
 //JS
 function js_jquery(){return '<script src="js/jquery.js"></script>';}
@@ -44,6 +44,7 @@ function js_jquery_parsley(){return '<script src="js/jquery.parsley/dist/parsley
 function js_i18n_es(){return '<script src="js/i18n/es.js" type="text/javascript"></script>';}
 function js_bootstrap_file_input(){return '<script src="js/file-input/bootstrap.file-input.js" type="text/javascript"></script>';}
 function js_masonry(){return '<script type="text/javascript" src="js/masonry.js"></script>';}
+function js_niftymodals(){return '<script type="text/javascript" src="js/jquery.niftymodals/js/jquery.modalEffects.js"></script>';}
 ?>
 
 

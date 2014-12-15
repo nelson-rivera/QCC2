@@ -16,6 +16,10 @@ function sql_update_user_password(){
            . ' WHERE  `idusuario`=:idusuario;';
 }
 
+function sql_disable_user(){
+    return 'UPDATE `usuarios` SET activo=0, fecha_inactivo=:fecha_inactivo WHERE  `idusuario`=:idusuario;';
+}
+
 function sql_save_permiso_x_usuario(){
     return 'INSERT INTO `permisos_x_usuarios` (`idpermiso`, `idusuario`, `fecha_creacion`) '
             .' VALUES (:idpermiso, :idusuario, :fecha_creacion);';
@@ -35,7 +39,7 @@ function sql_select_permisos_byIdusuario(){
 
 function sql_select_usuarios_all(){
     return ' SELECT usuarios.*, perfiles.`perfil` FROM usuarios '
-           . 'INNER JOIN perfiles ON perfiles.`idperfil` = usuarios.`idperfil`';
+           . 'INNER JOIN perfiles ON perfiles.`idperfil` = usuarios.`idperfil` WHERE usuarios.`activo`=1';
 }
 
 function sql_select_usuario_byId(){

@@ -19,7 +19,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Listar Clientes</title>
+	<title>QCC - Listado de vendedores</title>
 	<?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -33,8 +33,8 @@
 	<![endif]-->
 	<?= css_nanoscroller() ?>
 	<?= css_datatable() ?>
-	<?= css_style() ?>
-
+	<?= css_niftymodals() ?>
+        <?= css_style() ?>
 </head>
 
 <body>
@@ -101,10 +101,11 @@
                                             $query=$connection->prepare(sql_select_usuarios_all());
                                             $query->execute();
                                             $usuarios=$query->fetchAll();
+                                            $num=1;
                                             foreach ($usuarios as $value) {
                                             ?>
                                                 <tr class="odd gradeA">
-                                                    <td><?= $value['nombre'] ?></td>
+                                                    <td id="user_<?= $num ?>" ><?= $value['nombre'] ?></td>
                                                     <td><?= $value['perfil'] ?></td>
                                                     <td><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['email_1'] ?></a></td>
                                                     <td class="center"><?= $value['telefono_1'] ?></td>
@@ -115,43 +116,44 @@
                                                         <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php?us=<?= encryptString($value['idusuario']) ?>">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
-                                                        <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" data-target="#mod-delete"  >
+                                                        <a class="btn btn-danger md-trigger btn-xs btn-eliminar-us" data-toggle="tooltip" data-original-title="Remove" data-modal="mod-delete" data-user="<?= encryptString($value['idusuario']) ?>"  data-num="<?= $num ?>" >
                                                             <i class="fa fa-times"></i>
                                                         </a>
                                                     </td>
                                                 </tr>
-                                            <?php } ?>
+                                            <?php $num++; } ?>
                                 </tbody>
                             </table>
                         </div>
                         
-                         <!-- Modal -->
-                        <div class="modal fade" id="mod-delete" tabindex="-1" role="dialog">
-                            <div class="modal-dialog">
-                              <div class="modal-content">
+                        <!-- Nifty Modal -->
+                        <div class="md-modal colored-header danger md-effect-10" id="mod-delete">
+                            <div class="md-content ">
                               <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h3>Eliminar vendedor</h3>
+                                <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
                               </div>
                               <div class="modal-body">
-                                <div class="text-center">
-                                  <div class="i-circle danger"><i class="fa fa-times"></i></div>
-                                  <h4>Oh god!</h4>
-                                  <p>You're by your own now, good luck!</p>
+                                <div id="modal-body-center" class="text-center">
+                                  <div class="i-circle danger"><i class="fa fa-trash-o"></i></div>
+                                  <h4>¡Cuidado!</h4>
+                                  <p>¿Seguro que desea eliminar a <span id="del_name" ></span>?</p>
                                 </div>
                               </div>
-                              <div class="modal-footer">
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-                                <button type="button" class="btn btn-danger" data-dismiss="modal">Proceed</button>
+                                <div class="modal-footer" id="modal-footer-response" >
+                                <button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal" id="btn-deleteUser" >Eliminar</button>
                               </div>
-                              </div><!-- /.modal-content -->
-                            </div><!-- /.modal-dialog -->
-                        </div><!-- /.modal -->
-                        
+                            </div>
+                        </div>
+                        <div class="md-overlay"></div>
+                        <!-- -->
                     </div>
                 </div>
                 
             </div>
-	</div> 
+	</div>
+        
     </div>
    <?= js_jquery() ?>
   <?= js_jquery_ui() ?>
@@ -164,15 +166,46 @@
   <?= js_jquery_datatable() ?>
   <?= js_jquery_datatable_adapter() ?>
   <?= js_general() ?>
-
+  <?= js_niftymodals() ?>
+  
     <script type="text/javascript">
       $(document).ready(function(){
         App.init();
         $('#datatable-users').dataTable();
-    
+        
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
+        $('.btn-eliminar-us').click(function(e){
+           var num = $(this).attr("data-num");
+           $("#del_name").html( $("#user_"+num).html());
+           $("#btn-deleteUser").attr("data-us", $(this).attr("data-user") )
+        });
+        
+        $('#btn-deleteUser').click(function(e){
+            var us = $("#btn-deleteUser").attr("data-us");
+           $.ajax({
+                url:"ajax/user.php",
+                type:'POST',
+                dataType:"json",
+                data:"option=delete&us="+us,
+                beforeSend: function(){
+                    $("#modal-footer-response").html('');
+                },
+                success:function(data){
+                    if(data.status=="1"){ 
+                        $("#modal-body-center").html('<div class="i-circle danger"><i class="fa fa-check"></i></div><h4>¡Usuario eliminado con éxito!</h4>');
+                        $("#modal-footer-response").html('<button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
+                    }else{
+                        $("#modal-body-center").html('<div class="i-circle danger"><i class="fa  fa-frown-o"></i></div><h4>Ocurrio un error al eliminar el usuario</h4>');
+                        $("#modal-footer-response").html('<button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
+                    }
+                    $(document).on('click','#btn-actualizarDT', function () { location.reload();});
+                }
+            }); 
+        });
+        
+        
       });
     </script>
 

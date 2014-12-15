@@ -5759,3 +5759,6 @@ ul.timeline li > .date {
 #frm-conditions .container-btn-delete-condition{
    padding: 5px 0; 
 }
+
+/* MODAL */
+span #del_name{ font-weight: bold; }

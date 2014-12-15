@@ -2,8 +2,12 @@
 <html lang="en">
 <head>
         <?php
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        $connection=  openConnection();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -99,63 +103,41 @@
                                             <tr>
                                                 <th>Nombre</th>
                                                 <th>Rubro</th>
-                                                <th>Municipio</th>
+                                                <th>Vendedor</th>
                                                 <th>Departamento</th>
+                                                <th>Municipio</th>
                                                 <th>Acciones</th>
                                             </tr>
                                     </thead>
                                     <tbody>
+                                        <?php
+                                        $selectClientes=$connection->prepare(sql_select_clientes_extended());
+                                        $selectClientes->execute();
+                                        foreach ($selectClientes->fetchAll() as $cliente) {
+                                        ?>
                                             <tr class="odd gradeA">
-                                                <td>ACAVISA</td>
-                                                <td>FINAL</td>
-                                                <td>San Salvador</td>
-                                                <td class="center">San Salvador</td>
+                                                <td><?= utf8_encode($cliente['nombre_cliente']) ?></td>
+                                                <td><?= $cliente['rubro'] ?></td>
+                                                <td><?= $cliente['nombre_vendedor'] ?></td>
+                                                <td><?= utf8_encode($cliente['departamento']) ?></td>
+                                                <td class="center"><?= utf8_encode($cliente['municipio']) ?></td>
                                                 <td class="center">
                                                     <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php">
                                                         <i class="fa fa-users"></i>
                                                     </a>
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php?id=<?= $cliente['idcliente'] ?>">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                     <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
+                                                        <input class="input-cliente" type="hidden" value="<?= $cliente['idcliente']?>" />
                                                         <i class="fa fa-times"></i>
                                                     </a>
                                                 </td>
                                             </tr>
-                                            <tr class="odd gradeA">
-                                                <td>Claro</td>
-                                                <td>FINAL</td>
-                                                <td>San Salvador</td>
-                                                <td class="center">San Salvador</td>
-                                                <td class="center">
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php">
-                                                        <i class="fa fa-users"></i>
-                                                    </a>
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                            <tr class="odd gradeA">
-                                                <td>UCA</td>
-                                                <td>FINAL</td>
-                                                <td>San Salvador</td>
-                                                <td class="center">San Salvador</td>
-                                                <td class="center">
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php">
-                                                        <i class="fa fa-users"></i>
-                                                    </a>
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php">
-                                                        <i class="fa fa-pencil"></i>
-                                                    </a>
-                                                    <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                        <i class="fa fa-times"></i>
-                                                    </a>
-                                                </td>
-                                            </tr>
+                                        
+                                        <?php
+                                        }
+                                        ?>
                                     </tbody>
                                 </table>
                            
@@ -166,6 +148,27 @@
             </div>
 	</div> 
     </div>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Eliminar Cliente</h4>
+          </div>
+          <div class="modal-body">
+              Está seguro que desea eliminar el cliente <span id="client-name"></span>, esta acción es definitiva y 
+              todos los datos relacionados a este cliente se perderán.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button id="btn-eliminar" type="button" class="btn btn-danger">Sí, eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
    <?= js_jquery() ?>
   <?= js_jquery_ui() ?>
   <?= js_bootstrap_datetimepicker() ?>
@@ -189,10 +192,38 @@
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
         
+        
+        var selectedRow;
+        var idC;
         $('#datatable-icons tbody').on( 'click', '.btn-danger', function () {
-            var row = $(this).closest("tr").get(0);
-            oTable.fnDeleteRow(oTable.fnGetPosition(row));
-        } );
+            $('#modal-delete').modal('show');
+            selectedRow = $(this).closest("tr").get(0);
+            idC = $(this).children(".input-cliente").val();
+            
+        });
+        $("#btn-eliminar").click(function(){
+            $.ajax({
+                url:'ajax/client.php',
+                type: 'post',
+                dataType: 'json',
+                data: {opt:3, id: idC}
+            }).done(function(response) {
+                if(response.status==0){
+                    oTable.fnDeleteRow(oTable.fnGetPosition(selectedRow));
+                    $('#modal-delete').modal('hide');
+                }
+                else{
+                    alert('error');
+                }
+            })
+            .fail(function() {
+
+            });
+            
+            
+            
+            
+        });
       });
     </script>
 

@@ -84,72 +84,51 @@
                                 <h3>Datos generales</h3>
                             </div>
                             <div class="content">
-                                <form id="frm-quote-info" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-quote-info" name="frm-quote-info" class="form-horizontal" style="border-radius: 0px;" action="#" data-parsley-validate>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" required value="Nelson Rivera" readonly="readonly">
+                                            <?= selectVendedor('input-vendedor','input-vendedor','form-control','required','','') ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cliente</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" required>
-                                                <option>ACAVISA</option>
-                                                <option>Claro</option>
-                                                <option>UCA</option>
-                                                <option>Tigo</option>
-                                                <option>Digicel</option>
-                                            </select>
+                                            <?= selectClientes('input-cliente','input-cliente','form-control','required','updateClienteInfo()','') ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Departamento</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" required>
-                                                <option>San Salvador</option>
-                                                <option>Morazán</option>
-                                                <option>Ahuachapan</option>
-                                                <option>Santa Ana</option>
-                                                <option>Sonsonate</option>
-                                                <option>Chalatenango</option>
-                                                <option>Cuscatlan</option>
-                                                <option>La Libertad</option>
-                                                <option>La Paz</option>
-                                                <option>San Vicente</option>
-                                                <option>Usulutan</option>
-                                                <option>San Miguel</option>
-                                                <option>Cabañas</option>
-                                                <option>La Union</option>
-                                            </select>
+                                            <?= selectDepartamento('input-departamento','input-departamento','form-control','required','loadMunicipios()','') ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Municipio</label>
                                         <div class="col-sm-6">
-                                            <input id="input-city" class="form-control" type="text" placeholder="San Salvador" required>
+                                            <select class="form-control" name="input-municipio" id="input-municipio" required>
+                                                <option value="">Selecciones un municipio...</option>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre contacto</label>
                                         <div class="col-sm-6">
-                                            <select id="input-contact" class="form-control" required>
-                                                <option value="1">José Perez</option>
-                                                <option value="2">Ernesto Monterrosa</option>
-                                                <option value="3">Ivana Chavarria</option>
+                                            <select class="form-control" name="input-contacto" id="input-contacto" onchange="updateContactoInfo()" required>
+                                                <option value="">Selecciones un contacto...</option>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono Contacto</label>
                                         <div class="col-sm-6">
-                                            <input id="input-phone" class="form-control" type="text" value="2249-2034" required readonly="readonly">
+                                            <input id="input-phone" class="form-control" type="text" required readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo Contacto</label>
                                         <div class="col-sm-6">
-                                            <input id="input-email" class="form-control" type="email" value="jperez@email.com" required readonly="readonly">
+                                            <input id="input-email" class="form-control" type="email" required readonly="readonly">
                                         </div>
                                     </div>
                                 </form>
@@ -157,7 +136,7 @@
                                     <h3>Items</h3>
                                 </div>
                                 
-                                <form id="frm-quote-items">
+                                <form id="frm-quote-items" name="frm-quote-items" data-parsley-validate>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-4">
@@ -205,24 +184,22 @@
                                                     1
                                                 </td>
                                                 <td>
-                                                    <input class="input-amount form-control" type="text" required=""/>
+                                                    <input name="input-amount[]" class="input-amount form-control" type="text" required=""/>
                                                 </td>
                                                 <td>
-                                                    <select class="input-rubro form-control" required="">
-                                                        <option>UPS</option>
-                                                    </select>
+                                                    <?= selectRubro('','input-rubro[]','form-control input-rubro','required','','') ?>
                                                 </td>
                                                 <td>
-                                                    <textarea class="input-description form-control"required></textarea>
+                                                    <textarea name="input-description[]" class="input-description form-control"required></textarea>
                                                 </td>
                                                 <td>
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">$</span><input class="input-unit-price form-control" type="text" required/>
+                                                        <span class="input-group-addon">$</span><input name="input-unit-price[]" class="input-unit-price form-control" type="text" required/>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">$</span><input class="input-total-price form-control" type="text" required readonly="readonly"/>
+                                                        <span class="input-group-addon">$</span><input name="input-total-price[]" class="input-total-price form-control" type="text" required readonly="readonly"/>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -302,6 +279,8 @@
                                         </div>
                                     </div>
                                 </form>
+                                <hr />
+                                <button type="button" id="btn-crear-cotizacion" class="btn btn-lg btn-block btn-primary">Crear cotización</button>
                             </div>
                         </div>
                     </div>
@@ -330,27 +309,6 @@
             //initialize the javascript
             App.init();
             window.ParsleyValidator.setLocale('es');
-            $("#frm-quote-items").parsley().subscribe('parsley:form:validate', function (formInstance) {
-                formInstance.submitEvent.preventDefault();
-                if(formInstance.isValid('', true)){
-                    
-                }
-                return;
-            });
-            $("#input-contact").change(function(){
-               if($(this).val()==1){
-                   $("#input-phone").val('2249-2034');
-                   $("#input-email").val('jperez@email.com');
-               }
-               else if($(this).val()==2){
-                    $("#input-phone").val('2249-2023');
-                    $("#input-email").val('emonterrosa@email.com');
-               }
-               else if($(this).val()==3){
-                   $("#input-phone").val('2249-2010');
-                   $("#input-email").val('ichavarria@email.com');
-               }
-            });
             $("#input-iva").change(function(){
                 var ivaflag=parseInt($(this).val(),10);
                 if(ivaflag===1){
@@ -365,6 +323,7 @@
             });
             $("#table-items").on('click', '.btn-delete-item',function(){
                 $(this).closest('tr.item').remove();
+                totalize();
             });
             $("#table-items").on('change','.input-amount', function(){
                 var amount=$(this).val();
@@ -384,6 +343,7 @@
                 var nItems=$("#table-items").attr('data-nitems');
                 nItems++;
                 $("#table-items").attr('data-nitems',nItems);
+                var selectRubro='<?= selectRubro('','input-rubro[]','form-control input-rubro','required','','') ?>';
                 $("#row-add-item").before('<tr class="item">'
                                                     +'<td class="text-center">'
                                                         +'<button class="btn btn-danger btn-xs btn-delete-item" type="button"><i class="fa fa-times"></i></button>'
@@ -392,35 +352,33 @@
                                                         +nItems
                                                     +'</td>'
                                                     +'<td>'
-                                                        +'<input class="input-amount form-control" type="text" required=""/>'
+                                                        +'<input name="input-amount[]" class="input-amount form-control" type="text" required=""/>'
                                                     +'</td>'
                                                     +'<td>'
-                                                        +'<select class="input-rubro form-control" required="">'
-                                                            +'<option>UPS</option>'
-                                                        +'</select>'
+                                                        +selectRubro
                                                     +'</td>'
                                                     +'<td>'
-                                                        +'<textarea class="input-description form-control"required></textarea>'
+                                                        +'<textarea name="input-description" class="input-description form-control"required></textarea>'
                                                     +'</td>'
                                                     +'<td>'
                                                         +'<div class="input-group">'
-                                                            +'<span class="input-group-addon">$</span><input class="input-unit-price form-control" type="text" required/>'
+                                                            +'<span class="input-group-addon">$</span><input name="input-unit-price[]" class="input-unit-price form-control" type="text" required/>'
                                                         +'</div>'
                                                     +'</td>'
                                                     +'<td>'
                                                         +'<div class="input-group">'
-                                                            +'<span class="input-group-addon">$</span><input class="input-total-price form-control" type="text" required readonly="readonly"/>'
+                                                            +'<span class="input-group-addon">$</span><input name="input-total-price[]" class="input-total-price form-control" type="text" required readonly="readonly"/>'
                                                         +'</div>'
                                                     +'</td>'
                                                 +'</tr>');
             });
-            $("#container-btn-add").click(function(){
+            $("#btn-add-condition").click(function(){
                 $("#container-btn-add").before('<div class="form-group">'
                     +'<div class="col-sm-2">'
-                        +'<input type="text" class="input-condition form-control" placerholder="condición" />'
+                        +'<input name="input-condition-custom[]" type="text" class="input-condition form-control" placeholder="condición" />'
                     +'</div>'
                     +'<div class="col-sm-3">'
-                        +'<input type="text" class="form-control" placerholder="valor de condición" />'
+                        +'<input name="input-condition-custom-valor[]" type="text" class="form-control" placeholder="valor de condición" />'
                     +'</div>'
                     +'<div class="col-sm-1 container-btn-delete-condition">'
                         +'<button class="btn btn-danger btn-xs btn-delete-condition" type="button"><i class="fa fa-times"></i></button> '
@@ -428,6 +386,12 @@
             });
             $("#frm-conditions").on('click','.btn-delete-condition',function(){
                $(this).parents('.form-group').remove(); 
+            });
+            
+            $("#btn-crear-cotizacion").click(function(){
+                if($( '#frm-quote-info' ).parsley().isValid() && $( '#frm-quote-items' ).parsley().isValid()){
+                    
+                }
             });
         });
         function totalize(){
@@ -446,8 +410,72 @@
             $("#td-iva").html('$'+iva.formatMoney(2));
             total=parseFloat(subTotal+iva,10);
             $("#td-total").html('$'+total.formatMoney(2));
-            
-            
+        }
+        function loadMunicipios(){
+            if($("#input-departamento").val()!=''){
+                var departamento=$("#input-departamento").val();
+                var opt=1;
+                $.ajax({
+                    url: "ajax/ajax-calls.php",
+                    data: ({'departamento':departamento,'opt':opt}),
+                    type: "POST",
+                    dataType: "json"
+
+                })
+                .done(function(response){
+                    if (response.status == "0") {
+                        $("#input-municipio").html(response.select);
+                    }
+                    else {
+
+                    }
+                });
+            }
+        }
+        function updateClienteInfo(){
+            if($("#input-cliente").val()!=''){
+                var cliente=$("#input-cliente").val();
+                var opt=2;
+                $.ajax({
+                    url: "ajax/ajax-calls.php",
+                    data: ({'cliente':cliente,'opt':opt}),
+                    type: "POST",
+                    dataType: "json"
+
+                })
+                .done(function(response){
+                    if (response.status == "0") {
+                        $("#input-departamento").val(response.iddepartamento);
+                        $("#input-municipio").html(response.selectMunicipio);
+                        $("#input-contacto").html(response.selectContacto);
+                    }
+                    else {
+
+                    }
+                });
+            }
+        }
+        function updateContactoInfo(){
+            if($("#input-contacto").val()!=''){
+                var contacto=$("#input-contacto").val();
+                var opt=3;
+                $.ajax({
+                    url: "ajax/ajax-calls.php",
+                    data: ({'contacto':contacto,'opt':opt}),
+                    type: "POST",
+                    dataType: "json"
+
+                })
+                .done(function(response){
+                    if (response.status == "0") {
+                        $("#input-phone").val(response.telefono);
+                        $("#input-email").val(response.email);
+                    }
+                    else {
+
+                    }
+                });
+            }
         }
         Number.prototype.formatMoney = function(c, d, t){
             var n = this, 

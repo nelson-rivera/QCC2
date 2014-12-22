@@ -120,7 +120,6 @@ switch ($opt) {
                 $response['status']=0;
                 $response['msg']= 'Cliente eliminado con éxito';
             } catch (Exception $exc) {
-                echo $exc->getMessage();
                 $connection->rollBack();
                 $response['status']=1;
                 $response['msg']= 'Error 107: Error al eliminar cliente';

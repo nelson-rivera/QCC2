@@ -1,0 +1,198 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+
+CREATE  TABLE IF NOT EXISTS `bd_qcc`.`cotizaciones` (
+  `idcotizacion` INT(11) NOT NULL AUTO_INCREMENT ,
+  `codigo_cotizacion` VARCHAR(45) NOT NULL ,
+  `idvendedor` INT(11) NOT NULL ,
+  `idcliente` INT(11) NOT NULL ,
+  `idmunicipio` INT(11) NULL DEFAULT NULL ,
+  `idcontacto` INT(11) NULL DEFAULT NULL ,
+  `idestado_cotizacion` INT(11) NULL DEFAULT NULL ,
+  `idvalidez_cotizacion` INT(11) NULL DEFAULT NULL ,
+  `idforma_pago` INT(11) NULL DEFAULT NULL ,
+  `idgarantia` INT(11) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idcotizacion`) ,
+  INDEX `fk_cotizaciones_1` (`idvendedor` ASC) ,
+  INDEX `fk_cotizaciones_2` (`idcliente` ASC) ,
+  INDEX `fk_cotizaciones_3` (`idmunicipio` ASC) ,
+  INDEX `fk_cotizaciones_4` (`idcontacto` ASC) ,
+  INDEX `fk_cotizaciones_5` (`idestado_cotizacion` ASC) ,
+  INDEX `fk_cotizaciones_6` (`idvalidez_cotizacion` ASC) ,
+  INDEX `fk_cotizaciones_7` (`idforma_pago` ASC) ,
+  INDEX `fk_cotizaciones_8` (`idgarantia` ASC) ,
+  CONSTRAINT `fk_cotizaciones_1`
+    FOREIGN KEY (`idvendedor` )
+    REFERENCES `bd_qcc`.`usuarios` (`idusuario` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cotizaciones_2`
+    FOREIGN KEY (`idcliente` )
+    REFERENCES `bd_qcc`.`clientes` (`idcliente` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cotizaciones_3`
+    FOREIGN KEY (`idmunicipio` )
+    REFERENCES `bd_qcc`.`municipios` (`idmunicipio` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cotizaciones_4`
+    FOREIGN KEY (`idcontacto` )
+    REFERENCES `bd_qcc`.`contactos` (`idcontacto` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cotizaciones_5`
+    FOREIGN KEY (`idestado_cotizacion` )
+    REFERENCES `bd_qcc`.`estados_cotizacion` (`idestado_cotizacion` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cotizaciones_6`
+    FOREIGN KEY (`idvalidez_cotizacion` )
+    REFERENCES `bd_qcc`.`validez_cotizaciones` (`idvalidez_cotizacion` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cotizaciones_7`
+    FOREIGN KEY (`idforma_pago` )
+    REFERENCES `bd_qcc`.`formas_pago` (`idforma_pago` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cotizaciones_8`
+    FOREIGN KEY (`idgarantia` )
+    REFERENCES `bd_qcc`.`garantia` (`idgarantia` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+CREATE  TABLE IF NOT EXISTS `bd_qcc`.`cotizacion_item` (
+  `idcotizacion_item` INT(11) NOT NULL AUTO_INCREMENT ,
+  `idcotizacion` INT(11) NOT NULL ,
+  `cantidad` INT(11) NOT NULL ,
+  `idrubro` INT(11) NOT NULL ,
+  `descripcion` TEXT NULL DEFAULT NULL ,
+  `imagen` VARCHAR(45) NULL DEFAULT NULL ,
+  `precio_unitario` FLOAT(2) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idcotizacion_item`) ,
+  INDEX `fk_cotizacion_item_1` (`idcotizacion` ASC) ,
+  INDEX `fk_cotizacion_item_2` (`idrubro` ASC) ,
+  CONSTRAINT `fk_cotizacion_item_1`
+    FOREIGN KEY (`idcotizacion` )
+    REFERENCES `bd_qcc`.`cotizaciones` (`idcotizacion` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cotizacion_item_2`
+    FOREIGN KEY (`idrubro` )
+    REFERENCES `bd_qcc`.`rubros` (`idrubro` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+CREATE  TABLE IF NOT EXISTS `bd_qcc`.`estados_cotizacion` (
+  `idestado_cotizacion` INT(11) NOT NULL AUTO_INCREMENT ,
+  `estado` VARCHAR(45) NULL DEFAULT NULL ,
+  PRIMARY KEY (`idestado_cotizacion`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+CREATE  TABLE IF NOT EXISTS `bd_qcc`.`validez_cotizaciones` (
+  `idvalidez_cotizacion` INT(11) NOT NULL AUTO_INCREMENT ,
+  `validez` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`idvalidez_cotizacion`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+CREATE  TABLE IF NOT EXISTS `bd_qcc`.`formas_pago` (
+  `idforma_pago` INT(11) NOT NULL AUTO_INCREMENT ,
+  `forma_pago` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`idforma_pago`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+CREATE  TABLE IF NOT EXISTS `bd_qcc`.`garantia` (
+  `idgarantia` INT(11) NOT NULL AUTO_INCREMENT ,
+  `garantia` VARCHAR(45) NOT NULL ,
+  PRIMARY KEY (`idgarantia`) )
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+CREATE  TABLE IF NOT EXISTS `bd_qcc`.`condiciones_cotizacion` (
+  `idcondicion_cotizacion` INT(11) NOT NULL AUTO_INCREMENT ,
+  `condicion` VARCHAR(255) NOT NULL ,
+  `valor_condicion` VARCHAR(45) NOT NULL ,
+  `idcotizacion` INT(11) NOT NULL ,
+  PRIMARY KEY (`idcondicion_cotizacion`) ,
+  INDEX `fk_condiciones_cotizacion_1` (`idcotizacion` ASC) ,
+  CONSTRAINT `fk_condiciones_cotizacion_1`
+    FOREIGN KEY (`idcotizacion` )
+    REFERENCES `bd_qcc`.`cotizaciones` (`idcotizacion` )
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+ALTER TABLE `bd_qcc`.`cotizaciones` DROP FOREIGN KEY `fk_cotizaciones_8` ;
+
+ALTER TABLE `bd_qcc`.`cotizaciones` 
+  ADD CONSTRAINT `fk_cotizaciones_8`
+  FOREIGN KEY (`idgarantia` )
+  REFERENCES `bd_qcc`.`garantias` (`idgarantia` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `bd_qcc`.`cotizacion_item` CHANGE COLUMN `precio_unitario` `precio_unitario` FLOAT(2) NULL DEFAULT NULL  ;
+
+ALTER TABLE `bd_qcc`.`garantia` RENAME TO  `bd_qcc`.`garantias` ;
+
+
+ALTER TABLE `bd_qcc`.`cotizaciones` DROP FOREIGN KEY `fk_cotizaciones_3` , DROP FOREIGN KEY `fk_cotizaciones_4` , DROP FOREIGN KEY `fk_cotizaciones_5` , DROP FOREIGN KEY `fk_cotizaciones_6` , DROP FOREIGN KEY `fk_cotizaciones_7` ;
+
+ALTER TABLE `bd_qcc`.`cotizaciones` ADD COLUMN `iva` TINYINT(4) NOT NULL  AFTER `idgarantia` , CHANGE COLUMN `idmunicipio` `idmunicipio` INT(11) NOT NULL  , CHANGE COLUMN `idcontacto` `idcontacto` INT(11) NOT NULL  , CHANGE COLUMN `idestado_cotizacion` `idestado_cotizacion` INT(11) NOT NULL  , CHANGE COLUMN `idvalidez_cotizacion` `idvalidez_cotizacion` INT(11) NOT NULL  , CHANGE COLUMN `idforma_pago` `idforma_pago` INT(11) NOT NULL  , CHANGE COLUMN `idgarantia` `idgarantia` INT(11) NOT NULL  , DROP FOREIGN KEY `fk_cotizaciones_8` ;
+
+ALTER TABLE `bd_qcc`.`cotizaciones` 
+  ADD CONSTRAINT `fk_cotizaciones_3`
+  FOREIGN KEY (`idmunicipio` )
+  REFERENCES `bd_qcc`.`municipios` (`idmunicipio` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION, 
+  ADD CONSTRAINT `fk_cotizaciones_4`
+  FOREIGN KEY (`idcontacto` )
+  REFERENCES `bd_qcc`.`contactos` (`idcontacto` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION, 
+  ADD CONSTRAINT `fk_cotizaciones_5`
+  FOREIGN KEY (`idestado_cotizacion` )
+  REFERENCES `bd_qcc`.`estados_cotizacion` (`idestado_cotizacion` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION, 
+  ADD CONSTRAINT `fk_cotizaciones_6`
+  FOREIGN KEY (`idvalidez_cotizacion` )
+  REFERENCES `bd_qcc`.`validez_cotizaciones` (`idvalidez_cotizacion` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION, 
+  ADD CONSTRAINT `fk_cotizaciones_7`
+  FOREIGN KEY (`idforma_pago` )
+  REFERENCES `bd_qcc`.`formas_pago` (`idforma_pago` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION, 
+  ADD CONSTRAINT `fk_cotizaciones_8`
+  FOREIGN KEY (`idgarantia` )
+  REFERENCES `bd_qcc`.`garantias` (`idgarantia` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `bd_qcc`.`cotizacion_item` CHANGE COLUMN `precio_unitario` `precio_unitario` FLOAT(2) NULL DEFAULT NULL  ;
+
+ALTER TABLE `bd_qcc`.`cotizaciones` ADD COLUMN `fecha_creacion` DATETIME NOT NULL  AFTER `iva` ;
+
+ALTER TABLE `bd_qcc`.`cotizacion_item` CHANGE COLUMN `precio_unitario` `precio_unitario` FLOAT(2) NULL DEFAULT NULL  ;
+
+ALTER TABLE `bd_qcc`.`cotizacion_items` CHANGE COLUMN `precio_unitario` `precio_unitario` FLOAT(2) NULL DEFAULT NULL  , RENAME TO  `bd_qcc`.`cotizacion_items` ;

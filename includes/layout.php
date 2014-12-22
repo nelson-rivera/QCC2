@@ -160,4 +160,52 @@ function selectRubro($id,$name,$class,$required,$onchange,$idSelected){
     $select.='</select>';
     return $select;
 }
+function selectValidez($id,$name,$class,$required,$onchange,$idSelected){
+    $connection= openConnection();
+    $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'">';
+                                                                    
+    $query=$connection->prepare(sql_select_validez());
+    $query->execute();
+    $selected='';
+    foreach ($query->fetchAll() as $row){
+        if($idSelected==$row['idvalidez_cotizacion'])
+                $selected='selected="true"';
+        $select.='<option '.$selected.' value="'.$row['idvalidez_cotizacion'].'">'.utf8_encode($row['validez']).'</option>';
+        $selected='';
+    }
+    $select.='</select>';
+    return $select;
+}
+function selectFormasPago($id,$name,$class,$required,$onchange,$idSelected){
+    $connection= openConnection();
+    $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'">';
+                                                                    
+    $query=$connection->prepare(sql_select_formas_pago());
+    $query->execute();
+    $selected='';
+    foreach ($query->fetchAll() as $row){
+        if($idSelected==$row['idforma_pago'])
+                $selected='selected="true"';
+        $select.='<option '.$selected.' value="'.$row['idforma_pago'].'">'.utf8_encode($row['forma_pago']).'</option>';
+        $selected='';
+    }
+    $select.='</select>';
+    return $select;
+}
+function selectGarantias($id,$name,$class,$required,$onchange,$idSelected){
+    $connection= openConnection();
+    $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'">';
+                                                                    
+    $query=$connection->prepare(sql_select_garantias());
+    $query->execute();
+    $selected='';
+    foreach ($query->fetchAll() as $row){
+        if($idSelected==$row['idgarantia'])
+                $selected='selected="true"';
+        $select.='<option '.$selected.' value="'.$row['idgarantia'].'">'.utf8_encode($row['garantia']).'</option>';
+        $selected='';
+    }
+    $select.='</select>';
+    return $select;
+}
 ?>

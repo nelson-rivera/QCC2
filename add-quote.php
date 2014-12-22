@@ -184,22 +184,24 @@
                                                     1
                                                 </td>
                                                 <td>
-                                                    <input name="input-amount[]" class="input-amount form-control" type="text" required=""/>
+                                                    <input name="input-cantidad[]" class="input-cantidad form-control" type="text" required=""/>
                                                 </td>
                                                 <td>
                                                     <?= selectRubro('','input-rubro[]','form-control input-rubro','required','','') ?>
                                                 </td>
                                                 <td>
-                                                    <textarea name="input-description[]" class="input-description form-control"required></textarea>
+                                                    <textarea name="input-descripcion[]" class="input-descripcion form-control"required></textarea>
+                                                    <input class="file" id="file1" name="input-image[]" type='file'/>
+                                                    <div id="prev_file1"></div><br/>
                                                 </td>
                                                 <td>
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">$</span><input name="input-unit-price[]" class="input-unit-price form-control" type="text" required/>
+                                                        <span class="input-group-addon">$</span><input name="input-precio-unitario[]" class="input-precio-unitario form-control" type="text" required/>
                                                     </div>
                                                 </td>
                                                 <td>
                                                     <div class="input-group">
-                                                        <span class="input-group-addon">$</span><input name="input-total-price[]" class="input-total-price form-control" type="text" required readonly="readonly"/>
+                                                        <span class="input-group-addon">$</span><input name="input-total[]" class="input-total form-control" type="text" required readonly="readonly"/>
                                                     </div>
                                                 </td>
                                             </tr>
@@ -230,51 +232,32 @@
                                 <div class="header">
                                     <h3>Condiciones</h3>
                                 </div>
-                                <form id="frm-conditions" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-condiciones" class="form-horizontal" style="border-radius: 0px;" action="#" data-parsley-validate>
                                     <div class="form-group" id="div_condicion1" style="display: none;" >
-                                        <label class="col-sm-2 control-label">Precios</label>
-                                        <div class="col-sm-3">
-                                            <select class="form-control" required>
-                                                <option>No incluyen IVA</option>
-                                                <option>Incluyen IVA</option>
-                                            </select>
-                                        </div>
+                                        Precios no incluyen Iva
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Valides de la oferta</label>
                                         <div class="col-sm-3">
-                                            <select class="form-control" required>
-                                                <option>30 días</option>
-                                                <option>15 días</option>
-                                                <option>7 días</option>
-                                                <option>60 días</option>
-                                            </select>
+                                            <?= selectValidez('input-validez','input-validez','form-control','required','','') ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Forma de pago</label>
                                         <div class="col-sm-3">
-                                            <select class="form-control" required>
-                                                <option>Contado</option>
-                                                <option>Crédito</option>
-                                            </select>
+                                            <?= selectFormasPago('input-forma-pago','input-forma-pago','form-control','required','','') ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Garantía</label>
                                         <div class="col-sm-3">
-                                            <select class="form-control" required>
-                                                <option>3 Meses</option>
-                                                <option>6 Meses</option>
-                                                <option>12 Meses</option>
-                                                <option>24 Meses</option>
-                                            </select>
+                                            <?= selectGarantias('input-garantia','input-garantia','form-control','required','','') ?>
                                         </div>
                                     </div>
                                     <div class="form-group" id="container-btn-add">
                                         <div class="row">
                                             <div class="col-sm-5">
-                                                <button id="btn-add-condition" type="button" class="btn btn-info btn-block">Agregar Condición</button>
+                                                <button id="btn-add-condicion" type="button" class="btn btn-info btn-block">Agregar Condición</button>
                                             </div>
                                         </div>
                                     </div>
@@ -299,6 +282,7 @@
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
   <?= js_jquery_parsley() ?>
+  <?= js_preimage() ?>
   <?= js_i18n_es() ?>
   <?= js_general() ?>
      
@@ -309,6 +293,7 @@
             //initialize the javascript
             App.init();
             window.ParsleyValidator.setLocale('es');
+            $('.file').preimage();
             $("#input-iva").change(function(){
                 var ivaflag=parseInt($(this).val(),10);
                 if(ivaflag===1){
@@ -325,18 +310,18 @@
                 $(this).closest('tr.item').remove();
                 totalize();
             });
-            $("#table-items").on('change','.input-amount', function(){
-                var amount=$(this).val();
-                var unitPrice=$(this).closest('tr.item').find('.input-unit-price').val();
-                var totalPrice=amount*unitPrice;
-                $(this).closest('tr.item').find('.input-total-price').val(totalPrice.formatMoney(2));
+            $("#table-items").on('change','.input-cantidad', function(){
+                var cantidad=$(this).val();
+                var unitPrice=$(this).closest('tr.item').find('.input-precio-unitario').val();
+                var totalPrice=cantidad*unitPrice;
+                $(this).closest('tr.item').find('.input-total').val(totalPrice.formatMoney(2));
                 totalize();
             });
-            $("#table-items").on('change','.input-unit-price',function(){
+            $("#table-items").on('change','.input-precio-unitario',function(){
                 var unitPrice=$(this).val();
-                var amount=$(this).closest('tr.item').find('.input-amount').val();
-                var totalPrice=amount*unitPrice;
-                $(this).closest('tr.item').find('.input-total-price').val(totalPrice.formatMoney(2));
+                var cantidad=$(this).closest('tr.item').find('.input-cantidad').val();
+                var totalPrice=cantidad*unitPrice;
+                $(this).closest('tr.item').find('.input-total').val(totalPrice.formatMoney(2));
                 totalize();
             });
             $("#btn-add-item").click(function(){
@@ -352,45 +337,61 @@
                                                         +nItems
                                                     +'</td>'
                                                     +'<td>'
-                                                        +'<input name="input-amount[]" class="input-amount form-control" type="text" required=""/>'
+                                                        +'<input name="input-cantidad[]" class="input-cantidad form-control" type="text" required=""/>'
                                                     +'</td>'
                                                     +'<td>'
                                                         +selectRubro
                                                     +'</td>'
                                                     +'<td>'
-                                                        +'<textarea name="input-description" class="input-description form-control"required></textarea>'
+                                                        +'<textarea name="input-descripcion" class="input-descripcion form-control"required></textarea>'
                                                     +'</td>'
                                                     +'<td>'
                                                         +'<div class="input-group">'
-                                                            +'<span class="input-group-addon">$</span><input name="input-unit-price[]" class="input-unit-price form-control" type="text" required/>'
+                                                            +'<span class="input-group-addon">$</span><input name="input-precio-unitario[]" class="input-precio-unitario form-control" type="text" required/>'
                                                         +'</div>'
                                                     +'</td>'
                                                     +'<td>'
                                                         +'<div class="input-group">'
-                                                            +'<span class="input-group-addon">$</span><input name="input-total-price[]" class="input-total-price form-control" type="text" required readonly="readonly"/>'
+                                                            +'<span class="input-group-addon">$</span><input name="input-total[]" class="input-total form-control" type="text" required readonly="readonly"/>'
                                                         +'</div>'
                                                     +'</td>'
                                                 +'</tr>');
             });
-            $("#btn-add-condition").click(function(){
+            $("#btn-add-condicion").click(function(){
                 $("#container-btn-add").before('<div class="form-group">'
                     +'<div class="col-sm-2">'
-                        +'<input name="input-condition-custom[]" type="text" class="input-condition form-control" placeholder="condición" />'
+                        +'<input name="input-condicion-custom[]" type="text" class="input-condicion form-control" placeholder="condición" required/>'
                     +'</div>'
                     +'<div class="col-sm-3">'
-                        +'<input name="input-condition-custom-valor[]" type="text" class="form-control" placeholder="valor de condición" />'
+                        +'<input name="input-condicion-custom-valor[]" type="text" class="form-control" placeholder="valor de condición" required/>'
                     +'</div>'
-                    +'<div class="col-sm-1 container-btn-delete-condition">'
-                        +'<button class="btn btn-danger btn-xs btn-delete-condition" type="button"><i class="fa fa-times"></i></button> '
+                    +'<div class="col-sm-1 container-btn-delete-condicion">'
+                        +'<button class="btn btn-danger btn-xs btn-delete-condicion" type="button"><i class="fa fa-times"></i></button> '
                     +'</div>');
             });
-            $("#frm-conditions").on('click','.btn-delete-condition',function(){
+            $("#frm-condiciones").on('click','.btn-delete-condicion',function(){
                $(this).parents('.form-group').remove(); 
             });
             
             $("#btn-crear-cotizacion").click(function(){
-                if($( '#frm-quote-info' ).parsley().isValid() && $( '#frm-quote-items' ).parsley().isValid()){
-                    
+                if($( '#frm-quote-info' ).parsley().validate() && $( '#frm-quote-items' ).parsley().validate() && $("#frm-condiciones").parsley().validate()){
+                    var cotizacionData = $('form').serialize()+'&opt=1';
+                    $.ajax({
+                        url:'ajax/cotizacion.php',
+                        type: 'post',
+                        dataType: 'json',
+                        data: cotizacionData
+                    }).done(function(response) {
+                        if(response.status==0){
+                            alert(response.msg);
+                        }
+                        else{
+                            alert('error');
+                        }
+                    })
+                    .fail(function() {
+
+                    });
                 }
             });
         });
@@ -399,7 +400,7 @@
             var iva=0;
             var total=0;
             var ivaFlag=parseInt($("#input-iva").val(),10);
-            $(".input-total-price").each(function(){
+            $(".input-total").each(function(){
                subTotal+=parseFloat($(this).val().replace(/,/g,''),10); 
             });
             $("#td-sub-total").html('$'+subTotal.formatMoney(2));

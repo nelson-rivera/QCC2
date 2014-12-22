@@ -3,8 +3,20 @@
 
 <head>
         <?php
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        $connection=  openConnection();
+        if(empty($_GET['id']) && !is_numeric($_GET['id'])){
+            header('location: list-quotes.php');
+            exit();
+        }
+        $idCotizacion=$_GET['id'];
+        $getCotizacion=$connection->prepare(sql_select_cotizaciones());
+        $getCotizacion->execute(array($idCotizacion));
+        $cotizacionArray=$getCotizacion->fetch();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -72,7 +84,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Editar Cotización ACAVISA_00001</h2>
+                <h2>Editar Cotización <?= $cotizacionArray['codigo_cotizacion'] ?></h2>
             </div>
             <div class="cl-mcont">
                 
@@ -88,25 +100,20 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label"># Cotización</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" required value="ACAVISA_00001" readonly="readonly">
+                                            <input class="form-control" type="text" required value="<?= $cotizacionArray['codigo_cotizacion'] ?>" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" required value="José Perez" readonly="readonly">
+                                            <input class="form-control" type="text" required value="<?= $cotizacionArray['nombre_vendedor'] ?>" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        
                                         <label class="col-sm-3 control-label">Cliente</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" required>
-                                                <option selected="selected">ACAVISA</option>
-                                                <option>Claro</option>
-                                                <option>UCA</option>
-                                                <option>Tigo</option>
-                                                <option>Digicel</option>
-                                            </select>
+                                            <input name="input-cliente" class="form-control" type="text" required value="<?= $cotizacionArray['nombre_cliente'] ?>" readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -203,64 +210,44 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr class="item">
-                                                <td class="text-center">
-                                                    <button class="btn btn-danger btn-xs btn-delete-item" type="button"><i class="fa fa-times"></i></button>
-                                                </td>
-                                                <td class="text-center">
-                                                    1
-                                                </td>
-                                                <td>
-                                                    <input class="input-amount form-control" value="5" type="text" required=""/>
-                                                </td>
-                                                <td>
-                                                    <select class="input-rubro form-control" required="">
-                                                        <option selected="selected">UPS</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <textarea class="input-description form-control"required>Tinta HP C4844A</textarea>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">$</span><input class="input-unit-price form-control" value="25" type="text" required/>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">$</span><input class="input-total-price form-control" type="text" required readonly="readonly"/>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            <tr class="item">
-                                                <td class="text-center">
-                                                    <button class="btn btn-danger btn-xs btn-delete-item" type="button"><i class="fa fa-times"></i></button>
-                                                </td>
-                                                <td class="text-center">
-                                                    1
-                                                </td>
-                                                <td>
-                                                    <input class="input-amount form-control" value="1" type="text" required=""/>
-                                                </td>
-                                                <td>
-                                                    <select class="input-rubro form-control" required="">
-                                                        <option selected="selected">UPS</option>
-                                                    </select>
-                                                </td>
-                                                <td>
-                                                    <textarea class="input-description form-control"required>Impresora HP</textarea>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">$</span><input class="input-unit-price form-control" value="150" type="text" required/>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="input-group">
-                                                        <span class="input-group-addon">$</span><input class="input-total-price form-control" type="text" required readonly="readonly"/>
-                                                    </div>
-                                                </td>
-                                            </tr>
+                                            <?php
+                                            $getItemsCotizacion=$connection->prepare(sql_select_cotizacion_items());
+                                            $getItemsCotizacion->execute(array($idCotizacion));
+                                            $contadorItem=1;
+                                            foreach ($getItemsCotizacion->fetchAll() as $itemCotizacion) {
+                                            ?>
+                                                <tr class="item">
+                                                    <td class="text-center">
+                                                        <button class="btn btn-danger btn-xs btn-delete-item" type="button"><i class="fa fa-times"></i></button>
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <?= $contadorItem ?>
+                                                    </td>
+                                                    <td>
+                                                        <input class="input-amount form-control" value="<?= $itemCotizacion['cantidad'] ?>" type="text" required=""/>
+                                                    </td>
+                                                    <td>
+                                                        <?= selectRubro('input-rubro', 'input-rubro', 'form-control input-rubro', 'required', '', $itemCotizacion['idrubro']) ?>
+                                                    </td>
+                                                    <td>
+                                                        <textarea class="input-description form-control"required><?= $itemCotizacion['descripcion'] ?></textarea>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">$</span><input class="input-unit-price form-control" value="<?= $itemCotizacion['precio_unitario'] ?>" type="text" required/>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon">$</span><input class="input-total-price form-control" type="text" required readonly="readonly"/>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            <?php
+                                            $contadorItem++;
+                                            }
+                                            
+                                            ?>
                                             <tr id="row-add-item">
                                                 <td colspan="7">
                                                     <button type="button" id="btn-add-item" class="btn btn-primary btn-block">Agregar item</button>
@@ -292,32 +279,19 @@
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Valides de la oferta</label>
                                         <div class="col-sm-3">
-                                            <select class="form-control" required>
-                                                <option>30 días</option>
-                                                <option>15 días</option>
-                                                <option>7 días</option>
-                                                <option>60 días</option>
-                                            </select>
+                                            <?= selectValidez('input-validez','input-validez','form-control','required','',$cotizacionArray['idvalidez_cotizacion']) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Forma de pago</label>
                                         <div class="col-sm-3">
-                                            <select class="form-control" required>
-                                                <option>Contado</option>
-                                                <option>Crédito</option>
-                                            </select>
+                                            <?= selectFormasPago('input-forma-pago','input-forma-pago','form-control','required','',$cotizacionArray['idforma_pago']) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Garantía</label>
                                         <div class="col-sm-3">
-                                            <select class="form-control" required>
-                                                <option>3 Meses</option>
-                                                <option>6 Meses</option>
-                                                <option>12 Meses</option>
-                                                <option>24 Meses</option>
-                                            </select>
+                                            <?= selectGarantias('input-garantia','input-garantia','form-control','required','',$cotizacionArray['idgarantia']) ?>
                                         </div>
                                     </div>
                                     <div class="form-group" id="container-btn-add">

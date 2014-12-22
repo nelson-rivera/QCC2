@@ -5759,3 +5759,12 @@ ul.timeline li > .date {
 #frm-conditions .container-btn-delete-condition{
    padding: 5px 0; 
 }
+.prev_container{
+    overflow: auto;
+    max-width: 100%;
+}
+.prev_thumb{
+    margin: 10px;
+    text-align: center;
+    min-height: 100px;
+}

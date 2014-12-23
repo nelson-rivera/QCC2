@@ -196,3 +196,87 @@ ALTER TABLE `bd_qcc`.`cotizaciones` ADD COLUMN `fecha_creacion` DATETIME NOT NUL
 ALTER TABLE `bd_qcc`.`cotizacion_item` CHANGE COLUMN `precio_unitario` `precio_unitario` FLOAT(2) NULL DEFAULT NULL  ;
 
 ALTER TABLE `bd_qcc`.`cotizacion_items` CHANGE COLUMN `precio_unitario` `precio_unitario` FLOAT(2) NULL DEFAULT NULL  , RENAME TO  `bd_qcc`.`cotizacion_items` ;
+
+
+ALTER TABLE `bd_qcc`.`cotizacion_items` DROP FOREIGN KEY `fk_cotizacion_item_1` ;
+
+ALTER TABLE `bd_qcc`.`condiciones_cotizacion` DROP FOREIGN KEY `fk_condiciones_cotizacion_1` ;
+
+ALTER TABLE `bd_qcc`.`cotizaciones` DROP FOREIGN KEY `fk_cotizaciones_1` , DROP FOREIGN KEY `fk_cotizaciones_2` ;
+
+ALTER TABLE `bd_qcc`.`cotizaciones` 
+  ADD CONSTRAINT `fk_cotizaciones_1`
+  FOREIGN KEY (`idvendedor` )
+  REFERENCES `bd_qcc`.`usuarios` (`idusuario` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION, 
+  ADD CONSTRAINT `fk_cotizaciones_2`
+  FOREIGN KEY (`idcliente` )
+  REFERENCES `bd_qcc`.`clientes` (`idcliente` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `bd_qcc`.`cotizacion_items` DROP COLUMN `descripcion` , ADD COLUMN `descripción` TEXT NULL DEFAULT NULL  AFTER `idrubro` , CHANGE COLUMN `precio_unitario` `precio_unitario` FLOAT(2) NULL DEFAULT NULL  , 
+  ADD CONSTRAINT `fk_cotizacion_item_1`
+  FOREIGN KEY (`idcotizacion` )
+  REFERENCES `bd_qcc`.`cotizaciones` (`idcotizacion` )
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+ALTER TABLE `bd_qcc`.`condiciones_cotizacion` 
+  ADD CONSTRAINT `fk_condiciones_cotizacion_1`
+  FOREIGN KEY (`idcotizacion` )
+  REFERENCES `bd_qcc`.`cotizaciones` (`idcotizacion` )
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+
+
+
+ALTER TABLE `bd_qcc`.`cotizacion_items` DROP FOREIGN KEY `fk_cotizacion_item_2` ;
+
+ALTER TABLE `bd_qcc`.`cotizaciones` DROP FOREIGN KEY `fk_cotizaciones_1` , DROP FOREIGN KEY `fk_cotizaciones_2` ;
+
+ALTER TABLE `bd_qcc`.`cotizaciones` 
+  ADD CONSTRAINT `fk_cotizaciones_1`
+  FOREIGN KEY (`idvendedor` )
+  REFERENCES `bd_qcc`.`usuarios` (`idusuario` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION, 
+  ADD CONSTRAINT `fk_cotizaciones_2`
+  FOREIGN KEY (`idcliente` )
+  REFERENCES `bd_qcc`.`clientes` (`idcliente` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION;
+
+ALTER TABLE `bd_qcc`.`cotizacion_items` CHANGE COLUMN `descripción` `descripcion` TEXT NULL DEFAULT NULL  , CHANGE COLUMN `precio_unitario` `precio_unitario` FLOAT(2) NULL DEFAULT NULL  , 
+  ADD CONSTRAINT `fk_cotizacion_item_2`
+  FOREIGN KEY (`idrubro` )
+  REFERENCES `bd_qcc`.`rubros` (`idrubro` )
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;
+
+
+ALTER TABLE `bd_qcc`.`cotizaciones` DROP FOREIGN KEY `fk_cotizaciones_1` , DROP FOREIGN KEY `fk_cotizaciones_2` ;
+
+ALTER TABLE `bd_qcc`.`cotizaciones` 
+  ADD CONSTRAINT `fk_cotizaciones_1`
+  FOREIGN KEY (`idvendedor` )
+  REFERENCES `bd_qcc`.`usuarios` (`idusuario` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION, 
+  ADD CONSTRAINT `fk_cotizaciones_2`
+  FOREIGN KEY (`idcliente` )
+  REFERENCES `bd_qcc`.`clientes` (`idcliente` )
+  ON DELETE NO ACTION
+  ON UPDATE NO ACTION
+, DROP INDEX `codigo_cotizacion` ;
+
+ALTER TABLE `bd_qcc`.`cotizacion_items` CHANGE COLUMN `precio_unitario` `precio_unitario` FLOAT(2) NULL DEFAULT NULL  , DROP FOREIGN KEY `fk_cotizacion_item_1` ;
+
+ALTER TABLE `bd_qcc`.`cotizacion_items` 
+  ADD CONSTRAINT `fk_cotizacion_item_1`
+  FOREIGN KEY (`idcotizacion` )
+  REFERENCES `bd_qcc`.`cotizaciones` (`idcotizacion` )
+  ON DELETE CASCADE
+  ON UPDATE CASCADE;

@@ -80,6 +80,22 @@ function lytSideMenu($menuSelected){
                 </li>
             </ul>';
 }
+function selectFaseCotizacion($id,$name,$class,$required,$onchange,$idSelected){
+    $connection= openConnection();
+    $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'">';
+                                                                    
+    $query=$connection->prepare(sql_select_estados_cotizacion());
+    $query->execute();
+    $selected='';
+    foreach ($query->fetchAll() as $estado){
+        if($idSelected==$estado['idestado_cotizacion'])
+            $selected='selected="true"';
+        $select.='<option '.$selected.' value="'.$estado['idestado_cotizacion'].'">'.utf8_encode($estado['estado']).'</option>';
+        $selected='';
+    }
+    $select.='</select>';
+    return $select;
+}
 function selectDepartamento($id,$name,$class,$required,$onchange,$idSelected){
     $connection= openConnection();
     $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'"><option value="">Selecciones un departamento</option>';
@@ -107,6 +123,22 @@ function selectMunicipio($idDepartamento,$id,$name,$class,$required,$onchange,$i
         if($idSelected==$municipio['idmunicipio'])
             $selected='selected="true"';
         $select.='<option '.$selected.' value="'.$municipio['idmunicipio'].'">'.utf8_encode($municipio['municipio']).'</option>';
+        $selected='';
+    }
+    $select.='</select>';
+    return $select;
+}
+function selectContactos($idCliente,$id,$name,$class,$required,$onchange,$idSelected){
+    $connection= openConnection();
+    $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'">';
+                                                                    
+    $query=$connection->prepare(sql_select_contactos_by_idcliente());
+    $query->execute(array($idCliente));
+    $selected='';
+    foreach ($query->fetchAll() as $contacto){
+        if($idSelected==$contacto['idcontacto'])
+            $selected='selected="true"';
+        $select.='<option '.$selected.' value="'.$contacto['idcontacto'].'">'.utf8_encode($contacto['nombre_contacto']).'</option>';
         $selected='';
     }
     $select.='</select>';
@@ -205,6 +237,22 @@ function selectGarantias($id,$name,$class,$required,$onchange,$idSelected){
         $select.='<option '.$selected.' value="'.$row['idgarantia'].'">'.utf8_encode($row['garantia']).'</option>';
         $selected='';
     }
+    $select.='</select>';
+    return $select;
+}
+function selectIva($id,$name,$class,$required,$onchange,$idSelected){
+    $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'">';
+    $ivaSelected='';
+    $noIvaSelected='';
+    if($idSelected==1){
+        $ivaSelected='selected="true"';
+    }
+    else{
+        $noIvaSelected='selected="true"';
+    }
+    $select.='<option '.$ivaSelected.' value="1">Con IVA desglosado</option>';
+    $select.='<option '.$noIvaSelected.' value="0">Sin IVA desglosado</option>';
+
     $select.='</select>';
     return $select;
 }

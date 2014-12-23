@@ -120,7 +120,7 @@ switch ($opt) {
                 $idvalidez=$_POST['input-validez'];
                 $idFormaPago=$_POST['input-forma-pago'];
                 $idgarantia=$_POST['input-garantia'];
-                $idEstadoCotizacion=1;
+                $idEstadoCotizacion=$_POST['input-estado-cotizacion'];
                 $ivaFlag=(empty($_POST['input-iva']))?0:1;
                 $now=date('Y-m-d H:i:s');
                 

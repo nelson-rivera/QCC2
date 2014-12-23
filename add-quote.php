@@ -140,10 +140,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <select id="input-iva" class="form-control">
-                                                    <option value="1" selected="selected">Con IVA desglosado</option>
-                                                    <option value="0">Sin IVA desglosado</option>
-                                                </select>
+                                                <?= selectIva('input-iva','input-iva','form-control','required','','') ?>
                                             </div>
                                         </div>
                                         
@@ -154,9 +151,6 @@
                                             <tr>
                                                 <th class="text-center" style="width: 10%">
                                                     Eliminar
-                                                </th>
-                                                <th class="text-center" style="width: 10%">
-                                                    Item
                                                 </th>
                                                 <th class="text-center" style="width: 10%">
                                                     Cantidad
@@ -179,9 +173,6 @@
                                             <tr class="item">
                                                 <td class="text-center">
                                                     <button class="btn btn-danger btn-xs btn-delete-item" type="button"><i class="fa fa-times"></i></button>
-                                                </td>
-                                                <td class="text-center">
-                                                    1
                                                 </td>
                                                 <td>
                                                     <input name="input-cantidad[]" class="input-cantidad form-control" type="text" required=""/>
@@ -206,22 +197,22 @@
                                                 </td>
                                             </tr>
                                             <tr id="row-add-item">
-                                                <td colspan="7">
+                                                <td colspan="6">
                                                     <button type="button" id="btn-add-item" class="btn btn-primary btn-block">Agregar item</button>
                                                 </td>
                                             </tr>
                                             <tr class="text-center">
-                                                <td colspan="5"></td>
+                                                <td colspan="4"></td>
                                                 <td class="primary-emphasis-dark">Sumas</td>
                                                 <td id="td-sub-total">$0.00</td>
                                             </tr>
                                             <tr id="tr-iva" class="text-center">
-                                                <td colspan="5"></td>
+                                                <td colspan="4"></td>
                                                 <td class="primary-emphasis-dark">13% IVA</td>
                                                 <td id="td-iva">$0.00</td>
                                             </tr>
                                             <tr class="text-center">
-                                                <td colspan="5"></td>
+                                                <td colspan="4"></td>
                                                 <td class="primary-emphasis-dark">TOTAL</td>
                                                 <td id="td-total">$0.00</td>
                                             </tr>
@@ -333,9 +324,6 @@
                                                     +'<td class="text-center">'
                                                         +'<button class="btn btn-danger btn-xs btn-delete-item" type="button"><i class="fa fa-times"></i></button>'
                                                     +'</td>'
-                                                    +'<td class="text-center">'
-                                                        +nItems
-                                                    +'</td>'
                                                     +'<td>'
                                                         +'<input name="input-cantidad[]" class="input-cantidad form-control" type="text" required=""/>'
                                                     +'</td>'
@@ -384,6 +372,7 @@
                     }).done(function(response) {
                         if(response.status==0){
                             alert(response.msg);
+                            window.location.href='list-quotes.php';
                         }
                         else{
                             alert('error');

@@ -14,7 +14,7 @@
             exit();
         }
         $idCotizacion=$_GET['id'];
-        $getCotizacion=$connection->prepare(sql_select_cotizaciones());
+        $getCotizacion=$connection->prepare(sql_select_cotizacion_by_idcotizacion());
         $getCotizacion->execute(array($idCotizacion));
         $cotizacionArray=$getCotizacion->fetch();
         ?>
@@ -100,69 +100,57 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label"># Cotización</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" required value="<?= $cotizacionArray['codigo_cotizacion'] ?>" readonly="readonly">
+                                            <input name="input-codigo" class="form-control" type="text" required value="<?= $cotizacionArray['codigo_cotizacion'] ?>" readonly="readonly">
+                                            <input type="hidden" value="<?= $idCotizacion ?>" name="input-cotizacion" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
                                             <input class="form-control" type="text" required value="<?= $cotizacionArray['nombre_vendedor'] ?>" readonly="readonly">
+                                            <input name="input-vendedor" type="hidden" value="<?= $cotizacionArray['idvendedor'] ?>" />
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        
                                         <label class="col-sm-3 control-label">Cliente</label>
                                         <div class="col-sm-6">
-                                            <input name="input-cliente" class="form-control" type="text" required value="<?= $cotizacionArray['nombre_cliente'] ?>" readonly="readonly">
+                                            <?= selectClientes('input-cliente','input-cliente','form-control','required','updateClienteInfo()',$cotizacionArray['idcliente']) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Departamento</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" required>
-                                                <option selected="selected">San Salvador</option>
-                                                <option>Morazán</option>
-                                                <option>Ahuachapan</option>
-                                                <option>Santa Ana</option>
-                                                <option>Sonsonate</option>
-                                                <option>Chalatenango</option>
-                                                <option>Cuscatlan</option>
-                                                <option>La Libertad</option>
-                                                <option>La Paz</option>
-                                                <option>San Vicente</option>
-                                                <option>Usulutan</option>
-                                                <option>San Miguel</option>
-                                                <option>Cabañas</option>
-                                                <option>La Union</option>
-                                            </select>
+                                            <?= selectDepartamento('input-departamento','input-departamento','form-control','required','loadMunicipios()',$cotizacionArray['iddepartamento']) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Municipio</label>
                                         <div class="col-sm-6">
-                                            <input id="input-city" class="form-control" type="text" placeholder="San Salvador" value="San Salvador" required>
+                                           <?= selectMunicipio($cotizacionArray['iddepartamento'],'input-municipio','input-municipio','form-control','required','',$cotizacionArray['idmunicipio']) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre contacto</label>
                                         <div class="col-sm-6">
-                                            <select id="input-contact" class="form-control" required>
-                                                <option value="1" selected="selected">Nelson Rivera</option>
-                                                <option value="2">Ernesto Monterrosa</option>
-                                                <option value="3">Ivana Chavarria</option>
-                                            </select>
+                                            <?= selectContactos($cotizacionArray['idcliente'],'input-contacto','input-contacto','form-control','required','updateContactoInfo()',$cotizacionArray['idcontacto']) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono Contacto</label>
                                         <div class="col-sm-6">
-                                            <input id="input-phone" class="form-control" type="text" value="2249-2034" required readonly="readonly">
+                                            <input id="input-phone" class="form-control" type="text" required readonly="readonly">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo Contacto</label>
                                         <div class="col-sm-6">
-                                            <input id="input-email" class="form-control" type="email" value="nrivera@acavisa.com" required readonly="readonly">
+                                            <input id="input-email" class="form-control" type="email" required readonly="readonly">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Fase</label>
+                                        <div class="col-sm-6">
+                                            <?= selectFaseCotizacion('input-estado-cotizacion','input-estado-cotizacion','form-control','required','',$cotizacionArray['idestado_cotizacion']) ?>
                                         </div>
                                     </div>
                                 </form>
@@ -174,10 +162,7 @@
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-4">
-                                                <select id="input-iva" class="form-control">
-                                                    <option value="1" selected="selected">Con IVA desglosado</option>
-                                                    <option value="0">Sin IVA desglosado</option>
-                                                </select>
+                                                <?= selectIva('input-iva','input-iva','form-control','required','',$cotizacionArray['iva']) ?>
                                             </div>
                                         </div>
                                         
@@ -188,9 +173,6 @@
                                             <tr>
                                                 <th class="text-center" style="width: 10%">
                                                     Eliminar
-                                                </th>
-                                                <th class="text-center" style="width: 10%">
-                                                    Item
                                                 </th>
                                                 <th class="text-center" style="width: 10%">
                                                     Cantidad
@@ -220,26 +202,24 @@
                                                     <td class="text-center">
                                                         <button class="btn btn-danger btn-xs btn-delete-item" type="button"><i class="fa fa-times"></i></button>
                                                     </td>
-                                                    <td class="text-center">
-                                                        <?= $contadorItem ?>
+                                                    
+                                                    <td>
+                                                        <input name="input-cantidad[]" class="input-cantidad form-control" value="<?= $itemCotizacion['cantidad'] ?>" type="text" required=""/>
                                                     </td>
                                                     <td>
-                                                        <input class="input-amount form-control" value="<?= $itemCotizacion['cantidad'] ?>" type="text" required=""/>
+                                                        <?= selectRubro('', 'input-rubro[]', 'form-control input-rubro', 'required', '', $itemCotizacion['idrubro']) ?>
                                                     </td>
                                                     <td>
-                                                        <?= selectRubro('input-rubro', 'input-rubro', 'form-control input-rubro', 'required', '', $itemCotizacion['idrubro']) ?>
-                                                    </td>
-                                                    <td>
-                                                        <textarea class="input-description form-control"required><?= $itemCotizacion['descripcion'] ?></textarea>
+                                                        <textarea name="input-descripcion[]" class="input-description form-control"required><?= $itemCotizacion['descripcion'] ?></textarea>
                                                     </td>
                                                     <td>
                                                         <div class="input-group">
-                                                            <span class="input-group-addon">$</span><input class="input-unit-price form-control" value="<?= $itemCotizacion['precio_unitario'] ?>" type="text" required/>
+                                                            <span class="input-group-addon">$</span><input name="input-precio-unitario[]" class="input-precio-unitario form-control" value="<?= $itemCotizacion['precio_unitario'] ?>" type="text" required/>
                                                         </div>
                                                     </td>
                                                     <td>
                                                         <div class="input-group">
-                                                            <span class="input-group-addon">$</span><input class="input-total-price form-control" type="text" required readonly="readonly"/>
+                                                            <span class="input-group-addon">$</span><input name="input-total[]" class="input-total form-control" type="text" required readonly="readonly"/>
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -249,22 +229,22 @@
                                             
                                             ?>
                                             <tr id="row-add-item">
-                                                <td colspan="7">
+                                                <td colspan="6">
                                                     <button type="button" id="btn-add-item" class="btn btn-primary btn-block">Agregar item</button>
                                                 </td>
                                             </tr>
                                             <tr class="text-center">
-                                                <td colspan="5"></td>
+                                                <td colspan="4"></td>
                                                 <td class="primary-emphasis-dark">Sumas</td>
                                                 <td id="td-sub-total">$0.00</td>
                                             </tr>
                                             <tr id="tr-iva" class="text-center">
-                                                <td colspan="5"></td>
+                                                <td colspan="4"></td>
                                                 <td class="primary-emphasis-dark">13% IVA</td>
                                                 <td id="td-iva">$0.00</td>
                                             </tr>
                                             <tr class="text-center">
-                                                <td colspan="5"></td>
+                                                <td colspan="4"></td>
                                                 <td class="primary-emphasis-dark">TOTAL</td>
                                                 <td id="td-total">$0.00</td>
                                             </tr>
@@ -275,7 +255,7 @@
                                 <div class="header">
                                     <h3>Condiciones</h3>
                                 </div>
-                                <form id="frm-conditions" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-condiciones" class="form-horizontal" style="border-radius: 0px;" action="#">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Valides de la oferta</label>
                                         <div class="col-sm-3">
@@ -294,14 +274,39 @@
                                             <?= selectGarantias('input-garantia','input-garantia','form-control','required','',$cotizacionArray['idgarantia']) ?>
                                         </div>
                                     </div>
+                                    <?php
+                                    $queryCondicionesCustom=$connection->prepare(sql_select_condiciones_by_idcotizacion());
+                                    $queryCondicionesCustom->execute(array($idCotizacion));
+                                    
+                                    foreach ($queryCondicionesCustom->fetchAll() as $condicion) {
+                                    ?>
+                                        <div class="form-group">
+                                            <div class="col-sm-2">
+                                                <input name="input-condicion-custom[]" class="input-condicion form-control" value="<?= $condicion['condicion'] ?>" type="text" required="" placeholder="condición" name="input-condicion-custom[]">
+                                            </div>
+                                            <div class="col-sm-3">
+                                                <input name="input-condicion-custom-valor[]" class="form-control" type="text" value="<?= $condicion['valor_condicion'] ?>" required="" placeholder="valor de condición" name="input-condicion-custom-valor[]">
+                                            </div>
+                                            <div class="col-sm-1 container-btn-delete-condicion">
+                                                <button class="btn btn-danger btn-xs btn-delete-condicion" type="button">
+                                                    <i class="fa fa-times"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
                                     <div class="form-group" id="container-btn-add">
                                         <div class="row">
                                             <div class="col-sm-5">
-                                                <button id="btn-add-condition" type="button" class="btn btn-info btn-block">Agregar Condición</button>
+                                                <button id="btn-add-condicion" type="button" class="btn btn-info btn-block">Agregar Condición</button>
                                             </div>
                                         </div>
                                     </div>
+                                    
                                 </form>
+                                <hr />
+                                <button type="button" id="btn-editar-cotizacion" class="btn btn-lg btn-block btn-primary">Editar cotización</button>
                             </div>
                         </div>
                     </div>
@@ -320,6 +325,7 @@
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
   <?= js_jquery_parsley() ?>
+  <?= js_preimage() ?>
   <?= js_i18n_es() ?>
   <?= js_general() ?>
      
@@ -330,105 +336,107 @@
             //initialize the javascript
             App.init();
             window.ParsleyValidator.setLocale('es');
-            $("#frm-quote-items").parsley().subscribe('parsley:form:validate', function (formInstance) {
-                formInstance.submitEvent.preventDefault();
-                if(formInstance.isValid('', true)){
-                    
-                }
-                return;
-            });
-            $("#input-contact").change(function(){
-               if($(this).val()==1){
-                   $("#input-phone").val('2249-2034');
-                   $("#input-email").val('jperez@email.com');
-               }
-               else if($(this).val()==2){
-                    $("#input-phone").val('2249-2023');
-                    $("#input-email").val('emonterrosa@email.com');
-               }
-               else if($(this).val()==3){
-                   $("#input-phone").val('2249-2010');
-                   $("#input-email").val('ichavarria@email.com');
-               }
-            });
+            $("#input-contacto").change();
+            $('.file').preimage();
             $("#input-iva").change(function(){
                 var ivaflag=parseInt($(this).val(),10);
                 if(ivaflag===1){
                     $("#tr-iva").show();
+                    $("#div_condicion1").hide();
                 }
                 else{
                     $("#tr-iva").hide();
+                    $("#div_condicion1").show();
                 }
                 totalize();
             });
             $("#table-items").on('click', '.btn-delete-item',function(){
                 $(this).closest('tr.item').remove();
-            });
-            $("#table-items").on('change','.input-amount', function(){
-                var amount=$(this).val();
-                var unitPrice=$(this).closest('tr.item').find('.input-unit-price').val();
-                var totalPrice=amount*unitPrice;
-                $(this).closest('tr.item').find('.input-total-price').val(totalPrice.formatMoney(2));
                 totalize();
             });
-            $("#table-items").on('change','.input-unit-price',function(){
+            $("#table-items").on('change','.input-cantidad', function(){
+                var cantidad=$(this).val();
+                var unitPrice=$(this).closest('tr.item').find('.input-precio-unitario').val();
+                var totalPrice=cantidad*unitPrice;
+                $(this).closest('tr.item').find('.input-total').val(totalPrice.formatMoney(2));
+                totalize();
+            });
+            $("#table-items").on('change','.input-precio-unitario',function(){
                 var unitPrice=$(this).val();
-                var amount=$(this).closest('tr.item').find('.input-amount').val();
-                var totalPrice=amount*unitPrice;
-                $(this).closest('tr.item').find('.input-total-price').val(totalPrice.formatMoney(2));
+                var cantidad=$(this).closest('tr.item').find('.input-cantidad').val();
+                var totalPrice=cantidad*unitPrice;
+                $(this).closest('tr.item').find('.input-total').val(totalPrice.formatMoney(2));
                 totalize();
             });
             $("#btn-add-item").click(function(){
                 var nItems=$("#table-items").attr('data-nitems');
                 nItems++;
                 $("#table-items").attr('data-nitems',nItems);
+                var selectRubro='<?= selectRubro('','input-rubro[]','form-control input-rubro','required','','') ?>';
                 $("#row-add-item").before('<tr class="item">'
                                                     +'<td class="text-center">'
                                                         +'<button class="btn btn-danger btn-xs btn-delete-item" type="button"><i class="fa fa-times"></i></button>'
                                                     +'</td>'
-                                                    +'<td class="text-center">'
-                                                        +nItems
+                                                    +'<td>'
+                                                        +'<input name="input-cantidad[]" class="input-cantidad form-control" type="text" required=""/>'
                                                     +'</td>'
                                                     +'<td>'
-                                                        +'<input class="input-amount form-control" type="text" required=""/>'
+                                                        +selectRubro
                                                     +'</td>'
                                                     +'<td>'
-                                                        +'<select class="input-rubro form-control" required="">'
-                                                            +'<option>UPS</option>'
-                                                        +'</select>'
-                                                    +'</td>'
-                                                    +'<td>'
-                                                        +'<textarea class="input-description form-control"required></textarea>'
+                                                        +'<textarea name="input-descripcion" class="input-descripcion form-control"required></textarea>'
                                                     +'</td>'
                                                     +'<td>'
                                                         +'<div class="input-group">'
-                                                            +'<span class="input-group-addon">$</span><input class="input-unit-price form-control" type="text" required/>'
+                                                            +'<span class="input-group-addon">$</span><input name="input-precio-unitario[]" class="input-precio-unitario form-control" type="text" required/>'
                                                         +'</div>'
                                                     +'</td>'
                                                     +'<td>'
                                                         +'<div class="input-group">'
-                                                            +'<span class="input-group-addon">$</span><input class="input-total-price form-control" type="text" required readonly="readonly"/>'
+                                                            +'<span class="input-group-addon">$</span><input name="input-total[]" class="input-total form-control" type="text" required readonly="readonly"/>'
                                                         +'</div>'
                                                     +'</td>'
                                                 +'</tr>');
             });
-            $("#container-btn-add").click(function(){
+            $("#btn-add-condicion").click(function(){
                 $("#container-btn-add").before('<div class="form-group">'
                     +'<div class="col-sm-2">'
-                        +'<input type="text" class="input-condition form-control" placerholder="condición" />'
+                        +'<input name="input-condicion-custom[]" type="text" class="input-condicion form-control" placeholder="condición" required/>'
                     +'</div>'
                     +'<div class="col-sm-3">'
-                        +'<input type="text" class="form-control" placerholder="valor de condición" />'
+                        +'<input name="input-condicion-custom-valor[]" type="text" class="form-control" placeholder="valor de condición" required/>'
                     +'</div>'
-                    +'<div class="col-sm-1 container-btn-delete-condition">'
-                        +'<button class="btn btn-danger btn-xs btn-delete-condition" type="button"><i class="fa fa-times"></i></button> '
+                    +'<div class="col-sm-1 container-btn-delete-condicion">'
+                        +'<button class="btn btn-danger btn-xs btn-delete-condicion" type="button"><i class="fa fa-times"></i></button> '
                     +'</div>');
             });
-            $("#frm-conditions").on('click','.btn-delete-condition',function(){
+            $("#frm-condiciones").on('click','.btn-delete-condicion',function(){
                $(this).parents('.form-group').remove(); 
             });
-            $(".input-amount").each(function(){
+            $(".input-cantidad").each(function(){
                $(this).trigger('change'); 
+            });
+            $("#btn-editar-cotizacion").click(function(){
+                if($( '#frm-quote-info' ).parsley().validate() && $( '#frm-quote-items' ).parsley().validate() && $("#frm-condiciones").parsley().validate()){
+                    var cotizacionData = $('form').serialize()+'&opt=2';
+                    $.ajax({
+                        url:'ajax/cotizacion.php',
+                        type: 'post',
+                        dataType: 'json',
+                        data: cotizacionData
+                    }).done(function(response) {
+                        if(response.status==0){
+                            alert(response.msg);
+                            window.location.href='list-quotes.php';
+                        }
+                        else{
+                            alert('error');
+                        }
+                    })
+                    .fail(function() {
+
+                    });
+                }
             });
             totalize();
         });
@@ -437,7 +445,7 @@
             var iva=0;
             var total=0;
             var ivaFlag=parseInt($("#input-iva").val(),10);
-            $(".input-total-price").each(function(){
+            $(".input-total").each(function(){
                subTotal+=parseFloat($(this).val().replace(/,/g,''),10); 
             });
             $("#td-sub-total").html('$'+subTotal.formatMoney(2));
@@ -461,6 +469,28 @@
             j = (j = i.length) > 3 ? j % 3 : 0;
             return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
         };
+        function updateContactoInfo(){
+            if($("#input-contacto").val()!=''){
+                var contacto=$("#input-contacto").val();
+                var opt=3;
+                $.ajax({
+                    url: "ajax/ajax-calls.php",
+                    data: ({'contacto':contacto,'opt':opt}),
+                    type: "POST",
+                    dataType: "json"
+
+                })
+                .done(function(response){
+                    if (response.status == "0") {
+                        $("#input-phone").val(response.telefono);
+                        $("#input-email").val(response.email);
+                    }
+                    else {
+
+                    }
+                });
+            }
+        }
     </script>
 
 <!-- Bootstrap core JavaScript

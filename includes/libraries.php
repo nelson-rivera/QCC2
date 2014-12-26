@@ -45,6 +45,8 @@ function js_i18n_es(){return '<script src="js/i18n/es.js" type="text/javascript"
 function js_bootstrap_file_input(){return '<script src="js/file-input/bootstrap.file-input.js" type="text/javascript"></script>';}
 function js_masonry(){return '<script type="text/javascript" src="js/masonry.js"></script>';}
 function js_niftymodals(){return '<script type="text/javascript" src="js/jquery.niftymodals/js/jquery.modalEffects.js"></script>';}
+function js_preimage(){return '<script type="text/javascript" src="js/preimage/preimage.js"></script>';}
+
 ?>
 
 

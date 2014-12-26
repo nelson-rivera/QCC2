@@ -112,6 +112,15 @@ function sql_select_cliente_extended_by_idcliente(){
 function sql_select_rubros(){
     return 'SELECT * FROM rubros';
 }
+function sql_select_validez(){
+    return 'SELECT * FROM validez_cotizaciones';
+}
+function sql_select_formas_pago(){
+    return 'SELECT * FROM formas_pago';
+}
+function sql_select_garantias(){
+    return 'SELECT * FROM garantias';
+}
 function sql_select_clientes(){
     return 'SELECT * FROM clientes';
 }
@@ -124,6 +133,9 @@ function sql_get_cliente_departamento_contacto(){
 }
 function sql_select_contactos(){
     return 'SELECT * FROM contactos';
+}
+function sql_select_contactos_by_idcliente(){
+    return 'SELECT * FROM contactos WHERE idcliente=?'; 
 }
 function sql_select_contacto_by_idcontacto(){
     return 'SELECT * FROM contactos WHERE idcontacto=?';
@@ -149,4 +161,49 @@ function sql_save_proveedor(){
 function sql_save_contacto_proveedor(){
     return 'INSERT INTO `contactos_proveedores`(`nombre_contacto`, `cargo`, `idproveedor`, `email_1`, `email_2`, `email_3`, `telefono_1`, `telefono_2`, `telefono_3`, `fecha_creacion`) '
             .' VALUES (:nombre_contacto, :cargo, :idproveedor, :email_1, :email_2, :email_3, :telefono_1, :telefono_2, :telefono_3, :fecha_creacion)';
+}
+function sql_select_last_idcotizacion(){
+    return 'SELECT idcotizacion FROM cotizaciones ORDER by idcotizacion DESC LIMIT 1';
+}
+function sql_save_cotizacion(){
+    return 'INSERT INTO cotizaciones(codigo_cotizacion,idvendedor,idcliente,idmunicipio,idcontacto,idestado_cotizacion,idvalidez_cotizacion,'
+    .'idforma_pago, idgarantia, iva,fecha_creacion) values(?,?,?,?,?,?,?,?,?,?,?)';
+}
+function sql_save_item_cotizacion(){
+    return 'INSERT INTO cotizacion_items(idcotizacion,cantidad,idrubro,descripcion,imagen,precio_unitario) VALUES(?,?,?,?,?,?)';
+}
+function sql_save_condicion_custom(){
+    return 'INSERT INTO condiciones_cotizacion(condicion, valor_condicion,idcotizacion) VALUES(?,?,?)';
+}
+function sql_select_cotizaciones(){
+    return 'SELECT cotizaciones.*, clientes.idcliente, clientes.nombre_cliente,CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, municipios.municipio,'
+    .' departamentos.iddepartamento, contactos.idcontacto, estados_cotizacion.estado'
+    .' FROM cotizaciones INNER JOIN clientes ON cotizaciones.idcliente=clientes.idcliente'
+    .' INNER JOIN usuarios ON cotizaciones.idvendedor=usuarios.idusuario'
+    .' INNER JOIN municipios ON cotizaciones.idmunicipio=municipios.idmunicipio'
+    .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
+    .' INNER JOIN contactos ON cotizaciones.idcontacto=contactos.idcontacto'
+    .' INNER JOIN estados_cotizacion ON cotizaciones.idestado_cotizacion=estados_cotizacion.idestado_cotizacion';
+}
+function sql_select_cotizacion_by_idcotizacion(){
+    return 'SELECT cotizaciones.*, clientes.idcliente, clientes.nombre_cliente,CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, municipios.municipio,'
+    .' departamentos.iddepartamento, contactos.idcontacto, estados_cotizacion.estado'
+    .' FROM cotizaciones INNER JOIN clientes ON cotizaciones.idcliente=clientes.idcliente'
+    .' INNER JOIN usuarios ON cotizaciones.idvendedor=usuarios.idusuario'
+    .' INNER JOIN municipios ON cotizaciones.idmunicipio=municipios.idmunicipio'
+    .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
+    .' INNER JOIN contactos ON cotizaciones.idcontacto=contactos.idcontacto'
+    .' INNER JOIN estados_cotizacion ON cotizaciones.idestado_cotizacion=estados_cotizacion.idestado_cotizacion WHERE idcotizacion=?';
+}
+function sql_select_cotizacion_items(){
+    return 'SELECT * FROM cotizacion_items WHERE idcotizacion=?';
+}
+function sql_select_condiciones_by_idcotizacion(){
+    return 'SELECT * FROM condiciones_cotizacion WHERE idcotizacion=?';
+}
+function sql_select_estados_cotizacion(){
+    return 'SELECT * FROM estados_cotizacion';
+}
+function sql_delete_cotizacion_by_idcotizacion(){
+    return 'DELETE FROM cotizaciones WHERE idcotizacion=?';
 }

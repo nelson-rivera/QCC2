@@ -10,6 +10,8 @@
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
         include_once './includes/functions.php';
+        include_once './includes/class/Helper.php';
+        Helper::helpSession();
         
         $connection=  openConnection();
         ?>

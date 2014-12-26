@@ -4,6 +4,8 @@
         <?php
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/class/Helper.php';
+        Helper::helpSession();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">

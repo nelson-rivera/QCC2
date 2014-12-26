@@ -9,6 +9,8 @@
         include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/class/Helper.php';
+        Helper::helpSession();
         
         $connection=  openConnection();
         ?>

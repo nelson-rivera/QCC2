@@ -8,6 +8,9 @@
         include_once './includes/sql.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/class/Helper.php';
+        Helper::helpSession();
+        
         $connection=  openConnection();
         if(empty($_GET['id']) && !is_numeric($_GET['id'])){
             header('location: list-clients.php');

@@ -10,6 +10,9 @@
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
         include_once './includes/functions.php';
+        include_once './includes/class/Helper.php';
+        Helper::helpSession();
+        
         $connection = openConnection();
         $query=$connection->prepare(sql_select_usuario_byId());
         $query->bindParam(':idusuario', decryptString($_GET['us']),PDO::PARAM_INT);

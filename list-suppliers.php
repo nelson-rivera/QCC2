@@ -2,8 +2,18 @@
 <html lang="en">
 <head>
         <?php
+        session_start();
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
+        include_once './includes/class/Helper.php';
+        Helper::helpSession();
+        
+        $connection=  openConnection();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,7 +21,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Listar Proveedores</title>
+	<title>QCC - Listado de Proveedores</title>
 	<?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -89,58 +99,31 @@
                                         </tr>
                                 </thead>
                                 <tbody>
-                                        <tr class="odd gradeA">
-                                            <td>TECNOAVANCE</td>
-                                            <td>LOCAL</td>
-                                            <td>TECNOLOGIA</td>
-                                            <td><a href="mailto:carolinasv.perez@tecnoavance.com">CAROLINA PEREZ</a></td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de proveedores" href="contacts-supplier.php">
-                                                    <i class="fa fa-users"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-supplier.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeA">
-                                            <td>RAF</td>
-                                            <td>LOCAL</td>
-                                            <td>FOTOS</td>
-                                            <td><a href="mailto:carolinasv.perez@tecnoavance.com">MARIA RAF</a></td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de proveedores" href="contacts-supplier.php">
-                                                    <i class="fa fa-users"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-supplier.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeA">
-                                            <td>INTCOMEX</td>
-                                            <td>INTERNACIONAL</td>
-                                            <td>TECNOLOGIA</td>
-                                            <td><a href="mailto:carolinasv.perez@tecnoavance.com">JOSÉ PEREZ</a></td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de proveedores" href="contacts-supplier.php">
-                                                    <i class="fa fa-users"></i>
-                                                </a>
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-supplier.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                  
+                                <?php 
+                                $query=$connection->prepare(sql_select_proveedores_all());
+                                $query->execute();
+                                $usuarios=$query->fetchAll();
+                                $num=1;
+                                foreach ($usuarios as $value) {
+                                ?>
+                                    <tr class="odd gradeA">
+                                        <td id="user_<?= $num ?>" ><?= $value['proveedor'] ?></td>
+                                        <td><?= $value['tipo'] ?></td>
+                                        <td><?= $value['rubro'] ?></td>
+                                        <td><?= $value['rubro'] ?></td>
+                                        <td class="center">
+                                            <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php?us=<?= encryptString($value['idusuario']) ?>">
+                                                <i class="fa fa-users"></i>
+                                            </a>
+                                            <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php?us=<?= encryptString($value['idusuario']) ?>">
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a class="btn btn-danger md-trigger btn-xs btn-eliminar-us" data-toggle="tooltip" data-original-title="Remove" data-modal="mod-delete" data-user="<?= encryptString($value['idusuario']) ?>"  data-num="<?= $num ?>" >
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php $num++; } ?>
                                 </tbody>
                             </table>
                         </div>

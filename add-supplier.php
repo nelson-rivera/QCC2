@@ -3,8 +3,17 @@
 
 <head>
         <?php
+        session_start();
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/class/Helper.php';
+        Helper::helpSession();
+        
+        $connection=  openConnection();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,39 +93,59 @@
                                 <h3>Datos del proveedor</h3>
                             </div>
                             <div class="content">
-                                <form class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-add-supplier" class="form-horizontal" style="border-radius: 0px;" action="#">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre Empresa</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" name="nombre" id="nombre" type="text" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Tipo</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control">
-                                                <option>Local</option>
-                                                <option>Internacional</option>
+                                            <select class="form-control" name="tipo" id="tipo" required >
+                                               <?php 
+                                                $query=$connection->prepare(sql_select_tipos_empresas_all());
+                                                $query->execute();
+                                                $tipoEmpresasArray=$query->fetchAll();
+                                                if($query->rowCount()>0){}
+                                                foreach ($tipoEmpresasArray as $value) {
+                                                ?>
+                                                <option value="<?= $value['idtipos_empresas'] ?>" ><?= $value['tipo'] ?></option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rubro</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control">
-                                                <option>Tecnología</option>
-                                                <option>Servicios profesionales</option>
-                                                <option>Desarrollo de software</option>
+                                            <select class="form-control" name="rubro" id="rubro" required >
+                                                <?php 
+                                                $query=$connection->prepare(sql_select_rubros_all());
+                                                $query->execute();
+                                                $rubrosArray=$query->fetchAll();
+                                                if($query->rowCount()>0){}
+                                                foreach ($rubrosArray as $value) {
+                                                ?>
+                                                <option value="<?= $value['idrubro'] ?>" ><?= $value['rubro'] ?></option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Sub-Rubro</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control">
-                                                <option>Servidores</option>
-                                                <option>Cableado</option>
-                                                <option>Cámaras de video</option>
+                                            <select class="form-control" name="sub_rubro" id="sub_rubro" required >
+                                                <?php 
+                                                $query=$connection->prepare(sql_select_sub_rubros_all());
+                                                $query->execute();
+                                                $subRubrosArray=$query->fetchAll();
+                                                if($query->rowCount()>0){}
+                                                foreach ($subRubrosArray as $value) {
+                                                ?>
+                                                <option value="<?= $value['idsub_rubro'] ?>" ><?= $value['sub_rubro'] ?></option>
+                                                <?php } ?>
+                                                
                                             </select>
                                         </div>
                                     </div>
@@ -124,43 +153,49 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contacto</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="contacto" id="contacto" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="cargo" id="cargo" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="telefono_1" id="telefono_1" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="telefono_2" id="telefono_2" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 3</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="telefono_3" id="telefono_3" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="email_1" id="email_1" required email >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="email_2" id="email_2" email >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Correo 3</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" name="email_3" id="email_3" email >
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -188,6 +223,8 @@
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
   <?= js_general() ?>
+  <?= js_jquery_parsley() ?>
+  <?= js_i18n_es() ?>
      
 	
 
@@ -195,6 +232,24 @@
       $(document).ready(function(){
         //initialize the javascript
         App.init();
+        
+        window.ParsleyValidator.setLocale('es');
+        $("#frm-add-supplier").parsley().subscribe('parsley:form:validate', function (formInstance) {
+            formInstance.submitEvent.preventDefault();
+                if(formInstance.isValid('', true)){
+                    $.ajax({
+                    url:"ajax/supplier.php",
+                    type:'POST',
+                    dataType:"json",
+                    data:$("#frm-add-supplier").serialize()+"&option=save",
+                    success:function(data){
+
+                    }
+                });
+            }
+            return;
+        });
+        
       });
     </script>
 

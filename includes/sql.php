@@ -6,8 +6,13 @@ function sql_save_user(){
             .' VALUES (:idusuario, :nombre, :apellido, :idperfil, :password, :telefono_1, :telefono_2, :email_1, :email_2, :fecha_creacion);';
 }
 
-function sql_update_user(){
+function sql_update_user_no_password(){
     return 'UPDATE `usuarios` SET `nombre`=:nombre, `apellido`=:apellido, `idperfil`=:idperfil,  `telefono_1`=:telefono_1, `telefono_2`=:telefono_2, `email_1`=:email_1, `email_2`=:email_2 '
+           . ' WHERE  `idusuario`=:idusuario;';
+}
+
+function sql_update_user(){
+    return 'UPDATE `usuarios` SET `nombre`=:nombre, `password`=:password, `apellido`=:apellido, `idperfil`=:idperfil,  `telefono_1`=:telefono_1, `telefono_2`=:telefono_2, `email_1`=:email_1, `email_2`=:email_2 '
            . ' WHERE  `idusuario`=:idusuario;';
 }
 
@@ -18,6 +23,12 @@ function sql_update_user_password(){
 
 function sql_disable_user(){
     return 'UPDATE `usuarios` SET activo=0, fecha_inactivo=:fecha_inactivo WHERE  `idusuario`=:idusuario;';
+}
+
+function sql_get_user_password_by_user(){
+    return 'SELECT usuarios.*, perfiles.`perfil` FROM usuarios '
+           . 'INNER JOIN perfiles ON perfiles.`idperfil` = usuarios.`idperfil` '
+           . 'WHERE usuarios.`activo`=1 and usuarios.`email_1`=?';
 }
 
 function sql_save_permiso_x_usuario(){
@@ -37,13 +48,19 @@ function sql_select_permisos_byIdusuario(){
     return 'SELECT `permisos_x_usuarios`.`idpermiso` FROM `permisos_x_usuarios` WHERE `permisos_x_usuarios`.`idusuario` = :idusuario';
 }
 
-function sql_select_usuarios_all(){
-    return ' SELECT usuarios.*, perfiles.`perfil` FROM usuarios '
-           . 'INNER JOIN perfiles ON perfiles.`idperfil` = usuarios.`idperfil` WHERE usuarios.`activo`=1';
+function sql_select_proveedores_all(){
+    return ' SELECT proveedores.*, rubros.rubro FROM proveedores '
+           . 'INNER JOIN rubros ON rubros.`idrubro` = proveedores.`idrubro`'
+           . 'INNER JOIN tipos_empresas ON tipos_empresas.`idtipos_empresas` = proveedores.`idtipos_empresas`';
 }
 
 function sql_select_usuario_byId(){
     return 'SELECT * FROM usuarios WHERE idusuario=:idusuario';
+}
+
+function sql_select_usuarios_all(){
+    return ' SELECT usuarios.*, perfiles.`perfil` FROM usuarios '
+           . 'INNER JOIN perfiles ON perfiles.`idperfil` = usuarios.`idperfil` WHERE usuarios.`activo`=1';
 }
 
 function sql_select_perfiles_all(){
@@ -110,4 +127,26 @@ function sql_select_contactos(){
 }
 function sql_select_contacto_by_idcontacto(){
     return 'SELECT * FROM contactos WHERE idcontacto=?';
+}
+
+function sql_select_tipos_empresas_all(){
+    return 'SELECT tipos_empresas.* from tipos_empresas ';
+}
+
+function sql_select_rubros_all(){
+    return 'SELECT rubros.* from rubros ';
+}
+
+function sql_select_sub_rubros_all(){
+    return 'SELECT sub_rubros.* from sub_rubros ';
+}
+
+function sql_save_proveedor(){
+    return 'INSERT INTO `proveedores`(`proveedor`, `idtipos_empresas`, `idrubro`, `idsub_rubro`, `fecha_creacion`) '
+            . ' VALUES (:proveedor,:idtipos_empresas,:idrubro,:idsub_rubro,:fecha_creacion)';
+}
+
+function sql_save_contacto_proveedor(){
+    return 'INSERT INTO `contactos_proveedores`(`nombre_contacto`, `cargo`, `idproveedor`, `email_1`, `email_2`, `email_3`, `telefono_1`, `telefono_2`, `telefono_3`, `fecha_creacion`) '
+            .' VALUES (:nombre_contacto, :cargo, :idproveedor, :email_1, :email_2, :email_3, :telefono_1, :telefono_2, :telefono_3, :fecha_creacion)';
 }

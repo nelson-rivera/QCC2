@@ -10,7 +10,7 @@ function lytTopBarMenu(){
                   <li><a href="my-company.php">Mi Empresa</a></li>
                   <li><a href="my-profile.php">Mi Perfil</a></li>
                   <li class="divider"></li>
-                  <li><a href="login.php">Cerrar sesión</a></li>
+                  <li><a href="logout.php">Cerrar sesión</a></li>
                 </ul>
               </li>
             </ul>';

@@ -3,6 +3,7 @@
 
 <head>
         <?php
+        session_start();
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';

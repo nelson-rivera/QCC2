@@ -32,6 +32,7 @@
 
 	<!-- Bootstrap core CSS -->
 	<?= css_bootstrap() ?>
+        <?= css_gritter() ?>
         <?= css_font_awesome() ?>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -245,8 +246,8 @@
                                     
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-primary" type="submit">Actualizar</button>
-                                            <button type="reset" class="btn btn-default">Limpiar</button>
+                                            <button id="btnSave" class="btn btn-primary" type="submit">Actualizar</button>
+                                            <button id="btnCancel" type="button" class="btn btn-default" onclick="location.href='list-users.php';" >Cancelar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -270,6 +271,7 @@
   <?= js_general() ?>
   <?= js_jquery_parsley() ?>
   <?= js_i18n_es() ?>
+  <?= js_gritter() ?>
      
 	
 
@@ -286,10 +288,32 @@
                     type:'POST',
                     dataType:"json",
                     data:$("#frm-edit-user").serialize()+"&option=update&us=<?= encryptString(decryptString( $_GET['us'])) ?>",
-                    success:function(data){
-                        
+                    beforeSend: function() {
+                        $("#btnSave").prop("disabled",true);
+                        $("#btnReset").prop("disabled",true);
                     }
-                });
+                    }).done(function(response){
+                        if (response.status == "1") {
+                            $.gritter.removeAll({
+                                after_close: function(){
+                                  $.gritter.add({
+                                    position: 'bottom-right',
+                                    title: "<?= txt_vendedor_title_actualizado() ?>",
+                                    text: response.msg,
+                                    class_name: 'clean'
+                                  });
+                                }
+                              });
+                              location.href='list-users.php';
+                        }
+                        else {
+                            $.gritter.add({
+                            title: "<?= txt_vendedor_title_actualizado_fail()  ?>",
+                                text: response.msg,
+                                class_name: 'danger'
+                              });
+                        }
+                    });
             }
             return;
         });

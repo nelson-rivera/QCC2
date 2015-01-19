@@ -4,10 +4,23 @@
 <head>
         <?php
         session_start();
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
+        
+        $connection = openConnection();
+        $query=$connection->prepare(sql_select_proveedor_byId());
+        $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
+        $query->execute();
+        if($query->rowCount()>0){}
+        $proveedor=$query->fetch();
+        
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -75,7 +88,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Editar Proveedor - INTCOMEX</h2>
+                <h2>Editar Proveedor - <?= $proveedor['proveedor'] ?></h2>
             </div>
             <div class="cl-mcont">
                 
@@ -91,15 +104,23 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre Empresa</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="INTCOMEX">
+                                            <input class="form-control" type="text" id="nombre" name="nombre" value="<?= $proveedor['proveedor'] ?>">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Tipo</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control">
-                                                <option>Local</option>
-                                                <option selected="selected" >Internacional</option>
+                                            <select class="form-control" name="rubro" id="rubro" required >
+                                                <?php 
+                                                $query=$connection->prepare(sql_select_rubros_all());
+                                                $query->execute();
+                                                $rubrosArray=$query->fetchAll();
+                                                if($query->rowCount()>0){}
+                                                foreach ($rubrosArray as $value) {
+                                                    $urubro= ($value['idrubro'] == $proveedor['idrubro'] ) ? "selected" : "" ;
+                                                ?>
+                                                <option value="<?= $value['idrubro'] ?>" <?= $urubro ?> ><?= $value['rubro'] ?></option>
+                                                <?php } ?>
                                             </select>
                                         </div>
                                     </div>

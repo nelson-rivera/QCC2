@@ -60,7 +60,7 @@ if($option=="save"){
         $response['msg']=txt_vendedor_registrado();
     }  catch ( Exception $exc ){
         $response['status']=0;
-        $response['msg']= "";
+        $response['msg']= txt_vendedor_msg_registro_fail();
         $response['error']=$exc->getTraceAsString();
     }
     
@@ -123,7 +123,7 @@ if($option=="update"){
         $response['msg']=  txt_vendedor_actualizado();
     }  catch ( Exception $exc ){
         $response['status']=0;
-        $response['msg']= "";
+        $response['msg']= txt_vendedor_actualizado_fail();
         $response['error']=$exc->getTraceAsString();
     }
     echo json_encode($response);

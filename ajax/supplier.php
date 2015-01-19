@@ -28,38 +28,42 @@ if($option=="save"){
     $now=date("Y-m-d H:i:s");
     $connection=  openConnection();
     $query=$connection->prepare(sql_save_proveedor());
-    $connection->beginTransaction();
-    $query->bindParam(':proveedor', $nombre);
-    $query->bindParam(':idtipos_empresas', $tipo);
-    $query->bindParam(':idrubro', $rubro);
-    $query->bindParam(':idsub_rubro', $sub_rubro);
-    $query->bindParam(':fecha_creacion', $now);
-    $query->execute();
-//`nombre_contacto`, `cargo`, `idproveedor`, `email_1`, `email_2`, `email_3`, 
-//`telefono_1`, `telefono_2`, `telefono_3`, `fecha_creacion`    
-    $idproveedor = $connection->lastInsertId();
-    $query=$connection->prepare(sql_save_contacto_proveedor());
-    $query->bindParam(':nombre_contacto', $contacto);
-    $query->bindParam(':cargo', $cargo);
-    $query->bindParam(':idproveedor', $idproveedor);
-    $query->bindParam(':email_1', $correo1);
-    $query->bindParam(':email_2', $correo2);
-    $query->bindParam(':email_3', $correo3);
-    $query->bindParam(':telefono_1', $telefono1);
-    $query->bindParam(':telefono_2', $telefono2);
-    $query->bindParam(':telefono_3', $telefono3);
-    $query->bindParam(':fecha_creacion', $now);
-    $query->execute();
     
-    $connection->commit();
-        
-    $response['status']=1;
-    $response['msg']=txt_vendedor_registrado();
+    try {
+        $connection->beginTransaction();
+        $query->bindParam(':proveedor', $nombre);
+        $query->bindParam(':idtipos_empresas', $tipo);
+        $query->bindParam(':idrubro', $rubro);
+        $query->bindParam(':idsub_rubro', $sub_rubro);
+        $query->bindParam(':fecha_creacion', $now);
+        $query->execute();
+    //`nombre_contacto`, `cargo`, `idproveedor`, `email_1`, `email_2`, `email_3`, 
+    //`telefono_1`, `telefono_2`, `telefono_3`, `fecha_creacion`    
+        $idproveedor = $connection->lastInsertId();
+        $query=$connection->prepare(sql_save_contacto_proveedor());
+        $query->bindParam(':nombre_contacto', $contacto);
+        $query->bindParam(':cargo', $cargo);
+        $query->bindParam(':idproveedor', $idproveedor);
+        $query->bindParam(':email_1', $correo1);
+        $query->bindParam(':email_2', $correo2);
+        $query->bindParam(':email_3', $correo3);
+        $query->bindParam(':telefono_1', $telefono1);
+        $query->bindParam(':telefono_2', $telefono2);
+        $query->bindParam(':telefono_3', $telefono3);
+        $query->bindParam(':fecha_creacion', $now);
+        $query->execute();
+
+        $connection->commit();
+
+        $response['status']=1;
+        $response['msg']=txt_proveedor_registrado();
+    }  catch ( Exception $exc ){
+        $response['status']=0;
+        $response['msg']= txt_proveedor_msg_registro_fail();
+        $response['error']=$exc->getTraceAsString();
+    }
     
-    echo json_encode($response);
-   
-   
-    
+    exit(json_encode($response));
 }
 
 if($option=="update"){

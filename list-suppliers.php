@@ -112,13 +112,13 @@
                                         <td><?= $value['rubro'] ?></td>
                                         <td><?= $value['rubro'] ?></td>
                                         <td class="center">
-                                            <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php?us=<?= encryptString($value['idusuario']) ?>">
+                                            <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contactos" href="contacts-supplier.php?sup=<?= encryptString($value['idproveedor']) ?>">
                                                 <i class="fa fa-users"></i>
                                             </a>
-                                            <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-user.php?us=<?= encryptString($value['idusuario']) ?>">
+                                            <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar proveedor" href="edit-supplier.php?sup=<?= encryptString($value['idproveedor']) ?>">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a class="btn btn-danger md-trigger btn-xs btn-eliminar-us" data-toggle="tooltip" data-original-title="Remove" data-modal="mod-delete" data-user="<?= encryptString($value['idusuario']) ?>"  data-num="<?= $num ?>" >
+                                            <a class="btn btn-danger md-trigger btn-xs btn-eliminar-us" data-toggle="tooltip" data-original-title="Eliminar proveedor" data-modal="mod-delete" data-user="<?= encryptString($value['idproveedor']) ?>"  data-num="<?= $num ?>" >
                                                 <i class="fa fa-times"></i>
                                             </a>
                                         </td>

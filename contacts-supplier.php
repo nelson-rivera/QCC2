@@ -3,10 +3,22 @@
 <head>
         <?php
         session_start();
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
+        
+        $connection = openConnection();
+        $query=$connection->prepare(sql_select_contactos_proveedores_bydIdproveedor());
+        $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
+        $query->execute();
+        if($query->rowCount()>0){}
+
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +26,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Listar de Contactos de los Proveedores</title>
+	<title>QCC - Listar de Contactos de Proveedores</title>
 	<?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -75,7 +87,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Contactos de <a href="edit-supplier.php">INTCOMEX</a></h2>
+                <h2>Contactos de <a href="edit-supplier.php">{NombreEmpresa}</a></h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
@@ -95,24 +107,30 @@
                                         </tr>
                                 </thead>
                                 <tbody>
-                                        <tr class="odd gradeA">
-                                            <td>JOSÉ PEREZ</td>
-                                            <td>Vendedor</td>
-                                            <td>503 2211-1215</td>
-                                            <td>503 2211-1216</td>
-                                            <td>503 2211-1217</td>
-                                            <td>carolinasv.perez@tecnoavance.com</td>
-                                            <td>carolinasv.perez2@tecnoavance.com</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-supplier.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                     
+                                        <?php
+                                            
+                                            $contactos_proveedores=$query->fetchAll();
+                                            $num=1;
+                                            foreach ($contactos_proveedores as $value) {
+                                            ?>
+                                                <tr class="odd gradeA">
+                                                    <td id="user_<?= $num ?>" ><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['nombre_contacto'] ?></a></td>
+                                                    <td><?= $value['cargo'] ?></td>
+                                                    <td class="center"><?= $value['telefono_1'] ?></td>
+                                                    <td class="center"><?= $value['telefono_2'] ?></td>
+                                                    <td class="center"><?= $value['telefono_3'] ?></td>
+                                                    <td class="center"><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['email_1'] ?></a></td>
+                                                    <td class="center"><a href="mailto:<?= $value['email_2'] ?>" title="Click para enviar correo" ><?= $value['email_2'] ?></a></td>
+                                                    <td class="center">
+                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-supplier.php?us=<?= encryptString($value['idcontacto_proveedor']) ?>">
+                                                            <i class="fa fa-pencil"></i>
+                                                        </a>
+                                                        <a class="btn btn-danger md-trigger btn-xs btn-eliminar-us" data-toggle="tooltip" data-original-title="Eliminar contacto" data-modal="mod-delete" data-user="<?= encryptString($value['idcontacto_proveedor']) ?>"  data-num="<?= $num ?>" >
+                                                            <i class="fa fa-times"></i>
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            <?php $num++; } ?>
                                 </tbody>
                             </table>
                         </div>
@@ -144,7 +162,7 @@
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
-        $('<a href="add-contact-supplier.php" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
+        $('<a href="add-contact-supplier.php?sup=<?= encryptString(decryptString($_GET['sup'])) ?>" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
       });
     </script>
 

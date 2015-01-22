@@ -35,6 +35,7 @@
 	<![endif]-->
 	<?= css_nanoscroller() ?>
 	<?= css_datatable() ?>
+        <?= css_niftymodals() ?>
 	<?= css_style() ?>
 
 </head>
@@ -107,7 +108,7 @@
                                 foreach ($usuarios as $value) {
                                 ?>
                                     <tr class="odd gradeA">
-                                        <td id="user_<?= $num ?>" ><?= $value['proveedor'] ?></td>
+                                        <td id="sup_<?= $num ?>" ><?= $value['proveedor'] ?></td>
                                         <td><?= $value['tipo'] ?></td>
                                         <td><?= $value['rubro'] ?></td>
                                         <td><?= $value['rubro'] ?></td>
@@ -118,7 +119,7 @@
                                             <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar proveedor" href="edit-supplier.php?sup=<?= encryptString($value['idproveedor']) ?>">
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a class="btn btn-danger md-trigger btn-xs btn-eliminar-us" data-toggle="tooltip" data-original-title="Eliminar proveedor" data-modal="mod-delete" data-user="<?= encryptString($value['idproveedor']) ?>"  data-num="<?= $num ?>" >
+                                            <a class="btn btn-danger md-trigger btn-xs btn-eliminar-sup" data-toggle="tooltip" data-original-title="Eliminar proveedor" data-modal="mod-delete" data-sup="<?= encryptString($value['idproveedor']) ?>"  data-num="<?= $num ?>" >
                                                 <i class="fa fa-times"></i>
                                             </a>
                                         </td>
@@ -127,6 +128,29 @@
                                 </tbody>
                             </table>
                         </div>
+                        
+                        <!-- Nifty Modal -->
+                        <div class="md-modal colored-header danger md-effect-10" id="mod-delete">
+                            <div class="md-content ">
+                              <div class="modal-header">
+                                <h3>Eliminar proveedor</h3>
+                                <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              </div>
+                              <div class="modal-body">
+                                <div id="modal-body-center" class="text-center">
+                                  <div class="i-circle danger"><i class="fa fa-trash-o"></i></div>
+                                  <h4>¡Cuidado!</h4>
+                                  <p>¿Seguro que desea eliminar a <span id="del_name" ></span>?</p>
+                                </div>
+                              </div>
+                                <div class="modal-footer" id="modal-footer-response" >
+                                <button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal" id="btn-deleteS" >Eliminar</button>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="md-overlay"></div>
+                        
                     </div>
                 </div>
                 
@@ -144,7 +168,7 @@
   <?= js_jquery_datatable() ?>
   <?= js_jquery_datatable_adapter() ?>
   <?= js_general() ?>
-     
+  <?= js_niftymodals() ?>   
 	
 
     <script type="text/javascript">
@@ -156,6 +180,35 @@
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
+        $('.btn-eliminar-sup').click(function(e){
+           var num = $(this).attr("data-num");
+           $("#del_name").html( $("#sup_"+num).html());
+           $("#btn-deleteS").attr("data-sup", $(this).attr("data-sup") )
+        });
+        
+        $('#btn-deleteS').click(function(e){
+            var sup = $("#btn-deleteS").attr("data-sup");
+           $.ajax({
+                url:"ajax/supplier.php",
+                type:'POST',
+                dataType:"json",
+                data:"option=delete&sup="+sup,
+                beforeSend: function(){
+                    $("#modal-footer-response").html('');
+                },
+                success:function(data){
+                    if(data.status=="1"){ 
+                        $("#modal-body-center").html('<div class="i-circle danger"><i class="fa fa-check"></i></div><h4>¡Proveedor eliminado con éxito!</h4>');
+                        $("#modal-footer-response").html('<button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
+                    }else{
+                        $("#modal-body-center").html('<div class="i-circle danger"><i class="fa  fa-frown-o"></i></div><h4>Ocurrio un error al eliminar el proveedor</h4>');
+                        $("#modal-footer-response").html('<button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
+                    }
+                    $(document).on('click','#btn-actualizarDT', function () { location.reload();});
+                }
+            }); 
+        });
+        
       });
     </script>
 

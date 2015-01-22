@@ -211,3 +211,21 @@ function sql_delete_cotizacion_by_idcotizacion(){
 function sql_select_proveedor_byId(){
     return 'SELECT * FROM proveedores WHERE idproveedor=:idproveedor';
 }
+
+function sql_update_proveedor(){
+    return 'UPDATE `proveedores` SET `proveedor`=:proveedor,`idtipos_empresas`=:idtipos_empresas,'
+            .' `idrubro`=:idrubro,`idsub_rubro`=:idsub_rubro'
+            . ' WHERE `idproveedor`=:idproveedor'; 
+    
+}   
+
+function sql_delete_proveedor(){
+    return 'DELETE FROM `proveedores` WHERE  `idproveedor`=:idproveedor;';
+}
+
+function sql_select_contactos_proveedores_bydIdproveedor(){
+    return 'SELECT `idcontacto_proveedor`, `nombre_contacto`, `cargo`, '
+           .'`email_1`, `email_2`, `email_3`, `telefono_1`, `telefono_2`, `telefono_3`, '
+           .'`fecha_creacion` FROM `contactos_proveedores` WHERE idproveedor=:idproveedor';
+}
+

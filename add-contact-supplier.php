@@ -4,10 +4,21 @@
 <head>
         <?php
         session_start();
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
+        
+        $connection = openConnection();
+        $query=$connection->prepare(sql_select_contactos_proveedores_bydIdproveedor());
+        $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
+        $query->execute();
+        if($query->rowCount()>0){}
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,11 +26,12 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Editar Proveedor</title>
+	<title>QCC - Agregar Contacto Proveedor</title>
         <?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
 	<?= css_bootstrap() ?>
+        <?= css_gritter() ?>
         <?= css_font_awesome() ?>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -84,53 +96,59 @@
                     <div class="col-md-12">
                         <div class="block-flat">
                             <div class="content">
-                                <form class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-add-contacto-proveedor" name="frm-add-contacto-proveedor" class="form-horizontal" style="border-radius: 0px;" action="#">
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contacto</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="" >
+                                            <input class="form-control" type="text" name="contacto" id="contacto" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="" >
+                                            <input class="form-control" type="text" name="cargo" id="cargo" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="" >
+                                            <input class="form-control" type="text" name="telefono_1" id="telefono_1" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="" >
+                                            <input class="form-control" type="text" name="telefono_2" id="telefono_2" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 3</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="" >
+                                            <input class="form-control" type="text" name="telefono_3" id="telefono_3" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="" >
+                                            <input class="form-control" type="text" name="email_1" id="email_1" required email >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="email_2" id="email_2" email >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Correo 3</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" name="email_3" id="email_3" email >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-primary" type="submit">Guardar</button>
-                                            <button type="reset" class="btn btn-default">Limpiar</button>
+                                            <button id="btnSave" class="btn btn-primary" type="submit">Agregar</button>
+                                            <button id="btnCancel" type="button" onclick="javascript: location.href='contacts-supplier.php?sup=<?= encryptString(decryptString($_GET['sup'])) ?>';" class="btn btn-default">Cancelar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -150,6 +168,9 @@
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
   <?= js_general() ?>
+  <?= js_jquery_parsley() ?>
+  <?= js_i18n_es() ?>
+  <?= js_gritter() ?>
      
 	
 
@@ -157,6 +178,45 @@
       $(document).ready(function(){
         //initialize the javascript
         App.init();
+        $("#frm-add-contacto-proveedor").parsley().subscribe('parsley:form:validate', function (formInstance) {
+            formInstance.submitEvent.preventDefault();
+                if(formInstance.isValid('', true)){
+                    $.ajax({
+                    url:"ajax/contact-supplier.php",
+                    type:'POST',
+                    dataType:"json",
+                    data:$("#frm-add-contacto-proveedor").serialize()+"&sup=<?= encryptString(decryptString($_GET['sup'])) ?>&option=save",
+                    beforeSend: function() {
+                        $("#btnSave").prop("disabled",true);
+                        $("#btnReset").prop("disabled",true);
+                    }
+                }).done(function(response){
+                    if (response.status == "1") {
+                        $.gritter.removeAll({
+                            after_close: function(){
+                              $.gritter.add({
+                                position: 'bottom-right',
+                                title: "<?= txt_contacto_proveedor_title_registrado() ?>",
+                                text: response.msg,
+                                class_name: 'clean'
+                              });
+                            }
+                          });
+                          location.href='contacts-supplier.php?sup=<?= encryptString(decryptString($_GET['sup'])) ?>';
+                    }
+                    else {
+                        $.gritter.add({
+                            title: "<?= txt_contacto_proveedor_title_registrado_fail() ?>",
+                            text: response.msg,
+                            class_name: 'danger'
+                          });
+                    }
+                });
+            }
+            return;
+        });
+        
+        
       });
     </script>
 

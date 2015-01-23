@@ -121,6 +121,15 @@ function sql_select_formas_pago(){
 function sql_select_garantias(){
     return 'SELECT * FROM garantias';
 }
+function sql_select_validez_by_id(){
+    return 'SELECT * FROM validez_cotizaciones WHERE idvalidez_cotizacion=? LIMIT 1';
+}
+function sql_select_forma_pago_by_id(){
+    return 'SELECT * FROM formas_pago WHERE idforma_pago=? LIMIT 1';
+}
+function sql_select_garantias_by_id(){
+    return 'SELECT * FROM garantias WHERE idgarantia = ? LIMIT 1';
+}
 function sql_select_clientes(){
     return 'SELECT * FROM clientes';
 }
@@ -187,7 +196,7 @@ function sql_select_cotizaciones(){
 }
 function sql_select_cotizacion_by_idcotizacion(){
     return 'SELECT cotizaciones.*, clientes.idcliente, clientes.nombre_cliente,CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, municipios.municipio,'
-    .' departamentos.iddepartamento, contactos.idcontacto, estados_cotizacion.estado'
+    .' departamentos.iddepartamento, contactos.idcontacto, contactos.nombre_contacto, contactos.email_1, contactos.telefono_1,contactos.telefono_2,contactos.telefono_3, estados_cotizacion.estado'
     .' FROM cotizaciones INNER JOIN clientes ON cotizaciones.idcliente=clientes.idcliente'
     .' INNER JOIN usuarios ON cotizaciones.idvendedor=usuarios.idusuario'
     .' INNER JOIN municipios ON cotizaciones.idmunicipio=municipios.idmunicipio'

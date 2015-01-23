@@ -123,8 +123,8 @@
                                             <td class="center"><?= $cotizacion['estado'] ?></td>
                                             <td class="center"><?= $cotizacion['municipio'] ?></td>
                                             <td class="center">
-                                               <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="edit-quote.php">
-                                                    <i class="fa fa-save"></i>
+                                                <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="generate-pdf.php?id=<?=$cotizacion['idcotizacion'] ?>">
+                                                    <i class="fa fa-file-pdf-o"></i>
                                                 </a>
                                                 <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php?id=<?= $cotizacion['idcotizacion'] ?>">
                                                     <i class="fa fa-pencil"></i>

@@ -334,7 +334,7 @@
                                                         +selectRubro
                                                     +'</td>'
                                                     +'<td>'
-                                                        +'<textarea name="input-descripcion" class="input-descripcion form-control"required></textarea>'
+                                                        +'<textarea name="input-descripcion[]" class="input-descripcion form-control"required></textarea>'
                                                     +'</td>'
                                                     +'<td>'
                                                         +'<div class="input-group">'

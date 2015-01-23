@@ -1,3 +1,7 @@
+
+<?php
+include_once './includes/password.php';
+echo password_hash('12345', PASSWORD_BCRYPT, array("cost" => 10)); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

@@ -5,7 +5,7 @@ include_once 'sql.php';
 function lytTopBarMenu(){
     return '<ul class="nav navbar-nav navbar-right user-nav">
               <li class="dropdown profile_menu">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img alt="Avatar" src="images/avatar2.jpg" />José Perez<b class="caret"></b></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">'. $_SESSION['nombre'] .'<b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li><a href="my-company.php">Mi Empresa</a></li>
                   <li><a href="my-profile.php">Mi Perfil</a></li>

@@ -49,7 +49,7 @@ function sql_select_permisos_byIdusuario(){
 }
 
 function sql_select_proveedores_all(){
-    return ' SELECT proveedores.*, rubros.rubro FROM proveedores '
+    return ' SELECT proveedores.*, rubros.rubro,tipos_empresas.tipo FROM proveedores '
            . 'INNER JOIN rubros ON rubros.`idrubro` = proveedores.`idrubro`'
            . 'INNER JOIN tipos_empresas ON tipos_empresas.`idtipos_empresas` = proveedores.`idtipos_empresas`';
 }
@@ -207,3 +207,25 @@ function sql_select_estados_cotizacion(){
 function sql_delete_cotizacion_by_idcotizacion(){
     return 'DELETE FROM cotizaciones WHERE idcotizacion=?';
 }
+
+function sql_select_proveedor_byId(){
+    return 'SELECT * FROM proveedores WHERE idproveedor=:idproveedor';
+}
+
+function sql_update_proveedor(){
+    return 'UPDATE `proveedores` SET `proveedor`=:proveedor,`idtipos_empresas`=:idtipos_empresas,'
+            .' `idrubro`=:idrubro,`idsub_rubro`=:idsub_rubro'
+            . ' WHERE `idproveedor`=:idproveedor'; 
+    
+}   
+
+function sql_delete_proveedor(){
+    return 'DELETE FROM `proveedores` WHERE  `idproveedor`=:idproveedor;';
+}
+
+function sql_select_contactos_proveedores_bydIdproveedor(){
+    return 'SELECT `idcontacto_proveedor`, `nombre_contacto`, `cargo`, '
+           .'`email_1`, `email_2`, `email_3`, `telefono_1`, `telefono_2`, `telefono_3`, '
+           .'`fecha_creacion` FROM `contactos_proveedores` WHERE idproveedor=:idproveedor';
+}
+

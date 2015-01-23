@@ -9,12 +9,6 @@ include_once '../includes/lang/text.es.php';
 $option = $_POST['option'];
 
 if($option=="save"){
-    
-    $nombre=$_POST['nombre'];
-    $tipo=$_POST['tipo'];
-    $rubro=$_POST['rubro'];
-    $sub_rubro=$_POST['sub_rubro'];
-    
     $contacto=$_POST['contacto'];
     $cargo=$_POST['cargo'];
     $telefono1=$_POST['telefono_1'];
@@ -23,21 +17,15 @@ if($option=="save"){
     $correo1=$_POST['email_1'];
     $correo2=$_POST['email_2'];
     $correo3=$_POST['email_3'];
+    $idproveedor=  decryptString($_POST['sup']);
     
-    $idproveedor=null;
     $now=date("Y-m-d H:i:s");
     $connection=  openConnection();
-    $query=$connection->prepare(sql_save_proveedor());
+    $query=$connection->prepare(sql_save_contacto_proveedor());
     
     try {
         $connection->beginTransaction();
-        $query->bindParam(':proveedor', $nombre);
-        $query->bindParam(':idtipos_empresas', $tipo);
-        $query->bindParam(':idrubro', $rubro);
-        $query->bindParam(':idsub_rubro', $sub_rubro);
-        $query->bindParam(':fecha_creacion', $now);
-        $query->execute();
-        $idproveedor = $connection->lastInsertId();
+        
         
         $query=$connection->prepare(sql_save_contacto_proveedor());
         $query->bindParam(':nombre_contacto', $contacto);
@@ -55,10 +43,10 @@ if($option=="save"){
         $connection->commit();
 
         $response['status']=1;
-        $response['msg']=  txt_proveedor_registrado();
+        $response['msg']= txt_contacto_proveedor_registrado();
     }  catch ( Exception $exc ){
         $response['status']=0;
-        $response['msg']= txt_proveedor_msg_registro_fail();
+        $response['msg']= txt_contacto_proveedor_msg_registro_fail();
         $response['error']=$exc->getTraceAsString();
     }
     exit(json_encode($response));

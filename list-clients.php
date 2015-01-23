@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
         <?php
+        session_start();
         include_once './includes/file_const.php';
         include_once './includes/connection.php';
         include_once './includes/sql.php';

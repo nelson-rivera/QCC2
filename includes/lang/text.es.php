@@ -30,5 +30,12 @@ function txt_contacto_proveedor_title_registrado(){return "En hora buena";}
 function txt_contacto_proveedor_title_registrado_fail(){return "Error";}
 function txt_contacto_proveedor_registrado(){return "Contacto de proveedor registrado exitosamente";}
 function txt_contacto_proveedor_msg_registro_fail(){return "Lo sentimos, algo hemos hecho mal";}
+function txt_contacto_proveedor_title_actualizado(){return "En hora buena";}
+function txt_contacto_proveedor_title_actualizado_fail(){return "Error";}
+function txt_contacto_proveedor_actualizado(){return "Actualización realizada con éxito";}
+function txt_contacto_proveedor_msg_actualizado_fail(){return "Lo sentimos, algo hemos hecho mal";}
+
+function txt_contacto_proveedor_eliminado(){return "Contacto de proveedor eliminado exitosamente";}
+function txt_error_contacto_proveedor_eliminado(){return "Ocurrio un problema al intentar eliminar el contacto";}
 
 ?>

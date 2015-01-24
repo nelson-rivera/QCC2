@@ -163,7 +163,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button id="btnSave" class="btn btn-primary" type="submit">Guardar</button>
-                                            <button id="btnCancel" type="button" onclick="javascript: location.href='list-suppliers.php';" class="btn btn-default">Cancelar</button>
+                                            <button id="btnCancel" type="button" onclick="javascript: location.href='contacts-suppliers.php?sup'+<?= encryptString(decryptString( $_GET['sup'])) ?>;" class="btn btn-default">Cancelar</button>
                                         </div>
                                     </div>
                                 </form>

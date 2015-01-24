@@ -238,3 +238,18 @@ function sql_select_contactos_proveedores_bydIdproveedor(){
            .'`fecha_creacion` FROM `contactos_proveedores` WHERE idproveedor=:idproveedor';
 }
 
+function sql_select_contactos_proveedores_bydIcontacto_proveedor(){
+    return 'SELECT `idcontacto_proveedor`,`idproveedor`, `nombre_contacto`, `cargo`, '
+           .'`email_1`, `email_2`, `email_3`, `telefono_1`, `telefono_2`, `telefono_3`, '
+           .'`fecha_creacion` FROM `contactos_proveedores` WHERE idcontacto_proveedor=:idcontacto_proveedor';
+}
+
+function  sql_update_contacto_proveedor(){
+    return 'UPDATE `contactos_proveedores` SET `nombre_contacto`=:nombre_contacto,`cargo`=:cargo,'
+            .'`email_1`=:email_1,`email_2`=:email_2,`email_3`=:email_3,`telefono_1`=:telefono_1,'
+            .'`telefono_2`=:telefono_2,`telefono_3`=:telefono_3 WHERE idcontacto_proveedor=:idcontacto_proveedor';
+}
+
+function sql_delete_contacto_proveedor(){
+    return 'DELETE FROM `contactos_proveedores` WHERE  `idcontacto_proveedor`=:idcontacto_proveedor';
+}

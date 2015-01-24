@@ -14,9 +14,15 @@
         Helper::helpSession();
         
         $connection = openConnection();
+        $query=$connection->prepare(sql_select_proveedor_byId());
+        $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
+        $query->execute();
+        $proveedor = $query->fetch();
+        
         $query=$connection->prepare(sql_select_contactos_proveedores_bydIdproveedor());
         $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
         $query->execute();
+        
         if($query->rowCount()>0){}
 
         ?>
@@ -40,7 +46,8 @@
 	<![endif]-->
 	<?= css_nanoscroller() ?>
 	<?= css_datatable() ?>
-	<?= css_style() ?>
+	<?= css_niftymodals() ?>
+        <?= css_style() ?>
 
 </head>
 
@@ -87,7 +94,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Contactos de <a href="edit-supplier.php">{NombreEmpresa}</a></h2>
+                <h2>Contactos de <a href="edit-supplier.php"><?= $proveedor['proveedor'] ?></a></h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
@@ -114,7 +121,7 @@
                                             foreach ($contactos_proveedores as $value) {
                                             ?>
                                                 <tr class="odd gradeA">
-                                                    <td id="user_<?= $num ?>" ><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['nombre_contacto'] ?></a></td>
+                                                    <td id="cp_<?= $num ?>" ><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['nombre_contacto'] ?></a></td>
                                                     <td><?= $value['cargo'] ?></td>
                                                     <td class="center"><?= $value['telefono_1'] ?></td>
                                                     <td class="center"><?= $value['telefono_2'] ?></td>
@@ -122,10 +129,10 @@
                                                     <td class="center"><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['email_1'] ?></a></td>
                                                     <td class="center"><a href="mailto:<?= $value['email_2'] ?>" title="Click para enviar correo" ><?= $value['email_2'] ?></a></td>
                                                     <td class="center">
-                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-supplier.php?us=<?= encryptString($value['idcontacto_proveedor']) ?>">
+                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-supplier.php?cp=<?= encryptString($value['idcontacto_proveedor']) ?>">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
-                                                        <a class="btn btn-danger md-trigger btn-xs btn-eliminar-us" data-toggle="tooltip" data-original-title="Eliminar contacto" data-modal="mod-delete" data-user="<?= encryptString($value['idcontacto_proveedor']) ?>"  data-num="<?= $num ?>" >
+                                                        <a class="btn btn-danger md-trigger btn-xs btn-eliminar-cs" data-toggle="tooltip" data-original-title="Eliminar contacto" data-modal="mod-delete" data-cp="<?= encryptString($value['idcontacto_proveedor']) ?>"  data-num="<?= $num ?>" >
                                                             <i class="fa fa-times"></i>
                                                         </a>
                                                     </td>
@@ -134,6 +141,28 @@
                                 </tbody>
                             </table>
                         </div>
+                        <!-- Nifty Modal -->
+                        <div class="md-modal colored-header danger md-effect-10" id="mod-delete">
+                            <div class="md-content ">
+                              <div class="modal-header">
+                                <h3>Eliminar contacto de proveedor</h3>
+                                <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              </div>
+                              <div class="modal-body">
+                                <div id="modal-body-center" class="text-center">
+                                  <div class="i-circle danger"><i class="fa fa-trash-o"></i></div>
+                                  <h4>¡Cuidado!</h4>
+                                  <p>¿Seguro que desea eliminar a <span id="del_name" ></span>?</p>
+                                </div>
+                              </div>
+                                <div class="modal-footer" id="modal-footer-response" >
+                                <button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal" id="btn-deleteCS" >Eliminar</button>
+                              </div>
+                            </div>
+                        </div>
+                        <div class="md-overlay"></div>
+                        <!-- -->
                     </div>
                 </div>
                 
@@ -151,7 +180,7 @@
   <?= js_jquery_datatable() ?>
   <?= js_jquery_datatable_adapter() ?>
   <?= js_general() ?>
-     
+  <?= js_niftymodals() ?>   
 	
 
     <script type="text/javascript">
@@ -163,6 +192,36 @@
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
         $('<a href="add-contact-supplier.php?sup=<?= encryptString(decryptString($_GET['sup'])) ?>" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
+
+        $('.btn-eliminar-cs').click(function(e){
+           var num = $(this).attr("data-num");
+           $("#del_name").html( $("#cp_"+num).html());
+           $("#btn-deleteCS").attr("data-cp", $(this).attr("data-cp") );
+        });
+        
+        $('#btn-deleteCS').click(function(e){
+            var cp = $("#btn-deleteCS").attr("data-cp");
+           $.ajax({
+                url:"ajax/contact-supplier.php",
+                type:'POST',
+                dataType:"json",
+                data:"option=delete&cp="+cp,
+                beforeSend: function(){
+                    $("#modal-footer-response").html('');
+                },
+                success:function(data){
+                    if(data.status=="1"){ 
+                        $("#modal-body-center").html('<div class="i-circle danger"><i class="fa fa-check"></i></div><h4>¡Proveedor eliminado con éxito!</h4>');
+                        $("#modal-footer-response").html('<button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
+                    }else{
+                        $("#modal-body-center").html('<div class="i-circle danger"><i class="fa  fa-frown-o"></i></div><h4>Ocurrio un error al eliminar el proveedor</h4>');
+                        $("#modal-footer-response").html('<button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
+                    }
+                    $(document).on('click','#btn-actualizarDT', function () { location.reload();});
+                }
+            }); 
+        });
+
       });
     </script>
 

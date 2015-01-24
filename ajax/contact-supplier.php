@@ -53,30 +53,39 @@ if($option=="save"){
 }
 
 if($option=="update"){
-    $idproveedor= decryptString($_POST['sup']);
-    $nombre=$_POST['nombre'];
-    $tipo=$_POST['tipo'];
-    $rubro=$_POST['rubro'];
-    $sub_rubro=$_POST['sub_rubro'];
+    $contacto=$_POST['contacto'];
+    $cargo=$_POST['cargo'];
+    $telefono1=$_POST['telefono_1'];
+    $telefono2=$_POST['telefono_2'];
+    $telefono3=$_POST['telefono_3'];
+    $correo1=$_POST['email_1'];
+    $correo2=$_POST['email_2'];
+    $correo3=$_POST['email_3'];
+    $contacto_proveedor=  decryptString($_POST['cp']);
    
     $connection=openConnection();
     
     try {
         $connection->beginTransaction();
-        $query=$connection->prepare(sql_update_proveedor());
-        $query->bindParam(':idproveedor', $idproveedor);
-        $query->bindParam(':proveedor', $nombre);
-        $query->bindParam(':idtipos_empresas', $tipo);
-        $query->bindParam(':idrubro', $rubro);
-        $query->bindParam(':idsub_rubro', $sub_rubro);
-
+        $query=$connection->prepare(sql_update_contacto_proveedor());
+        $query->bindParam(':nombre_contacto', $contacto);
+        $query->bindParam(':cargo', $cargo);
+        $query->bindParam(':email_1', $correo1);
+        $query->bindParam(':email_2', $correo2);
+        $query->bindParam(':email_3', $correo3);
+        $query->bindParam(':telefono_1', $telefono1);
+        $query->bindParam(':telefono_2', $telefono2);
+        $query->bindParam(':telefono_3', $telefono3);
+        $query->bindParam(':idcontacto_proveedor', $contacto_proveedor);
+        
+        
         $query->execute();
         $connection->commit();
         $response['status']=1;
-        $response['msg']=txt_proveedor_actualizado();
+        $response['msg']=txt_contacto_proveedor_actualizado();
     }  catch ( Exception $exc ){
         $response['status']=0;
-        $response['msg']= txt_proveedor_msg_actualizado_fail();
+        $response['msg']= txt_contacto_proveedor_msg_actualizado_fail();
         $response['error']=$exc->getTraceAsString();
     }
     
@@ -84,22 +93,21 @@ if($option=="update"){
 }
 
 if($option=="delete"){
-    $idproveedor= decryptString($_POST['sup']);
+    $idcontacto_proveedor= decryptString($_POST['cp']);
     
     $connection=openConnection();
     try {
         $connection->beginTransaction();
-        $query=$connection->prepare(sql_delete_proveedor());
-        $query->bindParam(':idproveedor', $idproveedor);
+        $query=$connection->prepare(sql_delete_contacto_proveedor());
+        $query->bindParam(':idcontacto_proveedor', $idcontacto_proveedor);
         $query->execute();
         $connection->commit();
 
         $response['status']=1;
-        $response['msg']= txt_vendedor_eliminado();
-    
+        $response['msg']= txt_contacto_proveedor_eliminado();    
     } catch (Exception $exc) {
         $response['status']=0;
-        $response['msg']= txt_error_vendedor_eliminado();
+        $response['msg']= txt_error_contacto_proveedor_eliminado();
         $response['error']=$exc->getMessage();
         
     }

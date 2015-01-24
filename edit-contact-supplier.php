@@ -4,10 +4,23 @@
 <head>
         <?php
         session_start();
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
+        
+        $connection = openConnection();
+        $query=$connection->prepare(sql_select_contactos_proveedores_bydIcontacto_proveedor());
+        $query->bindParam(':idcontacto_proveedor', decryptString($_GET['cp']),PDO::PARAM_INT);
+        $query->execute();
+        if($query->rowCount()>0){}
+        $contacto_proveedor=$query->fetch();
+        
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,11 +28,15 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Editar Proveedor</title>
+	<title>QCC - Editar Contacto de Proveedor</title>
         <?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
+	<?= css_fonts() ?>
+
+	<!-- Bootstrap core CSS -->
 	<?= css_bootstrap() ?>
+        <?= css_gritter() ?>
         <?= css_font_awesome() ?>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -75,7 +92,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Editar Contacto JOSÉ PEREZ</h2>
+                <h2><?= $contacto_proveedor['nombre_contacto'] ?></h2>
             </div>
             <div class="cl-mcont">
                 
@@ -87,53 +104,59 @@
                                 <h3>Datos del contacto</h3>
                             </div>
                             <div class="content">
-                                <form class="form-horizontal" style="border-radius: 0px;" action="#">
-                                    <div class="form-group">
+                                <form id="frm-edit-cp" name="frm-edit-cp" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                   <div class="form-group">
                                         <label class="col-sm-3 control-label">Contacto</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="JOSÉ PEREZ" >
+                                            <input class="form-control" type="text" name="contacto" id="contacto" required value="<?= $contacto_proveedor['nombre_contacto'] ?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="Vendedor" >
+                                            <input class="form-control" type="text" name="cargo" id="cargo" required value="<?= $contacto_proveedor['cargo'] ?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="503 2211-1212" >
+                                            <input class="form-control" type="text" name="telefono_1" id="telefono_1" required value="<?= $contacto_proveedor['telefono_1'] ?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="503 2211-1213" >
+                                            <input class="form-control" type="text" name="telefono_2" id="telefono_2" value="<?= $contacto_proveedor['telefono_2'] ?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 3</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="503 2211-1215" >
+                                            <input class="form-control" type="text" name="telefono_3" id="telefono_3" value="<?= $contacto_proveedor['telefono_3'] ?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="carolinasv.perez@tecnoavance.com" >
+                                            <input class="form-control" type="text" name="email_1" id="email_1" required email value="<?= $contacto_proveedor['email_1'] ?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text">
+                                            <input class="form-control" type="text" name="email_2" id="email_2" email value="<?= $contacto_proveedor['email_2'] ?>" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Correo 3</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" name="email_3" id="email_3" email value="<?= $contacto_proveedor['email_3'] ?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-primary" type="submit">Guardar</button>
-                                            <button type="reset" class="btn btn-default">Limpiar</button>
+                                            <button id="btnSave" class="btn btn-primary" type="submit">Guardar</button>
+                                            <button id="btnCancel" type="button" onclick="javascript: location.href='contacts-supplier.php?sup=<?= encryptString($contacto_proveedor['idproveedor']) ?>'" class="btn btn-default">Cancelar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -153,6 +176,9 @@
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
   <?= js_general() ?>
+  <?= js_jquery_parsley() ?>
+  <?= js_i18n_es() ?>
+  <?= js_gritter() ?>
      
 	
 
@@ -160,6 +186,45 @@
       $(document).ready(function(){
         //initialize the javascript
         App.init();
+        $("#frm-edit-cp").parsley().subscribe('parsley:form:validate', function (formInstance) {
+            formInstance.submitEvent.preventDefault();
+                if(formInstance.isValid('', true)){
+                    $.ajax({
+                    url:"ajax/contact-supplier.php",
+                    type:'POST',
+                    dataType:"json",
+                    data:$("#frm-edit-cp").serialize()+"&cp=<?= encryptString(decryptString($_GET['cp'])) ?>&option=update",
+                    beforeSend: function() {
+                        $("#btnSave").prop("disabled",true);
+                        $("#btnReset").prop("disabled",true);
+                    }
+                }).done(function(response){
+                    if (response.status == "1") {
+                        $.gritter.removeAll({
+                            after_close: function(){
+                              $.gritter.add({
+                                position: 'bottom-right',
+                                title: "<?= txt_contacto_proveedor_title_actualizado()?>",
+                                text: response.msg,
+                                class_name: 'clean'
+                              });
+                            }
+                          });
+                          location.href='contacts-supplier.php?sup=<?= encryptString($contacto_proveedor['idproveedor']) ?>';
+                    }
+                    else {
+                        $.gritter.add({
+                            title: "<?= txt_contacto_proveedor_title_actualizado_fail() ?>",
+                            text: response.msg,
+                            class_name: 'danger'
+                          });
+                    }
+                });
+            }
+            return;
+        });
+        
+        
       });
     </script>
 

@@ -1,13 +1,10 @@
-
-<?php
-include_once './includes/password.php';
-echo password_hash('12345', PASSWORD_BCRYPT, array("cost" => 10)); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <?php
     include_once './includes/libraries.php';
     include_once './includes/lang/text.es.php';
+    include_once './includes/password.php';
     ?>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,8 +13,8 @@ echo password_hash('12345', PASSWORD_BCRYPT, array("cost" => 10)); ?>
     <link rel="shortcut icon" href="images/favicon.png">
 
     <title><?= txt_title() ?></title>
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,400italic,700,800' rel='stylesheet' type='text/css'>
-    <link href='http://fonts.googleapis.com/css?family=Raleway:300,200,100' rel='stylesheet' type='text/css'>
+    <?= css_font_awesome() ?>
+    <?= css_fonts() ?>
 
     <!-- Bootstrap core CSS -->
     <?= css_bootstrap() ?>

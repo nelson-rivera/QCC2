@@ -11,7 +11,7 @@
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        
+        Helper::helpIsAllowed(4); // 4 - Agregar, editar y eliminar vendedores
         $connection=  openConnection();
         ?>
 	<meta charset="utf-8">

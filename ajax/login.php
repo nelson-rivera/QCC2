@@ -24,6 +24,15 @@ try{
                 $_SESSION['nombre']=$passwordArray['nombre']." ".$passwordArray['apellido'];
                 $_SESSION['idperfil']=$passwordArray['idperfil'];
                 
+                $query=$connection->prepare(sql_select_permisos_byIdusuario() );
+                $query->bindParam(':idusuario', $passwordArray['idusuario'],PDO::PARAM_INT);
+                $query->execute();
+                $permisos=$query->fetchAll(PDO::FETCH_ASSOC);
+                $apermisos = array();
+                foreach ($permisos as $value) {
+                    $apermisos[] =  $value['idpermiso'];
+                }
+                $_SESSION['permisos'] = $apermisos;    
                 $response['status']=0;
                 $response['msg']='valid';
                 echo json_encode($response);

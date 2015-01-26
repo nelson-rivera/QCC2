@@ -10,6 +10,7 @@
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
+        Helper::helpIsAllowed(1); // 1 - Listado de clientes
         $connection=  openConnection();
         ?>
 	<meta charset="utf-8">

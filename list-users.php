@@ -12,7 +12,7 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        
+        Helper::helpIsAllowed(3); // 3 - Listado de vendedores
         $connection=  openConnection();
         ?>
 	<meta charset="utf-8">

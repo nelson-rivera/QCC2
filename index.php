@@ -76,6 +76,7 @@
 	<div class="container-fluid" id="pcont">
             <div class="cl-mcont">
                 <h3 class="text-center">Content goes here!</h3>
+                
             </div>
 	</div> 
     </div>

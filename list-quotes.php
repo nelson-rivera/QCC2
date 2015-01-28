@@ -131,6 +131,7 @@
                                                 </a>
                                                
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
+                                                    <input type="hidden" class="input-cotizacion" value="<?= $cotizacion['idcotizacion'] ?>"/>
                                                     <i class="fa fa-times"></i>
                                                 </a>
                                             </td>
@@ -150,7 +151,26 @@
             </div>
 	</div> 
     </div>
-   <?= js_jquery() ?>
+    <!-- Modal -->
+    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Eliminar Cotización</h4>
+          </div>
+          <div class="modal-body">
+              Está seguro que desea eliminar la cotizacion<span id="codigo-cotizacion"></span>, esta acción es definitiva y 
+              todos los datos relacionados con ella se perderán.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button id="btn-eliminar" type="button" class="btn btn-danger">Sí, eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  <?= js_jquery() ?>
   <?= js_jquery_ui() ?>
   <?= js_bootstrap_datetimepicker() ?>
   <?= js_jquery_nanoscroller() ?>
@@ -173,10 +193,33 @@
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
         
+        var selectedRow;
+        var idC;
         $('#datatable-icons tbody').on( 'click', '.btn-danger', function () {
-            var row = $(this).closest("tr").get(0);
-            oTable.fnDeleteRow(oTable.fnGetPosition(row));
+            $('#modal-delete').modal('show');
+            selectedRow = $(this).closest("tr").get(0);
+            idC = $(this).children(".input-cotizacion").val();
         } );
+        
+        $("#btn-eliminar").click(function(){
+            $.ajax({
+                url:'ajax/cotizacion.php',
+                type: 'post',
+                dataType: 'json',
+                data: {opt:3, id: idC}
+            }).done(function(response) {
+                if(response.status==0){
+                    oTable.fnDeleteRow(oTable.fnGetPosition(selectedRow));
+                    $('#modal-delete').modal('hide');
+                }
+                else{
+                    alert('error');
+                }
+            })
+            .fail(function() {
+
+            });  
+        });
       });
     </script>
 

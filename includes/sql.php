@@ -45,7 +45,7 @@ function sql_select_permisos_all(){
 }
 
 function sql_select_permisos_byIdusuario(){
-    return 'SELECT `permisos_x_usuarios`.`idpermiso` FROM `permisos_x_usuarios` WHERE `permisos_x_usuarios`.`idusuario` = :idusuario';
+    return 'SELECT `permisos_x_usuarios`.* FROM `permisos_x_usuarios` WHERE `permisos_x_usuarios`.`idusuario` = :idusuario';
 }
 
 function sql_select_proveedores_all(){

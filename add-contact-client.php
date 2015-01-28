@@ -8,6 +8,7 @@
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
+        Helper::helpIsAllowed(2); // 2 - Agregar,editar,eliminar clientes
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">

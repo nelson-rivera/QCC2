@@ -162,7 +162,7 @@ foreach ($getItemsCotizacion->fetchAll() as $itemCotizacion) {
     <tr style="text-align:center;">
         <td style="border-right: 1px solid black;border-left: 1px solid black;" width="50">'.$contadorItem.'</td>
         <td style="border-right: 1px solid black;border-left: 1px solid black;" width="70">'.$itemCotizacion['cantidad'].'</td>
-        <td style="border-right: 1px solid black;border-left: 1px solid black;" width="300">'.$itemCotizacion['descripcion'].'</td>
+        <td style="border-right: 1px solid black;border-left: 1px solid black;" width="300">'.$itemCotizacion['descripcion'].'<div><img src="'.$itemCotizacion['imagen'].'"  width="200"></div></td>
         <td style="border-right: 1px solid black;border-left: 1px solid black;" width="120">$'.number_format($itemCotizacion['precio_unitario'], 2, '.', ',').'</td>
         <td style="border-right: 1px solid black;border-left: 1px solid black;" width="100">$'.number_format($itemCotizacion['cantidad']*$itemCotizacion['precio_unitario'], 2, '.', ',').'</td>
     </tr>';

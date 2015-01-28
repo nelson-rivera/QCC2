@@ -192,7 +192,7 @@ function sql_select_cotizaciones(){
     .' INNER JOIN municipios ON cotizaciones.idmunicipio=municipios.idmunicipio'
     .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
     .' INNER JOIN contactos ON cotizaciones.idcontacto=contactos.idcontacto'
-    .' INNER JOIN estados_cotizacion ON cotizaciones.idestado_cotizacion=estados_cotizacion.idestado_cotizacion';
+    .' INNER JOIN estados_cotizacion ON cotizaciones.idestado_cotizacion=estados_cotizacion.idestado_cotizacion WHERE cotizaciones.deleted != 1';
 }
 function sql_select_cotizacion_by_idcotizacion(){
     return 'SELECT cotizaciones.*, clientes.idcliente, clientes.nombre_cliente,CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, municipios.municipio,'
@@ -215,6 +215,9 @@ function sql_select_estados_cotizacion(){
 }
 function sql_delete_cotizacion_by_idcotizacion(){
     return 'DELETE FROM cotizaciones WHERE idcotizacion=?';
+}
+function sql_update_cotizacion_deleted_by_idcotizacion(){
+    return 'UPDATE cotizaciones SET deleted = 1 WHERE idcotizacion=?';
 }
 
 function sql_select_proveedor_byId(){

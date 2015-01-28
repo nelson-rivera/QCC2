@@ -5772,5 +5772,6 @@ span #del_name{ font-weight: bold; }
     margin: 10px;
     text-align: center;
     min-height: 100px;
+    background-position: center;
 }
 

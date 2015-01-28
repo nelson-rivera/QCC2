@@ -11,7 +11,7 @@ if(empty($_POST['opt']) || !is_numeric($_POST['opt'])){
 $opt=$_POST['opt'];
 $connection= openConnection();
 switch ($opt) {
-    //save client
+    //save cotizacion
     case 1:
         if(!empty($_POST['input-vendedor']) && !empty($_POST['input-cliente']) && !empty($_POST['input-municipio']) && !empty($_POST['input-contacto'])
         && !empty($_POST['input-validez']) && !empty($_POST['input-forma-pago']) && !empty($_POST['input-garantia'])){
@@ -60,7 +60,15 @@ switch ($opt) {
                 
                 $queryInsertItem=$connection->prepare(sql_save_item_cotizacion());
                 for($i=0;$i<$nItems;$i++){
-                    $queryInsertItem->execute(array($idCotizacion,$cantidadArray[$i],$idRubroArray[$i],$descripcionArray[$i],null,$preciounitarioArray[$i]));
+                    $uploadDir = "../uploads/$codigoCotizacion/";
+                    if(!is_dir($uploadDir)) {
+                        mkdir($uploadDir,0566,true);
+                    }
+                    $imageUrl = $uploadDir. $_FILES["input-image"]["name"][$i];
+                    $imageUrlString = "uploads/$codigoCotizacion/".$_FILES["input-image"]["name"][$i];
+                    move_uploaded_file($_FILES["input-image"]["tmp_name"][$i], $imageUrl);
+                    
+                    $queryInsertItem->execute(array($idCotizacion,$cantidadArray[$i],$idRubroArray[$i],$descripcionArray[$i],$imageUrlString,$preciounitarioArray[$i]));
                 }
                 
                 if(!empty($_POST['input-condicion-custom'])){
@@ -177,7 +185,13 @@ switch ($opt) {
         
 
         break;
-        
+    case 3:
+        $idCotizacion = $_POST['id'];
+        $deleteCotizacion = $connection->prepare(sql_update_cotizacion_deleted_by_idcotizacion());
+        $deleteCotizacion->execute(array($idCotizacion));
+        $response['status']=0;
+        $response['msg']= 'Cotización eliminada con éxito';
+        break;
     default:
         $response['status']=1;
         $response['msg']= 'A su petición le falta un argumento';

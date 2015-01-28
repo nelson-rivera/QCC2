@@ -81,13 +81,15 @@
                 
                 
                 <div class="row">
+                    <form id="frm-quote" name="frm-quote" class="form-horizontal" style="border-radius: 0px;" action="#" data-parsley-validate>
                     <div class="col-md-12">
                         <div class="block-flat">
                             <div class="header">
                                 <h3>Datos generales</h3>
+                                <input type="hidden" name="opt" value="1" />
                             </div>
                             <div class="content">
-                                <form id="frm-quote-info" name="frm-quote-info" class="form-horizontal" style="border-radius: 0px;" action="#" data-parsley-validate>
+                                
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
@@ -134,12 +136,10 @@
                                             <input id="input-email" class="form-control" type="email" required readonly="readonly">
                                         </div>
                                     </div>
-                                </form>
                                 <div class="header">
                                     <h3>Items</h3>
                                 </div>
                                 
-                                <form id="frm-quote-items" name="frm-quote-items" data-parsley-validate>
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-4">
@@ -184,8 +184,8 @@
                                                     <?= selectRubro('','input-rubro[]','form-control input-rubro','required','','') ?>
                                                 </td>
                                                 <td>
-                                                    <textarea name="input-descripcion[]" class="input-descripcion form-control"required></textarea>
-                                                    <input class="file" id="file1" name="input-image[]" type='file'/>
+                                                    <textarea id="input-descripcion-1" name="input-descripcion[]" class="input-descripcion form-control"required></textarea>
+                                                    <input class="file" id="file1" name="input-image[]" type='file' required/>
                                                     <div id="prev_file1"></div><br/>
                                                 </td>
                                                 <td>
@@ -221,12 +221,10 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </form>
                                 
                                 <div class="header">
                                     <h3>Condiciones</h3>
                                 </div>
-                                <form id="frm-condiciones" class="form-horizontal" style="border-radius: 0px;" action="#" data-parsley-validate>
                                     <div class="form-group" id="div_condicion1" style="display: none;" >
                                         Precios no incluyen Iva
                                     </div>
@@ -255,12 +253,13 @@
                                             </div>
                                         </div>
                                     </div>
-                                </form>
+                                
                                 <hr />
-                                <button type="button" id="btn-crear-cotizacion" class="btn btn-lg btn-block btn-primary">Crear cotización</button>
+                                <button type="submit" id="btn-crear-cotizacion" class="btn btn-lg btn-block btn-primary">Crear cotización</button>
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div>
                 
                 
@@ -279,6 +278,8 @@
   <?= js_preimage() ?>
   <?= js_i18n_es() ?>
   <?= js_general() ?>
+  <?= js_ckeditor() ?>
+  <?= js_ckeditor_adapter() ?>
      
 	
 
@@ -287,7 +288,8 @@
             //initialize the javascript
             App.init();
             window.ParsleyValidator.setLocale('es');
-            $('.file').preimage();
+            $("#input-descripcion-1").ckeditor();
+            $('#file1').preimage();
             $("#input-iva").change(function(){
                 var ivaflag=parseInt($(this).val(),10);
                 if(ivaflag===1){
@@ -318,35 +320,41 @@
                 $(this).closest('tr.item').find('.input-total').val(totalPrice.formatMoney(2));
                 totalize();
             });
+            var itemCounter = 1;
             $("#btn-add-item").click(function(){
+                itemCounter++;
                 var nItems=$("#table-items").attr('data-nitems');
                 nItems++;
                 $("#table-items").attr('data-nitems',nItems);
                 var selectRubro='<?= selectRubro('','input-rubro[]','form-control input-rubro','required','','') ?>';
                 $("#row-add-item").before('<tr class="item">'
-                                                    +'<td class="text-center">'
-                                                        +'<button class="btn btn-danger btn-xs btn-delete-item" type="button"><i class="fa fa-times"></i></button>'
-                                                    +'</td>'
-                                                    +'<td>'
-                                                        +'<input name="input-cantidad[]" class="input-cantidad form-control" type="text" required=""/>'
-                                                    +'</td>'
-                                                    +'<td>'
-                                                        +selectRubro
-                                                    +'</td>'
-                                                    +'<td>'
-                                                        +'<textarea name="input-descripcion[]" class="input-descripcion form-control"required></textarea>'
-                                                    +'</td>'
-                                                    +'<td>'
-                                                        +'<div class="input-group">'
-                                                            +'<span class="input-group-addon">$</span><input name="input-precio-unitario[]" class="input-precio-unitario form-control" type="text" required/>'
-                                                        +'</div>'
-                                                    +'</td>'
-                                                    +'<td>'
-                                                        +'<div class="input-group">'
-                                                            +'<span class="input-group-addon">$</span><input name="input-total[]" class="input-total form-control" type="text" required readonly="readonly"/>'
-                                                        +'</div>'
-                                                    +'</td>'
-                                                +'</tr>');
+                            +'<td class="text-center">'
+                                +'<button class="btn btn-danger btn-xs btn-delete-item" type="button"><i class="fa fa-times"></i></button>'
+                            +'</td>'
+                            +'<td>'
+                                +'<input name="input-cantidad[]" class="input-cantidad form-control" type="text" required=""/>'
+                            +'</td>'
+                            +'<td>'
+                                +selectRubro
+                            +'</td>'
+                            +'<td>'
+                                +'<textarea id="input-descripcion-'+itemCounter+'" name="input-descripcion[]" class="input-descripcion form-control"required></textarea>'
+                                +'<input class="file" id="file'+itemCounter+'" name="input-image[]" type="file" required/>'
+                                +'<div id="prev_file'+itemCounter+'"></div><br/>'
+                            +'</td>'
+                            +'<td>'
+                                +'<div class="input-group">'
+                                    +'<span class="input-group-addon">$</span><input name="input-precio-unitario[]" class="input-precio-unitario form-control" type="text" required/>'
+                                +'</div>'
+                            +'</td>'
+                            +'<td>'
+                                +'<div class="input-group">'
+                                    +'<span class="input-group-addon">$</span><input name="input-total[]" class="input-total form-control" type="text" required readonly="readonly"/>'
+                                +'</div>'
+                            +'</td>'
+                        +'</tr>');
+                $("#input-descripcion-"+itemCounter).ckeditor();
+                $('#file'+itemCounter).preimage();
             });
             $("#btn-add-condicion").click(function(){
                 $("#container-btn-add").before('<div class="form-group">'
@@ -364,14 +372,17 @@
                $(this).parents('.form-group').remove(); 
             });
             
-            $("#btn-crear-cotizacion").click(function(){
-                if($( '#frm-quote-info' ).parsley().validate() && $( '#frm-quote-items' ).parsley().validate() && $("#frm-condiciones").parsley().validate()){
-                    var cotizacionData = $('form').serialize()+'&opt=1';
+            $("#frm-quote").submit(function(e){
+                e.preventDefault();
+                if($( '#frm-quote' ).parsley().validate()){
+//                    var cotizacionData = $('form').serialize()+'&opt=1';
                     $.ajax({
                         url:'ajax/cotizacion.php',
                         type: 'post',
                         dataType: 'json',
-                        data: cotizacionData
+                        data: new FormData( this ),
+                        processData: false,
+                        contentType: false
                     }).done(function(response) {
                         if(response.status==0){
                             alert(response.msg);

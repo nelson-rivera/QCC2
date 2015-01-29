@@ -48,8 +48,8 @@ function js_masonry(){return '<script type="text/javascript" src="js/masonry.js"
 function js_niftymodals(){return '<script type="text/javascript" src="js/jquery.niftymodals/js/jquery.modalEffects.js"></script>';}
 function js_preimage(){return '<script type="text/javascript" src="js/preimage/preimage.js"></script>';}
 function js_gritter(){return '<script type="text/javascript" src="js/jquery.gritter/js/jquery.gritter.js"></script>';}
-
-?>
+function js_ckeditor(){return '<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>';}
+function js_ckeditor_adapter(){return '<script type="text/javascript" src="js/ckeditor/adapters/jquery.js"></script>';}
 
 
 

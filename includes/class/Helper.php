@@ -22,6 +22,12 @@ class Helper{
         } 
    }
    
+   static function helpMenuIsAllowed($permiso) {
+        if (in_array($permiso, $_SESSION['permisos']) ){
+            return true;
+        } 
+   }
+   
 }
 
 

@@ -6,16 +6,16 @@
             <file>file:/C:/wamp/www/QCC/includes/libraries.php</file>
             <file>file:/C:/wamp/www/QCC/ajax/ajax-calls.php</file>
             <file>file:/C:/wamp/www/QCC/edit-user.php</file>
+            <file>file:/C:/wamp/www/QCC/js/ckeditor/config.js</file>
             <file>file:/C:/wamp/www/QCC/index.php</file>
-            <file>file:/C:/wamp/www/QCC/add-supplier.php</file>
+            <file>file:/C:/wamp/www/QCC/cambios_bd.sql</file>
+            <file>file:/C:/wamp/www/QCC/list-clients.php</file>
             <file>file:/C:/wamp/www/QCC/generate-pdf.php</file>
-            <file>file:/C:/wamp/www/QCC/add-user.php</file>
             <file>file:/C:/wamp/www/QCC/login.php</file>
             <file>file:/C:/wamp/www/QCC/ajax/cotizacion.php</file>
             <file>file:/C:/wamp/www/QCC/add-quote.php</file>
-            <file>file:/C:/wamp/www/QCC/list-quotes.php</file>
             <file>file:/C:/wamp/www/QCC/add-client.php</file>
-            <file>file:/C:/wamp/www/QCC/add-contact-client.php</file>
+            <file>file:/C:/wamp/www/QCC/list-quotes.php</file>
             <file>file:/C:/wamp/www/QCC/includes/file_const.php</file>
             <file>file:/C:/wamp/www/QCC/edit-client.php</file>
             <file>file:/C:/wamp/www/QCC/edit-contact-client.php</file>
@@ -24,6 +24,7 @@
             <file>file:/C:/wamp/www/QCC/edit-quote.php</file>
             <file>file:/C:/wamp/www/QCC/includes/layout.php</file>
             <file>file:/C:/wamp/www/QCC/list-users.php</file>
+            <file>file:/C:/wamp/www/QCC/ajax/client.php</file>
             <file>file:/C:/wamp/www/QCC/ajax/user.php</file>
             <file>file:/C:/wamp/www/QCC/ajax/login.php</file>
         </group>

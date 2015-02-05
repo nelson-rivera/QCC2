@@ -129,7 +129,7 @@
                                                     <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php">
                                                         <i class="fa fa-users"></i>
                                                     </a>
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-client.php?id=<?= $cliente['idcliente'] ?>">
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar cliente" href="edit-client.php?id=<?= $cliente['idcliente'] ?>">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                     <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">

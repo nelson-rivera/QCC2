@@ -48,37 +48,88 @@ function lytSideMenu($menuSelected){
             break;
     }
     
-    return '<ul class="cl-vnavigation">
-                <li>
-                  <a href="#"><i class="fa fa-users"></i><span>Clientes</span></a>
-                  <ul class="sub-menu">
-                    <li class="'.$isActiveM1.'"><a href="list-clients.php">Listado de clientes</a></li>
-                    <li class="'.$isActiveM1.'"><a href="view-client-gallery.php">Listado de imagenes</a></li>
-                    <li class="'.$isActiveM2.'"><a href="add-client.php">Agregar cliente</a></li>
-                  </ul>
-                </li>
-                <li><a href="#"><i class="fa fa-smile-o"></i><span>Vendedores</span></a>
-                  <ul class="sub-menu">
-                    <li class="'.$isActiveM3.'"><a href="list-users.php">Listado de vendedores</a></li>
-                    <li class="'.$isActiveM4.'"><a href="add-user.php">Agregar vendedor</a></li>
-                  </ul>
-                </li>
-                <li><a href="#"><i class="fa fa-list-alt"></i><span>Proveedores</span></a>
-                  <ul class="sub-menu">
-                    <li class="'.$isActiveM5.'"><a href="list-suppliers.php">Listado de Proveedores</a></li>
-                    <li class="'.$isActiveM6.'"><a href="add-supplier.php">Agregar proveedor</a></li>
-                  </ul>
-                </li>
-                <li><a href="#"><i class="fa fa-table"></i><span>Cotizaciones</span></a>
-                  <ul class="sub-menu">
-                    <li class="'.$isActiveM7.'"><a href="list-quotes.php">Listado de cotizaciones</a></li>
-                    <li class="'.$isActiveM8.'"><a href="add-quote.php">Crear Cotización</a></li>
-                  </ul>
-                </li>                         
-                <li class="'.$isActiveM9.'">
-                  <a href="charts.php"><i class="fa fa-signal nav-icon"></i><span>Reportes</span></a>
-                </li>
-            </ul>';
+    $menu = '<ul class="cl-vnavigation"> '; 
+    
+    if( Helper::helpMenuIsAllowed(1) or Helper::helpMenuIsAllowed(2) ){
+        $menu .= '<li>
+                <a href="#"><i class="fa fa-users"></i><span>Clientes</span></a>
+                <ul class="sub-menu">';
+    }
+    if( Helper::helpMenuIsAllowed(1) ){
+        $menu .= '<li class="'.$isActiveM1.'"><a href="list-clients.php">Listado de clientes</a></li>
+                    <li class="'.$isActiveM1.'"><a href="view-client-gallery.php">Listado de imagenes</a></li>';
+    }
+    if( Helper::helpMenuIsAllowed(2) ){
+        $menu .= '<li class="'.$isActiveM2.'"><a href="add-client.php">Agregar cliente</a></li>';
+    }
+    
+    if( Helper::helpMenuIsAllowed(1) or Helper::helpMenuIsAllowed(2) ){
+         $menu .='</ul>
+                 </li>';    
+     }
+    
+    if( Helper::helpMenuIsAllowed(3) or Helper::helpMenuIsAllowed(4) ){            
+        $menu .= '<li><a href="#"><i class="fa fa-smile-o"></i><span>Vendedores</span></a>
+                      <ul class="sub-menu">';
+    }
+    
+    if( Helper::helpMenuIsAllowed(3) ){
+        $menu .= '<li class="'.$isActiveM3.'"><a href="list-users.php">Listado de vendedores</a></li>';
+    }
+    
+    if( Helper::helpMenuIsAllowed(4) ){
+        $menu .= '<li class="'.$isActiveM4.'"><a href="add-user.php">Agregar vendedor</a></li>';
+    }
+    
+    if( Helper::helpMenuIsAllowed(3) or Helper::helpMenuIsAllowed(4) ){
+        $menu .= '</ul>
+                    </li>';
+    }
+    
+    if( Helper::helpMenuIsAllowed(5) or Helper::helpMenuIsAllowed(6) ){
+        $menu .= '<li><a href="#"><i class="fa fa-list-alt"></i><span>Proveedores</span></a>
+                      <ul class="sub-menu">';
+    }
+    
+    if( Helper::helpMenuIsAllowed(5) ){
+        $menu .= '<li class="'.$isActiveM5.'"><a href="list-suppliers.php">Listado de Proveedores</a></li>';
+    }
+    
+    if( Helper::helpMenuIsAllowed(6) ){
+        $menu .= '<li class="'.$isActiveM6.'"><a href="add-supplier.php">Agregar proveedor</a></li>';
+    }
+    
+    if(Helper::helpMenuIsAllowed(5) or Helper::helpMenuIsAllowed(6) ){
+        $menu .= '</ul>
+                    </li>';
+    }
+    
+    //if( Helper::helpMenuIsAllowed(2) ){
+        $menu .= '<li><a href="#"><i class="fa fa-table"></i><span>Cotizaciones</span></a>
+                      <ul class="sub-menu">';
+    //}
+    
+    //if( Helper::helpMenuIsAllowed(2) ){
+        $menu .= '<li class="'.$isActiveM7.'"><a href="list-quotes.php">Listado de cotizaciones</a></li>';
+    //}
+    
+    //if( Helper::helpMenuIsAllowed(2) ){
+        $menu .= '<li class="'.$isActiveM8.'"><a href="add-quote.php">Crear Cotización</a></li>';
+    //}
+    
+    //if( Helper::helpMenuIsAllowed(2) ){
+        $menu .= '</ul>
+                    </li>';                         
+    //}
+    
+    if( Helper::helpMenuIsAllowed(9) ){
+        $menu .= '<li class="'.$isActiveM9.'">
+                      <a href="charts.php"><i class="fa fa-signal nav-icon"></i><span>Reportes</span></a>
+                    </li>';
+    }
+    
+    $menu .= '</ul>';
+    return $menu;
 }
 function selectFaseCotizacion($id,$name,$class,$required,$onchange,$idSelected){
     $connection= openConnection();

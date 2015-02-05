@@ -73,7 +73,7 @@ function sql_update_client(){
     return 'UPDATE clientes SET nombre_cliente=?, idmunicipio=?, logo=?, idrubro=?, idvendedor=?, recibir_correos=? WHERE idcliente=?';
 }
 function sql_delete_cliente(){
-    return 'DELETE FROM clientes WHERE idcliente=?';
+    return 'UPDATE clientes SET active = 0 WHERE idcliente=?';
 }
 function sql_get_departamentos(){
     return 'SELECT * from departamentos';
@@ -96,7 +96,7 @@ function sql_select_clientes_extended(){
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
          .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
          .' INNER JOIN rubros ON clientes.idrubro=rubros.idrubro'
-         .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario';
+         .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario WHERE clientes.active = 1';
 }
 function sql_select_cliente_extended_by_idcliente(){
     return 'SELECT clientes.idcliente, clientes.nombre_cliente, clientes.recibir_correos, municipios.idmunicipio, departamentos.iddepartamento, rubros.idrubro, usuarios.idusuario, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, '

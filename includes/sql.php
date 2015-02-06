@@ -73,7 +73,7 @@ function sql_update_client(){
     return 'UPDATE clientes SET nombre_cliente=?, idmunicipio=?, logo=?, idrubro=?, idvendedor=?, recibir_correos=? WHERE idcliente=?';
 }
 function sql_delete_cliente(){
-    return 'DELETE FROM clientes WHERE idcliente=?';
+    return 'UPDATE clientes SET active = 0 WHERE idcliente=?';
 }
 function sql_get_departamentos(){
     return 'SELECT * from departamentos';
@@ -96,7 +96,7 @@ function sql_select_clientes_extended(){
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
          .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
          .' INNER JOIN rubros ON clientes.idrubro=rubros.idrubro'
-         .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario';
+         .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario WHERE clientes.active = 1';
 }
 function sql_select_cliente_extended_by_idcliente(){
     return 'SELECT clientes.idcliente, clientes.nombre_cliente, clientes.recibir_correos, municipios.idmunicipio, departamentos.iddepartamento, rubros.idrubro, usuarios.idusuario, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, '
@@ -258,6 +258,7 @@ function sql_delete_contacto_proveedor(){
 }
 
 
+
 function sql_chart_resumen_cotizaciones(){
     return "SELECT * from resumen_cotizaciones where between fecha_creacion between :fecha_creacionIni and :fecha_creacionFin ";
 }
@@ -269,3 +270,18 @@ function sql_chart_resumen_cotizaciones_vendedor(){
 function sql_chart_resumen_cotizaciones_cliente(){
     return "SELECT * from resumen_cotizaciones where idcliente= :idcliente and between fecha_creacion between :fecha_creacionIni and :fecha_creacionFin";
 }
+
+function sql_chart(){
+    return "SELECT 
+    `cotizaciones`.codigo_cotizacion, `clientes`.`nombre_cliente`, 
+    CONCAT( `usuarios`.`nombre` ,' ', `usuarios`.`apellido`) AS vendedor, 
+    `estados_cotizacion`.`estado`,
+    SUM(( `cotizacion_items`.`cantidad` * `cotizacion_items`.`precio_unitario` )) AS total 
+    FROM `cotizaciones`
+    INNER JOIN clientes ON clientes.`idcliente` = `cotizaciones`.`idcliente`
+    INNER JOIN `cotizacion_items` ON `cotizacion_items`.`idcotizacion` = `cotizaciones`.`idcotizacion`
+    INNER JOIN `usuarios` ON `usuarios`.`idusuario` = `cotizaciones`.`idvendedor`
+    INNER JOIN `estados_cotizacion` ON `estados_cotizacion`.`idestado_cotizacion` = `cotizaciones`.`idestado_cotizacion`
+    GROUP BY `cotizaciones`.`idcotizacion`, `cotizaciones`.`idestado_cotizacion`;";
+}
+

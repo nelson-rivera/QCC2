@@ -79,11 +79,11 @@
             </div>
             <div class="cl-mcont">
                 <div class="row col-md-4">
-                    <form class="form-horizontal group-border-dashed" action="#" style="border-radius: 0px;">
+                    <form  class="form-horizontal group-border-dashed" action="#" style="border-radius: 0px;">
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Funnel</label>
                           <div class="col-sm-6">
-                            <select class="form-control">
+                              <select id="cbfunnel" name="cbfunnel" class="form-control">
                               <option>General</option>
                               <option>Vendedor</option>
                               <option>Cliente</option>

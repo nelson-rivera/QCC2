@@ -15,8 +15,7 @@ if($gOption=="save"){
     
     
     $query=$connection->prepare(sql_chart_resumen_cotizaciones());
-    $query->execute(array($email));
-    $passwordArray=$query->fetch();
+   
     
 }
 

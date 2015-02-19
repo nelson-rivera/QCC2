@@ -50,8 +50,8 @@ switch ($opt) {
             }
             
             //Getting contactos
-            $getContactos=$connection->prepare(sql_select_contactos());
-            $getContactos->execute();
+            $getContactos=$connection->prepare(sql_select_contactos_by_idcliente());
+            $getContactos->execute(array($idCliente));
             $selectContacto='<option value="">Seleccione un contacto</option>';
             foreach ($getContactos->fetchAll() as $contacto) {
                 $selectContacto.='<option value="'.$contacto['idcontacto'].'">'.$contacto['nombre_contacto'].'</option>';

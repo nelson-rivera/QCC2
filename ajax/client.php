@@ -25,7 +25,6 @@ switch ($opt) {
             $cargo=$_POST['input-cargo'];
             $telefono1=$_POST['input-telefono-1'];
             $correo1=$_POST['input-correo-1'];
-            $logo=(empty($_POST['input-logo']))?null:$_POST['input-logo'];
             $recibirCorreos=(empty($_POST['input-newsletter']))?0:1;
             
             $telefono2=(empty($_POST['input-telefono-2']))?null:$_POST['input-telefono-2'];
@@ -33,6 +32,15 @@ switch ($opt) {
             $correo2=(empty($_POST['input-correo-2']))?null:$_POST['input-correo-2'];
             $connection->beginTransaction();
             try {
+                
+                $uploadDir = "../uploads/clientes/";
+                if(!is_dir($uploadDir)) {
+                    mkdir($uploadDir,0566,true);
+                }
+                $imageUrl = $uploadDir. $_FILES["input-logo"]["name"];
+                $logo = "uploads/clientes/".$_FILES["input-logo"]["name"];
+                move_uploaded_file($_FILES["input-logo"]["tmp_name"], $imageUrl);
+                
                 $insertClient=$connection->prepare(sql_insert_client());
                 $insertClient->execute(array($companyName,$idMunicipio,$logo,$idRubro,$idUsuario,$recibirCorreos));
                 $idCliente=$connection->lastInsertId();

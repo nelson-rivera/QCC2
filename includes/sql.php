@@ -168,8 +168,8 @@ function sql_save_proveedor(){
 }
 
 function sql_save_contacto_proveedor(){
-    return 'INSERT INTO `contactos_proveedores`(`nombre_contacto`, `cargo`, `idproveedor`, `email_1`, `email_2`, `email_3`, `telefono_1`, `telefono_2`, `telefono_3`, `fecha_creacion`) '
-            .' VALUES (:nombre_contacto, :cargo, :idproveedor, :email_1, :email_2, :email_3, :telefono_1, :telefono_2, :telefono_3, :fecha_creacion)';
+    return 'INSERT INTO `contactos_proveedores`(`nombre_contacto`, `idcontactos_proveedores_cargos`, `idproveedor`, `email_1`, `email_2`, `email_3`, `telefono_1`, `telefono_2`, `telefono_3`, `fecha_creacion`) '
+            .' VALUES (:nombre_contacto, :idcontactos_proveedores_cargos, :idproveedor, :email_1, :email_2, :email_3, :telefono_1, :telefono_2, :telefono_3, :fecha_creacion)';
 }
 function sql_select_last_idcotizacion(){
     return 'SELECT idcotizacion FROM cotizaciones ORDER by idcotizacion DESC LIMIT 1';
@@ -236,19 +236,21 @@ function sql_delete_proveedor(){
 }
 
 function sql_select_contactos_proveedores_bydIdproveedor(){
-    return 'SELECT `idcontacto_proveedor`, `nombre_contacto`, `cargo`, '
-           .'`email_1`, `email_2`, `email_3`, `telefono_1`, `telefono_2`, `telefono_3`, '
-           .'`fecha_creacion` FROM `contactos_proveedores` WHERE idproveedor=:idproveedor';
+    return 'SELECT `idcontacto_proveedor`, `nombre_contacto`, `contactos_proveedores_cargos`.*,'
+           .' `email_1`, `email_2`, `email_3`, `telefono_1`, `telefono_2`, `telefono_3`, `fecha_creacion`'
+           .' FROM `contactos_proveedores`'
+           .' INNER JOIN `contactos_proveedores_cargos` ON `contactos_proveedores_cargos`.`idcontactos_proveedores_cargos` = `contactos_proveedores`.`idcontactos_proveedores_cargos`'
+           .' WHERE idproveedor=:idproveedor ';
 }
 
 function sql_select_contactos_proveedores_bydIcontacto_proveedor(){
-    return 'SELECT `idcontacto_proveedor`,`idproveedor`, `nombre_contacto`, `cargo`, '
+    return 'SELECT `idcontacto_proveedor`,`idproveedor`, `nombre_contacto`, `idcontactos_proveedores_cargos`, '
            .'`email_1`, `email_2`, `email_3`, `telefono_1`, `telefono_2`, `telefono_3`, '
            .'`fecha_creacion` FROM `contactos_proveedores` WHERE idcontacto_proveedor=:idcontacto_proveedor';
 }
 
 function  sql_update_contacto_proveedor(){
-    return 'UPDATE `contactos_proveedores` SET `nombre_contacto`=:nombre_contacto,`cargo`=:cargo,'
+    return 'UPDATE `contactos_proveedores` SET `nombre_contacto`=:nombre_contacto,`idcontactos_proveedores_cargos`=:idcontactos_proveedores_cargos,'
             .'`email_1`=:email_1,`email_2`=:email_2,`email_3`=:email_3,`telefono_1`=:telefono_1,'
             .'`telefono_2`=:telefono_2,`telefono_3`=:telefono_3 WHERE idcontacto_proveedor=:idcontacto_proveedor';
 }
@@ -285,3 +287,21 @@ function sql_chart(){
     GROUP BY `cotizaciones`.`idcotizacion`, `cotizaciones`.`idestado_cotizacion`;";
 }
 
+function sql_select_proveedores_contact(){
+    return 'SELECT proveedores.*, rubros.rubro,tipos_empresas.tipo, '.
+           ' (SELECT `contactos_proveedores`.nombre_contacto '.
+           ' FROM `contactos_proveedores` '. 
+           ' WHERE `contactos_proveedores`.`idproveedor` = `proveedores`.`idproveedor` '.
+           ' ORDER BY contactos_proveedores.`idcontacto_proveedor` DESC LIMIT 1) as contacto '.
+           ' FROM proveedores '.
+           ' INNER JOIN rubros ON rubros.`idrubro` = proveedores.`idrubro` '.
+           ' INNER JOIN tipos_empresas ON tipos_empresas.`idtipos_empresas` = proveedores.`idtipos_empresas`';
+}
+
+function sql_select_contactos_proveedores_cargo_all(){
+    return 'SELECT contactos_proveedores_cargos.* FROM contactos_proveedores_cargos ';
+}
+
+function sql_select_tipo_proveedores(){
+    return 'SELECT tipos_empresas.* FROM `tipos_empresas`';
+}

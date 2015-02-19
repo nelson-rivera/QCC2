@@ -6,8 +6,11 @@
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
         Helper::helpSession();
         Helper::helpIsAllowed(1); // 1 - Listado de clientes
+        $connection = openConnection();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -81,89 +84,37 @@
             </div>
            
             <div class="content">
-                <div class="row">
+<!--                <div class="row">
                     <div class="spacer" ></div>
                         <div class="col-md-6 pull-right">
                             <input type="text" placeholder="Buscar cliente..." class="form-control">
                         </div>
-                </div>
+                </div>-->
                  <div class="spacer" ></div>
                 <div class="gallery-cont">
-                    <div class="item">
-                      <div class="photo">
-                        <div class="head">
-                          <span class="pull-right"> <i class="fa fa-map-marker"></i> </span><h4>ACAVISA</h4>
-                          <span class="desc">San Salvador</span>
-                        </div>
-                        <div class="img">
-                          <img src="clients/unilever.jpg" />
-                          <div class="over">
-                            <div class="func">
-                                <a class="image-zoom" href="edit-client.php"><i class="fa fa-search"></i></a></div>
-                          </div>            
+                    <?php
+                        $queryClientes = $connection->prepare(sql_select_clientes_extended());
+                        $queryClientes->execute();
+                        foreach ($queryClientes->fetchAll() as $cliente) {
+                    ?>
+                        <div class="item">
+                        <div class="photo">
+                          <div class="head">
+                            <span class="pull-right"> <i class="fa fa-map-marker"></i> </span><h4><?= $cliente['nombre_cliente'] ?></h4>
+                            <span class="desc"><?= $cliente['municipio'] ?></span>
+                          </div>
+                          <div class="img">
+                            <img src="<?= $cliente['logo'] ?>" />
+                            <div class="over">
+                              <div class="func">
+                                  <a class="image-zoom" href="edit-client.php"><i class="fa fa-search"></i></a></div>
+                            </div>            
+                          </div>
                         </div>
                       </div>
-                    </div>
-                    <div class="item">
-                      <div class="photo">
-                        <div class="head">
-                          <span class="pull-right active"> <i class="fa fa-map-marker"></i> </span><h4>Molsa</h4>
-                          <span class="desc">San Salvador</span>
-                        </div>
-                        <div class="img">
-                            <img src="clients/molsa.jpg" />
-                          <div class="over">
-                            <div class="func">
-                                <a class="image-zoom" href="edit-client.php"><i class="fa fa-search"></i></a></div>
-                          </div>            
-                        </div>          
-                      </div>
-                    </div>
-                    <div class="item">
-                      <div class="photo">
-                        <div class="head">
-                          <span class="pull-right active"> <i class="fa fa-map-marker"></i> </span><h4>Credicomer</h4>
-                          <span class="desc">San Salvador</span>
-                        </div>
-                        <div class="img">
-                            <img src="clients/credicomer.png" />
-                          <div class="over">
-                            <div class="func">
-                                <a class="image-zoom" href="edit-client.php"><i class="fa fa-search"></i></a></div>
-                          </div>            
-                        </div>          
-                      </div>
-                    </div>
-                    <div class="item">
-                      <div class="photo">
-                        <div class="head">
-                          <span class="pull-right active"> <i class="fa fa-map-marker"></i> </span><h4>Claro</h4>
-                          <span class="desc">San Salvador</span>
-                        </div>
-                        <div class="img">
-                            <img src="clients/claro.jpg" />
-                          <div class="over">
-                            <div class="func">
-                                <a class="image-zoom" href="edit-client.php"><i class="fa fa-search"></i></a></div>
-                          </div>            
-                        </div>          
-                      </div>
-                    </div>
-                    <div class="item">
-                      <div class="photo">
-                        <div class="head">
-                          <span class="pull-right active"> <i class="fa fa-map-marker"></i> </span><h4>Claro</h4>
-                          <span class="desc">San Salvador</span>
-                        </div>
-                        <div class="img">
-                            <img src="clients/uca.jpg" />
-                          <div class="over">
-                            <div class="func">
-                                <a class="image-zoom" href="edit-client.php"><i class="fa fa-search"></i></a></div>
-                          </div>            
-                        </div>          
-                      </div>
-                    </div>
+                    <?php
+                        }
+                    ?>
                   </div>
             </div>
 	</div> 

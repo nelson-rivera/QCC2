@@ -101,12 +101,13 @@
                                 <h3>Datos generales</h3>
                             </div>
                             <div class="content">
-                                <form id="frm-quote-info" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-quote-info" class="form-horizontal" style="border-radius: 0px;" action="#" data-parsley-validate>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label"># Cotización</label>
                                         <div class="col-sm-6">
                                             <input name="input-codigo" class="form-control" type="text" required value="<?= $cotizacionArray['codigo_cotizacion'] ?>" readonly="readonly">
                                             <input type="hidden" value="<?= $idCotizacion ?>" name="input-cotizacion" />
+                                            <input type="hidden" value="2" name="opt" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -158,12 +159,10 @@
                                             <?= selectFaseCotizacion('input-estado-cotizacion','input-estado-cotizacion','form-control','required','',$cotizacionArray['idestado_cotizacion']) ?>
                                         </div>
                                     </div>
-                                </form>
                                 <div class="header">
                                     <h3>Items</h3>
                                 </div>
                                 
-                                <form id="frm-quote-items">
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-4">
@@ -216,6 +215,8 @@
                                                     </td>
                                                     <td>
                                                         <textarea name="input-descripcion[]" class="input-description form-control"required><?= $itemCotizacion['descripcion'] ?></textarea>
+                                                        <input class="file" id="file<?= $contadorItem ?>" name="input-image[]" type='file' required/>
+                                                        <div id="prev_file<?= $contadorItem ?>"></div><br/>
                                                     </td>
                                                     <td>
                                                         <div class="input-group">
@@ -231,7 +232,7 @@
                                             <?php
                                             $contadorItem++;
                                             }
-                                            
+                                            $contadorItem--;
                                             ?>
                                             <tr id="row-add-item">
                                                 <td colspan="6">
@@ -255,12 +256,10 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                </form>
                                 
                                 <div class="header">
                                     <h3>Condiciones</h3>
                                 </div>
-                                <form id="frm-condiciones" class="form-horizontal" style="border-radius: 0px;" action="#">
                                     <div class="form-group">
                                         <label class="col-sm-2 control-label">Valides de la oferta</label>
                                         <div class="col-sm-3">
@@ -308,10 +307,10 @@
                                             </div>
                                         </div>
                                     </div>
-                                    
+                                    <hr />
+                                    <button type="submit" id="btn-editar-cotizacion" class="btn btn-lg btn-block btn-primary">Editar cotización</button>
                                 </form>
-                                <hr />
-                                <button type="button" id="btn-editar-cotizacion" class="btn btn-lg btn-block btn-primary">Editar cotización</button>
+                                
                             </div>
                         </div>
                     </div>
@@ -333,7 +332,8 @@
   <?= js_preimage() ?>
   <?= js_i18n_es() ?>
   <?= js_general() ?>
-     
+  <?= js_ckeditor() ?>
+  <?= js_ckeditor_adapter() ?>
 	
 
     <script type="text/javascript">
@@ -341,8 +341,15 @@
             //initialize the javascript
             App.init();
             window.ParsleyValidator.setLocale('es');
+            $('.input-description').ckeditor();
+            <?php 
+             for($i=1; $i<=$contadorItem; $i++){
+            ?>
+                    $('#file<?= $i ?>').preimage();
+            <?php
+             }
+            ?>
             $("#input-contacto").change();
-            $('.file').preimage();
             $("#input-iva").change(function(){
                 var ivaflag=parseInt($(this).val(),10);
                 if(ivaflag===1){
@@ -373,35 +380,41 @@
                 $(this).closest('tr.item').find('.input-total').val(totalPrice.formatMoney(2));
                 totalize();
             });
+            var itemCounter = <?= $contadorItem ?>;
             $("#btn-add-item").click(function(){
+                itemCounter++;
                 var nItems=$("#table-items").attr('data-nitems');
                 nItems++;
                 $("#table-items").attr('data-nitems',nItems);
                 var selectRubro='<?= selectRubro('','input-rubro[]','form-control input-rubro','required','','') ?>';
                 $("#row-add-item").before('<tr class="item">'
-                                                    +'<td class="text-center">'
-                                                        +'<button class="btn btn-danger btn-xs btn-delete-item" type="button"><i class="fa fa-times"></i></button>'
-                                                    +'</td>'
-                                                    +'<td>'
-                                                        +'<input name="input-cantidad[]" class="input-cantidad form-control" type="text" required=""/>'
-                                                    +'</td>'
-                                                    +'<td>'
-                                                        +selectRubro
-                                                    +'</td>'
-                                                    +'<td>'
-                                                        +'<textarea name="input-descripcion" class="input-descripcion form-control"required></textarea>'
-                                                    +'</td>'
-                                                    +'<td>'
-                                                        +'<div class="input-group">'
-                                                            +'<span class="input-group-addon">$</span><input name="input-precio-unitario[]" class="input-precio-unitario form-control" type="text" required/>'
-                                                        +'</div>'
-                                                    +'</td>'
-                                                    +'<td>'
-                                                        +'<div class="input-group">'
-                                                            +'<span class="input-group-addon">$</span><input name="input-total[]" class="input-total form-control" type="text" required readonly="readonly"/>'
-                                                        +'</div>'
-                                                    +'</td>'
-                                                +'</tr>');
+                    +'<td class="text-center">'
+                        +'<button class="btn btn-danger btn-xs btn-delete-item" type="button"><i class="fa fa-times"></i></button>'
+                    +'</td>'
+                    +'<td>'
+                        +'<input name="input-cantidad[]" class="input-cantidad form-control" type="text" required=""/>'
+                    +'</td>'
+                    +'<td>'
+                        +selectRubro
+                    +'</td>'
+                    +'<td>'
+                        +'<textarea id="input-descripcion-'+itemCounter+'" name="input-descripcion[]" class="input-descripcion form-control" required></textarea>'
+                        +'<input class="file" id="file'+itemCounter+'" name="input-image[]" type="file" required/>'
+                        +'<div id="prev_file'+itemCounter+'"></div><br/>'
+                    +'</td>'
+                    +'<td>'
+                        +'<div class="input-group">'
+                            +'<span class="input-group-addon">$</span><input name="input-precio-unitario[]" class="input-precio-unitario form-control" type="text" required/>'
+                        +'</div>'
+                    +'</td>'
+                    +'<td>'
+                        +'<div class="input-group">'
+                            +'<span class="input-group-addon">$</span><input name="input-total[]" class="input-total form-control" type="text" required readonly="readonly"/>'
+                        +'</div>'
+                    +'</td>'
+                +'</tr>');
+                $("#input-descripcion-"+itemCounter).ckeditor();
+                $('#file'+itemCounter).preimage();
             });
             $("#btn-add-condicion").click(function(){
                 $("#container-btn-add").before('<div class="form-group">'
@@ -421,14 +434,17 @@
             $(".input-cantidad").each(function(){
                $(this).trigger('change'); 
             });
-            $("#btn-editar-cotizacion").click(function(){
-                if($( '#frm-quote-info' ).parsley().validate() && $( '#frm-quote-items' ).parsley().validate() && $("#frm-condiciones").parsley().validate()){
+            $("#frm-quote-info").submit(function(event){
+                event.preventDefault();
+                if($( '#frm-quote-info' ).parsley().validate()){
                     var cotizacionData = $('form').serialize()+'&opt=2';
                     $.ajax({
                         url:'ajax/cotizacion.php',
                         type: 'post',
                         dataType: 'json',
-                        data: cotizacionData
+                        data: new FormData( this ),
+                        processData: false,
+                        contentType: false
                     }).done(function(response) {
                         if(response.status==0){
                             alert(response.msg);

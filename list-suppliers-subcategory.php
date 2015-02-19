@@ -12,20 +12,8 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(5); // 5 - Listado de proveedores
-        
-        $connection = openConnection();
-        $query=$connection->prepare(sql_select_proveedor_byId());
-        $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
-        $query->execute();
-        $proveedor = $query->fetch();
-        
-        $query=$connection->prepare(sql_select_contactos_proveedores_bydIdproveedor());
-        $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
-        $query->execute();
-        
-        if($query->rowCount()>0){}
-
+        //Helper::helpIsAllowed(5); // 5 - Listado de proveedores
+        $connection=  openConnection();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,7 +21,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Listar de Contactos de Proveedores</title>
+	<title>QCC - Listado de Rubro de Proveedores[Mantenimiento]</title>
 	<?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -47,8 +35,8 @@
 	<![endif]-->
 	<?= css_nanoscroller() ?>
 	<?= css_datatable() ?>
-	<?= css_niftymodals() ?>
-        <?= css_style() ?>
+        <?= css_niftymodals() ?>
+	<?= css_style() ?>
 
 </head>
 
@@ -64,7 +52,7 @@
           <a class="navbar-brand" href="#"><span>QCC</span></a>
         </div>
         <div class="navbar-collapse collapse">
-            <?= lytTopBarMenu(5) ?>		
+            <?= lytTopBarMenu() ?>		
 
         </div><!--/.nav-collapse -->
       </div>
@@ -89,7 +77,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Contactos de <a href="edit-supplier.php"><?= $proveedor['proveedor'] ?></a></h2>
+                <h2>Sub-rubros de Proveedores</h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
@@ -98,73 +86,89 @@
                             <table class="table table-bordered" id="datatable-icons" >
                                 <thead>
                                         <tr>
-                                            <th>Cotacto</th>
-                                            <th>Cargo</th>
-                                            <th>Teléfono 1</th>
-                                            <th>Teléfono 2</th>
-                                            <th>Teléfono 3</th>
-                                            <th>Correo 1</th>
-                                            <th>Correo 2</th>
+                                            <th>Tipo</th>
                                             <th>Acciones</th>
                                         </tr>
                                 </thead>
                                 <tbody>
-                                        <?php
-                                            
-                                            $contactos_proveedores=$query->fetchAll();
-                                            $num=1;
-                                            foreach ($contactos_proveedores as $value) {
-                                            ?>
-                                                <tr class="odd gradeA">
-                                                    <td id="cp_<?= $num ?>" ><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['nombre_contacto'] ?></a></td>
-                                                    <td><?= $value['cargo'] ?></td>
-                                                    <td class="center"><?= $value['telefono_1'] ?></td>
-                                                    <td class="center"><?= $value['telefono_2'] ?></td>
-                                                    <td class="center"><?= $value['telefono_3'] ?></td>
-                                                    <td class="center"><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['email_1'] ?></a></td>
-                                                    <td class="center"><a href="mailto:<?= $value['email_2'] ?>" title="Click para enviar correo" ><?= $value['email_2'] ?></a></td>
-                                                    <td class="center">
-                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-supplier.php?cp=<?= encryptString($value['idcontacto_proveedor']) ?>">
-                                                            <i class="fa fa-pencil"></i>
-                                                        </a>
-                                                        <a class="btn btn-danger md-trigger btn-xs btn-eliminar-cs" data-toggle="tooltip" data-original-title="Eliminar contacto" data-modal="mod-delete" data-cp="<?= encryptString($value['idcontacto_proveedor']) ?>"  data-num="<?= $num ?>" >
-                                                            <i class="fa fa-times"></i>
-                                                        </a>
-                                                    </td>
-                                                </tr>
-                                            <?php $num++; } ?>
+                                <?php 
+                                $query=$connection->prepare(sql_select_sub_rubros_all());
+                                $query->execute();
+                                $scategory=$query->fetchAll();
+                                $num=1;
+                                foreach ($scategory as $value) {
+                                ?>
+                                    <tr class="odd gradeA">
+                                        <td id="tsup_<?= $num ?>" ><?= $value['sub_rubro'] ?></td>
+                                        <td class="center">
+                                            <a class="btn btn-primary md-trigger btn-xs btn-edit-tsup" data-toggle="tooltip" data-original-title="Eliminar registro" data-modal="mod-edit" data-tsup="<?= encryptString($value['idsub_rubro']) ?>"  data-num="<?= $num ?>" >
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
+                                            <a class="btn btn-danger md-trigger btn-xs btn-eliminar-tsup" data-toggle="tooltip" data-original-title="Eliminar registro" data-modal="mod-delete" data-tsup="<?= encryptString($value['idsub_rubro']) ?>"  data-num="<?= $num ?>" >
+                                                <i class="fa fa-times"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                <?php $num++; } ?>
                                 </tbody>
                             </table>
                         </div>
-                        <!-- Nifty Modal -->
+                        
+                        <!-- <editar> -->
+                        <div class="md-modal colored-header danger md-effect-10" id="mod-edit">
+                            <div class="md-content ">
+                              <div class="modal-header">
+                                <h3>Editar rubro de proveedor</h3>
+                                <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              </div>
+                              <div class="modal-body">
+                                <div id="modal-body-center" class="text-center">
+                                  <div class="i-circle danger"><i class="fa fa-trash-o"></i></div>
+                                  
+                                  <h4>¡Cuidado!</h4>
+                                  <p>¿Seguro que desea eliminar a <span id="del_name" ></span>?</p>
+                                  
+                                </div>
+                              </div>
+                                <div class="modal-footer" id="modal-footer-response" >
+                                <button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal">Cancelar</button>
+                                <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal" id="btn-deleteS" >Editar</button>
+                              </div>
+                            </div>
+                        </div>
+                        <!-- </editar> -->
+                        
+                        <!-- <eliminar> -->
                         <div class="md-modal colored-header danger md-effect-10" id="mod-delete">
                             <div class="md-content ">
                               <div class="modal-header">
-                                <h3>Eliminar contacto de proveedor</h3>
+                                <h3>Eliminar</h3>
                                 <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
                               </div>
                               <div class="modal-body">
                                 <div id="modal-body-center" class="text-center">
                                   <div class="i-circle danger"><i class="fa fa-trash-o"></i></div>
                                   <h4>¡Cuidado!</h4>
-                                  <p>¿Seguro que desea eliminar a <span id="del_name" ></span>?</p>
+                                  <p>¿Seguro que desea eliminar el registro: <span id="del_name" ></span>?</p>
                                 </div>
                               </div>
                                 <div class="modal-footer" id="modal-footer-response" >
                                 <button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal" id="btn-deleteCS" >Eliminar</button>
+                                <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal" id="btn-deleteS" >Eliminar</button>
                               </div>
                             </div>
                         </div>
+                        <!-- </eliminar> -->
+                        
                         <div class="md-overlay"></div>
-                        <!-- -->
+                        
                     </div>
                 </div>
                 
             </div>
 	</div> 
     </div>
-   <?= js_jquery() ?>
+  <?= js_jquery() ?>
   <?= js_jquery_ui() ?>
   <?= js_bootstrap_datetimepicker() ?>
   <?= js_jquery_nanoscroller() ?>
@@ -182,25 +186,54 @@
       $(document).ready(function(){
         App.init();
         $('#datatable-icons').dataTable();
-       
+        $("#datatable").dataTable();
+    
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
-        $('<a href="add-contact-supplier.php?sup=<?= encryptString(decryptString($_GET['sup'])) ?>" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
-
-        $('.btn-eliminar-cs').click(function(e){
+        
+        $('.btn-edit-tsup').click(function(e){
            var num = $(this).attr("data-num");
-           $("#del_name").html( $("#cp_"+num).html());
-           $("#btn-deleteCS").attr("data-cp", $(this).attr("data-cp") );
+           $("#del_name").html( $("#tsup_"+num).html());
+           $("#btn-editS").attr("data-tsup", $(this).attr("data-tsup") )
         });
         
-        $('#btn-deleteCS').click(function(e){
-            var cp = $("#btn-deleteCS").attr("data-cp");
+        $('.btn-eliminar-tsup').click(function(e){
+           var num = $(this).attr("data-num");
+           $("#del_name").html( $("#tsup_"+num).html());
+           $("#btn-deleteS").attr("data-tsup", $(this).attr("data-tsup") )
+        });
+        
+        $('#btn-editS').click(function(e){
+            var tsup = $("#btn-editS").attr("data-tsup");
            $.ajax({
-                url:"ajax/contact-supplier.php",
+                url:"ajax/supplier-types.php",
                 type:'POST',
                 dataType:"json",
-                data:"option=delete&cp="+cp,
+                data:"option=edit&tsup="+tsup,
+                beforeSend: function(){
+                    $("#modal-footer-response").html('');
+                },
+                success:function(data){
+                    if(data.status=="1"){ 
+                        $("#modal-body-center").html('<div class="i-circle danger"><i class="fa fa-check"></i></div><h4>¡Registro eliminado con éxito!</h4>');
+                        $("#modal-footer-response").html('<button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
+                    }else{
+                        $("#modal-body-center").html('<div class="i-circle danger"><i class="fa  fa-frown-o"></i></div><h4>Ocurrio un error al eliminar el registro</h4>');
+                        $("#modal-footer-response").html('<button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
+                    }
+                    $(document).on('click','#btn-actualizarDT', function () { location.reload();});
+                }
+            }); 
+        });
+        
+        $('#btn-deleteS').click(function(e){
+            var sup = $("#btn-deleteS").attr("data-sup");
+           $.ajax({
+                url:"ajax/sub-category.php",
+                type:'POST',
+                dataType:"json",
+                data:"option=delete&sup="+sup,
                 beforeSend: function(){
                     $("#modal-footer-response").html('');
                 },
@@ -216,7 +249,7 @@
                 }
             }); 
         });
-
+        
       });
     </script>
 

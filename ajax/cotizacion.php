@@ -67,7 +67,6 @@ switch ($opt) {
                     $imageUrl = $uploadDir. $_FILES["input-image"]["name"][$i];
                     $imageUrlString = "uploads/$codigoCotizacion/".$_FILES["input-image"]["name"][$i];
                     move_uploaded_file($_FILES["input-image"]["tmp_name"][$i], $imageUrl);
-                    
                     $queryInsertItem->execute(array($idCotizacion,$cantidadArray[$i],$idRubroArray[$i],$descripcionArray[$i],$imageUrlString,$preciounitarioArray[$i]));
                 }
                 
@@ -149,7 +148,15 @@ switch ($opt) {
                 
                 $queryInsertItem=$connection->prepare(sql_save_item_cotizacion());
                 for($i=0;$i<$nItems;$i++){
-                    $queryInsertItem->execute(array($idCotizacion,$cantidadArray[$i],$idRubroArray[$i],$descripcionArray[$i],null,$preciounitarioArray[$i]));
+                    $uploadDir = "../uploads/$codigoCotizacion/";
+                    if(!is_dir($uploadDir)) {
+                        mkdir($uploadDir,0566,true);
+                    }
+                    $imageUrl = $uploadDir. $_FILES["input-image"]["name"][$i];
+                    $imageUrlString = "uploads/$codigoCotizacion/".$_FILES["input-image"]["name"][$i];
+                    move_uploaded_file($_FILES["input-image"]["tmp_name"][$i], $imageUrl);
+                    
+                    $queryInsertItem->execute(array($idCotizacion,$cantidadArray[$i],$idRubroArray[$i],$descripcionArray[$i],$imageUrlString,$preciounitarioArray[$i]));
                 }
                 
                 if(!empty($_POST['input-condicion-custom'])){

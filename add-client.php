@@ -87,6 +87,7 @@
                                         <label class="col-sm-3 control-label">Nombre Empresa</label>
                                         <div class="col-sm-6">
                                             <input name="input-name-company" class="form-control" type="text" required>
+                                            <input type="hidden" value="1" name="opt" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -161,7 +162,7 @@
                                      <div class="form-group">
                                         <label class="col-sm-3 control-label">Imagen</label>
                                         <div class="col-sm-6 ">
-                                            <input name="input-logo" id="img-client" type="file" title="Subir una imagen" ><i></i>
+                                            <input name="input-logo" id="img-client" type="file" title="Subir una imagen" required><i></i>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -221,7 +222,9 @@
                     url:'ajax/client.php',
                     type: 'post',
                     dataType: 'json',
-                    data: clientData
+                    data: new FormData( this ),
+                    processData: false,
+                    contentType: false
                 }).done(function(response) {
                     if(response.status==0){
                         alert(response.msg);

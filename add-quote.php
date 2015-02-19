@@ -332,7 +332,7 @@
                                 +selectRubro
                             +'</td>'
                             +'<td>'
-                                +'<textarea id="input-descripcion-'+itemCounter+'" name="input-descripcion[]" class="input-descripcion form-control"required></textarea>'
+                                +'<textarea id="input-descripcion-'+itemCounter+'" name="input-descripcion[]" class="input-descripcion form-control" required></textarea>'
                                 +'<input class="file" id="file'+itemCounter+'" name="input-image[]" type="file" required/>'
                                 +'<div id="prev_file'+itemCounter+'"></div><br/>'
                             +'</td>'
@@ -368,7 +368,9 @@
             
             $("#frm-quote").submit(function(e){
                 e.preventDefault();
+                
                 if($( '#frm-quote' ).parsley().validate()){
+                    CKupdate();
 //                    var cotizacionData = $('form').serialize()+'&opt=1';
                     $.ajax({
                         url:'ajax/cotizacion.php',
@@ -485,6 +487,10 @@
             j = (j = i.length) > 3 ? j % 3 : 0;
             return s + (j ? i.substr(0, j) + t : "") + i.substr(j).replace(/(\d{3})(?=\d)/g, "$1" + t) + (c ? d + Math.abs(n - i).toFixed(c).slice(2) : "");
         };
+        function CKupdate(){
+            for ( instance in CKEDITOR.instances )
+                CKEDITOR.instances[instance].updateElement();
+        }
     </script>
 
 <!-- Bootstrap core JavaScript
@@ -493,5 +499,4 @@
   <?= js_bootstrap() ?>
 </body>
 
-<!-- Mirrored from foxypixel.net/cleanzone/pages-blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Nov 2014 04:57:43 GMT -->
 </html>

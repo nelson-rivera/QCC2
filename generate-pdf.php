@@ -158,6 +158,7 @@ EOD;
 $contadorItem=1;
 $total = 0;
 foreach ($getItemsCotizacion->fetchAll() as $itemCotizacion) {
+//    print_r($itemCotizacion);
     $table .='
     <tr style="text-align:center;">
         <td style="border-right: 1px solid black;border-left: 1px solid black;" width="50">'.$contadorItem.'</td>

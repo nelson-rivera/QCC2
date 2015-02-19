@@ -91,7 +91,7 @@ function sql_update_contacto(){
     return 'UPDATE contactos SET nombre_contacto=?, cargo=?, email_1=?, email_2=?, telefono_1=?,telefono_2=?,telefono_3=? WHERE idcontacto=?';
 }
 function sql_select_clientes_extended(){
-    return 'SELECT clientes.idcliente, clientes.nombre_cliente, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
+    return 'SELECT clientes.*, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
          .' FROM clientes' 
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
          .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'

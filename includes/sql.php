@@ -258,6 +258,19 @@ function sql_delete_contacto_proveedor(){
 }
 
 
+
+function sql_chart_resumen_cotizaciones(){
+    return "SELECT * from resumen_cotizaciones where between fecha_creacion between :fecha_creacionIni and :fecha_creacionFin ";
+}
+
+function sql_chart_resumen_cotizaciones_vendedor(){
+    return "SELECT * from resumen_cotizaciones where idvendedor = :idvendedor and between fecha_creacion between :fecha_creacionIni and :fecha_creacionFin";
+}
+
+function sql_chart_resumen_cotizaciones_cliente(){
+    return "SELECT * from resumen_cotizaciones where idcliente= :idcliente and between fecha_creacion between :fecha_creacionIni and :fecha_creacionFin";
+}
+
 function sql_chart(){
     return "SELECT 
     `cotizaciones`.codigo_cotizacion, `clientes`.`nombre_cliente`, 

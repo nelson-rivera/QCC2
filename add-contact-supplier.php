@@ -69,13 +69,7 @@
             <div class="cl-navblock">
                 <div class="menu-space">
                   <div class="content">
-                    <div class="side-user">
-                      <div class="avatar"><img src="images/avatar1_50.jpg" alt="Avatar" /></div>
-                      <div class="info">
-                        <a href="#">Usuario 1</a>
-                        <img src="images/state_online.png" alt="Status" /> <span>Online</span>
-                      </div>
-                    </div>
+                    
                     <?= lytSideMenu(5) ?>
                   </div>
                 </div>
@@ -107,7 +101,16 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" name="cargo" id="cargo" required >
+                                            <select class="form-control" name="cargo" id="cargo" required >
+                                               <?php 
+                                                $query=$connection->prepare(sql_select_contactos_proveedores_cargo_all());
+                                                $query->execute();
+                                                $cargoArray=$query->fetchAll();
+                                                foreach ($cargoArray as $value) {
+                                                ?>
+                                                <option value="<?= $value['idcontactos_proveedores_cargos'] ?>" ><?= $value['cargo'] ?></option>
+                                                <?php } ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">

@@ -64,13 +64,7 @@
             <div class="cl-navblock">
                 <div class="menu-space">
                   <div class="content">
-                    <div class="side-user">
-                      <div class="avatar"><img src="images/avatar1_50.jpg" alt="Avatar" /></div>
-                      <div class="info">
-                        <a href="#">José Perez</a>
-                        <img src="images/state_online.png" alt="Status" /> <span>Online</span>
-                      </div>
-                    </div>
+                    
                     <?= lytSideMenu(5) ?>
                   </div>
                 </div>
@@ -101,7 +95,7 @@
                                 </thead>
                                 <tbody>
                                 <?php 
-                                $query=$connection->prepare(sql_select_proveedores_all());
+                                $query=$connection->prepare(sql_select_proveedores_contact());
                                 $query->execute();
                                 $usuarios=$query->fetchAll();
                                 $num=1;
@@ -111,7 +105,7 @@
                                         <td id="sup_<?= $num ?>" ><?= $value['proveedor'] ?></td>
                                         <td><?= $value['tipo'] ?></td>
                                         <td><?= $value['rubro'] ?></td>
-                                        <td><?= $value['rubro'] ?></td>
+                                        <td><?= $value['contacto'] ?></td>
                                         <td class="center">
                                             <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contactos" href="contacts-supplier.php?sup=<?= encryptString($value['idproveedor']) ?>">
                                                 <i class="fa fa-users"></i>

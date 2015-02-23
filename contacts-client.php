@@ -3,11 +3,27 @@
 <head>
         <?php
         session_start();
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
         Helper::helpIsAllowed(1); // 1 - Listado de clientes
+        $connection=  openConnection();
+        if(empty($_GET['id']) && !is_numeric($_GET['id'])){
+            header('location: list-clients.php');
+            exit();
+        }
+        $idCliente=$_GET['id'];
+        $getCliente=$connection->prepare(sql_select_cliente_extended_by_idcliente());
+        $getCliente->execute(array($idCliente));
+        if($getCliente->rowCount()<1){
+            header('location: list-clients.php');
+            exit(); 
+        }
+        $clientArray=$getCliente->fetch();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +31,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Listar de Contactos de los Proveedores</title>
+	<title>QCC - Listar de Contactos de los Clientes</title>
 	<?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -76,7 +92,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Contactos de <a href="edit-client.php">ACAVISA</a></h2>
+                <h2>Contactos de <a href="edit-client.php?id=<?=$idCliente ?>"><?= $clientArray['nombre_cliente'] ?></a></h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
@@ -97,16 +113,21 @@
                                         </tr>
                                 </thead>
                                 <tbody>
-                                        <tr class="odd gradeA">
-                                            <td>JOSÉ PEREZ</td>
-                                            <td>Vendedor</td>
-                                            <td>503 2211-1215</td>
-                                            <td>503 2211-1216</td>
-                                            <td>503 2211-1217</td>
-                                            <td>carolinasv.perez@acavisa.com</td>
-                                            <td>carolinasv.perez@acavisa.com</td>
+                                    <?php
+                                    $getContactos = $connection->prepare(sql_select_contactos());
+                                    $getContactos->execute();
+                                    foreach ($getContactos->fetchAll() as $contacto){
+                                    ?>
+                                        <tr class="odd">
+                                            <td><?= $contacto['nombre_contacto'] ?></td>
+                                            <td><?= $contacto['cargo'] ?></td>
+                                            <td><?= $contacto['telefono_1'] ?></td>
+                                            <td><?= $contacto['telefono_2'] ?></td>
+                                            <td><?= $contacto['telefono_3'] ?></td>
+                                            <td><?= $contacto['email_1'] ?></td>
+                                            <td><?= $contacto['email_2'] ?></td>
                                             <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-client.php">
+                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-client.php?id=<?= $contacto['idcontacto']?>">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
@@ -114,41 +135,9 @@
                                                 </a>
                                             </td>
                                         </tr>
-                                        <tr class="odd gradeB">
-                                            <td>Ruby Regalado</td>
-                                            <td>Vendedor</td>
-                                            <td>503 2266-1215</td>
-                                            <td>503 2266-1216</td>
-                                            <td>503 2266-1217</td>
-                                            <td>ruby.regalado@acavisa.com</td>
-                                            <td>ruby.regalado2@acavisa.com</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-client.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr class="odd gradeA">
-                                            <td>Mario Bross</td>
-                                            <td>Vendedor</td>
-                                            <td>503 2234-1215</td>
-                                            <td>503 2234-1216</td>
-                                            <td>503 2234-1217</td>
-                                            <td>mario.bross@nintendo.com</td>
-                                            <td>mario.bross2@nintendo.com</td>
-                                            <td class="center">
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-client.php">
-                                                    <i class="fa fa-pencil"></i>
-                                                </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
-                                                    <i class="fa fa-times"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                     
+                                    <?php
+                                    }
+                                    ?>                                     
                                 </tbody>
                             </table>
                         </div>
@@ -180,7 +169,7 @@
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
-        $('<a href="add-contact-client.php" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
+        $('<a href="add-contact-client.php?id=<?=$idCliente ?>" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
       });
     </script>
 

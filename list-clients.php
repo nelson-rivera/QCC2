@@ -126,7 +126,7 @@
                                                 <td><?= utf8_encode($cliente['departamento']) ?></td>
                                                 <td class="center"><?= utf8_encode($cliente['municipio']) ?></td>
                                                 <td class="center">
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php">
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php?id=<?= $cliente['idcliente'] ?>">
                                                         <i class="fa fa-users"></i>
                                                     </a>
                                                     <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar cliente" href="edit-client.php?id=<?= $cliente['idcliente'] ?>">

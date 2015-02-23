@@ -5,4 +5,4 @@ ALTER TABLE `cotizaciones` ADD `deleted` TINYINT NOT NULL DEFAULT '0' ;
 ----------------new stuff-------------
 ALTER TABLE `clientes` ADD `active` TINYINT NOT NULL DEFAULT '1' ;
 
-
+ALTER TABLE `contactos` ADD `activo` TINYINT NOT NULL DEFAULT '1' ;

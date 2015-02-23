@@ -4,10 +4,23 @@
 <head>
         <?php
         session_start();
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
+        Helper::helpIsAllowed(1); // 1 - Listado de clientes
+        $connection=  openConnection();
+        if(empty($_GET['id']) && !is_numeric($_GET['id'])){
+            header('location: contact-client.php');
+            exit();
+        }
+        $idContacto=$_GET['id'];
+        $getContacto=$connection->prepare(sql_select_contacto_by_idcontacto());
+        $getContacto->execute(array($idContacto));
+        $contactoArray=$getContacto->fetch();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +28,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Editar Proveedor</title>
+	<title>QCC - Editar Contacto de cliente</title>
         <?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -75,7 +88,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Editar Contacto Mario Bross</h2>
+                <h2>Editar Contacto <?= $contactoArray['nombre_contacto'] ?></h2>
             </div>
             <div class="cl-mcont">
                 
@@ -88,47 +101,49 @@
                                 <h3>Datos del contacto</h3>
                             </div>
                             <div class="content">
-                                <form class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-edit" class="form-horizontal" style="border-radius: 0px;" data-parsley-validate>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contacto</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="Mario Bross" >
+                                            <input name="input-nombre-contacto" class="form-control" type="text" value="<?= $contactoArray['nombre_contacto'] ?>" required>
+                                            <input type="hidden" name="id" value="<?= $idContacto ?>" />
+                                            <input type="hidden" name="opt" value="4" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="Vendedor" >
+                                            <input name="input-cargo" class="form-control" type="text" value="<?= $contactoArray['cargo'] ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="503 2234-1215" >
+                                            <input name="input-telefono-1" class="form-control" type="text" value="<?= $contactoArray['telefono_1'] ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="503 2234-1216" >
+                                            <input name="input-telefono-2" class="form-control" type="text" value="<?= $contactoArray['telefono_2'] ?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Teléfono 3</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="503 2234-1217" >
+                                            <input name="input-telefono-3" class="form-control" type="text" value="<?= $contactoArray['telefono_3'] ?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="mario.bross@nintendo.com" >
+                                            <input name="input-email-1" class="form-control" type="email" value="<?= $contactoArray['email_1'] ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="mario.bross2@nintendo.com" >
+                                            <input name="input-email-2" class="form-control" type="text" value="<?= $contactoArray['email_2'] ?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -153,6 +168,8 @@
   <?= js_bootstrap_switch() ?>
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
+  <?= js_jquery_parsley() ?>  
+  <?= js_i18n_es() ?>  
   <?= js_general() ?>
      
 	
@@ -161,6 +178,30 @@
       $(document).ready(function(){
         //initialize the javascript
         App.init();
+        window.ParsleyValidator.setLocale('es');
+        
+        $("#frm-edit").submit(function(event){
+            event.preventDefault();
+            if($( '#frm-edit' ).parsley().isValid()){
+               
+                $.ajax({
+                    url:'ajax/client.php',
+                    type: 'post',
+                    dataType: 'json',
+                    data: $(this).serialize()
+                }).done(function(response) {
+                    if(response.status==0){
+                        alert(response.msg);
+                    }
+                    else{
+                        alert('error');
+                    }
+                })
+                .fail(function() {
+                    
+                });
+           }
+        });
       });
     </script>
 

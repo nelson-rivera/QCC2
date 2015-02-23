@@ -83,7 +83,6 @@ switch ($opt) {
             $cargo=$_POST['input-cargo'];
             $telefono1=$_POST['input-telefono-1'];
             $correo1=$_POST['input-correo-1'];
-            $logo=(empty($_POST['input-logo']))?null:$_POST['input-logo'];
             $recibirCorreos=(empty($_POST['input-newsletter']))?0:1;
             
             $telefono2=(empty($_POST['input-telefono-2']))?null:$_POST['input-telefono-2'];
@@ -91,6 +90,15 @@ switch ($opt) {
             $correo2=(empty($_POST['input-correo-2']))?null:$_POST['input-correo-2'];
             $connection->beginTransaction();
             try {
+                
+                $uploadDir = "../uploads/clientes/";
+                if(!is_dir($uploadDir)) {
+                    mkdir($uploadDir,0566,true);
+                }
+                $imageUrl = $uploadDir. $_FILES["input-logo"]["name"];
+                $logo = "uploads/clientes/".$_FILES["input-logo"]["name"];
+                move_uploaded_file($_FILES["input-logo"]["tmp_name"], $imageUrl);
+                
                 $insertClient=$connection->prepare(sql_update_client());
                 $insertClient->execute(array($companyName,$idMunicipio,$logo,$idRubro,$idUsuario,$recibirCorreos,$idCliente));
                 $insertContact=$connection->prepare(sql_update_contacto());
@@ -138,6 +146,59 @@ switch ($opt) {
             $response['status']=1;
             $response['msg']= 'A su petición le falta un argumento';
             $response['error']= '108';
+        }
+        break;
+        
+    //Update client's contact
+    case 4:
+        if(is_numeric($_POST['id']) && !empty($_POST['input-nombre-contacto']) && !empty($_POST['input-cargo']) && !empty($_POST['input-telefono-1']) && !empty($_POST['input-email-1'])){
+            $idContacto=$_POST['id'];
+            $connection->beginTransaction();
+            try {
+                $updateContacto = $connection->prepare(sql_update_contacto());
+                $updateContacto->execute(array($_POST['input-nombre-contacto'], $_POST['input-cargo'], $_POST['input-email-1'], $_POST['input-email-2'], $_POST['input-telefono-1'], $_POST['input-telefono-2'], $_POST['input-telefono-3'], $idContacto));
+                $connection->commit();
+                $response['status']=0;
+                $response['msg']= 'Contacto editado con exito';
+            } catch (Exception $exc) {
+                $connection->rollBack();
+                $response['status']=1;
+                $response['msg']= 'Error 109: Error al eliminar cliente';
+                $response['error']= '109';
+            }            
+        }
+        else{
+            $response['status']=1;
+            $response['msg']= 'A su petición le falta un argumento';
+            $response['error']= '110';
+        }
+        break;
+    //Agregar contacto
+    case 5:
+        if(is_numeric($_POST['input-id']) && !empty($_POST['input-nombre-contacto']) && !empty($_POST['input-cargo']) && !empty($_POST['input-telefono-1']) && !empty($_POST['input-email-1'])){
+            $idCliente=$_POST['input-id'];
+            $email2 = empty($_POST['input-email-2'])?null:$_POST['input-email-2'];
+            $telefono2 = empty($_POST['input-telefono-2'])?null:$_POST['input-telefono-2'];
+            $telefono3 = empty($_POST['input-telefono-3'])?null:$_POST['input-telefono-3'];
+            $connection->beginTransaction();
+            try {
+                $insertContacto = $connection->prepare(sql_insert_contacto());
+                $insertContacto->execute(array($_POST['input-nombre-contacto'], $_POST['input-cargo'],$idCliente, $_POST['input-email-1'], $email2, $_POST['input-telefono-1'], $telefono2, $telefono3));
+                $connection->commit();
+                $response['status']=0;
+                $response['msg']= 'Contacto agregado con exito';
+            } catch (Exception $exc) {
+                echo $exc->getMessage();
+                $connection->rollBack();
+                $response['status']=1;
+                $response['msg']= 'Error 109: Error al agregar cliente';
+                $response['error']= '109';
+            }            
+        }
+        else{
+            $response['status']=1;
+            $response['msg']= 'A su petición le falta un argumento';
+            $response['error']= '110';
         }
         break;
     default:

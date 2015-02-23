@@ -21,6 +21,10 @@
         $idClient=$_GET['id'];
         $getClient=$connection->prepare(sql_select_cliente_extended_by_idcliente());
         $getClient->execute(array($idClient));
+        if($getClient->rowCount()<1){
+            header('location: list-clients.php');
+            exit(); 
+        }
         $clientArray=$getClient->fetch();
         $recibirCorreosIsChecked=(empty($clientArray['recibir_correos']))?'':'checked';
         ?>
@@ -107,6 +111,9 @@
                                         <label class="col-sm-3 control-label">Nombre Empresa</label>
                                         <div class="col-sm-6">
                                             <input name="input-name-company" class="form-control" type="text" value="<?= $clientArray['nombre_cliente'] ?>" required>
+                                            <input name="opt" type="hidden" value="2" />
+                                            <input name="id1" type="hidden" value="<?= $clientArray['idcliente']?>" />
+                                            <input name="id2" type="hidden" value="<?= $clientArray['idcontacto']?>" />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -179,7 +186,8 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Imagen</label>
                                         <div class="col-sm-6 ">
-                                            <input name="input-logo" id="img-client" type="file" title="Subir una imagen" ><i></i>
+                                            <input name="input-logo" id="img-client" type="file" title="Subir una imagen" >
+                                            <img src="<?= $clientArray['logo'] ?>" class="img-responsive"  />
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -202,9 +210,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                
-                
+                </div>                
             </div>
 	</div> 
     </div>
@@ -232,15 +238,14 @@
         $("#frm-edit").submit(function(event){
             event.preventDefault();
             if($( '#frm-edit' ).parsley().isValid()){
-                var clientData = $('#frm-edit').serializeArray();
-                clientData.push({name: 'opt', value: 2});
-                clientData.push({name: 'id1', value: <?= $clientArray['idcliente']?>});
-                clientData.push({name: 'id2', value: <?= $clientArray['idcontacto']?>});
+               
                 $.ajax({
                     url:'ajax/client.php',
                     type: 'post',
                     dataType: 'json',
-                    data: clientData
+                    data: new FormData( this ),
+                    processData: false,
+                    contentType: false
                 }).done(function(response) {
                     if(response.status==0){
                         alert(response.msg);

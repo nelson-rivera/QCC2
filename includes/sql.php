@@ -87,6 +87,9 @@ function sql_get_municipio_by_iddepartamento(){
 function sql_save_contacto(){
     return 'INSERT INTO contactos (nombre_contacto, cargo, idcliente, email_1, email_2, telefono_1,telefono_2,telefono_3) values(?,?,?,?,?,?,?,?)';
 }
+function sql_insert_contacto(){
+    return 'INSERT INTO contactos(nombre_contacto, cargo, idcliente, email_1, email_2, telefono_1,telefono_2,telefono_3) VALUES(?,?,?,?,?,?,?,?)';
+}
 function sql_update_contacto(){
     return 'UPDATE contactos SET nombre_contacto=?, cargo=?, email_1=?, email_2=?, telefono_1=?,telefono_2=?,telefono_3=? WHERE idcontacto=?';
 }
@@ -99,7 +102,7 @@ function sql_select_clientes_extended(){
          .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario WHERE clientes.active = 1';
 }
 function sql_select_cliente_extended_by_idcliente(){
-    return 'SELECT clientes.idcliente, clientes.nombre_cliente, clientes.recibir_correos, municipios.idmunicipio, departamentos.iddepartamento, rubros.idrubro, usuarios.idusuario, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, '
+    return 'SELECT clientes.*, municipios.idmunicipio, departamentos.iddepartamento, rubros.idrubro, usuarios.idusuario, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, '
          .' contactos.nombre_contacto, contactos.idcontacto, contactos.cargo, contactos.email_1, contactos.email_2, contactos.telefono_1, contactos.telefono_2, contactos.telefono_3'
          .' FROM clientes' 
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'

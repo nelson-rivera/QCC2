@@ -93,7 +93,8 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
-                                            <?= selectVendedor('input-vendedor','input-vendedor','form-control','required','','') ?>
+                                            <input type="hidden" name="input-vendedor" id="input-vendedor" class="form-control" required value="<?= $_SESSION['idusuario'] ?>" />
+                                            <input type="text" name="input-nombre-vendedor" id="input-nombre-vendedor" disabled="true" class="form-control" required value="<?= $_SESSION['nombre'] ?>" />
                                         </div>
                                     </div>
                                     <div class="form-group">

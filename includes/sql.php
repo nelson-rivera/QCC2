@@ -305,3 +305,38 @@ function sql_select_contactos_proveedores_cargo_all(){
 function sql_select_tipo_proveedores(){
     return 'SELECT tipos_empresas.* FROM `tipos_empresas`';
 }
+
+function sql_save_tipo_empresa(){
+    return 'INSERT INTO `tipos_empresas`(`tipo`) VALUES (:tipo);';
+}
+
+function sql_update_tipo_empresa(){
+    return 'UPDATE `tipos_empresas` SET `tipo` = :tipo WHERE `idtipos_empresas` = :idtipos_empresas';
+}
+function sql_delete_tipo_empresa(){
+    return 'DELETE FROM `tipos_empresas` WHERE `idtipos_empresas` = :idtipos_empresas';
+}
+
+function sql_save_rubro(){
+    return 'INSERT INTO `rubros`(`rubro`,`fecha_creacion`) VALUES (:rubro,:fecha_creacion)';
+}
+
+function sql_update_rubro(){
+    return 'UPDATE `rubros` SET `rubro` = :rubro  WHERE `idrubro` = :idrubro';
+}
+
+function sql_delete_rubro(){
+    return 'DELETE FROM `rubros` WHERE `idrubro` = :idrubro';
+}
+
+function sql_save_subrubro(){
+    return 'INSERT INTO `sub_rubros` (`sub_rubro`,`fecha_creacion`) VALUES (:sub_rubro,:fecha_creacion);';
+}
+
+function sql_update_subrubro(){
+    return 'UPDATE `sub_rubros` SET `sub_rubro` = :sub_rubro  WHERE `idsub_rubro` = :id_subrubro';
+}
+
+function sql_delete_subrubro(){
+    return 'DELETE FROM `sub_rubros` WHERE `idsub_rubro` = :idsub_rubro';
+}

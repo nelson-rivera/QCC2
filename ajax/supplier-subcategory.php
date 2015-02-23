@@ -9,39 +9,39 @@ include_once '../includes/lang/text.es.php';
 $option = $_POST['option'];
 
 if($option=="add"){
-    $tipo=$_POST['tipoAgregar'];
-    $idtipo_proveedor=null;
+    $subrubro=$_POST['subrubroAgregar'];
     $now=date("Y-m-d H:i:s");
     $connection=  openConnection();
-    $query=$connection->prepare(sql_save_tipo_empresa());
+    $query=$connection->prepare(sql_save_subrubro());
     
     try {
         $connection->beginTransaction();
-        $query->bindParam(':tipo', $tipo);
+        $query->bindParam(':sub_rubro', $subrubro);
+        $query->bindParam(':fecha_creacion', $now);
         $query->execute();
         $connection->commit();
 
         $response['status']=1;
-        $response['msg']= txt_te_registrado();
+        $response['msg']= txt_sc_registrado();
     }  catch ( Exception $exc ){
         $response['status']=0;
-        $response['msg']= txt_te_msg_registro_fail();
+        $response['msg']= txt_sc_msg_registro_fail();
         $response['error']=$exc->getTraceAsString();
     }
     exit(json_encode($response));
 }
 
 if($option=="update"){
-    $idte= decryptString($_POST['idte']);
-    $tipo=$_POST['tipoEditar'];
+    $idsub_rubro= decryptString($_POST['subcat']);
+    $sub_rubro=$_POST['subrubroEditar'];
    
     $connection=openConnection();
     
     try {
         $connection->beginTransaction();
-        $query=$connection->prepare(sql_update_tipo_empresa());
-        $query->bindParam(':idtipos_empresas', $idte);
-        $query->bindParam(':tipo', $tipo);
+        $query=$connection->prepare(sql_update_subrubro());
+        $query->bindParam(':id_subrubro', $idsub_rubro);
+        $query->bindParam(':sub_rubro', $sub_rubro);
 
         $query->execute();
         $connection->commit();
@@ -56,17 +56,16 @@ if($option=="update"){
 }
 
 if($option=="delete"){
-    $idte=decryptString($_POST['idte']);
+    $subcat=decryptString($_POST['subcat']);
     $connection=openConnection();
     try {
         $connection->beginTransaction();
-        $query=$connection->prepare(sql_delete_tipo_empresa());
-        $query->bindParam(':idtipos_empresas', $idte);
+        $query=$connection->prepare(sql_delete_subrubro());
+        $query->bindParam(':idsub_rubro', $subcat);
         $query->execute();
         $connection->commit();
         $response['status']=1;
         $response['msg']= txt_te_eliminado();
-    
     } catch (Exception $exc) {
         $response['status']=0;
         $response['msg']= txt_error_te_eliminado();

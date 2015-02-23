@@ -82,13 +82,16 @@
             <div class="cl-mcont">
                 <div class="row">
                     <div class="col-md-12">
+                        <div class="clearfix">
+                            <a class="btn btn-info md-trigger btn-agregar-tsup pull-right" data-toggle="tooltip" data-original-title="Agregar registro" data-modal="mod-add123" ><i class="fa fa-book"></i> Agrega registro</a><span>&nbsp;</span>
+                        </div>
                         <div class="block-flat">
                             <table class="table table-bordered" id="datatable-icons" >
                                 <thead>
-                                        <tr>
-                                            <th>Tipo</th>
-                                            <th>Acciones</th>
-                                        </tr>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Acciones</th>
+                                </tr>
                                 </thead>
                                 <tbody>
                                 <?php 
@@ -114,30 +117,6 @@
                             </table>
                         </div>
                         
-                        <!-- <editar> -->
-                        <div class="md-modal colored-header danger md-effect-10" id="mod-edit">
-                            <div class="md-content ">
-                              <div class="modal-header">
-                                <h3>Editar tipo de proveedor</h3>
-                                <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                              </div>
-                              <div class="modal-body">
-                                <div id="modal-body-center" class="text-center">
-                                  <div class="i-circle danger"><i class="fa fa-trash-o"></i></div>
-                                  
-                                  <h4>¡Cuidado!</h4>
-                                  <p>¿Seguro que desea eliminar a <span id="del_name" ></span>?</p>
-                                  
-                                </div>
-                              </div>
-                                <div class="modal-footer" id="modal-footer-response" >
-                                <button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal" id="btn-deleteS" >Editar</button>
-                              </div>
-                            </div>
-                        </div>
-                        <!-- </editar> -->
-                        
                         <!-- <eliminar> -->
                         <div class="md-modal colored-header danger md-effect-10" id="mod-delete">
                             <div class="md-content ">
@@ -153,12 +132,66 @@
                                 </div>
                               </div>
                                 <div class="modal-footer" id="modal-footer-response" >
-                                <button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal">Cancelar</button>
-                                <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal" id="btn-deleteS" >Eliminar</button>
-                              </div>
+                                    <button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-danger btn-flat" data-dismiss="modal" id="btn-deleteS" >Eliminar</button>
+                                </div>
                             </div>
                         </div>
                         <!-- </eliminar> -->
+                        
+                        <!-- <editar> -->
+                        <div class="md-modal colored-header primary md-effect-10" id="mod-edit">
+                            <div class="md-content ">
+                              <div class="modal-header">
+                                <h3>Editar</h3>
+                                <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              </div>
+                              <div class="modal-body">
+                                <div id="modal-body-center-edit" class="text-center">
+                                  <form name="frm-edit-sup" id="frm-edit-sup" class="form-horizontal" style="border-radius: 0px;" onkeypress="return anular(event)">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Tipo</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" name="tipoEditar" id="tipoEditar" required >
+                                        </div>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                                <div class="modal-footer" id="modal-footer-response-edit" >
+                                    <button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal" id="btn-editS" >Editar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- </editar> -->
+                        
+                        <!-- <agregar> -->
+                        <div class="md-modal colored-header info md-effect-10" id="mod-add123">
+                            <div class="md-content ">
+                              <div class="modal-header">
+                                <h3>Agregar</h3>
+                                <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                              </div>
+                              <div class="modal-body">
+                                <div id="modal-body-center-add" class="text-center">
+                                  <form name="frm-add-sup" id="frm-add-sup" class="form-horizontal" style="border-radius: 0px;" onkeypress="return anular(event)">
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Tipo</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="text" name="tipoAgregar" id="tipoAgregar" required >
+                                        </div>
+                                    </div>
+                                  </form>
+                                </div>
+                              </div>
+                                <div class="modal-footer" id="modal-footer-response-add" >
+                                    <button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal">Cancelar</button>
+                                    <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal" id="btn-addS" >Agregar</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- </agregar> -->
                         
                         <div class="md-overlay"></div>
                         
@@ -191,29 +224,33 @@
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
-        
-        $('.btn-edit-tsup').click(function(e){
-           var num = $(this).attr("data-num");
-           $("#del_name").html( $("#tsup_"+num).html());
-           $("#btn-editS").attr("data-tsup", $(this).attr("data-tsup") )
-        });
-        
+      
         $('.btn-eliminar-tsup').click(function(e){
            var num = $(this).attr("data-num");
            $("#del_name").html( $("#tsup_"+num).html());
            $("#btn-deleteS").attr("data-tsup", $(this).attr("data-tsup") )
         });
         
-        $('#btn-editS').click(function(e){
-            var tsup = $("#btn-editS").attr("data-tsup");
+        $('.btn-edit-tsup').click(function(e){
+           var num = $(this).attr("data-num");
+           $("#tipoEditar").val( $("#tsup_"+num).html());
+           $("#btn-editS").attr("data-tsup", $(this).attr("data-tsup"));
+        });
+        
+        $('.btn-add-tsup').click(function(e){
+           $("#btn-editS").attr("data-tsup", $(this).attr("data-tsup"));
+        });
+        
+        
+        
+        $('#btn-deleteS').click(function(e){
+           var tsup = $("#btn-deleteS").attr("data-tsup");
            $.ajax({
                 url:"ajax/supplier-types.php",
                 type:'POST',
                 dataType:"json",
-                data:"option=edit&tsup="+tsup,
-                beforeSend: function(){
-                    $("#modal-footer-response").html('');
-                },
+                data:"option=delete&idte="+tsup,
+                beforeSend: function(){ $("#modal-footer-response").html(''); },
                 success:function(data){
                     if(data.status=="1"){ 
                         $("#modal-body-center").html('<div class="i-circle danger"><i class="fa fa-check"></i></div><h4>¡Registro eliminado con éxito!</h4>');
@@ -227,30 +264,66 @@
             }); 
         });
         
-        $('#btn-deleteS').click(function(e){
-            var sup = $("#btn-deleteS").attr("data-sup");
+        $('#btn-editS').click(function(e){
+        $(this).attr("disabled","disabled"); 
+           var tsup = $("#btn-editS").attr("data-tsup");
            $.ajax({
-                url:"ajax/supplier.php",
+                url:"ajax/supplier-types.php",
                 type:'POST',
                 dataType:"json",
-                data:"option=delete&sup="+sup,
-                beforeSend: function(){
-                    $("#modal-footer-response").html('');
-                },
+                data:"option=update&idte="+tsup+"&"+$("#frm-edit-sup").serialize(),
+                beforeSend: function(){ $("#modal-footer-response").html(''); },
                 success:function(data){
                     if(data.status=="1"){ 
-                        $("#modal-body-center").html('<div class="i-circle danger"><i class="fa fa-check"></i></div><h4>¡Proveedor eliminado con éxito!</h4>');
-                        $("#modal-footer-response").html('<button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
+                        $("#modal-body-center-edit").html('<div class="i-circle primary"><i class="fa fa-check"></i></div><h4>¡Registro editado con éxito!</h4>');
+                        $("#modal-footer-response-edit").html('<button type="button" class="btn btn-primary btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
                     }else{
-                        $("#modal-body-center").html('<div class="i-circle danger"><i class="fa  fa-frown-o"></i></div><h4>Ocurrio un error al eliminar el proveedor</h4>');
-                        $("#modal-footer-response").html('<button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
+                        $("#modal-body-center-edit").html('<div class="i-circle primary"><i class="fa  fa-frown-o"></i></div><h4>Ocurrio un error al editar el registro</h4>');
+                        $("#modal-footer-response-edit").html('<button type="button" class="btn btn-primary btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
                     }
                     $(document).on('click','#btn-actualizarDT', function () { location.reload();});
                 }
             }); 
         });
         
+        $('#btn-addS').click(function(e){
+        $(this).attr("disabled","disabled"); 
+           var tsup = $("#btn-editS").attr("data-tsup");
+           $.ajax({
+                url:"ajax/supplier-types.php",
+                type:'POST',
+                dataType:"json",
+                data:"option=add&"+$("#frm-add-sup").serialize(),
+                beforeSend: function(){ $("#modal-footer-response").html(''); },
+                success:function(data){
+                    if(data.status=="1"){ 
+                        $("#modal-body-center-add").html('<div class="i-circle info"><i class="fa fa-check"></i></div><h4>¡Registro agregado con éxito!</h4>');
+                        $("#modal-footer-response-add").html('<button type="button" class="btn btn-info btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
+                    }else{
+                        $("#modal-body-center-add").html('<div class="i-circle info"><i class="fa  fa-frown-o"></i></div><h4>Ocurrio un error al agregar el registro</h4>');
+                        $("#modal-footer-response-add").html('<button type="button" class="btn btn-info btn-flat md-close" data-dismiss="modal" id="btn-actualizarDT" >Aceptar</button>');
+                    }
+                    $(document).on('click','#btn-actualizarDT', function () { location.reload();});
+                }
+            }); 
+        });
+        
+        $('#tipoEditar').keydown(function(event) {
+            if (event.keyCode == 13) {
+                document.getElementById("btn-editS").click();
+                return false;
+             }
+        });
+        
+        $('#tipoAgregar').keydown(function(event) {
+            if (event.keyCode == 13) {
+                document.getElementById("btn-addS").click();
+                return false;
+             }
+        });
+        
       });
+    function anular(e) { evento = (document.all) ? e.keyCode : e.which; return (evento != 13); }
     </script>
 
 <!-- Bootstrap core JavaScript

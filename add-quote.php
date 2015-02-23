@@ -56,13 +56,7 @@
             <div class="cl-navblock">
                 <div class="menu-space">
                   <div class="content">
-                    <div class="side-user">
-                      <div class="avatar"><img src="images/avatar1_50.jpg" alt="Avatar" /></div>
-                      <div class="info">
-                        <a href="#">José Perez</a>
-                        <img src="images/state_online.png" alt="Status" /> <span>Online</span>
-                      </div>
-                    </div>
+                    
                     <?= lytSideMenu(8) ?>
                   </div>
                 </div>

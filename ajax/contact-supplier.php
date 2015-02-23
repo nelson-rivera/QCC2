@@ -21,7 +21,6 @@ if($option=="save"){
     
     $now=date("Y-m-d H:i:s");
     $connection=  openConnection();
-    $query=$connection->prepare(sql_save_contacto_proveedor());
     
     try {
         $connection->beginTransaction();
@@ -29,7 +28,7 @@ if($option=="save"){
         
         $query=$connection->prepare(sql_save_contacto_proveedor());
         $query->bindParam(':nombre_contacto', $contacto);
-        $query->bindParam(':cargo', $cargo);
+        $query->bindParam(':idcontactos_proveedores_cargos', $cargo);
         $query->bindParam(':idproveedor', $idproveedor);
         $query->bindParam(':email_1', $correo1);
         $query->bindParam(':email_2', $correo2);
@@ -69,7 +68,7 @@ if($option=="update"){
         $connection->beginTransaction();
         $query=$connection->prepare(sql_update_contacto_proveedor());
         $query->bindParam(':nombre_contacto', $contacto);
-        $query->bindParam(':cargo', $cargo);
+        $query->bindParam(':idcontactos_proveedores_cargos', $cargo);
         $query->bindParam(':email_1', $correo1);
         $query->bindParam(':email_2', $correo2);
         $query->bindParam(':email_3', $correo3);

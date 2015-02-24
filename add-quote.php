@@ -180,7 +180,7 @@
                                                 </td>
                                                 <td>
                                                     <textarea id="input-descripcion-1" name="input-descripcion[]" class="input-descripcion form-control"required></textarea>
-                                                    <input class="file" id="file1" name="input-image[]" type='file' required/>
+                                                    <input class="file" id="file1" name="input-image[]" type='file'/>
                                                     <div id="prev_file1"></div><br/>
                                                 </td>
                                                 <td>
@@ -334,7 +334,7 @@
                             +'</td>'
                             +'<td>'
                                 +'<textarea id="input-descripcion-'+itemCounter+'" name="input-descripcion[]" class="input-descripcion form-control" required></textarea>'
-                                +'<input class="file" id="file'+itemCounter+'" name="input-image[]" type="file" required/>'
+                                +'<input class="file" id="file'+itemCounter+'" name="input-image[]" type="file"/>'
                                 +'<div id="prev_file'+itemCounter+'"></div><br/>'
                             +'</td>'
                             +'<td>'

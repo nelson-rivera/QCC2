@@ -4,10 +4,20 @@
 <head>
         <?php
         session_start();
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
+        $connection=  openConnection();
+        
+        $getUsuario = $connection->prepare(sql_select_usuario_byId());
+        $getUsuario->bindParam(':idusuario', $_SESSION['idusuario'],PDO::PARAM_INT);
+        $getUsuario->execute();
+        
+        $usuarioArray = $getUsuario->fetch();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -28,6 +38,7 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
+        <?= css_gritter() ?>
 	<?= css_style() ?>
 
 </head>
@@ -78,26 +89,52 @@
                                 <h3>Datos de perfil</h3>
                             </div>
                             <div class="content">
-                                <form id="frm-update-profile" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-update-profile" class="form-horizontal" style="border-radius: 0px;" data-parsley-validate>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="José" required>
+                                            <input name="input-nombre" class="form-control" type="text" value="<?= $usuarioArray['nombre'] ?>" required>
+                                            <input name="opt" value="1" type="hidden" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Apellido</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" value="Perez" required>
+                                            <input name="input-apellido" class="form-control" type="text" value="<?= $usuarioArray['apellido'] ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Correo</label>
+                                        <label class="col-sm-3 control-label">Correo Principal</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="email" value="jperez@qcc.com" required>
+                                            <input name="input-email-1" class="form-control" type="email" value="<?= $usuarioArray['email_1'] ?>" required>
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label">Correo Secundario</label>
+                                        <div class="col-sm-6">
+                                            <input name="input-email-2" class="form-control" type="email" value="<?= $usuarioArray['email_2'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Teléfono Principal</label>
+                                        <div class="col-sm-6">
+                                            <input name="input-telefono-1" class="form-control" type="text" value="<?= $usuarioArray['telefono_1'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Teléfono Secundario</label>
+                                        <div class="col-sm-6">
+                                            <input name="input-telefono-2" class="form-control" type="text" value="<?= $usuarioArray['telefono_2'] ?>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10">
+                                                <button type="submit" class="btn btn-primary">Actualizar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+<!--                                    <div class="form-group">
                                         <label class="col-sm-3 control-label">Perfil</label>
                                         <div class="col-sm-6">
                                             <select class="form-control"  required>
@@ -109,7 +146,9 @@
                                                 </option>
                                             </select>
                                         </div>
-                                    </div>
+                                    </div>-->
+                                </form>
+                                <form id="frm-update-password" class="form-horizontal" style="border-radius: 0px;" data-parsley-validate>
                                     <div class="form-group spacer2">
                                         <div class="col-sm-3"></div>
                                         <label class="col-sm-9" for="input-old-password">Cambiar contraseña</label>
@@ -117,27 +156,27 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contraseña antigua</label>
                                         <div class="col-sm-6">
-                                            <input id="input-old-password" class="form-control" type="password">
+                                            <input name="input-old-password" id="input-old-password" class="form-control" type="password" required>
+                                            <input name="opt" value="2" type="hidden" />
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nueva contraseña</label>
                                         <div class="col-sm-6">
-                                            <input id="input-new-password" class="form-control" type="password">
+                                            <input name="input-new-password" id="input-new-password" class="form-control" type="password" required>
                                         </div>
                                     </div>
                                     
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Repita su nueva contraseña</label>
                                         <div class="col-sm-6">
-                                            <input id="input-new-password-r" data-parsley-equalto="#input-new-password" class="form-control" type="password">
+                                            <input name="input-new-password-r" data-parsley-equalto="#input-new-password" id="input-new-password-r" data-parsley-equalto="#input-new-password" class="form-control" type="password" required>
                                         </div>
                                     </div>
                                     
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button class="btn btn-primary" type="submit">Actualizar</button>
-                                            <button type="reset" class="btn btn-default">Limpiar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -160,6 +199,7 @@
   <?= js_bootstrap_slider() ?>
   <?= js_jquery_parsley() ?>
   <?= js_i18n_es() ?>
+  <?= js_gritter() ?>
   <?= js_general() ?>
      
 	
@@ -169,12 +209,96 @@
         //initialize the javascript
         App.init();
         window.ParsleyValidator.setLocale('es');
-        $("#frm-update-profile").parsley().subscribe('parsley:form:validate', function (formInstance) {
-            formInstance.submitEvent.preventDefault();
-            if(formInstance.isValid('', true)){
-                alert('Perfil Editado con éxito');
-            }
-            return;
+        $("#frm-update-profile").submit(function(event){
+            event.preventDefault();
+            if($("#frm-update-profile").parsley().isValid()){
+                $.ajax({
+                    url:'ajax/perfil.php',
+                    type: 'post',
+                    dataType: 'json',
+                    data: $(this).serialize()
+                }).done(function(response) {
+                    if(response.status==0){
+                        $.gritter.removeAll({
+                            after_close: function(){
+                                $.gritter.add({
+                                    position: 'bottom-right',
+                                    text: response.msg,
+                                    class_name: 'clean'
+                                });
+                            }
+                        });
+                    }
+                    else{
+                        $.gritter.removeAll({
+                            after_close: function(){
+                              $.gritter.add({
+                                position: 'bottom-right',
+                                text: response.msg,
+                                class_name: 'danger'
+                              });
+                            }
+                        });
+                    }
+                })
+                .fail(function() {
+                    $.gritter.removeAll({
+                        after_close: function(){
+                          $.gritter.add({
+                            position: 'bottom-right',
+                            text: 'Ocurrio un error desconocido, por favor intentelo más tarde',
+                            class_name: 'danger'
+                          });
+                        }
+                    });
+                });
+           }
+        });
+        
+        $("#frm-update-password").submit(function(event){
+            event.preventDefault();
+            if($("#frm-update-password").parsley().isValid()){
+                $.ajax({
+                    url:'ajax/perfil.php',
+                    type: 'post',
+                    dataType: 'json',
+                    data: $(this).serialize()
+                }).done(function(response) {
+                    if(response.status==0){
+                        $.gritter.removeAll({
+                            after_close: function(){
+                                $.gritter.add({
+                                    position: 'bottom-right',
+                                    text: response.msg,
+                                    class_name: 'clean'
+                                });
+                            }
+                        });
+                    }
+                    else{
+                        $.gritter.removeAll({
+                            after_close: function(){
+                              $.gritter.add({
+                                position: 'bottom-right',
+                                text: response.msg,
+                                class_name: 'danger'
+                              });
+                            }
+                        });
+                    }
+                })
+                .fail(function() {
+                    $.gritter.removeAll({
+                        after_close: function(){
+                          $.gritter.add({
+                            position: 'bottom-right',
+                            text: 'Ocurrio un error desconocido, por favor intentelo más tarde',
+                            class_name: 'danger'
+                          });
+                        }
+                    });
+                });
+           }
         });
       });
     </script>

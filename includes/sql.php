@@ -10,6 +10,10 @@ function sql_update_user_no_password(){
     return 'UPDATE `usuarios` SET `nombre`=:nombre, `apellido`=:apellido, `idperfil`=:idperfil,  `telefono_1`=:telefono_1, `telefono_2`=:telefono_2, `email_1`=:email_1, `email_2`=:email_2 '
            . ' WHERE  `idusuario`=:idusuario;';
 }
+function sql_update_user_basic_info(){
+    return 'UPDATE `usuarios` SET `nombre`=?, `apellido`=?,  `telefono_1`=?, `telefono_2`=?, `email_1`=?, `email_2`=?'
+           . ' WHERE  `idusuario`=?';
+}
 
 function sql_update_user(){
     return 'UPDATE `usuarios` SET `nombre`=:nombre, `password`=:password, `apellido`=:apellido, `idperfil`=:idperfil,  `telefono_1`=:telefono_1, `telefono_2`=:telefono_2, `email_1`=:email_1, `email_2`=:email_2 '
@@ -19,6 +23,10 @@ function sql_update_user(){
 function sql_update_user_password(){
     return 'UPDATE `usuarios` SET `nombre`=:nombre, `apellido`=:apellido, `password`=:idpassword, `idperfil`=:idperfil,  `telefono_1`=:telefono_1, `telefono_2`=:telefono_2, `email_1`=email_1, `email_2`=email_2 '
            . ' WHERE  `idusuario`=:idusuario;';
+}
+function sql_update_user_only_password(){
+    return 'UPDATE `usuarios` SET `password`=?'
+           . ' WHERE  `idusuario`=?;';
 }
 
 function sql_disable_user(){

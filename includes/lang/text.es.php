@@ -60,6 +60,3 @@ function txt_sc_msg_actualizado_fail(){return "Lo sentimos, algo hemos hecho mal
 function txt_sc_eliminado(){return "Registro eliminado exitosamente";}
 function txt_error_sc_eliminado(){return "Ocurrio un problema al intentar eliminar el registro";}
 
-
-
-?>

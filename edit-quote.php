@@ -209,7 +209,7 @@
                                                     </td>
                                                     <td>
                                                         <textarea name="input-descripcion[]" class="input-description form-control"required><?= $itemCotizacion['descripcion'] ?></textarea>
-                                                        <input class="file" id="file<?= $contadorItem ?>" name="input-image[]" type='file' required/>
+                                                        <input class="file" id="file<?= $contadorItem ?>" name="input-image[]" type='file'/>
                                                         <div id="prev_file<?= $contadorItem ?>"></div><br/>
                                                     </td>
                                                     <td>
@@ -393,7 +393,7 @@
                     +'</td>'
                     +'<td>'
                         +'<textarea id="input-descripcion-'+itemCounter+'" name="input-descripcion[]" class="input-descripcion form-control" required></textarea>'
-                        +'<input class="file" id="file'+itemCounter+'" name="input-image[]" type="file" required/>'
+                        +'<input class="file" id="file'+itemCounter+'" name="input-image[]" type="file"/>'
                         +'<div id="prev_file'+itemCounter+'"></div><br/>'
                     +'</td>'
                     +'<td>'

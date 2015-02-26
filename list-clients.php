@@ -84,14 +84,15 @@
                                 <div class="col-sm-3 pull-right" >
                                     <form  action="#" class="form-horizontal">
                                         <div class="form-group">
-                                          <label class="col-sm-5 control-label">Vendedor</label>
+<!--                                          <label class="col-sm-5 control-label">Vendedor</label>
                                           <div class="col-sm-7 no-padding">
                                             <select class="form-control">
                                               <option>Raymundo</option>
                                               <option>Yolanda</option>
                                               <option>Pepe</option>
                                             </select>									
-                                          </div>
+                                          </div>-->
+                                            <a href="generar-excel-clientes.php" class="btn btn-success pull-right">Generar Excel</a> 
                                         </div>
                                       </form>
                                 </div>

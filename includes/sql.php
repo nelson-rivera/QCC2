@@ -109,6 +109,15 @@ function sql_select_clientes_extended(){
          .' INNER JOIN rubros ON clientes.idrubro=rubros.idrubro'
          .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario WHERE clientes.active = 1';
 }
+function sql_select_contactos_clientes_extended(){
+    return 'SELECT contactos.*, clientes.*, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
+         .' FROM contactos' 
+        . ' INNER JOIN clientes ON contactos.idcliente = clientes.idcliente'
+         .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
+         .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
+         .' INNER JOIN rubros ON clientes.idrubro=rubros.idrubro'
+         .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario WHERE clientes.active = 1';
+}
 function sql_select_cliente_extended_by_idcliente(){
     return 'SELECT clientes.*, municipios.idmunicipio, departamentos.iddepartamento, rubros.idrubro, usuarios.idusuario, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, '
          .' contactos.nombre_contacto, contactos.idcontacto, contactos.cargo, contactos.email_1, contactos.email_2, contactos.telefono_1, contactos.telefono_2, contactos.telefono_3'

@@ -228,7 +228,7 @@
         $('.btn-eliminar-pcon').click(function(e){
            var num = $(this).attr("data-num");
            $("#del_name").html( $("#pcon_"+num).html());
-           $("#btn-deleteS").attr("data-subcat", $(this).attr("data-pcon") )
+           $("#btn-deleteS").attr("data-pcon", $(this).attr("data-pcon") )
         });
         
         $('.btn-edit-pcon').click(function(e){

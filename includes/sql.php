@@ -360,3 +360,15 @@ function sql_update_subrubro(){
 function sql_delete_subrubro(){
     return 'DELETE FROM `sub_rubros` WHERE `idsub_rubro` = :idsub_rubro';
 }
+
+function sql_save_cargo_proveedores(){
+    return 'INSERT INTO `contactos_proveedores_cargos`(`cargo`) VALUES (:cargo)';
+}
+
+function sql_update_cargo(){
+    return 'UPDATE `contactos_proveedores_cargos` SET `cargo` = :cargo  WHERE `idcontactos_proveedores_cargos` = :idcontactos_proveedores_cargos';
+}
+
+function sql_delete_cargo(){
+    return 'DELETE FROM `contactos_proveedores_cargos` WHERE `idcontactos_proveedores_cargos` = :idcontactos_proveedores_cargos';
+}

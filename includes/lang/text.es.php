@@ -60,3 +60,14 @@ function txt_sc_msg_actualizado_fail(){return "Lo sentimos, algo hemos hecho mal
 function txt_sc_eliminado(){return "Registro eliminado exitosamente";}
 function txt_error_sc_eliminado(){return "Ocurrio un problema al intentar eliminar el registro";}
 
+//<cargo-proveedor>
+function txt_pc_title_registrado(){return "En hora buena";}
+function txt_pc_title_registrado_fail(){return "Error";}
+function txt_pc_registrado(){return "Registro registrado exitosamente";}
+function txt_pc_msg_registro_fail(){return "Lo sentimos, algo hemos hecho mal";}
+function txt_pc_title_actualizado(){return "En hora buena";}
+function txt_pc_title_actualizado_fail(){return "Error";}
+function txt_pc_actualizado(){return "Actualización realizada con éxito";}
+function txt_pc_msg_actualizado_fail(){return "Lo sentimos, algo hemos hecho mal";}
+function txt_pc_eliminado(){return "Registro eliminado exitosamente";}
+function txt_error_pc_eliminado(){return "Ocurrio un problema al intentar eliminar el registro";}

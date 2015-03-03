@@ -372,3 +372,18 @@ function sql_update_cargo(){
 function sql_delete_cargo(){
     return 'DELETE FROM `contactos_proveedores_cargos` WHERE `idcontactos_proveedores_cargos` = :idcontactos_proveedores_cargos';
 }
+
+function sql_select_usuarios_byPerfil(){
+    return 'SELECT `usuarios`.`idusuario` , CONCAT(`usuarios`.`nombre`," ",`usuarios`.`apellido`) as nombre,`usuarios`.`telefono_1`,`usuarios`.`email_1`,' 
+           .' `perfiles`.`perfil` FROM usuarios' 
+           .' INNER JOIN perfiles ON perfiles.`idperfil` = usuarios.`idperfil`  WHERE usuarios.`activo`=1 AND usuarios.`idperfil`=1';
+}
+
+function sql_funnel_byVendedor(){
+    return 'SELECT `resumen_cotizaciones`.`idestado_cotizacion`,`resumen_cotizaciones`.`estado`, SUM(`resumen_cotizaciones`.`total`) AS total '
+            .' FROM `resumen_cotizaciones`'
+            .' WHERE `resumen_cotizaciones`.`idvendedor`=:idvendedor' 
+            .' AND (DATE_FORMAT(`resumen_cotizaciones`.`fecha_creacion`,\'%Y-%m-%d\') BETWEEN :inicio AND :fin )'
+            .' GROUP BY `resumen_cotizaciones`.`idestado_cotizacion`'
+            .' ORDER BY `resumen_cotizaciones`.`idestado_cotizacion` ASC;';
+}

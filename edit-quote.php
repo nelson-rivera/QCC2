@@ -83,7 +83,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Editar Cotización <?= $cotizacionArray['codigo_cotizacion'] ?></h2>
+                <h2>Cotizaciones <i class="fa fa-angle-double-right"></i> Editar Cotización <?= $cotizacionArray['codigo_cotizacion'] ?></h2>
             </div>
             <div class="cl-mcont">
                 

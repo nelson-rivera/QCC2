@@ -82,7 +82,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Editar Contacto <?= $contactoArray['nombre_contacto'] ?></h2>
+                <h2>Clientes <i class="fa fa-angle-double-right"></i> Editar Contacto <?= $contactoArray['nombre_contacto'] ?></h2>
             </div>
             <div class="cl-mcont">
                 

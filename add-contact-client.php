@@ -85,7 +85,7 @@
 	</div>
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Agregar contacto de <a href="edit-client.php?id="><?= $clienteArray['nombre_cliente'] ?></a></h2>
+                <h2>Clientes <i class="fa fa-angle-double-right"></i> Agregar contacto de <a href="edit-client.php?id="><?= $clienteArray['nombre_cliente'] ?></a></h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">

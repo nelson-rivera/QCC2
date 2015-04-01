@@ -82,7 +82,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Agregar contacto</h2>
+                <h2>Proveedores <i class="fa fa-angle-double-right"></i> Agregar contacto</h2>
             </div>
             <div class="cl-mcont">
                 

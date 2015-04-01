@@ -76,7 +76,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Vendedores</h2>
+                <h2>Vendedores <i class="fa fa-angle-double-right"></i> Listado de vendedores</h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">

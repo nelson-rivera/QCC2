@@ -77,7 +77,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Sub-rubros de Proveedores</h2>
+                <h2>Mantenimiento <i class="fa fa-angle-double-right"></i> Sub-rubros de Proveedores</h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">

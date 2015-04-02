@@ -15,6 +15,8 @@ function css_fonts(){return '<link href="http://fonts.googleapis.com/css?family=
 <link href="http://fonts.googleapis.com/css?family=Raleway:300,200,100" rel="stylesheet" type="text/css">';}
 function css_niftymodals(){return '<link rel="stylesheet" type="text/css" href="js/jquery.niftymodals/css/component.css" />';}
 function css_gritter(){return '<link rel="stylesheet" type="text/css" href="js/jquery.gritter/css/jquery.gritter.css" />';}
+function css_datetimepicker(){return '<link rel="stylesheet" type="text/css" href="js/bootstrap.datetimepicker/css/bootstrap-datetimepicker.min.css" />';}
+function css_daterangepicker_bs3(){return '<link rel="stylesheet" type="text/css" href="js/bootstrap.daterangepicker/daterangepicker-bs3.css" />';}
 
 //JS
 function js_jquery(){return '<script src="js/jquery.js"></script>';}
@@ -50,6 +52,8 @@ function js_preimage(){return '<script type="text/javascript" src="js/preimage/p
 function js_gritter(){return '<script type="text/javascript" src="js/jquery.gritter/js/jquery.gritter.js"></script>';}
 function js_ckeditor(){return '<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>';}
 function js_ckeditor_adapter(){return '<script type="text/javascript" src="js/ckeditor/adapters/jquery.js"></script>';}
+function js_daterangepicker(){return '<script type="text/javascript" src="js/bootstrap.daterangepicker/daterangepicker.js"></script>';}
+function js_moment(){return '<script type="text/javascript" src="js/bootstrap.daterangepicker/moment.min.js"></script>';}
 
 
 

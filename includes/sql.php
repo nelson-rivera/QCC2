@@ -372,3 +372,30 @@ function sql_update_cargo(){
 function sql_delete_cargo(){
     return 'DELETE FROM `contactos_proveedores_cargos` WHERE `idcontactos_proveedores_cargos` = :idcontactos_proveedores_cargos';
 }
+
+function sql_select_usuarios_byPerfil(){
+    return 'SELECT `usuarios`.`idusuario` , CONCAT(`usuarios`.`nombre`," ",`usuarios`.`apellido`) as nombre,`usuarios`.`telefono_1`,`usuarios`.`email_1`,' 
+           .' `perfiles`.`perfil` FROM usuarios' 
+           .' INNER JOIN perfiles ON perfiles.`idperfil` = usuarios.`idperfil`  WHERE usuarios.`activo`=1 AND usuarios.`idperfil`=1';
+}
+
+function sql_funnel_byVendedor(){
+    return 'SELECT `resumen_cotizaciones`.`idestado_cotizacion`,`resumen_cotizaciones`.`estado`, SUM(`resumen_cotizaciones`.`total`) AS total '
+            .' FROM `resumen_cotizaciones`'
+            .' WHERE `resumen_cotizaciones`.`idvendedor`=:idvendedor' 
+            .' AND (DATE_FORMAT(`resumen_cotizaciones`.`fecha_creacion`,\'%Y-%m-%d\') BETWEEN :inicio AND :fin )'
+            .' GROUP BY `resumen_cotizaciones`.`idestado_cotizacion`'
+            .' ORDER BY `resumen_cotizaciones`.`idestado_cotizacion` ASC;';
+}
+
+function sql_select_contactos_proveedores_extended(){ 
+    return 'SELECT `proveedores`.`idproveedor`, `proveedores`.`proveedor`,`tipos_empresas`.`tipo`, `rubros`.`rubro`,`sub_rubros`.`sub_rubro`, `contactos_proveedores`.`nombre_contacto`, `contactos_proveedores_cargos`.`cargo`, `contactos_proveedores`.`telefono_1`,`contactos_proveedores`.`telefono_2`, `contactos_proveedores`.`telefono_3`, `contactos_proveedores`.`email_1`, `contactos_proveedores`.`email_2` '
+            .' FROM `proveedores` '
+            .' INNER JOIN `tipos_empresas` ON `tipos_empresas`.`idtipos_empresas` = `proveedores`.`idtipos_empresas` '
+            .' INNER JOIN `rubros` ON `rubros`.`idrubro` = `proveedores`.`idrubro` '
+            .' INNER JOIN `sub_rubros` ON `sub_rubros`.`idsub_rubro` = `proveedores`.`idsub_rubro` '
+            .' INNER JOIN `contactos_proveedores` ON `contactos_proveedores`.`idproveedor` = `proveedores`.`idproveedor` '
+            .' INNER JOIN `contactos_proveedores_cargos` ON `contactos_proveedores_cargos`.`idcontactos_proveedores_cargos` = `contactos_proveedores`.`idcontactos_proveedores_cargos`
+';
+}
+

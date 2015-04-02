@@ -28,7 +28,10 @@
 	<![endif]-->
 	<?= css_nanoscroller() ?>
 	<?= css_datatable() ?>
-	<?= css_style() ?>
+        
+        <?= css_datetimepicker() ?>
+        <?= css_daterangepicker_bs3() ?>
+        <?= css_style() ?>
 
 </head>
 
@@ -73,18 +76,46 @@
             </div>
             <div class="cl-mcont">
                 <div class="row col-md-4">
-                    <form  class="form-horizontal group-border-dashed" action="#" style="border-radius: 0px;">
+                    <form  class="form-horizontal group-border-dashed" name="form-reportes" id="form-reportes" action="#" style="border-radius: 0px;">
                         <div class="form-group">
                           <label class="col-sm-3 control-label">Funnel</label>
-                          <div class="col-sm-6">
-                              <select id="cbfunnel" name="cbfunnel" class="form-control">
-                              <option>General</option>
-                              <option>Vendedor</option>
-                              <option>Cliente</option>
-                              <option>Rubro</option>
+                          <div class="col-sm-9">
+                              <select id="cbfunnel" name="cbfunnel" class="form-control" onchange="getcbFunnel();" >
+                              <option value="general">General</option>
+                              <option value="vendedor">Vendedor</option>
+                              <option value="cliente">Cliente</option>
+                              <option value="rubro">Rubro</option>
                             </select>									
                           </div>
                         </div>
+                        <div class="form-group" id="cmbSelected">
+                            <label class="col-sm-3 control-label" id="lblSelected" >Vendedor</label>
+                          <div class="col-sm-9">
+                              <select id="selSelected" name="selSelected" class="form-control">
+                              
+                            </select>									
+                          </div>
+                        </div>
+                       <div class="form-group">
+                        <label class="col-sm-3 control-label">Periodo</label>
+                        <div class="col-sm-6">
+                         <fieldset>
+                          <div class="control-group">
+                            <div class="controls">
+                             <div class="input-prepend input-group">
+                               <span class="add-on input-group-addon primary"><span class="glyphicon glyphicon-th"></span></span><input type="text" style="width: 200px" name="periodo" id="periodo" class="form-control"  /> 
+                             </div>
+                            </div>
+                          </div>
+                         </fieldset>
+                        </div>
+                      </div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button id="btnSave" class="btn btn-primary" type="button" onclick="graficar();" >Enviar</button>
+                        </div>
+                    </div>
+
                       </form>
                 </div>
                 <div class="row col-md-8">
@@ -93,28 +124,7 @@
                     </div>
                 </div>
             </div>
-            <div class="cl-mcont">
-                <div class="row col-md-4">
-                    <form class="form-horizontal group-border-dashed" action="#" style="border-radius: 0px;">
-                        <div class="form-group">
-                          <label class="col-sm-3 control-label">Funnel</label>
-                          <div class="col-sm-6">
-                            <select class="form-control">
-                              <option>General</option>
-                              <option>Vendedor</option>
-                              <option>Cliente</option>
-                              <option>Rubro</option>
-                            </select>									
-                          </div>
-                        </div>
-                      </form>
-                </div>
-                <div class="row col-md-8">
-                    <div id="pastel" >
-                        
-                    </div>
-                </div>
-            </div>
+            
 	</div> 
     </div>
    <?= js_jquery() ?>
@@ -128,115 +138,94 @@
   <?= js_general() ?>
   <?= js_highcharts() ?>
   <?= js_highcharts_exporting() ?>
+  <?= js_daterangepicker() ?>
+  <?= js_moment() ?>
 
     <script type="text/javascript">
       $(document).ready(function(){
         App.init();
-         $('#charts_funnel').highcharts({
-            chart: {
-                type: 'column'
-            },
-            title: {
-                text: 'Gráfica Funnel General/Vendedor/Cliente'
-            },
-            subtitle: {
-                text: 'Fuente: QCC'
-            },
-            xAxis: {
-                categories: [
-                    'F1',
-                    'F2',
-                    'F3',
-                    'F4',
-                    'F5',
-                    'FX'
-                ],
-                title: {
-                    text: 'Fases'
-                }
-            },
-            yAxis: {
-                min: 0,
-                title: {
-                    text: 'Monto'
-                }
-            },
-            tooltip: {
-                headerFormat: '<span style="font-size:10px">{point.key}</span>',
-                pointFormat: '',
-                footerFormat: '',
-                shared: true,
-                useHTML: true
-            },
-            plotOptions: {
-                column: {
-                    pointPadding: 0.2,
-                    borderWidth: 0
-                }
-            },
-            series: [{
-                name: 'F1',
-                data: [150000]
-            }, {
-                name: 'F2',
-                data: [160000]
-            }, {
-                name: 'F3',
-                data: [20000]
-            }, {
-                name: 'F4',
-                data: [10000]
-            }, {
-                name: 'F5',
-                data: [9000]
-            }, {
-                name: 'FX',
-                data: [1000]
-            }]
-        });
         
-        $('#pastel').highcharts({
-            chart: {
-                plotBackgroundColor: null,
-                plotBorderWidth: null,
-                plotShadow: false
-            },
-            title: {
-                text: 'Browser market shares at a specific website, 2014'
-            },
-            tooltip: {
-                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-            },
-            plotOptions: {
-                pie: {
-                    allowPointSelect: true,
-                    cursor: 'pointer',
-                    dataLabels: {
-                        enabled: false
-                    },
-                    showInLegend: true
-                }
-            },
-            series: [{
-                type: 'pie',
-                name: 'Browser share',
-                data: [
-                    ['Firefox',   45.0],
-                    ['IE',       26.8],
-                    {
-                        name: 'Chrome',
-                        y: 12.8,
-                        sliced: true,
-                        selected: true
-                    },
-                    ['Safari',    8.5],
-                    ['Opera',     6.2],
-                    ['Others',   0.7]
-                ]
-            }]
+        $('#periodo').daterangepicker({
+          format: 'DD/MM/YYYY',
+          startDate: moment().subtract('months', 3),
+          endDate: moment()
         });
+        $('#periodo').html(moment().subtract('months', 3).format('DD/MM/YYYY') + ' - ' + moment().format('DD/MM/YYYY'));  
+
         
       });
+    function getcbFunnel(){
+        var cmb = $("#cbfunnel").val();   
+        $.ajax({
+             url:"ajax/charts.php",
+             type:'POST',
+             dataType:"json",
+             data:"type=getCmb&cbfunnel="+cmb,
+             beforeSend: function(){ $('#selSelected').html(); },
+             success:function(data){
+                  $.each(data, function(index, element) {
+                        $('#selSelected').append( '<option value="'+element.id+'">'+element.lbl+'</option>'  );
+                    });
+             }
+         });
+    }
+    
+    function graficar(){
+           
+        $.ajax({
+             url:"ajax/charts.php",
+             type:'POST',
+             dataType:"json",
+             data:"type=getChart&"+$("#form-reportes").serialize(),
+             beforeSend: function(){ $('#selSelected').html(); },
+             success:function(data){
+                  $('#charts_funnel').highcharts({
+                            chart: {
+                                type: 'column'
+                            },
+                            title: {
+                                text: 'Gráfica Funnel General/Vendedor/Cliente'
+                            },
+                            subtitle: {
+                                text: 'Fuente: QCC'
+                            },
+                            xAxis: {
+                                categories: [
+                                    'F1',
+                                    'F2',
+                                    'F3',
+                                    'F4',
+                                    'F5',
+                                    'FX'
+                                ],
+                                title: {
+                                    text: 'Fases'
+                                }
+                            },
+                            yAxis: {
+                                min: 0,
+                                title: {
+                                    text: 'Monto'
+                                }
+                            },
+                            tooltip: {
+                                headerFormat: '<span style="font-size:10px">{point.key}</span>',
+                                pointFormat: '',
+                                footerFormat: '',
+                                shared: true,
+                                useHTML: true
+                            },
+                            plotOptions: {
+                                column: {
+                                    pointPadding: 0.2,
+                                    borderWidth: 0
+                                }
+                            },
+                            series: data
+                    });
+             }
+         });
+    }
     </script>
 
 <!-- Bootstrap core JavaScript

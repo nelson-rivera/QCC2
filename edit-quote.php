@@ -431,6 +431,7 @@
             $("#frm-quote-info").submit(function(event){
                 event.preventDefault();
                 if($( '#frm-quote-info' ).parsley().validate()){
+                    CKupdate();
                     var cotizacionData = $('form').serialize()+'&opt=2';
                     $.ajax({
                         url:'ajax/cotizacion.php',
@@ -505,6 +506,10 @@
                     }
                 });
             }
+        }
+        function CKupdate(){
+            for ( instance in CKEDITOR.instances )
+                CKEDITOR.instances[instance].updateElement();
         }
     </script>
 

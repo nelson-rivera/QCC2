@@ -32,14 +32,17 @@ switch ($opt) {
             $correo2=(empty($_POST['input-correo-2']))?null:$_POST['input-correo-2'];
             $connection->beginTransaction();
             try {
-                
-                $uploadDir = "../uploads/clientes/";
-                if(!is_dir($uploadDir)) {
-                    mkdir($uploadDir,0566,true);
+                $logo = null;
+                if(!empty($_FILES["input-logo"]["name"])){
+                    $uploadDir = "../uploads/clientes/";
+                    if(!is_dir($uploadDir)) {
+                        mkdir($uploadDir,0566,true);
+                    }
+                    $imageUrl = $uploadDir. $_FILES["input-logo"]["name"];
+                    $logo = "uploads/clientes/".$_FILES["input-logo"]["name"];
+                    move_uploaded_file($_FILES["input-logo"]["tmp_name"], $imageUrl);
                 }
-                $imageUrl = $uploadDir. $_FILES["input-logo"]["name"];
-                $logo = "uploads/clientes/".$_FILES["input-logo"]["name"];
-                move_uploaded_file($_FILES["input-logo"]["tmp_name"], $imageUrl);
+                
                 
                 $insertClient=$connection->prepare(sql_insert_client());
                 $insertClient->execute(array($companyName,$idMunicipio,$logo,$idRubro,$idUsuario,$recibirCorreos));

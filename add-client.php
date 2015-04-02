@@ -162,7 +162,7 @@
                                      <div class="form-group">
                                         <label class="col-sm-3 control-label">Imagen</label>
                                         <div class="col-sm-6 ">
-                                            <input name="input-logo" id="img-client" type="file" title="Subir una imagen" required><i></i>
+                                            <input name="input-logo" id="img-client" type="file" title="Subir una imagen"><i></i>
                                         </div>
                                     </div>
                                     <div class="form-group">

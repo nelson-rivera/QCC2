@@ -181,7 +181,11 @@
                                         <label class="col-sm-3 control-label">Imagen</label>
                                         <div class="col-sm-6 ">
                                             <input name="input-logo" id="img-client" type="file" title="Subir una imagen" >
-                                            <img src="<?= $clientArray['logo'] ?>" class="img-responsive"  />
+                                            <?php if (!empty($clientArray['logo'])){ ?>
+                                                <img src="<?= $clientArray['logo'] ?>" class="img-responsive"  />
+                                            <?php
+                                                }
+                                            ?>
                                         </div>
                                     </div>
                                     <div class="form-group">

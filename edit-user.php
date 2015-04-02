@@ -83,7 +83,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Editar vendedor: <?= $usuario['nombre'] ?></h2>
+                <h2>Vendedores <i class="fa fa-angle-double-right"></i> Editar vendedor: <?= $usuario['nombre'] ?></h2>
             </div>
             <div class="cl-mcont">
                 

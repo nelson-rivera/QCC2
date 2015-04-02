@@ -82,6 +82,13 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="block-flat">
+                            <div class="col-sm-3 pull-right" >
+                              <form  action="#" class="form-horizontal">
+                                <div class="form-group">
+                                  <a href="generar-excel-vendedores.php" class="btn btn-success pull-right">Generar Excel</a> 
+                                </div>
+                              </form>
+                            </div>
                             <table class="table table-bordered" id="datatable-users" >
                                 <thead>
                                         <tr>

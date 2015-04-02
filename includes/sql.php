@@ -387,3 +387,15 @@ function sql_funnel_byVendedor(){
             .' GROUP BY `resumen_cotizaciones`.`idestado_cotizacion`'
             .' ORDER BY `resumen_cotizaciones`.`idestado_cotizacion` ASC;';
 }
+
+function sql_select_contactos_proveedores_extended(){ 
+    return 'SELECT `proveedores`.`idproveedor`, `proveedores`.`proveedor`,`tipos_empresas`.`tipo`, `rubros`.`rubro`,`sub_rubros`.`sub_rubro`, `contactos_proveedores`.`nombre_contacto`, `contactos_proveedores_cargos`.`cargo`, `contactos_proveedores`.`telefono_1`,`contactos_proveedores`.`telefono_2`, `contactos_proveedores`.`telefono_3`, `contactos_proveedores`.`email_1`, `contactos_proveedores`.`email_2` '
+            .' FROM `proveedores` '
+            .' INNER JOIN `tipos_empresas` ON `tipos_empresas`.`idtipos_empresas` = `proveedores`.`idtipos_empresas` '
+            .' INNER JOIN `rubros` ON `rubros`.`idrubro` = `proveedores`.`idrubro` '
+            .' INNER JOIN `sub_rubros` ON `sub_rubros`.`idsub_rubro` = `proveedores`.`idsub_rubro` '
+            .' INNER JOIN `contactos_proveedores` ON `contactos_proveedores`.`idproveedor` = `proveedores`.`idproveedor` '
+            .' INNER JOIN `contactos_proveedores_cargos` ON `contactos_proveedores_cargos`.`idcontactos_proveedores_cargos` = `contactos_proveedores`.`idcontactos_proveedores_cargos`
+';
+}
+

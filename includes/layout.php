@@ -48,7 +48,7 @@ function lytSideMenu($menuSelected){
             break;
     }
     
-    $menu = '<ul class="cl-vnavigation"> '; 
+    $menu = '<div class="side-logo-container"><img src="images/logo.png" /><p>QCC slogan</p></div><ul class="cl-vnavigation"> '; 
     
     //<proveedores>
     if( Helper::helpMenuIsAllowed(5) or Helper::helpMenuIsAllowed(6) ){

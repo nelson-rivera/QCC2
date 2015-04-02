@@ -223,6 +223,7 @@ pre {
   color: #FFF;
   padding-left: 10px;
   padding-right: 25px;
+  min-height: 35px;
 }
 .navbar-default .navbar-brand {
   padding-left: 35px;
@@ -608,9 +609,9 @@ body.modal-open,
   margin-right: -15px;
 }
 .profile_menu .dropdown-toggle {
-  padding: 10px 10px;
+  padding: 15px 10px;
   vertical-align: middle;
-  height: 50px;
+  height: 35px;
 }
 .profile_menu .dropdown-toggle span {
   display: inline-block;
@@ -698,7 +699,13 @@ body.modal-open,
   background: #272930;
   position: absolute;
   width: 216px;
-  z-index: 2;
+  z-index: 100;
+}
+.side-logo-container{
+    display: block;
+    text-align: center;
+    min-height: 90px;
+    padding-top: 20px;
 }
 .cl-sidebar .cl-toggle {
   display: none;
@@ -5488,6 +5495,23 @@ ul.timeline li > .date {
     display: block !important;
   }
 }
+@media (min-width: 980px){
+    #head-nav{
+        z-index: 50;
+    }
+    .navbar-header .navbar-brand{
+        display: none;
+    }
+    #cl-wrapper{
+        padding: 0;
+    }
+    #pcont{
+        padding-top: 35px;
+    }
+    .profile_menu .dropdown-toggle{
+        padding: 5px;
+    }
+}
 @media (min-width: 768px) and (max-width: 979px) {
   .butstyle {
     width: 30.9%;
@@ -5506,6 +5530,9 @@ ul.timeline li > .date {
   }
   .cl-sidebar {
     width: 55px;
+  }
+  .side-logo-container{
+    display: none;
   }
   #pcont {
     margin-left: 55px;
@@ -5681,6 +5708,9 @@ ul.timeline li > .date {
     z-index: 1020;
     display: block;
     padding-bottom: 0;
+  }
+  .side-logo-container{
+    display: none;
   }
   #cl-wrapper.fixed-menu .menu-space,
   #cl-wrapper.fixed-menu.sb-collapsed .menu-space {

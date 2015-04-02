@@ -77,7 +77,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Proveedores</h2>
+                <h2>Proveedores <i class="fa fa-angle-double-right"></i> Listado de proveedores</h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">

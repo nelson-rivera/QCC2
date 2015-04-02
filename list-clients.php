@@ -73,7 +73,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2 class="" >Clientes</h2>
+                <h2 class="" >Clientes <i class="fa fa-angle-double-right"></i> Listado de clientes</h2>
                 
             </div>
             <div class="cl-mcont">

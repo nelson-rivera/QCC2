@@ -43,6 +43,7 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
+    <?= css_select2() ?>
 	<?= css_style() ?>
 
 </head>
@@ -106,7 +107,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Tipo</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" name="tipo" id="tipo" required >
+                                            <select  name="tipo" id="tipo" style="width: 100%" required >
                                             <?php 
                                                 $query=$connection->prepare(sql_select_tipos_empresas_all());
                                                 $query->execute();
@@ -123,7 +124,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rubro</label>
                                         <div class="col-sm-6">
-                                             <select class="form-control" name="rubro" id="rubro" required >
+                                             <select  name="rubro" id="rubro" style="width: 100%" required >
                                                <?php 
                                                 $query=$connection->prepare(sql_select_rubros_all());
                                                 $query->execute();
@@ -140,14 +141,14 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Sub-Rubro</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" name="sub_rubro" id="sub_rubro" required >
+                                            <select  name="sub_rubro" id="sub_rubro" style="width: 100%" required >
                                                 <?php 
                                                 $query=$connection->prepare(sql_select_sub_rubros_all());
                                                 $query->execute();
                                                 $subRubrosArray=$query->fetchAll();
                                                 if($query->rowCount()>0){}
                                                 foreach ($subRubrosArray as $value) {
-                                                     $usubrubro= ($value['idrubro'] == $proveedor['idrubro'] ) ? "selected" : "" ;
+                                                     $usubrubro= ($value['idsub_rubro'] == $proveedor['idsub_rubro'] ) ? "selected" : "" ;
                                                 ?>
                                                 <option value="<?= $value['idsub_rubro'] ?>" <?= $usubrubro ?> ><?= $value['sub_rubro'] ?></option>
                                                 <?php } ?>
@@ -181,14 +182,13 @@
   <?= js_jquery_parsley() ?>
   <?= js_i18n_es() ?>
   <?= js_gritter() ?>
+  <?= js_select2() ?>
      
-	
-
     <script type="text/javascript">
       $(document).ready(function(){
         //initialize the javascript
         App.init();
-        
+         $("#tipo").select2();$("#rubro").select2();$("#sub_rubro").select2();
         window.ParsleyValidator.setLocale('es');
         $("#frm-edit-supplier").parsley().subscribe('parsley:form:validate', function (formInstance) {
             formInstance.submitEvent.preventDefault();

@@ -47,6 +47,7 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
+    <?= css_select2() ?>
 	<?= css_style() ?>
 
 </head>
@@ -113,25 +114,25 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
-                                            <?= selectVendedor('input-vendedor','input-vendedor','form-control','required','',$clientArray['idusuario']) ?>
+                                            <?= selectVendedor('input-vendedor','input-vendedor','input-select','required','',$clientArray['idusuario']) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rubro</label>
                                         <div class="col-sm-6">
-                                            <?= selectRubro('input-rubro','input-rubro','form-control','required','',$clientArray['idrubro']) ?>
+                                            <?= selectRubro('input-rubro','input-rubro','input-select','required','',$clientArray['idrubro']) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Departamento <?= $clientArray['iddepartamento'] ?></label>
                                         <div class="col-sm-6">
-                                            <?= selectDepartamento('input-departamento','input-departamento','form-control','required','loadMunicipios()',$clientArray['iddepartamento']) ?>
+                                            <?= selectDepartamento('input-departamento','input-departamento','input-select','required','loadMunicipios()',$clientArray['iddepartamento']) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Municipio </label>
                                         <div class="col-sm-6">
-                                            <?= selectMunicipio($clientArray['iddepartamento'],'input-municipio','input-municipio','form-control','required','',$clientArray['idmunicipio']) ?>
+                                            <?= selectMunicipio($clientArray['iddepartamento'],'input-municipio','input-municipio','input-select','required','',$clientArray['idmunicipio']) ?>
                                         </div>
                                     </div>
                                     
@@ -224,6 +225,7 @@
   <?= js_i18n_es() ?>  
   <?= js_general() ?>
   <?= js_bootstrap_file_input() ?>
+  <?= js_select2() ?>
      
 	
 
@@ -258,6 +260,10 @@
            }
         });
         $('#img-client').bootstrapFileInput();
+        $("#input-vendedor").select2();
+        $("#input-rubro").select2();
+        $("#input-departamento").select2();
+        $("#input-municipio").select2();
       });
       function loadMunicipios(){
         if($("#input-departamento").val()!=''){

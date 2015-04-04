@@ -41,6 +41,7 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
+    <?= css_select2() ?>
 	<?= css_style() ?>
 
 </head>
@@ -101,7 +102,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" name="cargo" id="cargo" required >
+                                            <select name="cargo" id="cargo" style="width: 100%" required >
                                                <?php 
                                                 $query=$connection->prepare(sql_select_contactos_proveedores_cargo_all());
                                                 $query->execute();
@@ -175,7 +176,8 @@
   <?= js_jquery_parsley() ?>
   <?= js_i18n_es() ?>
   <?= js_gritter() ?>
-     
+  <?= js_select2() ?>
+    
 	
 
     <script type="text/javascript">
@@ -219,7 +221,7 @@
             }
             return;
         });
-        
+        $("#cargo").select2();
         
       });
     </script>

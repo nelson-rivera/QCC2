@@ -35,7 +35,9 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
+    <?= css_select2() ?>
 	<?= css_style() ?>
+  
 
 </head>
 
@@ -97,8 +99,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Tipo</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control" name="tipo" id="tipo" required >
+                                        <div class="col-sm-6" id="div_tipo" >
+                                            <select name="tipo" id="tipo"  style="width: 100%" required >
                                                <?php 
                                                 $query=$connection->prepare(sql_select_tipos_empresas_all());
                                                 $query->execute();
@@ -114,7 +116,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rubro</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" name="rubro" id="rubro" required >
+                                            <select name="rubro" id="rubro" style="width: 100%" required >
                                                 <?php 
                                                 $query=$connection->prepare(sql_select_rubros_all());
                                                 $query->execute();
@@ -130,7 +132,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Sub-Rubro</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" name="sub_rubro" id="sub_rubro" required >
+                                            <select name="sub_rubro" id="sub_rubro" style="width: 100%" required >
                                                 <?php 
                                                 $query=$connection->prepare(sql_select_sub_rubros_all());
                                                 $query->execute();
@@ -154,7 +156,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" name="cargo" id="cargo" required >
+                                            <select name="cargo" id="cargo" style="width: 100%" required >
                                             <?php 
                                                 $query=$connection->prepare(sql_select_contactos_proveedores_cargo_all());
                                                 $query->execute();
@@ -230,9 +232,8 @@
   <?= js_jquery_parsley() ?>
   <?= js_i18n_es() ?>
   <?= js_gritter() ?>
-     
-	
-
+  <?= js_select2() ?>
+ 
     <script type="text/javascript">
       $(document).ready(function(){
         //initialize the javascript
@@ -277,6 +278,20 @@
             return;
         });
         
+       
+
+        /*$( ".select2-input" ).on( "click", "p", function() {
+          $( this ).after( "<p>Another paragraph! " + (++count) + "</p>" );
+        });*/
+
+        $("#tipo").select2();$("#rubro").select2();$("#sub_rubro").select2();$("#cargo").select2();
+
+        $( ".select2-search > .select2-input" ).keypress(function( event ) {
+          if ( event.which == 13 ) {
+            alert("siii");
+          }
+        });
+
       });
     </script>
 
@@ -284,6 +299,17 @@
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
   <?= js_bootstrap() ?>
+
+ <script type="text/javascript">
+      $(document).ready(function(){
+        $( ".select2-search .select2-input" ).keypress(function( event ) {
+          if ( event.which == 13 ) {
+            
+          }
+        });
+      });
+    </script>
+
 </body>
 
 <!-- Mirrored from foxypixel.net/cleanzone/pages-blank.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 06 Nov 2014 04:57:43 GMT -->

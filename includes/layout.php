@@ -153,6 +153,7 @@ function lytSideMenu($menuSelected){
         $menu .= '<li ><a href="list-suppliers-category.php">Rubro de proveedores</a></li>';
         $menu .= '<li ><a href="list-suppliers-subcategory.php">Sub rubro de proveedores</a></li>';
         $menu .= '<li ><a href="list-position-contact.php">Cargo de contacto de proveedores</a></li>';
+        $menu .= '<li ><a href="list-clients-category.php">Rubro de clientes</a></li>';
     //}
     
   
@@ -268,7 +269,7 @@ function selectRubro($id,$name,$class,$required,$onchange,$idSelected){
     $connection= openConnection();
     $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'">';
                                                                     
-    $queryRubros=$connection->prepare(sql_select_rubros());
+    $queryRubros=$connection->prepare(sql_select_rubros_clientes());
     $queryRubros->execute();
     $selected='';
     foreach ($queryRubros->fetchAll() as $rubro){

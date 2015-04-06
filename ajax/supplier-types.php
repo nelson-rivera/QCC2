@@ -19,10 +19,12 @@ if($option=="add"){
         $connection->beginTransaction();
         $query->bindParam(':tipo', $tipo);
         $query->execute();
+        $response['id']= $connection->lastInsertId(); 
         $connection->commit();
 
         $response['status']=1;
         $response['msg']= txt_te_registrado();
+
     }  catch ( Exception $exc ){
         $response['status']=0;
         $response['msg']= txt_te_msg_registro_fail();

@@ -93,13 +93,13 @@ function sql_get_municipio_by_iddepartamento(){
     return "SELECT * from municipios where iddepartamento=?";
 }
 function sql_save_contacto(){
-    return 'INSERT INTO contactos (nombre_contacto, cargo, idcliente, email_1, email_2, telefono_1,telefono_2,telefono_3) values(?,?,?,?,?,?,?,?)';
+    return 'INSERT INTO contactos (nombre_contacto, idcargo, idcliente, email_1, email_2, telefono_1,telefono_2,telefono_3) values(?,?,?,?,?,?,?,?)';
 }
 function sql_insert_contacto(){
-    return 'INSERT INTO contactos(nombre_contacto, cargo, idcliente, email_1, email_2, telefono_1,telefono_2,telefono_3) VALUES(?,?,?,?,?,?,?,?)';
+    return 'INSERT INTO contactos(nombre_contacto, idcargo, idcliente, email_1, email_2, telefono_1,telefono_2,telefono_3) VALUES(?,?,?,?,?,?,?,?)';
 }
 function sql_update_contacto(){
-    return 'UPDATE contactos SET nombre_contacto=?, cargo=?, email_1=?, email_2=?, telefono_1=?,telefono_2=?,telefono_3=? WHERE idcontacto=?';
+    return 'UPDATE contactos SET nombre_contacto=?, idcargo=?, email_1=?, email_2=?, telefono_1=?,telefono_2=?,telefono_3=? WHERE idcontacto=?';
 }
 function sql_select_clientes_extended(){
     return 'SELECT clientes.*, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
@@ -120,7 +120,7 @@ function sql_select_contactos_clientes_extended(){
 }
 function sql_select_cliente_extended_by_idcliente(){
     return 'SELECT clientes.*, municipios.idmunicipio, departamentos.iddepartamento, rubros.idrubro, usuarios.idusuario, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, '
-         .' contactos.nombre_contacto, contactos.idcontacto, contactos.cargo, contactos.email_1, contactos.email_2, contactos.telefono_1, contactos.telefono_2, contactos.telefono_3'
+         .' contactos.*'
          .' FROM clientes' 
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
          .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
@@ -131,6 +131,9 @@ function sql_select_cliente_extended_by_idcliente(){
 }
 function sql_select_rubros(){
     return 'SELECT * FROM rubros';
+}
+function sql_select_rubros_clientes(){
+    return 'SELECT * FROM rubros_clientes';
 }
 function sql_select_validez(){
     return 'SELECT * FROM validez_cotizaciones';
@@ -176,6 +179,9 @@ function sql_select_tipos_empresas_all(){
 
 function sql_select_rubros_all(){
     return 'SELECT rubros.* from rubros ';
+}
+function sql_select_rubros_clientes_all(){
+    return 'SELECT * from rubros_clientes ';
 }
 
 function sql_select_sub_rubros_all(){
@@ -319,7 +325,7 @@ function sql_select_proveedores_contact(){
 }
 
 function sql_select_contactos_proveedores_cargo_all(){
-    return 'SELECT contactos_proveedores_cargos.* FROM contactos_proveedores_cargos ';
+    return 'SELECT * FROM contactos_proveedores_cargos';
 }
 
 function sql_select_tipo_proveedores(){
@@ -340,13 +346,22 @@ function sql_delete_tipo_empresa(){
 function sql_save_rubro(){
     return 'INSERT INTO `rubros`(`rubro`,`fecha_creacion`) VALUES (:rubro,:fecha_creacion)';
 }
+function sql_save_rubro_cliente(){
+    return 'INSERT INTO `rubros_clientes`(`rubro`,`fecha_creacion`) VALUES (:rubro,:fecha_creacion)';
+}
 
 function sql_update_rubro(){
     return 'UPDATE `rubros` SET `rubro` = :rubro  WHERE `idrubro` = :idrubro';
 }
+function sql_update_rubro_cliente(){
+    return 'UPDATE `rubros_clientes` SET `rubro` = :rubro  WHERE `idrubro` = :idrubro';
+}
 
 function sql_delete_rubro(){
     return 'DELETE FROM `rubros` WHERE `idrubro` = :idrubro';
+}
+function sql_delete_rubro_cliente(){
+    return 'DELETE FROM `rubros_clientes` WHERE `idrubro` = :idrubro';
 }
 
 function sql_save_subrubro(){

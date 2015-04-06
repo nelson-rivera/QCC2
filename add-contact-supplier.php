@@ -101,7 +101,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6" data-select="cargo" >
                                             <select name="cargo" id="cargo" style="width: 100%" required >
                                                <?php 
                                                 $query=$connection->prepare(sql_select_contactos_proveedores_cargo_all());
@@ -222,8 +222,31 @@
             return;
         });
         $("#cargo").select2();
+        $('.select2-search > input.select2-input').on('keyup', function(e) {
+           if(e.keyCode === 13) nuevoRegistro($( '.select2-dropdown-open' ).parents().attr('data-select'),$(this).val())
+        });
         
       });
+        function nuevoRegistro(mant,valor){
+            var pserv={"cargo":{ "url": "ajax/position-contact.php","option":"add","reg":"cargoAgregar"}}; 
+                
+            $.ajax({
+                url:pserv[mant].url,
+                type:'POST',
+                dataType:"json",
+                data:"option="+pserv[mant].option+"&"+pserv[mant].reg+"="+valor,
+                beforeSend: function(){ },
+                success:function(data){
+                    if(data.status=="1"){ 
+                        $("#"+mant).append('<option value="'+data.id+'">'+valor+'</option>');
+                        $("#"+mant).select2("val", data.id).select2("close");
+                    }else{
+
+                    }
+                    
+                }
+            });
+        }
     </script>
 
 <!-- Bootstrap core JavaScript

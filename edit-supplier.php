@@ -106,7 +106,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Tipo</label>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6" data-select="tipo"  >
                                             <select  name="tipo" id="tipo" style="width: 100%" required >
                                             <?php 
                                                 $query=$connection->prepare(sql_select_tipos_empresas_all());
@@ -123,7 +123,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rubro</label>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6" data-select="rubro" >
                                              <select  name="rubro" id="rubro" style="width: 100%" required >
                                                <?php 
                                                 $query=$connection->prepare(sql_select_rubros_all());
@@ -140,7 +140,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Sub-Rubro</label>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6" data-select="sub_rubro" >
                                             <select  name="sub_rubro" id="sub_rubro" style="width: 100%" required >
                                                 <?php 
                                                 $query=$connection->prepare(sql_select_sub_rubros_all());
@@ -227,8 +227,35 @@
             }
             return;
         });
-        
+         $('.select2-search > input.select2-input').on('keyup', function(e) {
+           if(e.keyCode === 13) nuevoRegistro($( '.select2-dropdown-open' ).parents().attr('data-select'),$(this).val())
+        });
       });
+        function nuevoRegistro(mant,valor){
+            var pserv={
+                "tipo":{ "url": "ajax/supplier-types.php","option":"add","reg":"tipoAgregar"},
+                "rubro":{ "url": "ajax/supplier-category.php","option":"add","reg":"rubroAgregar"},
+                "sub_rubro":{ "url": "ajax/supplier-subcategory.php","option":"add","reg":"subrubroAgregar"}               
+                }; 
+                
+            $.ajax({
+                url:pserv[mant].url,
+                type:'POST',
+                dataType:"json",
+                data:"option="+pserv[mant].option+"&"+pserv[mant].reg+"="+valor,
+                beforeSend: function(){ },
+                success:function(data){
+                    if(data.status=="1"){ 
+                        $("#"+mant).append('<option value="'+data.id+'">'+valor+'</option>');
+                        $("#"+mant).select2("val", data.id).select2("close");
+                    }else{
+
+                    }
+                    
+                }
+            });
+        }
+
     </script>
 
 <!-- Bootstrap core JavaScript

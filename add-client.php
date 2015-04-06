@@ -9,6 +9,8 @@
         include_once './includes/class/Helper.php';
         Helper::helpSession();
         Helper::helpIsAllowed(2); // 2 - Agregar,editar,eliminar clientes
+        
+        $connection = openConnection();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -127,7 +129,17 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <input name="input-cargo" class="form-control" type="text" required>
+<!--                                            <input name="input-cargo" class="form-control" type="text" required>-->
+                                            <select class="form-control" name="input-cargo" id="input-cargo" required >
+                                            <?php 
+                                                $query=$connection->prepare(sql_select_contactos_proveedores_cargo_all());
+                                                $query->execute();
+                                                $cargoArray=$query->fetchAll();
+                                                foreach ($cargoArray as $value) {
+                                                ?>
+                                                <option value="<?= $value['idcontactos_proveedores_cargos'] ?>" ><?= $value['cargo'] ?></option>
+                                                <?php } ?>    
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">

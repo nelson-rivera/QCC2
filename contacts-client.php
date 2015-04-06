@@ -108,8 +108,8 @@
                                 </thead>
                                 <tbody>
                                     <?php
-                                    $getContactos = $connection->prepare(sql_select_contactos());
-                                    $getContactos->execute();
+                                    $getContactos = $connection->prepare(sql_select_contactos_by_idcliente());
+                                    $getContactos->execute(array($idCliente));
                                     foreach ($getContactos->fetchAll() as $contacto){
                                     ?>
                                         <tr class="odd">

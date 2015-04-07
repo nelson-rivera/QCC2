@@ -31,6 +31,7 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
+    <?= css_select2() ?>
 	<?= css_style() ?>
 
 </head>
@@ -95,25 +96,25 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
-                                            <?= selectVendedor('input-vendedor','input-vendedor','form-control','required','','',false) ?>
+                                            <?= selectVendedor('input-vendedor','input-vendedor','input-select','required','','', false) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rubro</label>
                                         <div class="col-sm-6">
-                                            <?= selectRubro('input-rubro','input-rubro','form-control','required','','') ?>
+                                            <?= selectRubro('input-rubro','input-rubro','input-select','required','','') ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Departamento</label>
                                         <div class="col-sm-6">
-                                            <?= selectDepartamento('input-departamento','input-departamento','form-control','required','loadMunicipios()','') ?>
+                                            <?= selectDepartamento('input-departamento','input-departamento','input-select','required','loadMunicipios()','') ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Municipio</label>
                                         <div class="col-sm-6">
-                                            <select class="form-control" name="input-municipio" id="input-municipio" required>
+                                            <select class="input-select" name="input-municipio" id="input-municipio" required>
                                                 <option value="">Selecciones un municipio...</option>
                                             </select>
                                         </div>
@@ -216,7 +217,7 @@
   <?= js_i18n_es() ?>
   <?= js_general() ?>
   <?= js_bootstrap_file_input() ?>
-     
+  <?= js_select2() ?>   
 	
 
     <script type="text/javascript">
@@ -251,6 +252,10 @@
            }
         });
         $('#img-client').bootstrapFileInput();
+        $("#input-vendedor").select2();
+        $("#input-rubro").select2();
+        $("#input-departamento").select2();
+        $("#input-municipio").select2();
         
         
       });

@@ -19,7 +19,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Listar Clientes</title>
+	<title>QCC - Listado de Clientes</title>
 	<?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->

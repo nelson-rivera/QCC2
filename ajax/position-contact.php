@@ -18,6 +18,7 @@ if($option=="add"){
         $connection->beginTransaction();
         $query->bindParam(':cargo', $cargo);
         $query->execute();
+        $response['id']= $connection->lastInsertId();
         $connection->commit();
 
         $response['status']=1;

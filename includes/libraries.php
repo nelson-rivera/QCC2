@@ -56,7 +56,6 @@ function js_daterangepicker(){return '<script type="text/javascript" src="js/boo
 function js_moment(){return '<script type="text/javascript" src="js/bootstrap.daterangepicker/moment.min.js"></script>';}
 
 
-
 	
 	
 	

@@ -19,10 +19,12 @@ if($option=="add"){
         $query->bindParam(':sub_rubro', $subrubro);
         $query->bindParam(':fecha_creacion', $now);
         $query->execute();
+        $response['id']= $connection->lastInsertId();
         $connection->commit();
 
         $response['status']=1;
         $response['msg']= txt_sc_registrado();
+
     }  catch ( Exception $exc ){
         $response['status']=0;
         $response['msg']= txt_sc_msg_registro_fail();

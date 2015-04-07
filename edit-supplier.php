@@ -43,6 +43,7 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
+    <?= css_select2() ?>
 	<?= css_style() ?>
 
 </head>
@@ -105,8 +106,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Tipo</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control" name="tipo" id="tipo" required >
+                                        <div class="col-sm-6" data-select="tipo"  >
+                                            <select  name="tipo" id="tipo" style="width: 100%" required >
                                             <?php 
                                                 $query=$connection->prepare(sql_select_tipos_empresas_all());
                                                 $query->execute();
@@ -122,8 +123,8 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rubro</label>
-                                        <div class="col-sm-6">
-                                             <select class="form-control" name="rubro" id="rubro" required >
+                                        <div class="col-sm-6" data-select="rubro" >
+                                             <select  name="rubro" id="rubro" style="width: 100%" required >
                                                <?php 
                                                 $query=$connection->prepare(sql_select_rubros_all());
                                                 $query->execute();
@@ -139,15 +140,15 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Sub-Rubro</label>
-                                        <div class="col-sm-6">
-                                            <select class="form-control" name="sub_rubro" id="sub_rubro" required >
+                                        <div class="col-sm-6" data-select="sub_rubro" >
+                                            <select  name="sub_rubro" id="sub_rubro" style="width: 100%" required >
                                                 <?php 
                                                 $query=$connection->prepare(sql_select_sub_rubros_all());
                                                 $query->execute();
                                                 $subRubrosArray=$query->fetchAll();
                                                 if($query->rowCount()>0){}
                                                 foreach ($subRubrosArray as $value) {
-                                                     $usubrubro= ($value['idrubro'] == $proveedor['idrubro'] ) ? "selected" : "" ;
+                                                     $usubrubro= ($value['idsub_rubro'] == $proveedor['idsub_rubro'] ) ? "selected" : "" ;
                                                 ?>
                                                 <option value="<?= $value['idsub_rubro'] ?>" <?= $usubrubro ?> ><?= $value['sub_rubro'] ?></option>
                                                 <?php } ?>
@@ -181,14 +182,13 @@
   <?= js_jquery_parsley() ?>
   <?= js_i18n_es() ?>
   <?= js_gritter() ?>
+  <?= js_select2() ?>
      
-	
-
     <script type="text/javascript">
       $(document).ready(function(){
         //initialize the javascript
         App.init();
-        
+         $("#tipo").select2();$("#rubro").select2();$("#sub_rubro").select2();
         window.ParsleyValidator.setLocale('es');
         $("#frm-edit-supplier").parsley().subscribe('parsley:form:validate', function (formInstance) {
             formInstance.submitEvent.preventDefault();
@@ -227,8 +227,35 @@
             }
             return;
         });
-        
+         $('.select2-search > input.select2-input').on('keyup', function(e) {
+           if(e.keyCode === 13) nuevoRegistro($( '.select2-dropdown-open' ).parents().attr('data-select'),$(this).val())
+        });
       });
+        function nuevoRegistro(mant,valor){
+            var pserv={
+                "tipo":{ "url": "ajax/supplier-types.php","option":"add","reg":"tipoAgregar"},
+                "rubro":{ "url": "ajax/supplier-category.php","option":"add","reg":"rubroAgregar"},
+                "sub_rubro":{ "url": "ajax/supplier-subcategory.php","option":"add","reg":"subrubroAgregar"}               
+                }; 
+                
+            $.ajax({
+                url:pserv[mant].url,
+                type:'POST',
+                dataType:"json",
+                data:"option="+pserv[mant].option+"&"+pserv[mant].reg+"="+valor,
+                beforeSend: function(){ },
+                success:function(data){
+                    if(data.status=="1"){ 
+                        $("#"+mant).append('<option value="'+data.id+'">'+valor+'</option>');
+                        $("#"+mant).select2("val", data.id).select2("close");
+                    }else{
+
+                    }
+                    
+                }
+            });
+        }
+
     </script>
 
 <!-- Bootstrap core JavaScript

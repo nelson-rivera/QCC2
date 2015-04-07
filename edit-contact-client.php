@@ -107,7 +107,18 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
                                         <div class="col-sm-6">
-                                            <input name="input-cargo" class="form-control" type="text" value="<?= $contactoArray['cargo'] ?>" required>
+                                            <!--<input name="input-cargo" class="form-control" type="text" value="<?= $contactoArray['cargo'] ?>" required>-->
+                                            <select class="form-control" name="input-cargo" id="input-cargo" required >
+                                            <?php 
+                                                $query=$connection->prepare(sql_select_contactos_proveedores_cargo_all());
+                                                $query->execute();
+                                                $cargoArray=$query->fetchAll();
+                                                foreach ($cargoArray as $value) {
+                                                    $selected = ($contactoArray['idcargo'] == $value['idcontactos_proveedores_cargos'])?'selected="selected"':'';
+                                                ?>
+                                                <option <?= $selected ?> value="<?= $value['idcontactos_proveedores_cargos'] ?>" ><?= $value['cargo'] ?></option>
+                                            <?php } ?>
+                                            </select>
                                         </div>
                                     </div>
                                     <div class="form-group">

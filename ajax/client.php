@@ -191,7 +191,6 @@ switch ($opt) {
                 $response['status']=0;
                 $response['msg']= 'Contacto agregado con exito';
             } catch (Exception $exc) {
-                echo $exc->getMessage();
                 $connection->rollBack();
                 $response['status']=1;
                 $response['msg']= 'Error 109: Error al agregar cliente';
@@ -204,6 +203,45 @@ switch ($opt) {
             $response['error']= '110';
         }
         break;
+    //Lista de clientes filtrada por vendedor
+    case 6:
+        $idCliente = $_POST['id'];
+        try {
+            if($idCliente==0){
+                $getCliente = $connection->prepare(sql_select_clientes_extended());
+                $getCliente->execute();
+            }
+            else{
+                $getCliente = $connection->prepare(sql_select_clientes_extended_by_idvendedor());
+                $getCliente->execute(array($idCliente));
+            }
+            
+            $counter = 0;
+            foreach ( $getCliente->fetchAll() as $cliente){
+                $buttons = '<a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php?id='. $cliente['idcliente'].'">
+                            <i class="fa fa-users"></i>
+                        </a>
+                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar cliente" href="edit-client.php?id='. $cliente['idcliente'] .'">
+                            <i class="fa fa-pencil"></i>
+                        </a>
+                        <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
+                            <input class="input-cliente" type="hidden" value="'. $cliente['idcliente'].'" />
+                            <i class="fa fa-times"></i>
+                        </a>';
+                $clienteArray = [ utf8_encode($cliente['nombre_cliente']), $cliente['rubro'], $cliente['nombre_vendedor'], utf8_encode($cliente['departamento']), utf8_encode($cliente['municipio']), $buttons];
+                $data[$counter] = $clienteArray;
+                $counter++;
+            }
+            $response['data'] = $data;
+            $response['status']=0;
+            $response['msg']= 'Lista de clientes';
+        } catch (Exception $exc) {
+            $response['status']=1;
+            $response['msg']= 'Error 109: Error al obtener cliente';
+            $response['error']= '111';
+        }
+        break;
+        
     default:
         $response['status']=1;
         $response['msg']= 'A su petición le falta un argumento';

@@ -233,10 +233,13 @@ function selectContactos($idCliente,$id,$name,$class,$required,$onchange,$idSele
     $select.='</select>';
     return $select;
 }
-function selectVendedor($id,$name,$class,$required,$onchange,$idSelected){
+function selectVendedor($id,$name,$class,$required,$onchange,$idSelected, $allOptionFlag){
     $connection= openConnection();
     $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'">';
-                                                                    
+                                                                 
+    if($allOptionFlag){
+        $select.='<option value="0">Todos los vendedores</option>'; 
+    }
     $queryUsuarios=$connection->prepare(sql_select_usuarios_all());
     $queryUsuarios->execute();
     $selected='';

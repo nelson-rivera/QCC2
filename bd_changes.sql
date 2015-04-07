@@ -23,3 +23,8 @@ VALUES (1, 'Final', '2014-12-14'), (2, 'UPS', '2014-12-15'), ( 3,'Rubro', '2015-
 ALTER TABLE `clientes` DROP FOREIGN KEY `fk_clientes_1`; ALTER TABLE `clientes` 
 ADD CONSTRAINT `fk_clientes_1` FOREIGN KEY (`idrubro`)
  REFERENCES `bd_qcc`.`rubros_clientes`(`idrubro`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+
+
+---Lunes 6 de Abril
+ALTER TABLE `contactos` ADD `activo` INT NOT NULL DEFAULT '1' ;

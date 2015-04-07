@@ -80,22 +80,23 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="block-flat">
-                            
+                            <div class="row">
+                                <div class="col-sm-3 pull-left" >
+                                    <a href="generar-excel-clientes.php" class="btn btn-success">Generar Excel</a> 
+
+                                </div>
                                 <div class="col-sm-3 pull-right" >
                                     <form  action="#" class="form-horizontal">
-                                        <div class="form-group">
-<!--                                          <label class="col-sm-5 control-label">Vendedor</label>
-                                          <div class="col-sm-7 no-padding">
-                                            <select class="form-control">
-                                              <option>Raymundo</option>
-                                              <option>Yolanda</option>
-                                              <option>Pepe</option>
-                                            </select>									
-                                          </div>-->
-                                            <a href="generar-excel-clientes.php" class="btn btn-success pull-right">Generar Excel</a> 
+                                        <div>
+                                            <label class="col-sm-5 control-label">Vendedor</label>
+                                            <div class="col-sm-7 no-padding">
+                                                <?= selectVendedor('input-vendedor','input-vendedor','form-control','','','',true) ?>
+                                            </div>
                                         </div>
                                       </form>
                                 </div>
+                            </div>
+                                
                             
                                 <table class="table table-bordered" id="datatable-icons" >
                                     <thead>
@@ -218,6 +219,28 @@
             .fail(function() {
 
             });  
+        });
+        
+        $("#input-vendedor").change(function(){
+            var id = $(this).val();
+            $.ajax({
+                url:"ajax/client.php",
+                type:'POST',
+                dataType:"json",
+                data: {'opt':6, 'id':id},
+            }).done(function(response){
+                if (response.status == "0") {
+                    oTable.fnClearTable();
+                    if(response.data){
+                        oTable.fnAddData(response.data);
+                        oTable.fnAdjustColumnSizing();
+                    }
+                }
+                else{
+                    oTable.fnClearTable();
+                }
+            }); 
+            
         });
       });
     </script>

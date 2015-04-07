@@ -95,7 +95,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
-                                            <?= selectVendedor('input-vendedor','input-vendedor','form-control','required','','') ?>
+                                            <?= selectVendedor('input-vendedor','input-vendedor','form-control','required','','',false) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">

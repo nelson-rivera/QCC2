@@ -241,7 +241,30 @@ switch ($opt) {
             $response['error']= '111';
         }
         break;
-        
+    
+    case 7:
+        if(is_numeric($_POST['id'])){
+            $idContacto=$_POST['id'];
+            $connection->beginTransaction();
+            try {
+                $deleteContacto=$connection->prepare(sql_delete_contacto());
+                $deleteContacto->execute(array($idContacto));
+                $connection->commit();
+                $response['status']=0;
+                $response['msg']= 'Contacto eliminado con éxito';
+            } catch (Exception $exc) {
+                $connection->rollBack();
+                $response['status']=1;
+                $response['msg']= 'Error 107: Error al eliminar contacto';
+                $response['error']= '107';
+            }            
+        }
+        else{
+            $response['status']=1;
+            $response['msg']= 'A su petición le falta un argumento';
+            $response['error']= '108';
+        }
+        break;
     default:
         $response['status']=1;
         $response['msg']= 'A su petición le falta un argumento';

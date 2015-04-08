@@ -83,6 +83,9 @@ function sql_update_client(){
 function sql_delete_cliente(){
     return 'UPDATE clientes SET active = 0 WHERE idcliente=?';
 }
+function sql_delete_contacto(){
+    return 'UPDATE contactos SET activo = 0 WHERE idcontacto=?';
+}
 function sql_get_departamentos(){
     return 'SELECT * from departamentos';
 }
@@ -175,7 +178,7 @@ function sql_select_contactos(){
     return 'SELECT * FROM contactos';
 }
 function sql_select_contactos_by_idcliente(){
-    return 'SELECT * FROM contactos WHERE idcliente=?'; 
+    return 'SELECT * FROM contactos WHERE idcliente=? and activo=1'; 
 }
 function sql_select_contacto_by_idcontacto(){
     return 'SELECT * FROM contactos WHERE idcontacto=?';

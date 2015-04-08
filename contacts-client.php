@@ -126,6 +126,7 @@
                                                 </a>
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
                                                     <i class="fa fa-times"></i>
+                                                    <input class="input-contacto" type="hidden" value="<?= $contacto['idcontacto']?>" />
                                                 </a>
                                             </td>
                                         </tr>
@@ -141,29 +142,75 @@
             </div>
 	</div> 
     </div>
-   <?= js_jquery() ?>
-  <?= js_jquery_ui() ?>
-  <?= js_bootstrap_datetimepicker() ?>
-  <?= js_jquery_nanoscroller() ?>
-  <?= js_jquery_nestable() ?>
-  <?= js_bootstrap_switch() ?>
-  <?= js_select2() ?>
-  <?= js_bootstrap_slider() ?>
-  <?= js_jquery_datatable() ?>
-  <?= js_jquery_datatable_adapter() ?>
-  <?= js_general() ?>
+    
+    <!-- Modal -->
+    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            <h4 class="modal-title" id="myModalLabel">Eliminar Contacto</h4>
+          </div>
+          <div class="modal-body">
+              Está seguro que desea eliminar el contacto <span id="client-name"></span>.
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+            <button id="btn-eliminar" type="button" class="btn btn-danger">Sí, eliminar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <?= js_jquery() ?>
+    <?= js_jquery_ui() ?>
+    <?= js_bootstrap_datetimepicker() ?>
+    <?= js_jquery_nanoscroller() ?>
+    <?= js_jquery_nestable() ?>
+    <?= js_bootstrap_switch() ?>
+    <?= js_select2() ?>
+    <?= js_bootstrap_slider() ?>
+    <?= js_jquery_datatable() ?>
+    <?= js_jquery_datatable_adapter() ?>
+    <?= js_general() ?>
      
 	
 
     <script type="text/javascript">
       $(document).ready(function(){
         App.init();
-        $('#datatable-icons').dataTable();
+        var oTable = $('#datatable-icons').dataTable();
     
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
         $('<a href="add-contact-client.php?id=<?=$idCliente ?>" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
+        var selectedRow;
+        var idC;
+        $('#datatable-icons tbody').on( 'click', '.btn-danger', function () {
+            $('#modal-delete').modal('show');
+            selectedRow = $(this).closest("tr").get(0);
+            idC = $(this).children(".input-contacto").val();
+            
+        });
+        $("#btn-eliminar").click(function(){
+            $.ajax({
+                url:'ajax/client.php',
+                type: 'post',
+                dataType: 'json',
+                data: {opt:7, id: idC}
+            }).done(function(response) {
+                if(response.status==0){
+                    oTable.fnDeleteRow(oTable.fnGetPosition(selectedRow));
+                    $('#modal-delete').modal('hide');
+                }
+                else{
+                    alert('error');
+                }
+            })
+            .fail(function() {
+
+            });  
+        });
       });
     </script>
 

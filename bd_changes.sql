@@ -28,3 +28,29 @@ ADD CONSTRAINT `fk_clientes_1` FOREIGN KEY (`idrubro`)
 
 ---Lunes 6 de Abril
 ALTER TABLE `contactos` ADD `activo` INT NOT NULL DEFAULT '1' ;
+
+
+---Domingo 12 de Abril
+
+CREATE TABLE IF NOT EXISTS `contactos_cargos` (
+`idcontacto_cargo` int(11) NOT NULL,
+  `cargo` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `contactos_cargos`
+ ADD PRIMARY KEY (`idcontacto_cargo`);
+
+ALTER TABLE `contactos_cargos`
+MODIFY `idcontacto_cargo` int(11) NOT NULL AUTO_INCREMENT;
+
+
+INSERT INTO `contactos_cargos` (`idcontacto_cargo`, `cargo`) VALUES
+(1, 'Gerente de ventas'),
+(2, 'Vendedor');
+
+
+ALTER TABLE `contactos` DROP FOREIGN KEY `fk_cargo`; 
+ALTER TABLE `contactos` ADD CONSTRAINT `fk_cargo` 
+FOREIGN KEY (`idcargo`) REFERENCES `bd_qcc`.`contactos_cargos`(`idcontacto_cargo`) 
+ON DELETE CASCADE ON UPDATE CASCADE;
+

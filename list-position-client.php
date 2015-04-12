@@ -77,7 +77,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Mantenimiento <i class="fa fa-angle-double-right"></i> Cargos de contactos de proveedores</h2>
+                <h2>Mantenimiento <i class="fa fa-angle-double-right"></i> Cargos de contactos de clientes</h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
@@ -95,7 +95,7 @@
                                 </thead>
                                 <tbody>
                                 <?php 
-                                $query=$connection->prepare(sql_select_contactos_proveedores_cargo_all() );
+                                $query=$connection->prepare(sql_select_contactos_cargo_all() );
                                 $query->execute();
                                 $scategory=$query->fetchAll();
                                 $num=1;
@@ -104,10 +104,10 @@
                                     <tr class="odd gradeA">
                                         <td id="pcon_<?= $num ?>" ><?= $value['cargo'] ?></td>
                                         <td class="center">
-                                            <a class="btn btn-primary md-trigger btn-xs btn-edit-pcon" data-toggle="tooltip" data-original-title="Eliminar registro" data-modal="mod-edit" data-pcon="<?= encryptString($value['idcontactos_proveedores_cargos']) ?>"  data-num="<?= $num ?>" >
+                                            <a class="btn btn-primary md-trigger btn-xs btn-edit-pcon" data-toggle="tooltip" data-original-title="Eliminar registro" data-modal="mod-edit" data-pcon="<?= encryptString($value['idcontacto_cargo']) ?>"  data-num="<?= $num ?>" >
                                                 <i class="fa fa-pencil"></i>
                                             </a>
-                                            <a class="btn btn-danger md-trigger btn-xs btn-eliminar-pcon" data-toggle="tooltip" data-original-title="Eliminar registro" data-modal="mod-delete" data-pcon="<?= encryptString($value['idcontactos_proveedores_cargos']) ?>"  data-num="<?= $num ?>" >
+                                            <a class="btn btn-danger md-trigger btn-xs btn-eliminar-pcon" data-toggle="tooltip" data-original-title="Eliminar registro" data-modal="mod-delete" data-pcon="<?= encryptString($value['idcontacto_cargo']) ?>"  data-num="<?= $num ?>" >
                                                 <i class="fa fa-times"></i>
                                             </a>
                                         </td>
@@ -245,7 +245,7 @@
            $(this).attr("disabled","disabled");
            var pcon= $("#btn-deleteS").attr("data-pcon");
            $.ajax({
-                url:"ajax/position-contact.php",
+                url:"ajax/position-contact-client.php",
                 type:'POST',
                 dataType:"json",
                 data:"option=delete&pcon="+pcon,
@@ -267,7 +267,7 @@
         $(this).attr("disabled","disabled");
            var pcon = $("#btn-editS").attr("data-pcon");
            $.ajax({
-                url:"ajax/position-contact.php",
+                url:"ajax/position-contact-client.php",
                 type:'POST',
                 dataType:"json",
                 data:"option=update&pcon="+pcon+"&"+$("#frm-edit-pcon").serialize(),
@@ -288,7 +288,7 @@
         $('#btn-addS').click(function(e){
         $(this).attr("disabled","disabled");   
            $.ajax({
-                url:"ajax/position-contact.php",
+                url:"ajax/position-contact-client.php",
                 type:'POST',
                 dataType:"json",
                 data:"option=add&"+$("#frm-add-pcon").serialize(),

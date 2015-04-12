@@ -31,7 +31,8 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
-    <?= css_select2() ?>
+        <?= css_select2() ?>
+        <?= css_gritter() ?>
 	<?= css_style() ?>
 
 </head>
@@ -218,7 +219,7 @@
   <?= js_general() ?>
   <?= js_bootstrap_file_input() ?>
   <?= js_select2() ?>   
-	
+  <?= js_gritter() ?>
 
     <script type="text/javascript">
       $(document).ready(function(){
@@ -240,7 +241,16 @@
                     contentType: false
                 }).done(function(response) {
                     if(response.status==0){
-                        alert(response.msg);
+                        $.gritter.removeAll({
+                            after_close: function(){
+                              $.gritter.add({
+                                position: 'bottom-right',
+                                title: "Cliente agregado",
+                                text: response.msg,
+                                class_name: 'clean'
+                              });
+                            }
+                        });
                     }
                     else{
                         alert('error');

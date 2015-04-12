@@ -154,6 +154,7 @@ function lytSideMenu($menuSelected){
         $menu .= '<li ><a href="list-suppliers-subcategory.php">Sub rubro de proveedores</a></li>';
         $menu .= '<li ><a href="list-position-contact.php">Cargo de contacto de proveedores</a></li>';
         $menu .= '<li ><a href="list-clients-category.php">Rubro de clientes</a></li>';
+        $menu .= '<li ><a href="list-position-client.php">Cargos de clientes</a></li>';
     //}
     
   

@@ -7,7 +7,9 @@
         include_once './includes/connection.php';
         include_once './includes/sql.php';
         include_once './includes/layout.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
         $connection=  openConnection();
@@ -111,16 +113,16 @@
                                     foreach ($queryGetCotizaciones->fetchAll() as $cotizacion) {
                                     ?>
                                         <tr class="odd gradeA">
-                                            <td><a href="edit-quote.php?id=<?= $cotizacion['idcotizacion'] ?>"><?= $cotizacion['codigo_cotizacion'] ?></a></td>
-                                            <td><a href="edit-client.php?id=<?= $cotizacion['idcliente'] ?>"><?= $cotizacion['nombre_cliente'] ?></a></td>
+                                            <td><a href="edit-quote.php?id=<?= encryptString($cotizacion['idcotizacion']) ?>"><?= $cotizacion['codigo_cotizacion'] ?></a></td>
+                                            <td><a href="edit-client.php?id=<?= encryptString($cotizacion['idcliente']) ?>"><?= $cotizacion['nombre_cliente'] ?></a></td>
                                             <td><?= $cotizacion['nombre_vendedor'] ?></td>
                                             <td class="center"><?= $cotizacion['estado'] ?></td>
                                             <td class="center"><?= $cotizacion['municipio'] ?></td>
                                             <td class="center">
-                                                <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="generate-pdf.php?id=<?=$cotizacion['idcotizacion'] ?>">
+                                                <a class="btn btn-success btn-xs" data-toggle="tooltip" data-original-title="Descargar PDF" href="generate-pdf.php?id=<?=encryptString($cotizacion['idcotizacion']) ?>">
                                                     <i class="fa fa-file-pdf-o"></i>
                                                 </a>
-                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php?id=<?= $cotizacion['idcotizacion'] ?>">
+                                                <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-quote.php?id=<?= encryptString($cotizacion['idcotizacion']) ?>">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                

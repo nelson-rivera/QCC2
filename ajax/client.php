@@ -1,6 +1,7 @@
 <?php
 include_once '../includes/connection.php';
 include_once '../includes/sql.php';
+include_once '../includes/functions.php';
 
 if(empty($_POST['opt']) || !is_numeric($_POST['opt'])){
     $response['status']=1;
@@ -217,11 +218,12 @@ switch ($opt) {
             }
             
             $counter = 0;
+            $data = null;
             foreach ( $getCliente->fetchAll() as $cliente){
-                $buttons = '<a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php?id='. $cliente['idcliente'].'">
+                $buttons = '<a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php?id='. encryptString($cliente['idcliente']).'">
                             <i class="fa fa-users"></i>
                         </a>
-                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar cliente" href="edit-client.php?id='. $cliente['idcliente'] .'">
+                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar cliente" href="edit-client.php?id='. encryptString($cliente['idcliente']) .'">
                             <i class="fa fa-pencil"></i>
                         </a>
                         <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">

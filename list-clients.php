@@ -8,6 +8,7 @@
         include_once './includes/sql.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
         Helper::helpIsAllowed(1); // 1 - Listado de clientes
@@ -122,10 +123,10 @@
                                                 <td><?= utf8_encode($cliente['departamento']) ?></td>
                                                 <td class="center"><?= utf8_encode($cliente['municipio']) ?></td>
                                                 <td class="center">
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php?id=<?= $cliente['idcliente'] ?>">
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php?id=<?= encryptString($cliente['idcliente']) ?>">
                                                         <i class="fa fa-users"></i>
                                                     </a>
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar cliente" href="edit-client.php?id=<?= $cliente['idcliente'] ?>">
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar cliente" href="edit-client.php?id=<?= encryptString($cliente['idcliente']) ?>">
                                                         <i class="fa fa-pencil"></i>
                                                     </a>
                                                     <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">

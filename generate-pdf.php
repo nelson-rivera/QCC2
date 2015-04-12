@@ -2,17 +2,18 @@
 session_start();
 include_once './includes/connection.php';
 include_once './includes/sql.php';
+include_once './includes/functions.php';
 include_once './includes/class/Helper.php';
 Helper::helpSession();
 require_once('./includes/tcpdf/tcpdf.php');
 require_once('./includes/tcpdf/examples/lang/spa.php');
 
 $connection=  openConnection();
-if(empty($_GET['id']) && !is_numeric($_GET['id'])){
+if(empty($_GET['id'])){
     header('location: list-quotes.php');
     exit();
 }
-$idCotizacion=$_GET['id'];
+$idCotizacion=  decryptString($_GET['id']);
 $getCotizacion=$connection->prepare(sql_select_cotizacion_by_idcotizacion());
 $getCotizacion->execute(array($idCotizacion));
 if($getCotizacion->rowCount()<1){

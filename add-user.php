@@ -177,7 +177,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button class="btn btn-primary" id="btnSave" type="submit">Agregar</button>
-                                            <button type="reset" id="btnReset" class="btn btn-default">Limpiar</button>
+                                            <button type="button" id="btnReset" class="btn btn-danger btn-redirect">Cancelar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -206,7 +206,7 @@
             </div>
           </div>
             <div class="modal-footer" id="modal-footer-response-add" >
-                <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal" id="btn-redirect" >Aceptar</button>
+                <button type="button" class="btn btn-primary btn-flat btn-redirect" data-dismiss="modal" id="btn-redirect" >Aceptar</button>
             </div>
         </div>
     </div>
@@ -259,7 +259,7 @@
             }
             return;
         });
-        $("#btn-redirect").click(function(){
+        $(".btn-redirect").click(function(){
             location.href='list-users.php';
         });
       });

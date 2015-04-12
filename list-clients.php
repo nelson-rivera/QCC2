@@ -88,8 +88,8 @@
                                 <div class="col-sm-3 pull-right" >
                                     <form  action="#" class="form-horizontal">
                                         <div>
-                                            <label class="col-sm-5 control-label">Vendedor</label>
-                                            <div class="col-sm-7 no-padding">
+                                            <label class="col-sm-3 control-label"></label>
+                                            <div class="col-sm-9 no-padding">
                                                 <?= selectVendedor('input-vendedor','input-vendedor','form-control','','','',true) ?>
                                             </div>
                                         </div>

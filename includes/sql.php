@@ -121,8 +121,9 @@ function sql_select_clientes_extended_by_idvendedor(){
          .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario WHERE clientes.active = 1 AND clientes.idvendedor=?';
 }
 function sql_select_contactos_clientes_extended(){
-    return 'SELECT contactos.*, clientes.*, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
+    return 'SELECT contactos.*, clientes.*, contactos_cargos.cargo, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
          .' FROM contactos' 
+        . ' INNER JOIN contactos_cargos ON contactos.idcargo = contactos_cargos.idcontacto_cargo'
         . ' INNER JOIN clientes ON contactos.idcliente = clientes.idcliente'
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
          .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'

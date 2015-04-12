@@ -135,7 +135,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button class="btn btn-primary" type="submit">Actualizar</button>
-                                            <button type="reset" class="btn btn-default">Limpiar</button>
+                                            <a href="index.php" class="btn btn-danger">Cancelar</a>
                                         </div>
                                     </div>
                                 </form>

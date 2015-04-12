@@ -10,15 +10,16 @@
         include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
         Helper::helpIsAllowed(1); // 1 - Listado de clientes
         $connection=  openConnection();
-        if(empty($_GET['id']) && !is_numeric($_GET['id'])){
+        if(empty($_GET['id'])){
             header('location: contact-client.php');
             exit();
         }
-        $idContacto=$_GET['id'];
+        $idContacto=  decryptString($_GET['id']);
         $getContacto=$connection->prepare(sql_select_contacto_by_idcontacto());
         $getContacto->execute(array($idContacto));
         $contactoArray=$getContacto->fetch();

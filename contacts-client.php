@@ -8,15 +8,16 @@
         include_once './includes/sql.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
         Helper::helpIsAllowed(1); // 1 - Listado de clientes
         $connection=  openConnection();
-        if(empty($_GET['id']) && !is_numeric($_GET['id'])){
+        if(empty($_GET['id'])){
             header('location: list-clients.php');
             exit();
         }
-        $idCliente=$_GET['id'];
+        $idCliente=  decryptString($_GET['id']);
         $getCliente=$connection->prepare(sql_select_cliente_extended_by_idcliente());
         $getCliente->execute(array($idCliente));
         if($getCliente->rowCount()<1){
@@ -86,7 +87,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Clientes <i class="fa fa-angle-double-right"></i> Contactos de <a href="edit-client.php?id=<?=$idCliente ?>"><?= $clientArray['nombre_cliente'] ?></a></h2>
+                <h2>Clientes <i class="fa fa-angle-double-right"></i> Contactos de <a href="edit-client.php?id=<?=  encryptString($idCliente) ?>"><?= $clientArray['nombre_cliente'] ?></a></h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
@@ -121,7 +122,7 @@
                                             <td><?= $contacto['email_1'] ?></td>
                                             <td><?= $contacto['email_2'] ?></td>
                                             <td class="center">
-                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-client.php?id=<?= $contacto['idcontacto']?>">
+                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-client.php?id=<?= encryptString($contacto['idcontacto'])?>">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
                                                 <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
@@ -183,7 +184,7 @@
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
-        $('<a href="add-contact-client.php?id=<?=$idCliente ?>" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
+        $('<a href="add-contact-client.php?id=<?=  encryptString($idCliente) ?>" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
         var selectedRow;
         var idC;
         $('#datatable-icons tbody').on( 'click', '.btn-danger', function () {

@@ -10,16 +10,17 @@
         include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
         Helper::helpIsAllowed(2); // 2 - Agregar,editar,eliminar clientes
         
         $connection=  openConnection();
-        if(empty($_GET['id']) && !is_numeric($_GET['id'])){
+        if(empty($_GET['id'])){
             header('location: list-clients.php');
             exit();
         }
-        $idClient=$_GET['id'];
+        $idClient=  decryptString($_GET['id']);
         $getClient=$connection->prepare(sql_select_cliente_extended_by_idcliente());
         $getClient->execute(array($idClient));
         if($getClient->rowCount()<1){

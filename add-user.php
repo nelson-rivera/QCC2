@@ -34,6 +34,7 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
+
     <?= css_select2() ?>
     <?= css_niftymodals() ?>
 	<?= css_style() ?>
@@ -178,7 +179,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button class="btn btn-primary" id="btnSave" type="submit">Agregar</button>
-                                            <button type="reset" id="btnReset" class="btn btn-default">Limpiar</button>
+                                            <button type="button" id="btnReset" class="btn btn-danger btn-redirect">Cancelar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -191,6 +192,27 @@
             </div>
 	</div> 
     </div>
+    
+    <div class="md-modal colored-header info md-effect-10" id="mod-alert">
+        <div class="md-content ">
+          <div class="modal-header">
+            <h3>Usuario agregado exitosamente</h3>
+            <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div id="modal-body-center-edit" class="text-center">
+                <div class="i-circle primary">
+                    <i class="fa fa-check"></i>
+                </div>
+                <h4>¡Registro agregado con éxito!</h4>
+            </div>
+          </div>
+            <div class="modal-footer" id="modal-footer-response-add" >
+                <button type="button" class="btn btn-primary btn-flat btn-redirect" data-dismiss="modal" id="btn-redirect" >Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <div class="md-overlay"></div>
   <?= js_jquery() ?>
   <?= js_jquery_ui() ?>
   <?= js_bootstrap_datetimepicker() ?>
@@ -203,6 +225,7 @@
   <?= js_jquery_parsley() ?>
   <?= js_i18n_es() ?>
   <?= js_gritter() ?>
+  <?= js_niftymodals() ?>
 	
 
     <script type="text/javascript">
@@ -224,21 +247,11 @@
                     }
                 }).done(function(response){
                     if (response.status == "1") {
-                        $.gritter.removeAll({
-                            after_close: function(){
-                              $.gritter.add({
-                                position: 'bottom-right',
-                                title: "<?= txt_vendedor_title_registrado() ?>",
-                                text: response.msg,
-                                class_name: 'clean'
-                              });
-                            }
-                          });
-                          location.href='list-users.php';
+                        $("#mod-alert").addClass("md-show");
                     }
                     else {
                         $.gritter.add({
-                            title: "<?= txt_vendedor_title_registrado_fail() ?>",
+                            title: "Error",
                             text: response.msg,
                             class_name: 'danger'
                           });
@@ -254,7 +267,11 @@
         $('.select2-search > input.select2-input').on('keyup', function(e) {
            if(e.keyCode === 13) nuevoRegistro($( '.select2-dropdown-open' ).parents().attr('data-select'),$(this).val())
         });
-        
+       
+        $(".btn-redirect").click(function(){
+            location.href='list-users.php';
+        });
+
       });
       function nuevoRegistro(mant,valor){
             var pserv={"cargo":{ "url": "ajax/position-user.php","option":"add","reg":"cargoAgregar"}};         

@@ -248,8 +248,8 @@ $clienteExist = $consultaClientes->rowCount();
 $lastRow = 9;
 $contadorGlobal = 1;
 if ($clienteExist > 0) {
-    $objPHPExcel->getActiveSheet()->mergeCells("A6:Y6");
-    $objPHPExcel->getActiveSheet()->getStyle("A6:Y6")->applyFromArray($separador);
+    $objPHPExcel->getActiveSheet()->mergeCells("A6:S6");
+    $objPHPExcel->getActiveSheet()->getStyle("A6:S6")->applyFromArray($separador);
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue("A6", "Clientes");
     $objPHPExcel->getActiveSheet()->mergeCells('A7:B8');
     $objPHPExcel->getActiveSheet()->mergeCells('C7:D8');
@@ -259,11 +259,11 @@ if ($clienteExist > 0) {
     $objPHPExcel->getActiveSheet()->mergeCells('K7:L8');
     $objPHPExcel->getActiveSheet()->mergeCells('M7:N8');
     $objPHPExcel->getActiveSheet()->mergeCells('O7:P8');
-    $objPHPExcel->getActiveSheet()->mergeCells('Q7:R8');
-    $objPHPExcel->getActiveSheet()->mergeCells('S7:U8');
-    $objPHPExcel->getActiveSheet()->mergeCells('V7:Y8');
-    $objPHPExcel->getActiveSheet()->getStyle('A7:Y8')->applyFromArray($cabecera1);
-    $objPHPExcel->getActiveSheet()->getStyle('A7:Y8')->getAlignment()->setWrapText(TRUE);
+    $objPHPExcel->getActiveSheet()->mergeCells('Q7:S8');
+//    $objPHPExcel->getActiveSheet()->mergeCells('S7:U8');
+//    $objPHPExcel->getActiveSheet()->mergeCells('V7:Y8');
+    $objPHPExcel->getActiveSheet()->getStyle('A7:S8')->applyFromArray($cabecera1);
+    $objPHPExcel->getActiveSheet()->getStyle('A7:S8')->getAlignment()->setWrapText(TRUE);
     $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A7', 'Empresa')
             ->setCellValue('C7', 'Vendedor')
@@ -273,9 +273,9 @@ if ($clienteExist > 0) {
             ->setCellValue('K7', 'Contacto')
             ->setCellValue('M7', 'Cargo')
             ->setCellValue('O7', 'Teléfono 1')
-            ->setCellValue('Q7', 'Teléfono 2')
-            ->setCellValue('S7', 'Email 1')
-            ->setCellValue('V7', 'Email 2')
+//            ->setCellValue('Q7', 'Teléfono 2')
+            ->setCellValue('Q7', 'Email 1')
+//            ->setCellValue('V7', 'Email 2')
     ;
 
 
@@ -292,9 +292,9 @@ if ($clienteExist > 0) {
         $objPHPExcel->getActiveSheet()->mergeCells("K$lastRow:L$jplus1");
         $objPHPExcel->getActiveSheet()->mergeCells("M$lastRow:N$jplus1");
         $objPHPExcel->getActiveSheet()->mergeCells("O$lastRow:P$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("Q$lastRow:R$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("S$lastRow:U$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("V$lastRow:Y$jplus1");
+        $objPHPExcel->getActiveSheet()->mergeCells("Q$lastRow:S$jplus1");
+//        $objPHPExcel->getActiveSheet()->mergeCells("S$lastRow:U$jplus1");
+//        $objPHPExcel->getActiveSheet()->mergeCells("V$lastRow:Y$jplus1");
         
         
 
@@ -307,9 +307,9 @@ if ($clienteExist > 0) {
                     ->setCellValue("K$lastRow", $cliente['nombre_contacto'])
                     ->setCellValue("M$lastRow", $cliente['cargo'])
                     ->setCellValue("O$lastRow", $cliente['telefono_1'])
-                    ->setCellValue("Q$lastRow", $cliente['telefono_2'])
-                    ->setCellValue("S$lastRow", $cliente['email_1'])
-                    ->setCellValue("V$lastRow", $cliente['email_2'])
+//                    ->setCellValue("Q$lastRow", $cliente['telefono_2'])
+                    ->setCellValue("Q$lastRow", $cliente['email_1'])
+//                    ->setCellValue("V$lastRow", $cliente['email_2'])
             ;
 
 
@@ -319,8 +319,9 @@ if ($clienteExist > 0) {
         
         $contadorGlobal++;
     }
-    $objPHPExcel->getActiveSheet()->getStyle("A9:Y$lastRow")->applyFromArray($cuerpo1);
-    $objPHPExcel->getActiveSheet()->getStyle("A9:Y$lastRow")->getAlignment()->setWrapText(TRUE);
+    $lastRow--;
+    $objPHPExcel->getActiveSheet()->getStyle("A9:S$lastRow")->applyFromArray($cuerpo1);
+    $objPHPExcel->getActiveSheet()->getStyle("A9:S$lastRow")->getAlignment()->setWrapText(TRUE);
     $lastRowBrakeDown = $lastRow + 4;
     $cellUltimoEquipo = $lastRow - 1;
 

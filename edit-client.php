@@ -7,18 +7,20 @@
         include_once './includes/file_const.php';
         include_once './includes/connection.php';
         include_once './includes/sql.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
         Helper::helpIsAllowed(2); // 2 - Agregar,editar,eliminar clientes
         
         $connection=  openConnection();
-        if(empty($_GET['id']) && !is_numeric($_GET['id'])){
+        if(empty($_GET['id'])){
             header('location: list-clients.php');
             exit();
         }
-        $idClient=$_GET['id'];
+        $idClient=  decryptString($_GET['id']);
         $getClient=$connection->prepare(sql_select_cliente_extended_by_idcliente());
         $getClient->execute(array($idClient));
         if($getClient->rowCount()<1){
@@ -47,7 +49,9 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
-    <?= css_select2() ?>
+        <?= css_select2() ?>
+        <?= css_gritter() ?>
+        <?= css_niftymodals() ?>
 	<?= css_style() ?>
 
 </head>
@@ -224,6 +228,27 @@
             </div>
 	</div> 
     </div>
+    
+    <div class="md-modal colored-header info md-effect-10" id="mod-alert">
+        <div class="md-content ">
+          <div class="modal-header">
+            <h3>Cliente editado exitosamente</h3>
+            <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div id="modal-body-center-edit" class="text-center">
+                <div class="i-circle primary">
+                    <i class="fa fa-check"></i>
+                </div>
+                <h4>¡Registro editado con éxito!</h4>
+            </div>
+          </div>
+            <div class="modal-footer" id="modal-footer-response-add" >
+                <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal" id="btn-redirect" >Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <div class="md-overlay"></div>
   <?= js_jquery() ?>
   <?= js_jquery_ui() ?>
   <?= js_bootstrap_datetimepicker() ?>
@@ -237,6 +262,8 @@
   <?= js_general() ?>
   <?= js_bootstrap_file_input() ?>
   <?= js_select2() ?>
+  <?= js_gritter() ?>
+  <?= js_niftymodals() ?>
      
 	
 
@@ -259,16 +286,24 @@
                     contentType: false
                 }).done(function(response) {
                     if(response.status==0){
-                        alert(response.msg);
+                        $("#mod-alert").addClass("md-show");
                     }
                     else{
-                        alert('error');
+                        $.gritter.add({
+                            title: "Error",
+                            text: response.msg,
+                            class_name: 'danger'
+                          });
                     }
                 })
                 .fail(function() {
                     
                 });
            }
+        });
+        
+        $("#btn-redirect").click(function(){
+            location.href='list-clients.php';
         });
         $('#img-client').bootstrapFileInput();
         $("#input-vendedor").select2();

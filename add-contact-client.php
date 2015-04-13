@@ -7,17 +7,19 @@
         include_once './includes/file_const.php';
         include_once './includes/connection.php';
         include_once './includes/sql.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
         Helper::helpIsAllowed(2); // 2 - Agregar,editar,eliminar clientes
         $connection=  openConnection();
-        if(empty($_GET['id']) && !is_numeric($_GET['id'])){
+        if(empty($_GET['id'])){
             header('location: list-clients.php');
             exit();
         }
-        $idCliente=$_GET['id'];
+        $idCliente=  decryptString($_GET['id']);
         $getCliente=$connection->prepare(sql_select_cliente_extended_by_idcliente());
         $getCliente->execute(array($idCliente));
         if($getCliente->rowCount()<1){
@@ -45,6 +47,8 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
+	<?= css_gritter() ?>
+	<?= css_niftymodals() ?>
 	<?= css_style() ?>
 
 </head>
@@ -85,7 +89,7 @@
 	</div>
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Clientes <i class="fa fa-angle-double-right"></i> Agregar contacto de <a href="edit-client.php?id="><?= $clienteArray['nombre_cliente'] ?></a></h2>
+                <h2>Clientes <i class="fa fa-angle-double-right"></i> Agregar contacto de <a href="edit-client.php?id=<?= $_GET['id'] ?>"><?= $clienteArray['nombre_cliente'] ?></a></h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
@@ -157,7 +161,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button class="btn btn-primary" type="submit">Agregar</button>
-                                            <button type="reset" class="btn btn-default">Limpiar</button>
+                                            <button type="button" class="btn btn-danger btn-redirect">Cancelar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -170,6 +174,27 @@
             </div>
 	</div> 
     </div>
+    
+    <div class="md-modal colored-header info md-effect-10" id="mod-alert">
+        <div class="md-content ">
+          <div class="modal-header">
+            <h3>Contacto agregado exitosamente</h3>
+            <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div id="modal-body-center-edit" class="text-center">
+                <div class="i-circle primary">
+                    <i class="fa fa-check"></i>
+                </div>
+                <h4>¡Registro agregado con éxito!</h4>
+            </div>
+          </div>
+            <div class="modal-footer" id="modal-footer-response-add" >
+                <button type="button" class="btn btn-primary btn-flat btn-redirect" data-dismiss="modal" id="btn-redirect" >Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <div class="md-overlay"></div>
   <?= js_jquery() ?>
   <?= js_jquery_ui() ?>
   <?= js_bootstrap_datetimepicker() ?>
@@ -179,6 +204,8 @@
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
   <?= js_jquery_parsley() ?>
+  <?= js_gritter() ?>
+  <?= js_niftymodals() ?>
   <?= js_general() ?>
      
 	
@@ -198,10 +225,14 @@
                     data: $(this).serialize()
                 }).done(function(response) {
                     if(response.status==0){
-                        alert(response.msg);
+                        $("#mod-alert").addClass("md-show");
                     }
                     else{
-                        alert('error');
+                        $.gritter.add({
+                            title: "Error",
+                            text: response.msg,
+                            class_name: 'danger'
+                          });
                     }
                 })
                 .fail(function() {
@@ -209,7 +240,9 @@
                 });
            }
         });
-        
+        $(".btn-redirect").click(function(){
+            location.href='list-clients.php';
+        });
       });
     </script>
 

@@ -425,3 +425,16 @@ function sql_select_contactos_proveedores_extended(){
 ';
 }
 
+function sql_save_perfil(){
+    return 'INSERT INTO `perfiles`(`perfil`) VALUES (:perfil)';
+}
+
+function sql_update_perfil(){
+    return 'UPDATE `perfiles` SET `perfil` = :perfil WHERE `idperfil` = :idperfil';
+}
+
+function sql_delete_perfil(){
+    return 'DELETE FROM `perfiles` WHERE `idperfil` = :idperfil';
+}
+
+

@@ -107,7 +107,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Rubro</label>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6" data-select="rubro">
                                             <?= selectRubro('input-rubro','input-rubro','input-select','required','','') ?>
                                         </div>
                                     </div>
@@ -134,11 +134,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6" data-select="cargo">
 <!--                                            <input name="input-cargo" class="form-control" type="text" required>-->
-                                            <select class="form-control" name="input-cargo" id="input-cargo" required >
+                                            <select class="input-select" name="input-cargo" id="input-cargo" required >
                                             <?php 
-                                                $query=$connection->prepare(sql_select_contactos_proveedores_cargo_all());
+                                                $query=$connection->prepare(sql_select_contactos_cargo_all());
                                                 $query->execute();
                                                 $cargoArray=$query->fetchAll();
                                                 foreach ($cargoArray as $value) {
@@ -238,7 +238,6 @@
   <?= js_jquery_nanoscroller() ?>
   <?= js_jquery_nestable() ?>
   <?= js_bootstrap_switch() ?>
-  <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
   <?= js_jquery_parsley() ?>
   <?= js_i18n_es() ?>
@@ -286,13 +285,41 @@
         $('#img-client').bootstrapFileInput();
         $("#input-vendedor").select2();
         $("#input-rubro").select2();
+        $("#input-cargo").select2();
         $("#input-departamento").select2();
         $("#input-municipio").select2();
         $(".btn-redirect").click(function(){
             location.href='list-clients.php';
         });
+        $('.select2-search > input.select2-input').on('keyup', function(e) {
+           if(e.keyCode === 13) nuevoRegistro($( '.select2-dropdown-open' ).parents().attr('data-select'),$(this).val())
+        });
         
       });
+      
+      function nuevoRegistro(mant,valor){
+        var pserv={
+            "rubro":{ "url": "ajax/clients-category.php","option":"add","reg":"rubroAgregar"},
+            "cargo":{ "url": "ajax/position-contact-client.php","option":"add","reg":"cargoAgregar"}, 
+            }; 
+
+        $.ajax({
+            url:pserv[mant].url,
+            type:'POST',
+            dataType:"json",
+            data:"option="+pserv[mant].option+"&"+pserv[mant].reg+"="+valor,
+            beforeSend: function(){ },
+            success:function(data){
+                if(data.status=="1"){ 
+                    $("#input-"+mant).append('<option value="'+data.id+'">'+valor+'</option>');
+                    $("#input-"+mant).select2("val", data.id).select2("close");
+                }else{
+
+                }
+
+            }
+        });
+      }
       function loadMunicipios(){
         if($("#input-departamento").val()!=''){
             var departamento=$("#input-departamento").val();

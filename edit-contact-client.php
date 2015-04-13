@@ -45,6 +45,7 @@
 	<?= css_nanoscroller() ?>
 	<?= css_gritter() ?>
 	<?= css_niftymodals() ?>
+        <?= css_select2() ?>
 	<?= css_style() ?>
 
 </head>
@@ -110,11 +111,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Cargo</label>
-                                        <div class="col-sm-6">
+                                        <div class="col-sm-6" data-select="cargo">
                                             <!--<input name="input-cargo" class="form-control" type="text" value="<?= $contactoArray['cargo'] ?>" required>-->
-                                            <select class="form-control" name="input-cargo" id="input-cargo" required >
+                                            <select class="input-select" name="input-cargo" id="input-cargo" required >
                                             <?php 
-                                                $query=$connection->prepare(sql_select_contactos_proveedores_cargo_all());
+                                                $query=$connection->prepare(sql_select_contactos_cargo_all());
                                                 $query->execute();
                                                 $cargoArray=$query->fetchAll();
                                                 foreach ($cargoArray as $value) {
@@ -203,13 +204,13 @@
   <?= js_gritter() ?>  
   <?= js_niftymodals() ?>  
   <?= js_general() ?>
-     
 	
 
     <script type="text/javascript">
       $(document).ready(function(){
         //initialize the javascript
         App.init();
+        $("#input-cargo").select2();
         window.ParsleyValidator.setLocale('es');
         
         $("#frm-edit").submit(function(event){
@@ -241,7 +242,33 @@
         $(".btn-redirect").click(function(){
             location.href='list-clients.php';
         });
+        $('.select2-search > input.select2-input').on('keyup', function(e) {
+           if(e.keyCode === 13) nuevoRegistro($( '.select2-dropdown-open' ).parents().attr('data-select'),$(this).val())
+        });
       });
+      function nuevoRegistro(mant,valor){
+        var pserv={
+            "rubro":{ "url": "ajax/clients-category.php","option":"add","reg":"rubroAgregar"},
+            "cargo":{ "url": "ajax/position-contact-client.php","option":"add","reg":"cargoAgregar"}, 
+            }; 
+
+        $.ajax({
+            url:pserv[mant].url,
+            type:'POST',
+            dataType:"json",
+            data:"option="+pserv[mant].option+"&"+pserv[mant].reg+"="+valor,
+            beforeSend: function(){ },
+            success:function(data){
+                if(data.status=="1"){ 
+                    $("#input-"+mant).append('<option value="'+data.id+'">'+valor+'</option>');
+                    $("#input-"+mant).select2("val", data.id).select2("close");
+                }else{
+
+                }
+
+            }
+        });
+      }
     </script>
 
 <!-- Bootstrap core JavaScript

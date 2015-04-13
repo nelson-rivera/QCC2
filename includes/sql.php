@@ -121,8 +121,9 @@ function sql_select_clientes_extended_by_idvendedor(){
          .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario WHERE clientes.active = 1 AND clientes.idvendedor=?';
 }
 function sql_select_contactos_clientes_extended(){
-    return 'SELECT contactos.*, clientes.*, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
+    return 'SELECT contactos.*, clientes.*, contactos_cargos.cargo, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
          .' FROM contactos' 
+        . ' INNER JOIN contactos_cargos ON contactos.idcargo = contactos_cargos.idcontacto_cargo'
         . ' INNER JOIN clientes ON contactos.idcliente = clientes.idcliente'
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
          .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
@@ -178,7 +179,9 @@ function sql_select_contactos(){
     return 'SELECT * FROM contactos';
 }
 function sql_select_contactos_by_idcliente(){
-    return 'SELECT * FROM contactos WHERE idcliente=? and activo=1'; 
+    return 'SELECT contactos.*, contactos_cargos.cargo FROM contactos'
+        .' INNER JOIN contactos_cargos ON contactos.idcargo = contactos_cargos.idcontacto_cargo'
+        .' WHERE idcliente=? and activo=1'; 
 }
 function sql_select_contacto_by_idcontacto(){
     return 'SELECT * FROM contactos WHERE idcontacto=?';
@@ -338,6 +341,9 @@ function sql_select_proveedores_contact(){
 function sql_select_contactos_proveedores_cargo_all(){
     return 'SELECT * FROM contactos_proveedores_cargos';
 }
+function sql_select_contactos_cargo_all(){
+    return 'SELECT * FROM contactos_cargos';
+}
 
 function sql_select_tipo_proveedores(){
     return 'SELECT tipos_empresas.* FROM `tipos_empresas`';
@@ -390,13 +396,22 @@ function sql_delete_subrubro(){
 function sql_save_cargo_proveedores(){
     return 'INSERT INTO `contactos_proveedores_cargos`(`cargo`) VALUES (:cargo)';
 }
+function sql_save_cargo_contacto(){
+    return 'INSERT INTO `contactos_cargos`(`cargo`) VALUES (:cargo)';
+}
 
 function sql_update_cargo(){
     return 'UPDATE `contactos_proveedores_cargos` SET `cargo` = :cargo  WHERE `idcontactos_proveedores_cargos` = :idcontactos_proveedores_cargos';
 }
+function sql_update_contacto_cargo(){
+    return 'UPDATE `contactos_cargos` SET `cargo` = :cargo  WHERE `idcontacto_cargo` = :idcontacto_cargo';
+}
 
 function sql_delete_cargo(){
     return 'DELETE FROM `contactos_proveedores_cargos` WHERE `idcontactos_proveedores_cargos` = :idcontactos_proveedores_cargos';
+}
+function sql_delete_contacto_cargo(){
+    return 'DELETE FROM `contactos_cargos` WHERE `idcontacto_cargo` = :idcontacto_cargo';
 }
 
 function sql_select_usuarios_byPerfil(){

@@ -4,6 +4,10 @@
 <head>
         <?php
         session_start();
+        include_once './includes/file_const.php';
+        include_once './includes/connection.php';
+        include_once './includes/sql.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';
@@ -31,7 +35,9 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
-    <?= css_select2() ?>
+        <?= css_select2() ?>
+        <?= css_gritter() ?>
+        <?= css_niftymodals() ?>
 	<?= css_style() ?>
 
 </head>
@@ -192,7 +198,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button class="btn btn-primary" type="submit">Agregar</button>
-                                            <button type="reset" class="btn btn-default">Limpiar</button>
+                                            <button type="button" class="btn btn-danger btn-redirect">Cancelar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -205,6 +211,27 @@
             </div>
 	</div> 
     </div>
+    
+    <div class="md-modal colored-header info md-effect-10" id="mod-alert">
+        <div class="md-content ">
+          <div class="modal-header">
+            <h3>Cliente agregado exitosamente</h3>
+            <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div id="modal-body-center-edit" class="text-center">
+                <div class="i-circle primary">
+                    <i class="fa fa-check"></i>
+                </div>
+                <h4>¡Registro agregado con éxito!</h4>
+            </div>
+          </div>
+            <div class="modal-footer" id="modal-footer-response-add" >
+                <button type="button" class="btn btn-primary btn-flat btn-redirect" data-dismiss="modal" >Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <div class="md-overlay"></div>
   <?= js_jquery() ?>
   <?= js_jquery_ui() ?>
   <?= js_bootstrap_datetimepicker() ?>
@@ -218,7 +245,8 @@
   <?= js_general() ?>
   <?= js_bootstrap_file_input() ?>
   <?= js_select2() ?>   
-	
+  <?= js_gritter() ?>
+  <?= js_niftymodals() ?>
 
     <script type="text/javascript">
       $(document).ready(function(){
@@ -240,10 +268,14 @@
                     contentType: false
                 }).done(function(response) {
                     if(response.status==0){
-                        alert(response.msg);
+                        $("#mod-alert").addClass("md-show");
                     }
                     else{
-                        alert('error');
+                        $.gritter.add({
+                            title: "Error",
+                            text: response.msg,
+                            class_name: 'danger'
+                          });
                     }
                 })
                 .fail(function() {
@@ -256,7 +288,9 @@
         $("#input-rubro").select2();
         $("#input-departamento").select2();
         $("#input-municipio").select2();
-        
+        $(".btn-redirect").click(function(){
+            location.href='list-clients.php';
+        });
         
       });
       function loadMunicipios(){

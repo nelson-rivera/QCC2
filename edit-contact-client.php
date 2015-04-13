@@ -7,17 +7,19 @@
         include_once './includes/file_const.php';
         include_once './includes/connection.php';
         include_once './includes/sql.php';
+        include_once './includes/lang/text.es.php';
         include_once './includes/layout.php';
         include_once './includes/libraries.php';
+        include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
         Helper::helpIsAllowed(1); // 1 - Listado de clientes
         $connection=  openConnection();
-        if(empty($_GET['id']) && !is_numeric($_GET['id'])){
+        if(empty($_GET['id'])){
             header('location: contact-client.php');
             exit();
         }
-        $idContacto=$_GET['id'];
+        $idContacto=  decryptString($_GET['id']);
         $getContacto=$connection->prepare(sql_select_contacto_by_idcontacto());
         $getContacto->execute(array($idContacto));
         $contactoArray=$getContacto->fetch();
@@ -41,6 +43,8 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
+	<?= css_gritter() ?>
+	<?= css_niftymodals() ?>
 	<?= css_style() ?>
 
 </head>
@@ -154,7 +158,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button class="btn btn-primary" type="submit">Guardar</button>
-                                            <button type="reset" class="btn btn-default">Limpiar</button>
+                                            <button type="button" class="btn btn-danger btn-redirect">Cancelar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -165,6 +169,27 @@
             </div>
 	</div> 
     </div>
+    
+    <div class="md-modal colored-header info md-effect-10" id="mod-alert">
+        <div class="md-content ">
+          <div class="modal-header">
+            <h3>Contacto editado exitosamente</h3>
+            <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div id="modal-body-center-edit" class="text-center">
+                <div class="i-circle primary">
+                    <i class="fa fa-check"></i>
+                </div>
+                <h4>¡Registro editado con éxito!</h4>
+            </div>
+          </div>
+            <div class="modal-footer" id="modal-footer-response-add" >
+                <button type="button" class="btn btn-primary btn-flat btn-redirect" data-dismiss="modal" id="btn-redirect" >Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <div class="md-overlay"></div>
   <?= js_jquery() ?>
   <?= js_jquery_ui() ?>
   <?= js_bootstrap_datetimepicker() ?>
@@ -175,6 +200,8 @@
   <?= js_bootstrap_slider() ?>
   <?= js_jquery_parsley() ?>  
   <?= js_i18n_es() ?>  
+  <?= js_gritter() ?>  
+  <?= js_niftymodals() ?>  
   <?= js_general() ?>
      
 	
@@ -196,16 +223,23 @@
                     data: $(this).serialize()
                 }).done(function(response) {
                     if(response.status==0){
-                        alert(response.msg);
+                        $("#mod-alert").addClass("md-show");
                     }
                     else{
-                        alert('error');
+                        $.gritter.add({
+                            title: "Error",
+                            text: response.msg,
+                            class_name: 'danger'
+                          });
                     }
                 })
                 .fail(function() {
                     
                 });
            }
+        });
+        $(".btn-redirect").click(function(){
+            location.href='list-clients.php';
         });
       });
     </script>

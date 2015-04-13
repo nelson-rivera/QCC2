@@ -202,7 +202,7 @@
                             after_close: function(){
                               $.gritter.add({
                                 position: 'bottom-right',
-                                title: "<?= txt_contacto_proveedor_title_registrado() ?>",
+                                title: "Error",
                                 text: response.msg,
                                 class_name: 'clean'
                               });

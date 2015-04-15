@@ -160,7 +160,7 @@
                               </div>
                                 <div class="modal-footer" id="modal-footer-response-edit" >
                                     <button type="button" class="btn btn-default btn-flat md-close" data-dismiss="modal">Cancelar</button>
-                                    <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal" id="btn-editS" >Editar</button>
+                                    <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal" id="btn-editS" >Guardar</button>
                                 </div>
                             </div>
                         </div>

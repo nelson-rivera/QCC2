@@ -143,7 +143,7 @@
                                                 $cargoArray=$query->fetchAll();
                                                 foreach ($cargoArray as $value) {
                                                 ?>
-                                                <option value="<?= $value['idcontactos_proveedores_cargos'] ?>" ><?= $value['cargo'] ?></option>
+                                                <option value="<?= $value['idcontacto_cargo'] ?>" ><?= $value['cargo'] ?></option>
                                                 <?php } ?>    
                                             </select>
                                         </div>
@@ -197,7 +197,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-primary" type="submit">Agregar</button>
+                                            <button class="btn btn-primary" id="btn-submit" type="button">Agregar</button>
                                             <button type="button" class="btn btn-danger btn-redirect">Cancelar</button>
                                         </div>
                                     </div>
@@ -253,7 +253,7 @@
         App.init();
         window.ParsleyValidator.setLocale('es');
         
-        $("#frm-add-client").submit(function(event){
+        $("#btn-submit").click(function(event){
             event.preventDefault();
             if($( '#frm-add-client' ).parsley().isValid()){
                 var clientData = $('#frm-add-client').serializeArray();
@@ -262,7 +262,7 @@
                     url:'ajax/client.php',
                     type: 'post',
                     dataType: 'json',
-                    data: new FormData( this ),
+                    data: new FormData( $("#frm-add-client").get(0) ),
                     processData: false,
                     contentType: false
                 }).done(function(response) {

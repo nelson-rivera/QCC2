@@ -156,9 +156,9 @@
                                                 $query->execute();
                                                 $cargoArray=$query->fetchAll();
                                                 foreach ($cargoArray as $value) {
-                                                    $selected = ($clientArray['idcargo'] == $value['idcontactos_proveedores_cargos'])?'selected="selected"':'';
+                                                    $selected = ($clientArray['idcargo'] == $value['idcontacto_cargo'])?'selected="selected"':'';
                                                 ?>
-                                                <option <?= $selected ?> value="<?= $value['idcontactos_proveedores_cargos'] ?>" ><?= $value['cargo'] ?></option>
+                                                <option <?= $selected ?> value="<?= $value['idcontacto_cargo'] ?>" ><?= $value['cargo'] ?></option>
                                             <?php } ?>
                                             </select>
                                         </div>
@@ -217,7 +217,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-primary" type="submit">Editar</button>
+                                            <button class="btn btn-primary" id="btn-submit" type="button">Guardar</button>
                                         </div>
                                     </div>
                                 </form>
@@ -273,15 +273,14 @@
         App.init();
         window.ParsleyValidator.setLocale('es');
         
-        $("#frm-edit").submit(function(event){
-            event.preventDefault();
+        $("#btn-submit").click(function(event){
             if($( '#frm-edit' ).parsley().isValid()){
                
                 $.ajax({
                     url:'ajax/client.php',
                     type: 'post',
                     dataType: 'json',
-                    data: new FormData( this ),
+                    data: new FormData( $("#frm-edit").get(0) ),
                     processData: false,
                     contentType: false
                 }).done(function(response) {

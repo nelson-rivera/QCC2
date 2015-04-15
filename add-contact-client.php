@@ -124,7 +124,7 @@
                                                 $cargoArray=$query->fetchAll();
                                                 foreach ($cargoArray as $value) {
                                                 ?>
-                                                <option value="<?= $value['idcontactos_proveedores_cargos'] ?>" ><?= $value['cargo'] ?></option>
+                                                <option value="<?= $value['idcontacto_cargo'] ?>" ><?= $value['cargo'] ?></option>
                                                 <?php } ?>    
                                             </select>
                                         </div>
@@ -162,7 +162,7 @@
                                    
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-primary" type="submit">Agregar</button>
+                                            <button class="btn btn-primary" id="btn-submit" type="button">Agregar</button>
                                             <button type="button" class="btn btn-danger btn-redirect">Cancelar</button>
                                         </div>
                                     </div>
@@ -218,15 +218,14 @@
         //initialize the javascript
         App.init();
         $("#input-cargo").select2();
-        $("#frm-add-contact").submit(function(event){
-            event.preventDefault();
+        $("#btn-submit").click(function(event){
             if($( '#frm-add-contact' ).parsley().isValid()){
                
                 $.ajax({
                     url:'ajax/client.php',
                     type: 'post',
                     dataType: 'json',
-                    data: $(this).serialize()
+                    data: $("#frm-add-contact").serialize()
                 }).done(function(response) {
                     if(response.status==0){
                         $("#mod-alert").addClass("md-show");

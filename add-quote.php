@@ -256,7 +256,7 @@
                                     </div>
                                 
                                 <hr />
-                                <button type="submit" id="btn-crear-cotizacion" class="btn btn-lg btn-block btn-primary">Crear cotización</button>
+                                <button type="button" id="btn-crear-cotizacion" class="btn btn-lg btn-block btn-primary">Crear cotización</button>
                             </div>
                         </div>
                     </div>
@@ -396,8 +396,7 @@
                $(this).parents('.form-group').remove(); 
             });
             
-            $("#frm-quote").submit(function(e){
-                e.preventDefault();
+            $("#btn-crear-cotizacion").click(function(e){
                 
                 if($( '#frm-quote' ).parsley().validate()){
                     CKupdate();
@@ -406,7 +405,7 @@
                         url:'ajax/cotizacion.php',
                         type: 'post',
                         dataType: 'json',
-                        data: new FormData( this ),
+                        data: new FormData( $("#frm-quote").get(0) ),
                         processData: false,
                         contentType: false
                     }).done(function(response) {

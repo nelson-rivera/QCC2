@@ -119,9 +119,9 @@
                                                 $query->execute();
                                                 $cargoArray=$query->fetchAll();
                                                 foreach ($cargoArray as $value) {
-                                                    $selected = ($contactoArray['idcargo'] == $value['idcontactos_proveedores_cargos'])?'selected="selected"':'';
+                                                    $selected = ($contactoArray['idcargo'] == $value['idcontacto_cargo'])?'selected="selected"':'';
                                                 ?>
-                                                <option <?= $selected ?> value="<?= $value['idcontactos_proveedores_cargos'] ?>" ><?= $value['cargo'] ?></option>
+                                                <option <?= $selected ?> value="<?= $value['idcontacto_cargo'] ?>" ><?= $value['cargo'] ?></option>
                                             <?php } ?>
                                             </select>
                                         </div>
@@ -158,7 +158,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-primary" type="submit">Guardar</button>
+                                            <button class="btn btn-primary" id="btn-submit" type="button">Guardar</button>
                                             <button type="button" class="btn btn-danger btn-redirect">Cancelar</button>
                                         </div>
                                     </div>
@@ -213,15 +213,14 @@
         $("#input-cargo").select2();
         window.ParsleyValidator.setLocale('es');
         
-        $("#frm-edit").submit(function(event){
-            event.preventDefault();
+        $("#btn-submit").click(function(event){
             if($( '#frm-edit' ).parsley().isValid()){
                
                 $.ajax({
                     url:'ajax/client.php',
                     type: 'post',
                     dataType: 'json',
-                    data: $(this).serialize()
+                    data: $("#frm-edit").serialize()
                 }).done(function(response) {
                     if(response.status==0){
                         $("#mod-alert").addClass("md-show");

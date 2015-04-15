@@ -332,9 +332,10 @@ function sql_select_proveedores_contact(){
            ' (SELECT `contactos_proveedores`.nombre_contacto '.
            ' FROM `contactos_proveedores` '. 
            ' WHERE `contactos_proveedores`.`idproveedor` = `proveedores`.`idproveedor` '.
-           ' ORDER BY contactos_proveedores.`idcontacto_proveedor` DESC LIMIT 1) as contacto '.
+           ' ORDER BY contactos_proveedores.`idcontacto_proveedor` DESC LIMIT 1) as contacto,sub_rubros.sub_rubro '.
            ' FROM proveedores '.
            ' INNER JOIN rubros ON rubros.`idrubro` = proveedores.`idrubro` '.
+           ' INNER JOIN sub_rubros ON sub_rubros.`idsub_rubro` = proveedores.`idsub_rubro` '.
            ' INNER JOIN tipos_empresas ON tipos_empresas.`idtipos_empresas` = proveedores.`idtipos_empresas`';
 }
 

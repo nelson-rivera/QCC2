@@ -77,7 +77,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Proveedores <i class="fa fa-angle-double-right"></i> Listado de proveedores</h2>
+                <h2>Proveedores <i class="fa fa-angle-double-right"></i> Listado de Proveedores</h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
@@ -97,8 +97,8 @@
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Tipo</th>
-                                            <th>Rubro principal</th>
-                                            <th>Contacto</th>
+                                            <th>Rubro Principal</th>
+                                            <th>Sub-Rubro</th>
                                             <th>Acciones</th>
                                         </tr>
                                 </thead>
@@ -114,10 +114,10 @@
                                         <td id="sup_<?= $num ?>" ><?= $value['proveedor'] ?></td>
                                         <td><?= $value['tipo'] ?></td>
                                         <td><?= $value['rubro'] ?></td>
-                                        <td><?= $value['contacto'] ?></td>
+                                        <td><?= $value['sub_rubro'] ?></td>
                                         <td class="center">
                                             <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contactos" href="contacts-supplier.php?sup=<?= encryptString($value['idproveedor']) ?>">
-                                                <i class="fa fa-users"></i>
+                                                <i class="fa fa-user"></i>
                                             </a>
                                             <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar proveedor" href="edit-supplier.php?sup=<?= encryptString($value['idproveedor']) ?>">
                                                 <i class="fa fa-pencil"></i>

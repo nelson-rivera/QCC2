@@ -74,8 +74,7 @@ switch ($opt) {
     //update cliente
     case 2:
         if(!empty($_POST['input-name-company']) && !empty($_POST['input-vendedor']) && is_numeric($_POST['input-vendedor']) && !empty($_POST['input-rubro']) && 
-           is_numeric($_POST['input-rubro']) && !empty($_POST['input-municipio']) && is_numeric($_POST['input-municipio']) && !empty($_POST['input-contacto']) && 
-           !empty($_POST['input-cargo']) && !empty($_POST['input-telefono-1']) && !empty($_POST['input-correo-1']) && is_numeric($_POST['id1']) && is_numeric($_POST['id2'])){
+           is_numeric($_POST['input-rubro']) && !empty($_POST['input-municipio']) && is_numeric($_POST['input-municipio']) && is_numeric($_POST['id1']) && is_numeric($_POST['id2'])){
             
             $idCliente=$_POST['id1'];
             $idContacto=$_POST['id2'];
@@ -83,15 +82,8 @@ switch ($opt) {
             $idUsuario=$_POST['input-vendedor'];
             $idRubro=$_POST['input-rubro'];
             $idMunicipio=$_POST['input-municipio'];
-            $nombreContacto=$_POST['input-contacto'];
-            $cargo=$_POST['input-cargo'];
-            $telefono1=$_POST['input-telefono-1'];
-            $correo1=$_POST['input-correo-1'];
             $recibirCorreos=(empty($_POST['input-newsletter']))?0:1;
             
-            $telefono2=(empty($_POST['input-telefono-2']))?null:$_POST['input-telefono-2'];
-            $telefono3=(empty($_POST['input-telefono-3']))?null:$_POST['input-telefono-3'];
-            $correo2=(empty($_POST['input-correo-2']))?null:$_POST['input-correo-2'];
             $connection->beginTransaction();
             try {
                 
@@ -105,8 +97,6 @@ switch ($opt) {
                 
                 $insertClient=$connection->prepare(sql_update_client());
                 $insertClient->execute(array($companyName,$idMunicipio,$logo,$idRubro,$idUsuario,$recibirCorreos,$idCliente));
-                $insertContact=$connection->prepare(sql_update_contacto());
-                $insertContact->execute(array($nombreContacto, $cargo, $correo1, $correo2, $telefono1,$telefono2,$telefono3,$idContacto));
                 
                 $connection->commit();
                 $response['status']=0;

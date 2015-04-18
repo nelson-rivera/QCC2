@@ -139,60 +139,6 @@
                                             <?= selectMunicipio($clientArray['iddepartamento'],'input-municipio','input-municipio','input-select','required','',$clientArray['idmunicipio']) ?>
                                         </div>
                                     </div>
-                                    
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Contacto</label>
-                                        <div class="col-sm-6">
-                                            <input name="input-contacto" class="form-control" type="text" value="<?= $clientArray['nombre_contacto'] ?>" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Cargo</label>
-                                        <div class="col-sm-6" data-select="cargo">
-                                            <!--<input name="input-cargo" class="form-control" type="text" value="<?= $clientArray['idcargo'] ?>" required>-->
-                                            <select class="input-select" name="input-cargo" id="input-cargo" required >
-                                            <?php 
-                                                $query=$connection->prepare(sql_select_contactos_cargo_all());
-                                                $query->execute();
-                                                $cargoArray=$query->fetchAll();
-                                                foreach ($cargoArray as $value) {
-                                                    $selected = ($clientArray['idcargo'] == $value['idcontacto_cargo'])?'selected="selected"':'';
-                                                ?>
-                                                <option <?= $selected ?> value="<?= $value['idcontacto_cargo'] ?>" ><?= $value['cargo'] ?></option>
-                                            <?php } ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Teléfono 1</label>
-                                        <div class="col-sm-6">
-                                            <input name="input-telefono-1" class="form-control" type="text" value="<?= $clientArray['telefono_1'] ?>" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Teléfono 2</label>
-                                        <div class="col-sm-6">
-                                            <input name="input-telefono-2" class="form-control" value="<?= $clientArray['telefono_2'] ?>" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Teléfono 3</label>
-                                        <div class="col-sm-6">
-                                            <input name="input-telefono-3" class="form-control" value="<?= $clientArray['telefono_2'] ?>" type="text">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Correo 1</label>
-                                        <div class="col-sm-6">
-                                            <input name="input-correo-1" class="form-control" type="email" value="<?= $clientArray['email_1'] ?>" required>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Correo 2</label>
-                                        <div class="col-sm-6">
-                                            <input name="input-correo-2" class="form-control" value="<?= $clientArray['email_2'] ?>" type="email">
-                                        </div>
-                                    </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Imagen</label>
                                         <div class="col-sm-6 ">

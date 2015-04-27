@@ -13,6 +13,17 @@
         Helper::helpSession();
         Helper::helpIsAllowed(1); // 1 - Listado de clientes
         $connection=openConnection();
+        
+        if(!empty($_GET['us'])){
+            $idVendedor = decryptString($_GET['us']);
+            if(!is_numeric($idVendedor)){
+                $idVendedor = 0;
+            }
+        }
+        else{
+            $idVendedor = 0;
+        }
+        
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -83,7 +94,7 @@
                         <div class="block-flat">
                             <div class="row">
                                 <div class="col-sm-3 pull-left" >
-                                    <a href="generar-excel-clientes.php" class="btn btn-success">Generar Excel</a> 
+                                    <button id="btn-excel" type="button" class="btn btn-success">Generar Excel</button> 
 
                                 </div>
                                 <div class="col-sm-3 pull-right" >
@@ -186,6 +197,7 @@
 
     <script type="text/javascript">
       $(document).ready(function(){
+        var idVendedor = parseInt(<?= $idVendedor ?>);
         App.init();
         var oTable=$('#datatable-icons').dataTable();
     
@@ -201,6 +213,10 @@
             selectedRow = $(this).closest("tr").get(0);
             idC = $(this).children(".input-cliente").val();
             
+        });
+        $("#btn-excel").click(function(){
+           var idVendedor = $("#input-vendedor").val();
+            window.location.href = 'generar-excel-clientes.php?id='+idVendedor;
         });
         $("#btn-eliminar").click(function(){
             $.ajax({
@@ -233,8 +249,12 @@
                 if (response.status == "0") {
                     oTable.fnClearTable();
                     if(response.data){
+                        $("#btn-excel").attr('disabled',false);
                         oTable.fnAddData(response.data);
                         oTable.fnAdjustColumnSizing();
+                    }
+                    else{
+                        $("#btn-excel").attr('disabled',true);
                     }
                 }
                 else{
@@ -243,6 +263,9 @@
             }); 
             
         });
+        if(idVendedor > 0){
+            $("#input-vendedor").val(idVendedor).change();
+        }
       });
     </script>
 

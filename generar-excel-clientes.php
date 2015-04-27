@@ -14,6 +14,10 @@ $conexion = openConnection();
 
 $objPHPExcel = new PHPExcel();
 
+if(!is_numeric($_GET['id'])){
+    die('A su petición le falta un argumento');
+}
+$idVendedor = $_GET['id'];
 // propiedades del documento
 $objPHPExcel->getProperties()->setCreator("QCC")
         ->setLastModifiedBy("QCC")
@@ -242,8 +246,15 @@ $objPHPExcel->getActiveSheet()->mergeCells('A2:C3');
 
 //Tabla cotizaciones
 // Cabecera de la tabla
-$consultaClientes = $conexion->prepare(sql_select_contactos_clientes_extended());
-$consultaClientes->execute();
+if($idVendedor > 0){
+    $consultaClientes = $conexion->prepare(sql_select_contactos_clientes_extended_by_idvendedor());
+    $consultaClientes->execute(array($idVendedor));
+}
+else{
+    $consultaClientes = $conexion->prepare(sql_select_contactos_clientes_extended());
+    $consultaClientes->execute();
+}
+
 $clienteExist = $consultaClientes->rowCount();
 $lastRow = 9;
 $contadorGlobal = 1;

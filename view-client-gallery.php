@@ -131,7 +131,7 @@
       var $container = $('.gallery-cont');
       // initialize
       $container.masonry({
-        columnWidth: 100,
+        columnWidth: 0,
         itemSelector: '.item'
       });
       

@@ -511,6 +511,9 @@ var App = function () {
       $(this).parents(".chat-wi").find(".chat-content").append(tpl);
       
       tpl.slideDown();
+      //$(".nscroller").nanoScroller({ scroll: 'bottom' });
+      //$(".nscroller").nanoScroller();
+      //$(".nscroller").animate({scrollBottom:0}, '500', 'swing');
       e.preventDefault();
     });
   };
@@ -1243,6 +1246,8 @@ var App = function () {
           $(".speech-button i").removeClass("blur");
           if(config.onEnd){config.onEnd();}
         };
+        
+        
       }    
       
     }else{ 
@@ -1288,22 +1293,20 @@ var App = function () {
         var s = $(".cl-sidebar");
         
         if(w.hasClass("sb-collapsed")){
-        
           $(".fa",b).addClass("fa-angle-left").removeClass("fa-angle-right");
           w.removeClass("sb-collapsed");
-          
         }else{
-        
           $(".fa",b).removeClass("fa-angle-left").addClass("fa-angle-right");
           w.addClass("sb-collapsed");
-          
         }
+        //updateHeight();
       }
       
       function updateHeight(){
         if(!$("#cl-wrapper").hasClass("fixed-menu")){
           var button = $("#cl-wrapper .collapse-button").outerHeight();
           var navH = $("#head-nav").height();
+          //var document = $(document).height();
           var cont = $("#pcont").height();
           var sidebar = ($(window).width() > 755 && $(window).width() < 963)?0:$("#cl-wrapper .menu-space .content").height();
           var windowH = $(window).height();
@@ -1320,12 +1323,10 @@ var App = function () {
             var height = sidebar + button;
           }  
           
+          // var height = ($("#pcont").height() < $(window).height())?$(window).height():$(document).height();
           $("#cl-wrapper .menu-space").css("min-height",height);
-          
         }else{
-          
           $("#cl-wrapper .nscroller").nanoScroller({ preventPageScrolling: true });
-          
         }
       }
         
@@ -1342,10 +1343,10 @@ var App = function () {
       
       $(".cl-vnavigation li ul li.active").each(function(){
         $(this).parent().show().parent().addClass("open");
+        //setTimeout(function(){updateHeight();},200);
       });
       
       $(".cl-vnavigation").delegate(".parent > a","click",function(e){
-      
         $(".cl-vnavigation .parent.open > ul").not($(this).parent().find("ul")).slideUp(300, 'swing',function(){
            $(this).parent().removeClass("open");
         });
@@ -1353,26 +1354,24 @@ var App = function () {
         var ul = $(this).parent().find("ul");
         ul.slideToggle(300, 'swing', function () {
           var p = $(this).parent();
-          
           if(p.hasClass("open")){
             p.removeClass("open");
           }else{
             p.addClass("open");
           }
-
+          //var menuH = $("#cl-wrapper .menu-space .content").height();
+          // var height = ($(document).height() < $(window).height())?$(window).height():menuH;
+          //updateHeight();
          $("#cl-wrapper .nscroller").nanoScroller({ preventPageScrolling: true });
-         
         });
-        
         e.preventDefault();
       });
       
       /*Small devices toggle*/
       $(".cl-toggle").click(function(e){
         var ul = $(".cl-vnavigation");
-          ul.slideToggle(300, 'swing', function () {
+        ul.slideToggle(300, 'swing', function () {
         });
-          
         e.preventDefault();
       });
       
@@ -1402,7 +1401,13 @@ var App = function () {
         update_height();
         $("#cl-wrapper .nscroller").nanoScroller({ preventPageScrolling: true });
         
+      }else{
+        $(window).resize(function(){
+          //updateHeight();
+        }); 
+        //updateHeight();
       }
+
       
       /*SubMenu hover */
         var tool = $("<div id='sub-menu-nav' style='position:fixed;z-index:9999;'></div>");
@@ -1474,6 +1479,22 @@ var App = function () {
             e.stopPropagation();
           }
         });
+        
+        $(".cl-vnavigation li").on('touchstart click', function(){
+          //alert($(window).width());
+        });
+        
+      $(window).resize(function(){
+        //updateHeight();
+      });
+
+      var domh = $("#pcont").height();
+      $(document).bind('DOMSubtreeModified', function(){
+        var h = $("#pcont").height();
+        if(domh != h) {
+          //updateHeight();
+        }
+      });
       
       /*Return to top*/
       var offset = 220;
@@ -1622,5 +1643,6 @@ var App = function () {
 }();
 
 $(function(){
+  //$("body").animate({opacity:1,'margin-left':0},500);
   $("body").css({opacity:1,'margin-left':0});
 });

@@ -3,32 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/wamp/www/QCC/add-contact-supplier.php</file>
-            <file>file:/C:/wamp/www/QCC/ajax/ajax-calls.php</file>
-            <file>file:/C:/wamp/www/QCC/edit-user.php</file>
-            <file>file:/C:/wamp/www/QCC/includes/lang/text.es.php</file>
-            <file>file:/C:/wamp/www/QCC/my-profile.php</file>
-            <file>file:/C:/wamp/www/QCC/add-client.php</file>
-            <file>file:/C:/wamp/www/QCC/edit-client.php</file>
-            <file>file:/C:/wamp/www/QCC/edit-contact-client.php</file>
-            <file>file:/C:/wamp/www/QCC/includes/sql.php</file>
-            <file>file:/C:/wamp/www/QCC/ajax/login.php</file>
-            <file>file:/C:/wamp/www/QCC/ajax/user.php</file>
-            <file>file:/C:/wamp/www/QCC/js/preimage/preimage.js</file>
-            <file>file:/C:/wamp/www/QCC/list-clients.php</file>
-            <file>file:/C:/wamp/www/QCC/cambios_BD.sql</file>
-            <file>file:/C:/wamp/www/QCC/generate-pdf.php</file>
-            <file>file:/C:/wamp/www/QCC/add-user.php</file>
-            <file>file:/C:/wamp/www/QCC/ajax/cotizacion.php</file>
-            <file>file:/C:/wamp/www/QCC/add-quote.php</file>
-            <file>file:/C:/wamp/www/QCC/generar-excel-clientes.php</file>
-            <file>file:/C:/wamp/www/QCC/add-contact-client.php</file>
-            <file>file:/C:/wamp/www/QCC/ajax/perfil.php</file>
-            <file>file:/C:/wamp/www/QCC/view-client-gallery.php</file>
-            <file>file:/C:/wamp/www/QCC/edit-quote.php</file>
-            <file>file:/C:/wamp/www/QCC/contacts-client.php</file>
-            <file>file:/C:/wamp/www/QCC/includes/layout.php</file>
-            <file>file:/C:/wamp/www/QCC/ajax/client.php</file>
+            <file>file:/home/nelson/Projects/QCC/includes/layout.php</file>
+            <file>file:/home/nelson/Projects/QCC/add-contact-client.php</file>
+            <file>file:/home/nelson/Projects/QCC/edit-contact-client.php</file>
+            <file>file:/home/nelson/Projects/QCC/includes/sql.php</file>
+            <file>file:/home/nelson/Projects/QCC/edit-client.php</file>
+            <file>file:/home/nelson/Projects/QCC/ajax/client.php</file>
+            <file>file:/home/nelson/Projects/QCC/add-client.php</file>
         </group>
     </open-files>
 </project-private>

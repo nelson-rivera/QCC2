@@ -5808,4 +5808,14 @@ span #del_name{ font-weight: bold; }
 
 .dataTable th{
     font-weight: bold;
+    text-align: center;
 }
+
+table tr:nth-child(2n) {
+    background: none repeat scroll 0 0 #D7D7D7;
+}
+
+.page-head { padding: 10px 25px; }
+.page-head h2{ font-size: 25px; }
+table.table {color: #000000;}
+table.table thead{background: none repeat scroll 0 0 #d3eaff;}

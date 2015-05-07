@@ -72,16 +72,16 @@ function lytSideMenu($menuSelected){
     
     //<vendedores>
     if( Helper::helpMenuIsAllowed(3) or Helper::helpMenuIsAllowed(4) ){            
-        $menu .= '<li><a href="#"><i class="fa fa-lightbulb-o"></i><span>Vendedores</span></a>
+        $menu .= '<li><a href="#"><i class="fa fa-lightbulb-o"></i><span>SISTECORP</span></a>
                       <ul class="sub-menu">';
     }
     
     if( Helper::helpMenuIsAllowed(3) ){
-        $menu .= '<li class="'.$isActiveM3.'"><a href="list-users.php">Listado de vendedores</a></li>';
+        $menu .= '<li class="'.$isActiveM3.'"><a href="list-users.php">Listado de Contactos</a></li>';
     }
     
     if( Helper::helpMenuIsAllowed(4) ){
-        $menu .= '<li class="'.$isActiveM4.'"><a href="add-user.php">Agregar vendedor</a></li>';
+        $menu .= '<li class="'.$isActiveM4.'"><a href="add-user.php">Agregar Contacto</a></li>';
     }
     
     if( Helper::helpMenuIsAllowed(3) or Helper::helpMenuIsAllowed(4) ){

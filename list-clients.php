@@ -85,7 +85,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2 class="" >Clientes <i class="fa fa-angle-double-right"></i> Listado de clientes</h2>
+                <h2 class="" >Clientes <i class="fa fa-angle-double-right"></i> Listado de Clientes</h2>
                 
             </div>
             <div class="cl-mcont">
@@ -135,7 +135,7 @@
                                                 <td class="center"><?= utf8_encode($cliente['municipio']) ?></td>
                                                 <td class="center">
                                                     <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php?id=<?= encryptString($cliente['idcliente']) ?>">
-                                                        <i class="fa fa-users"></i>
+                                                        <i class="fa fa-user"></i>
                                                     </a>
                                                     <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar cliente" href="edit-client.php?id=<?= encryptString($cliente['idcliente']) ?>">
                                                         <i class="fa fa-pencil"></i>

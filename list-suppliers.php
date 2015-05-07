@@ -77,7 +77,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Proveedores <i class="fa fa-angle-double-right"></i> Listado de proveedores</h2>
+                <h2>Proveedores <i class="fa fa-angle-double-right"></i> Listado de Proveedores</h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
@@ -117,7 +117,7 @@
                                         <td><?= $value['contacto'] ?></td>
                                         <td class="center">
                                             <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contactos" href="contacts-supplier.php?sup=<?= encryptString($value['idproveedor']) ?>">
-                                                <i class="fa fa-users"></i>
+                                                <i class="fa fa-user"></i>
                                             </a>
                                             <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar proveedor" href="edit-supplier.php?sup=<?= encryptString($value['idproveedor']) ?>">
                                                 <i class="fa fa-pencil"></i>
@@ -177,8 +177,13 @@
     <script type="text/javascript">
       $(document).ready(function(){
         App.init();
-        $('#datatable-icons').dataTable();
-        $("#datatable").dataTable();
+        $('#datatable-icons').dataTable({  
+             aLengthMenu: [
+                    [25, 50, 100, 200, -1],
+                    [25, 50, 100, 200, "Todos"]
+                ],
+                iDisplayLength: -1
+        });
     
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');

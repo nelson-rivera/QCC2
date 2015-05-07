@@ -20,7 +20,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Agregar vendedor</title>
+	<title>QCC - Agregar Contacto</title>
         <?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -78,7 +78,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Vendedores <i class="fa fa-angle-double-right"></i> Agregar vendedor</h2>
+                <h2>SISTECORP <i class="fa fa-angle-double-right"></i> Agregar Contacto</h2>
             </div>
             <div class="cl-mcont">
                 

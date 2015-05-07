@@ -28,7 +28,7 @@
 	<meta name="author" content="">
 	<link rel="shortcut icon" href="images/favicon.png">
 
-	<title>QCC - Editar vendedor</title>
+	<title>QCC - Editar Contacto</title>
         <?= css_fonts() ?>
 
 	<!-- Bootstrap core CSS -->
@@ -85,7 +85,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Vendedores <i class="fa fa-angle-double-right"></i> Editar vendedor: <?= $usuario['nombre'] ?></h2>
+                <h2>SISTECORP <i class="fa fa-angle-double-right"></i> Editar Contacto: <?= $usuario['nombre'] ?></h2>
             </div>
             <div class="cl-mcont">
                 

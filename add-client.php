@@ -254,8 +254,7 @@
         window.ParsleyValidator.setLocale('es');
         
         $("#btn-submit").click(function(event){
-            event.preventDefault();
-            if($( '#frm-add-client' ).parsley().isValid()){
+            if($( '#frm-add-client' ).parsley().validate()){
                 var clientData = $('#frm-add-client').serializeArray();
                 clientData.push({name: 'opt', value: 1});
                 $.ajax({

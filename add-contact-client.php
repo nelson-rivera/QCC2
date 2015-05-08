@@ -98,7 +98,7 @@
                     <div class="col-md-12">
                         <div class="block-flat">
                             <div class="content">
-                                <form id="frm-add-contact" class="form-horizontal" style="border-radius: 0px;" data-parsley-validate>
+                                <form id="frm-add-contact" class="form-horizontal" style="border-radius: 0px;" action="#" data-parsley-validate>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
@@ -162,7 +162,7 @@
                                    
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-primary" id="btn-submit" type="button">Agregar</button>
+                                            <button class="btn btn-primary" id="btn-submit" type="submit">Agregar</button>
                                             <button type="button" class="btn btn-danger btn-redirect">Cancelar</button>
                                         </div>
                                     </div>
@@ -206,10 +206,10 @@
   <?= js_select2() ?>
   <?= js_bootstrap_slider() ?>
   <?= js_jquery_parsley() ?>
+  <?= js_i18n_es() ?>
   <?= js_gritter() ?>
   <?= js_niftymodals() ?>
   <?= js_general() ?>
-  <?= js_select2() ?>
      
 	
 
@@ -217,9 +217,10 @@
       $(document).ready(function(){
         //initialize the javascript
         App.init();
+        window.ParsleyValidator.setLocale('es');
         $("#input-cargo").select2();
         $("#btn-submit").click(function(event){
-            if($( '#frm-add-contact' ).parsley().isValid()){
+            if($( '#frm-add-contact' ).parsley().validate()){
                
                 $.ajax({
                     url:'ajax/client.php',

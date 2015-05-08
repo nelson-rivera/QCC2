@@ -220,7 +220,7 @@
         window.ParsleyValidator.setLocale('es');
         
         $("#btn-submit").click(function(event){
-            if($( '#frm-edit' ).parsley().isValid()){
+            if($( '#frm-edit' ).parsley().validate()){
                
                 $.ajax({
                     url:'ajax/client.php',

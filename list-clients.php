@@ -23,7 +23,14 @@
         else{
             $idVendedor = 0;
         }
+        $queryTotalCLientes = $connection->prepare(sql_select_total_clientes());
+        $queryTotalCLientes->execute();
+        $totalArray = $queryTotalCLientes->fetch();
+        $totalClientes = $totalArray['total_clientes'];
         
+        $selectClientes=$connection->prepare(sql_select_clientes_extended_by_idvendedor());
+        $selectClientes->execute(array($_SESSION['idusuario']));
+        $clientesVendedor = $selectClientes->rowCount();
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -93,16 +100,17 @@
                     <div class="col-md-12">
                         <div class="block-flat">
                             <div class="row">
-                                <div class="col-sm-3 pull-left" >
+                                <div class="col-sm-9 pull-left" >
                                     <button id="btn-excel" type="button" class="btn btn-success">Generar Excel</button> 
-
+                                    <a href="view-client-gallery.php" class="btn btn-primary">Ver logos</a>
+                                    <strong><span id="nombre-vendedor"><?= $_SESSION['nombre'] ?></span> tiene <span id="cantidad-clientes"><?= $clientesVendedor ?></span> clientes de un total de <?= $totalClientes ?></strong>
                                 </div>
                                 <div class="col-sm-3 pull-right" >
                                     <form  action="#" class="form-horizontal">
                                         <div>
                                             <label class="col-sm-3 control-label"></label>
                                             <div class="col-sm-9 no-padding">
-                                                <?= selectVendedor('input-vendedor','input-vendedor','form-control','','','',true) ?>
+                                                <?= selectVendedor('input-vendedor','input-vendedor','form-control','','',$_SESSION['idusuario'],true) ?>
                                             </div>
                                         </div>
                                       </form>
@@ -123,18 +131,17 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                        $selectClientes=$connection->prepare(sql_select_clientes_extended());
-                                        $selectClientes->execute();
+                                        
                                         foreach ($selectClientes->fetchAll() as $cliente) {
                                         ?>
                                             <tr class="odd gradeA">
                                                 <td><?= utf8_encode($cliente['nombre_cliente']) ?></td>
-                                                <td><?= $cliente['rubro'] ?></td>
-                                                <td><?= $cliente['nombre_vendedor'] ?></td>
+                                                <td><?= utf8_encode($cliente['rubro']) ?></td>
+                                                <td><?= utf8_encode($cliente['nombre_vendedor']) ?></td>
                                                 <td><?= utf8_encode($cliente['departamento']) ?></td>
                                                 <td class="center"><?= utf8_encode($cliente['municipio']) ?></td>
                                                 <td class="center">
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php?id=<?= encryptString($cliente['idcliente']) ?>">
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos" href="contacts-client.php?id=<?= encryptString($cliente['idcliente']) ?>">
                                                         <i class="fa fa-users"></i>
                                                     </a>
                                                     <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar cliente" href="edit-client.php?id=<?= encryptString($cliente['idcliente']) ?>">
@@ -240,6 +247,7 @@
         
         $("#input-vendedor").change(function(){
             var id = $(this).val();
+            $("#nombre-vendedor").html($("#input-vendedor option:selected").text());
             $.ajax({
                 url:"ajax/client.php",
                 type:'POST',
@@ -252,12 +260,15 @@
                         $("#btn-excel").attr('disabled',false);
                         oTable.fnAddData(response.data);
                         oTable.fnAdjustColumnSizing();
+                        $("#cantidad-clientes").html(oTable.fnSettings().fnRecordsTotal());
                     }
                     else{
+                        $("#cantidad-clientes").html('0');
                         $("#btn-excel").attr('disabled',true);
                     }
                 }
                 else{
+                    $("#cantidad-clientes").html('0');
                     oTable.fnClearTable();
                 }
             }); 

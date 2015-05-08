@@ -295,37 +295,37 @@ if ($clienteExist > 0) {
         $jplus1 = $lastRow + 1;
         $jplus2 = $lastRow + 2;
         $jplus3 = $lastRow + 3;
-        $objPHPExcel->getActiveSheet()->mergeCells("A$lastRow:B$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("C$lastRow:D$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("E$lastRow:F$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("G$lastRow:H$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("I$lastRow:J$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("K$lastRow:L$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("M$lastRow:N$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("O$lastRow:P$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("Q$lastRow:S$jplus1");
+        $objPHPExcel->getActiveSheet()->mergeCells("A$lastRow:B$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("C$lastRow:D$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("E$lastRow:F$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("G$lastRow:H$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("I$lastRow:J$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("K$lastRow:L$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("M$lastRow:N$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("O$lastRow:P$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("Q$lastRow:S$lastRow");
 //        $objPHPExcel->getActiveSheet()->mergeCells("S$lastRow:U$jplus1");
 //        $objPHPExcel->getActiveSheet()->mergeCells("V$lastRow:Y$jplus1");
         
         
 
             $objPHPExcel->setActiveSheetIndex(0)
-                    ->setCellValue("A$lastRow", $cliente['nombre_cliente'])
-                    ->setCellValue("C$lastRow", $cliente['nombre_vendedor'])
-                    ->setCellValue("E$lastRow", $cliente['rubro'])
-                    ->setCellValue("G$lastRow", $cliente['departamento'])
-                    ->setCellValue("I$lastRow", $cliente['municipio'])
-                    ->setCellValue("K$lastRow", $cliente['nombre_contacto'])
-                    ->setCellValue("M$lastRow", $cliente['cargo'])
-                    ->setCellValue("O$lastRow", $cliente['telefono_1'])
+                    ->setCellValue("A$lastRow", utf8_encode($cliente['nombre_cliente']))
+                    ->setCellValue("C$lastRow", utf8_encode($cliente['nombre_vendedor']))
+                    ->setCellValue("E$lastRow", utf8_encode($cliente['rubro']))
+                    ->setCellValue("G$lastRow", utf8_encode($cliente['departamento']))
+                    ->setCellValue("I$lastRow", utf8_encode($cliente['municipio']))
+                    ->setCellValue("K$lastRow", utf8_encode($cliente['nombre_contacto']))
+                    ->setCellValue("M$lastRow", utf8_encode($cliente['cargo']))
+                    ->setCellValue("O$lastRow", utf8_encode($cliente['telefono_1']))
 //                    ->setCellValue("Q$lastRow", $cliente['telefono_2'])
-                    ->setCellValue("Q$lastRow", $cliente['email_1'])
+                    ->setCellValue("Q$lastRow", utf8_encode($cliente['email_1']))
 //                    ->setCellValue("V$lastRow", $cliente['email_2'])
             ;
 
 
 
-        $lastRow = $lastRow + 2;
+        $lastRow ++;
 
         
         $contadorGlobal++;

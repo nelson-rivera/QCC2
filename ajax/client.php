@@ -87,16 +87,25 @@ switch ($opt) {
             $connection->beginTransaction();
             try {
                 
-                $uploadDir = "../uploads/clientes/";
-                if(!is_dir($uploadDir)) {
-                    mkdir($uploadDir,0566,true);
+                if(!empty($_FILES["input-logo"]["name"])){
+                    $uploadDir = "../uploads/clientes/";
+                    if(!is_dir($uploadDir)) {
+                        mkdir($uploadDir,0566,true);
+                    }
+                    $imageUrl = $uploadDir. $_FILES["input-logo"]["name"];
+                    $logo = "uploads/clientes/".$_FILES["input-logo"]["name"];
+                    move_uploaded_file($_FILES["input-logo"]["tmp_name"], $imageUrl);
+                    
+                    $insertClient=$connection->prepare(sql_update_client());
+                    $insertClient->execute(array($companyName,$idMunicipio,$logo,$idRubro,$idUsuario,$recibirCorreos,$idCliente));
                 }
-                $imageUrl = $uploadDir. $_FILES["input-logo"]["name"];
-                $logo = "uploads/clientes/".$_FILES["input-logo"]["name"];
-                move_uploaded_file($_FILES["input-logo"]["tmp_name"], $imageUrl);
+                else{
+                    $insertClient=$connection->prepare(sql_update_client_no_logo());
+                    $insertClient->execute(array($companyName,$idMunicipio,$idRubro,$idUsuario,$recibirCorreos,$idCliente));
+                }
                 
-                $insertClient=$connection->prepare(sql_update_client());
-                $insertClient->execute(array($companyName,$idMunicipio,$logo,$idRubro,$idUsuario,$recibirCorreos,$idCliente));
+                
+                
                 
                 $connection->commit();
                 $response['status']=0;
@@ -210,7 +219,7 @@ switch ($opt) {
             $counter = 0;
             $data = null;
             foreach ( $getCliente->fetchAll() as $cliente){
-                $buttons = '<a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php?id='. encryptString($cliente['idcliente']).'">
+                $buttons = '<a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos" href="contacts-client.php?id='. encryptString($cliente['idcliente']).'">
                             <i class="fa fa-users"></i>
                         </a>
                         <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar cliente" href="edit-client.php?id='. encryptString($cliente['idcliente']) .'">
@@ -220,7 +229,7 @@ switch ($opt) {
                             <input class="input-cliente" type="hidden" value="'. $cliente['idcliente'].'" />
                             <i class="fa fa-times"></i>
                         </a>';
-                $clienteArray = [ utf8_encode($cliente['nombre_cliente']), $cliente['rubro'], $cliente['nombre_vendedor'], utf8_encode($cliente['departamento']), utf8_encode($cliente['municipio']), $buttons];
+                $clienteArray = [ utf8_encode($cliente['nombre_cliente']), utf8_encode($cliente['rubro']), utf8_encode($cliente['nombre_vendedor']), utf8_encode($cliente['departamento']), utf8_encode($cliente['municipio']), $buttons];
                 $data[$counter] = $clienteArray;
                 $counter++;
             }

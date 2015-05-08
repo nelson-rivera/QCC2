@@ -58,7 +58,7 @@
       </div>
     </div>
 	
-    <div id="cl-wrapper">
+    <div id="cl-wrapper" class="sb-collapsed">
         <div class="cl-sidebar">
             <div class="cl-toggle"><i class="fa fa-bars"></i></div>
             <div class="cl-navblock">
@@ -70,14 +70,14 @@
                 </div>
                 
                 <div class="text-right collapse-button" style="padding:7px 9px;">
-                  <button id="sidebar-collapse" class="btn btn-default" style=""><i style="color:#fff;" class="fa fa-angle-left"></i></button>
+                  <button id="sidebar-collapse" class="btn btn-default" style=""><i style="color:#fff;" class="fa fa-angle-right"></i></button>
                 </div>
             </div>
 	</div>
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Mantenimiento <i class="fa fa-angle-double-right"></i> Cargos de contactos de clientes</h2>
+                <h2>Mantenimiento <i class="fa fa-angle-double-right"></i> Cargos de contactos</h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">

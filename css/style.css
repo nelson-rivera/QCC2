@@ -706,6 +706,7 @@ body.modal-open,
     text-align: center;
     min-height: 90px;
     padding-top: 20px;
+    color: #c9d4f6;
 }
 .sb-collapsed .side-logo-container p{
     display: none;

@@ -1,5 +1,5 @@
 var App = function () {
-
+  
   var config = {//Basic Config
     tooltip: true,
     popover: true,
@@ -1295,9 +1295,11 @@ var App = function () {
         if(w.hasClass("sb-collapsed")){
           $(".fa",b).addClass("fa-angle-left").removeClass("fa-angle-right");
           w.removeClass("sb-collapsed");
+          localStorage.setItem("menuCollapsed", 0);
         }else{
           $(".fa",b).removeClass("fa-angle-left").addClass("fa-angle-right");
           w.addClass("sb-collapsed");
+          localStorage.setItem("menuCollapsed", 1);
         }
         //updateHeight();
       }
@@ -1376,6 +1378,14 @@ var App = function () {
       });
       
       /*Collapse sidebar*/
+      var test =localStorage.getItem("menuCollapsed");
+      if(localStorage.getItem("menuCollapsed") === '0'){
+          $("#sidebar-collapse i").addClass("fa-angle-left").removeClass("fa-angle-right");
+          $("#cl-wrapper").removeClass("sb-collapsed");
+      }else{
+          $("#sidebar-collapse i").removeClass("fa-angle-left").addClass("fa-angle-right");
+          $("#cl-wrapper").addClass("sb-collapsed");
+      }
       $("#sidebar-collapse").click(function(){
           toggleSideBar();
       });

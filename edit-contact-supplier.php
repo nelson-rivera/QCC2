@@ -69,7 +69,7 @@
       </div>
     </div>
 	
-    <div id="cl-wrapper" class="sb-collapsed">
+    <div id="cl-wrapper">
         <div class="cl-sidebar">
             <div class="cl-toggle"><i class="fa fa-bars"></i></div>
             <div class="cl-navblock">
@@ -81,7 +81,7 @@
                 </div>
                 
                 <div class="text-right collapse-button" style="padding:7px 9px;">
-                  <button id="sidebar-collapse" class="btn btn-default" style=""><i style="color:#fff;" class="fa fa-angle-right"></i></button>
+                  <button id="sidebar-collapse" class="btn btn-default" style=""><i style="color:#fff;" class="fa fa-angle-left"></i></button>
                 </div>
             </div>
 	</div>

@@ -73,7 +73,7 @@
       </div>
     </div>
 	
-    <div id="cl-wrapper">
+    <div id="cl-wrapper" class="sb-collapsed">
         <div class="cl-sidebar">
             <div class="cl-toggle"><i class="fa fa-bars"></i></div>
             <div class="cl-navblock">
@@ -85,7 +85,7 @@
                 </div>
                 
                 <div class="text-right collapse-button" style="padding:7px 9px;">
-                  <button id="sidebar-collapse" class="btn btn-default" style=""><i style="color:#fff;" class="fa fa-angle-left"></i></button>
+                  <button id="sidebar-collapse" class="btn btn-default" style=""><i style="color:#fff;" class="fa fa-angle-right"></i></button>
                 </div>
             </div>
 	</div>
@@ -141,8 +141,13 @@
                                                 <td><?= utf8_encode($cliente['departamento']) ?></td>
                                                 <td class="center"><?= utf8_encode($cliente['municipio']) ?></td>
                                                 <td class="center">
+<<<<<<< HEAD
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos de clientes" href="contacts-client.php?id=<?= encryptString($cliente['idcliente']) ?>">
+                                                        <i class="fa fa-user"></i>
+=======
                                                     <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Gestionar contactos" href="contacts-client.php?id=<?= encryptString($cliente['idcliente']) ?>">
                                                         <i class="fa fa-users"></i>
+>>>>>>> nelson
                                                     </a>
                                                     <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar cliente" href="edit-client.php?id=<?= encryptString($cliente['idcliente']) ?>">
                                                         <i class="fa fa-pencil"></i>
@@ -206,13 +211,7 @@
       $(document).ready(function(){
         var idVendedor = parseInt(<?= $idVendedor ?>);
         App.init();
-        var oTable=$('#datatable-icons').dataTable({  
-             aLengthMenu: [
-                    [25, 50, 100, 200, -1],
-                    [25, 50, 100, 200, "Todos"]
-                ],
-                iDisplayLength: -1
-        });
+        var oTable=$('#datatable-icons').dataTable();
     
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');

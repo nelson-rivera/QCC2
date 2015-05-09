@@ -54,7 +54,7 @@
       </div>
     </div>
 	
-    <div id="cl-wrapper">
+    <div id="cl-wrapper" class="sb-collapsed">
         <div class="cl-sidebar">
             <div class="cl-toggle"><i class="fa fa-bars"></i></div>
             <div class="cl-navblock">
@@ -66,7 +66,7 @@
                 </div>
                 
                 <div class="text-right collapse-button" style="padding:7px 9px;">
-                  <button id="sidebar-collapse" class="btn btn-default" style=""><i style="color:#fff;" class="fa fa-angle-left"></i></button>
+                  <button id="sidebar-collapse" class="btn btn-default" style=""><i style="color:#fff;" class="fa fa-angle-right"></i></button>
                 </div>
             </div>
 	</div>
@@ -87,17 +87,17 @@
                  <div class="spacer" ></div>
                 <div class="gallery-cont">
                     <?php
-                        $queryClientes = $connection->prepare(sql_select_clientes_extended());
+                        $queryClientes = $connection->prepare(sql_select_clientes_extended_order_alph());
                         $queryClientes->execute();
                         foreach ($queryClientes->fetchAll() as $cliente) {
                     ?>
                         <div class="item">
                         <div class="photo">
                           <div class="head">
-                            <span class="pull-right"> <i class="fa fa-map-marker"></i> </span><h4><?= $cliente['nombre_cliente'] ?></h4>
-                            <span class="desc"><?= $cliente['municipio'] ?></span>
+                            <span class="pull-right"> <i class="fa fa-map-marker"></i> </span><h4><?= utf8_encode($cliente['nombre_cliente']) ?></h4>
+                            <span class="desc"><?= utf8_encode($cliente['municipio']) ?></span>
                           </div>
-                          <div class="img">
+                          <div class="img" style="background-position: center; background-repeat: no-repeat; background-image: url('<?= $cliente['logo'] ?>'); background-size: contain; height: 200px">
                             <img src="<?= $cliente['logo'] ?>" />
                             <div class="over">
                               <div class="func">

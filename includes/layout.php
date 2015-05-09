@@ -97,8 +97,7 @@ function lytSideMenu($menuSelected){
                 <ul class="sub-menu">';
     }
     if( Helper::helpMenuIsAllowed(1) ){
-        $menu .= '<li class="'.$isActiveM1.'"><a href="list-clients.php">Listado de clientes</a></li>
-                    <li class="'.$isActiveM1.'"><a href="view-client-gallery.php">Listado de imagenes</a></li>';
+        $menu .= '<li class="'.$isActiveM1.'"><a href="list-clients.php">Listado de clientes</a></li>';
     }
     if( Helper::helpMenuIsAllowed(2) ){
         $menu .= '<li class="'.$isActiveM2.'"><a href="add-client.php">Agregar cliente</a></li>';

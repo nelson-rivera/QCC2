@@ -206,7 +206,13 @@
       $(document).ready(function(){
         var idVendedor = parseInt(<?= $idVendedor ?>);
         App.init();
-        var oTable=$('#datatable-icons').dataTable();
+        var oTable=$('#datatable-icons').dataTable({  
+             aLengthMenu: [
+                    [25, 50, 100, 200, -1],
+                    [25, 50, 100, 200, "Todos"]
+                ],
+                iDisplayLength: -1
+        });
     
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');

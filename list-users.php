@@ -174,7 +174,13 @@
     <script type="text/javascript">
       $(document).ready(function(){
         App.init();
-        $('#datatable-users').dataTable();
+        $('#datatable-users').dataTable({  
+             aLengthMenu: [
+                    [25, 50, 100, 200, -1],
+                    [25, 50, 100, 200, "Todos"]
+                ],
+                iDisplayLength: -1
+        });
         
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');

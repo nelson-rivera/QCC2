@@ -76,7 +76,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>SISTECROP <i class="fa fa-angle-double-right"></i> Listado de Contactos</h2>
+                <h2>SISTECORP <i class="fa fa-angle-double-right"></i> Listado de Contactos</h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">

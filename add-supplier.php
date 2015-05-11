@@ -26,8 +26,8 @@
 
 	<!-- Bootstrap core CSS -->
 	<?= css_bootstrap() ?>
-        <?= css_gritter() ?>
-        <?= css_font_awesome() ?>
+    <?= css_gritter() ?>
+    <?= css_font_awesome() ?>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -89,7 +89,7 @@
                     <div class="col-md-12">
                         <div class="block-flat">
                             <div class="header">
-                                <h3>Datos del proveedor</h3>
+                                <h3>Datos del Proveedor</h3>
                             </div>
                             <div class="content">
                                 <form id="frm-add-supplier" class="form-horizontal" style="border-radius: 0px;" action="#">
@@ -242,6 +242,7 @@
             </div>
         </div>
     </div>
+    <div class="md-overlay"></div>    
 
   <?= js_jquery() ?>
   <?= js_jquery_ui() ?>

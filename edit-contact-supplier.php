@@ -230,7 +230,7 @@
                     }
                 }).done(function(response){
                     if (response.status == "1") {
-                         $("#mod-alert").addClass("md-show");
+                        $("#mod-alert").addClass("md-show");
                         $("#hmodal").html(response.msg);
                          
                     }

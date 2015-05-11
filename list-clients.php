@@ -135,7 +135,7 @@
                                         foreach ($selectClientes->fetchAll() as $cliente) {
                                         ?>
                                             <tr class="odd gradeA">
-                                                <td><?= utf8_encode($cliente['nombre_cliente']) ?></td>
+                                                <td><?= utf8_decode($cliente['nombre_cliente']) ?></td>
                                                 <td><?= utf8_encode($cliente['rubro']) ?></td>
                                                 <td><?= utf8_encode($cliente['nombre_vendedor']) ?></td>
                                                 <td><?= utf8_encode($cliente['departamento']) ?></td>

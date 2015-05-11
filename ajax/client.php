@@ -229,7 +229,7 @@ switch ($opt) {
                             <input class="input-cliente" type="hidden" value="'. $cliente['idcliente'].'" />
                             <i class="fa fa-times"></i>
                         </a>';
-                $clienteArray = [ utf8_encode($cliente['nombre_cliente']), utf8_encode($cliente['rubro']), utf8_encode($cliente['nombre_vendedor']), utf8_encode($cliente['departamento']), utf8_encode($cliente['municipio']), $buttons];
+                $clienteArray = [$cliente['nombre_cliente'], $cliente['rubro'], utf8_encode($cliente['nombre_vendedor']), utf8_encode($cliente['departamento']), utf8_encode($cliente['municipio']), $buttons];
                 $data[$counter] = $clienteArray;
                 $counter++;
             }

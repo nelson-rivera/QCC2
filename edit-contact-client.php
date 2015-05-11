@@ -23,6 +23,7 @@
         $getContacto=$connection->prepare(sql_select_contacto_by_idcontacto());
         $getContacto->execute(array($idContacto));
         $contactoArray=$getContacto->fetch();
+        $recibirCorreos = $contactoArray['recibir_correos']==1?true:false;
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -154,6 +155,12 @@
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
                                             <input name="input-email-2" class="form-control" type="text" value="<?= $contactoArray['email_2'] ?>" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="col-sm-3 control-label">Correos de mercadeo</label>
+                                        <div class="col-sm-6" data-select="cargo">
+                                            <?= selectNewsletter('input-newsletter','input-newsletter','input-select','required','',$recibirCorreos) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">

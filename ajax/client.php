@@ -46,10 +46,10 @@ switch ($opt) {
                 
                 
                 $insertClient=$connection->prepare(sql_insert_client());
-                $insertClient->execute(array($companyName,$idMunicipio,$logo,$idRubro,$idUsuario,$recibirCorreos));
+                $insertClient->execute(array($companyName,$idMunicipio,$logo,$idRubro,$idUsuario));
                 $idCliente=$connection->lastInsertId();
                 $insertContact=$connection->prepare(sql_save_contacto());
-                $insertContact->execute(array($nombreContacto, $cargo, $idCliente, $correo1, $correo2, $telefono1,$telefono2,$telefono3));
+                $insertContact->execute(array($nombreContacto, $cargo, $idCliente, $correo1, $correo2, $telefono1,$telefono2,$telefono3, $recibirCorreos));
                 
                 $connection->commit();
                 $response['status']=0;
@@ -82,7 +82,6 @@ switch ($opt) {
             $idUsuario=$_POST['input-vendedor'];
             $idRubro=$_POST['input-rubro'];
             $idMunicipio=$_POST['input-municipio'];
-            $recibirCorreos=(empty($_POST['input-newsletter']))?0:1;
             
             $connection->beginTransaction();
             try {
@@ -97,11 +96,11 @@ switch ($opt) {
                     move_uploaded_file($_FILES["input-logo"]["tmp_name"], $imageUrl);
                     
                     $insertClient=$connection->prepare(sql_update_client());
-                    $insertClient->execute(array($companyName,$idMunicipio,$logo,$idRubro,$idUsuario,$recibirCorreos,$idCliente));
+                    $insertClient->execute(array($companyName,$idMunicipio,$logo,$idRubro,$idUsuario,$idCliente));
                 }
                 else{
                     $insertClient=$connection->prepare(sql_update_client_no_logo());
-                    $insertClient->execute(array($companyName,$idMunicipio,$idRubro,$idUsuario,$recibirCorreos,$idCliente));
+                    $insertClient->execute(array($companyName,$idMunicipio,$idRubro,$idUsuario,$idCliente));
                 }
                 
                 
@@ -156,10 +155,11 @@ switch ($opt) {
     case 4:
         if(is_numeric($_POST['id']) && !empty($_POST['input-nombre-contacto']) && !empty($_POST['input-cargo']) && !empty($_POST['input-telefono-1']) && !empty($_POST['input-email-1'])){
             $idContacto=$_POST['id'];
+            $recibirCorreos=(empty($_POST['input-newsletter']))?0:1;
             $connection->beginTransaction();
             try {
                 $updateContacto = $connection->prepare(sql_update_contacto());
-                $updateContacto->execute(array($_POST['input-nombre-contacto'], $_POST['input-cargo'], $_POST['input-email-1'], $_POST['input-email-2'], $_POST['input-telefono-1'], $_POST['input-telefono-2'], $_POST['input-telefono-3'], $idContacto));
+                $updateContacto->execute(array($_POST['input-nombre-contacto'], $_POST['input-cargo'], $_POST['input-email-1'], $_POST['input-email-2'], $_POST['input-telefono-1'], $_POST['input-telefono-2'], $_POST['input-telefono-3'],$recibirCorreos, $idContacto));
                 $connection->commit();
                 $response['status']=0;
                 $response['msg']= 'Contacto editado con exito';
@@ -183,10 +183,11 @@ switch ($opt) {
             $email2 = empty($_POST['input-email-2'])?null:$_POST['input-email-2'];
             $telefono2 = empty($_POST['input-telefono-2'])?null:$_POST['input-telefono-2'];
             $telefono3 = empty($_POST['input-telefono-3'])?null:$_POST['input-telefono-3'];
+            $recibirCorreos=(empty($_POST['input-newsletter']))?0:1;
             $connection->beginTransaction();
             try {
-                $insertContacto = $connection->prepare(sql_insert_contacto());
-                $insertContacto->execute(array($_POST['input-nombre-contacto'], $_POST['input-cargo'],$idCliente, $_POST['input-email-1'], $email2, $_POST['input-telefono-1'], $telefono2, $telefono3));
+                $insertContacto = $connection->prepare(sql_save_contacto());
+                $insertContacto->execute(array($_POST['input-nombre-contacto'], $_POST['input-cargo'],$idCliente, $_POST['input-email-1'], $email2, $_POST['input-telefono-1'], $telefono2, $telefono3,$recibirCorreos));
                 $connection->commit();
                 $response['status']=0;
                 $response['msg']= 'Contacto agregado con exito';

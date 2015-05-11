@@ -151,17 +151,6 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label"></label>
-                                        <div class="col-sm-6">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input name="input-newsletter" type="checkbox" <?= $recibirCorreosIsChecked ?>>
-                                                    Enviar correos de mercadeo
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button class="btn btn-primary" id="btn-submit" type="button">Guardar</button>
                                         </div>

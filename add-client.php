@@ -102,7 +102,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
-                                            <?= selectVendedor('input-vendedor','input-vendedor','input-select','required','','', false) ?>
+                                            <?= selectVendedor('input-vendedor','input-vendedor','input-select','required','',$_SESSION['idusuario'], false) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -185,14 +185,9 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label"></label>
+                                        <label class="col-sm-3 control-label">Correos de mercadeo</label>
                                         <div class="col-sm-6">
-                                            <div class="checkbox">
-                                                <label  >
-                                                    <input name="input-newsletter" type="checkbox" value="1">
-                                                    Enviar correos de mercadeo
-                                                </label>
-                                            </div>
+                                            <?= selectNewsletter('input-newsletter','input-newsletter','input-select','required','',true) ?>
                                         </div>
                                     </div>
                                     <div class="form-group">

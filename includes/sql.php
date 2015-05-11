@@ -75,13 +75,13 @@ function sql_select_perfiles_all(){
     return 'SELECT * FROM perfiles';
 }
 function sql_insert_client(){
-    return 'INSERT INTO clientes (nombre_cliente, idmunicipio, logo, idrubro, idvendedor, recibir_correos) values(?,?,?,?,?,?)';
+    return 'INSERT INTO clientes (nombre_cliente, idmunicipio, logo, idrubro, idvendedor) values(?,?,?,?,?)';
 }
 function sql_update_client(){
-    return 'UPDATE clientes SET nombre_cliente=?, idmunicipio=?, logo=?, idrubro=?, idvendedor=?, recibir_correos=? WHERE idcliente=?';
+    return 'UPDATE clientes SET nombre_cliente=?, idmunicipio=?, logo=?, idrubro=?, idvendedor=? WHERE idcliente=?';
 }
 function sql_update_client_no_logo(){
-    return 'UPDATE clientes SET nombre_cliente=?, idmunicipio=?, idrubro=?, idvendedor=?, recibir_correos=? WHERE idcliente=?';
+    return 'UPDATE clientes SET nombre_cliente=?, idmunicipio=?, idrubro=?, idvendedor=? WHERE idcliente=?';
 }
 function sql_delete_cliente(){
     return 'UPDATE clientes SET active = 0 WHERE idcliente=?';
@@ -99,13 +99,10 @@ function sql_get_municipio_by_iddepartamento(){
     return "SELECT * from municipios where iddepartamento=?";
 }
 function sql_save_contacto(){
-    return 'INSERT INTO contactos (nombre_contacto, idcargo, idcliente, email_1, email_2, telefono_1,telefono_2,telefono_3) values(?,?,?,?,?,?,?,?)';
-}
-function sql_insert_contacto(){
-    return 'INSERT INTO contactos(nombre_contacto, idcargo, idcliente, email_1, email_2, telefono_1,telefono_2,telefono_3) VALUES(?,?,?,?,?,?,?,?)';
+    return 'INSERT INTO contactos (nombre_contacto, idcargo, idcliente, email_1, email_2, telefono_1,telefono_2,telefono_3, recibir_correos) values(?,?,?,?,?,?,?,?,?)';
 }
 function sql_update_contacto(){
-    return 'UPDATE contactos SET nombre_contacto=?, idcargo=?, email_1=?, email_2=?, telefono_1=?,telefono_2=?,telefono_3=? WHERE idcontacto=?';
+    return 'UPDATE contactos SET nombre_contacto=?, idcargo=?, email_1=?, email_2=?, telefono_1=?,telefono_2=?,telefono_3=?, recibir_correos=? WHERE idcontacto=?';
 }
 function sql_select_clientes_extended(){
     return 'SELECT clientes.*, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'

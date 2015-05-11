@@ -98,7 +98,7 @@
                     <div class="col-md-12">
                         <div class="block-flat">
                             <div class="content">
-                                <form id="frm-add-contact" class="form-horizontal" style="border-radius: 0px;" action="#" data-parsley-validate>
+                                <form id="frm-add-contact" class="form-horizontal" style="border-radius: 0px;" data-parsley-validate>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Vendedor</label>
                                         <div class="col-sm-6">
@@ -159,10 +159,15 @@
                                             <input id="input-email-2" name="input-email-2" class="form-control" type="email">
                                         </div>
                                     </div>
-                                   
+                                   <div class="form-group">
+                                        <label class="col-sm-3 control-label">Correos de mercadeo</label>
+                                        <div class="col-sm-6" data-select="cargo">
+                                            <?= selectNewsletter('input-newsletter','input-newsletter','input-select','required','',true) ?>
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-primary" id="btn-submit" type="submit">Agregar</button>
+                                            <button class="btn btn-primary" id="btn-submit" type="button">Agregar</button>
                                             <button type="button" class="btn btn-danger btn-redirect">Cancelar</button>
                                         </div>
                                     </div>

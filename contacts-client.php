@@ -122,10 +122,10 @@
                                             <td><?= $contacto['email_1'] ?></td>
                                             <td><?= $contacto['email_2'] ?></td>
                                             <td class="center">
-                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-client.php?id=<?= encryptString($contacto['idcontacto'])?>">
+                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar" href="edit-contact-client.php?id=<?= encryptString($contacto['idcontacto'])?>">
                                                     <i class="fa fa-pencil"></i>
                                                 </a>
-                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Remove" href="#">
+                                                <a class="btn btn-danger btn-xs" data-toggle="tooltip" data-original-title="Eliminar" href="#">
                                                     <i class="fa fa-times"></i>
                                                     <input class="input-contacto" type="hidden" value="<?= $contacto['idcontacto']?>" />
                                                 </a>

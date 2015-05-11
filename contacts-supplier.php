@@ -124,10 +124,10 @@
                                                     <td class="center"><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['email_1'] ?></a></td>
                                                     <td class="center"><a href="mailto:<?= $value['email_2'] ?>" title="Click para enviar correo" ><?= $value['email_2'] ?></a></td>
                                                     <td class="center">
-                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Edit" href="edit-contact-supplier.php?cp=<?= encryptString($value['idcontacto_proveedor']) ?>">
+                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar" href="edit-contact-supplier.php?cp=<?= encryptString($value['idcontacto_proveedor']) ?>">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
-                                                        <a class="btn btn-danger md-trigger btn-xs btn-eliminar-cs" data-toggle="tooltip" data-original-title="Eliminar contacto" data-modal="mod-delete" data-cp="<?= encryptString($value['idcontacto_proveedor']) ?>"  data-num="<?= $num ?>" >
+                                                        <a class="btn btn-danger md-trigger btn-xs btn-eliminar-cs" data-toggle="tooltip" data-original-title="Eliminar" data-modal="mod-delete" data-cp="<?= encryptString($value['idcontacto_proveedor']) ?>"  data-num="<?= $num ?>" >
                                                             <i class="fa fa-times"></i>
                                                         </a>
                                                     </td>

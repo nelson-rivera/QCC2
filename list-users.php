@@ -113,13 +113,13 @@
                                                     <td><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['email_1'] ?></a></td>
                                                     <td class="center"><?= $value['telefono_1'] ?></td>
                                                     <td class="center">
-                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Clientes" href="list-clients.php?us=<?= encryptString($value['idusuario']) ?>">
+                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contacto" href="list-clients.php?us=<?= encryptString($value['idusuario']) ?>">
                                                             <i class="fa fa-users"></i>
                                                         </a>
-                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar vendedor" href="edit-user.php?us=<?= encryptString($value['idusuario']) ?>">
+                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar" href="edit-user.php?us=<?= encryptString($value['idusuario']) ?>">
                                                             <i class="fa fa-pencil"></i>
                                                         </a>
-                                                        <a class="btn btn-danger md-trigger btn-xs btn-eliminar-us" data-toggle="tooltip" data-original-title="Remove" data-modal="mod-delete" data-user="<?= encryptString($value['idusuario']) ?>"  data-num="<?= $num ?>" >
+                                                        <a class="btn btn-danger md-trigger btn-xs btn-eliminar-us" data-toggle="tooltip" data-original-title="Eliminar" data-modal="mod-delete" data-user="<?= encryptString($value['idusuario']) ?>"  data-num="<?= $num ?>" >
                                                             <i class="fa fa-times"></i>
                                                         </a>
                                                     </td>

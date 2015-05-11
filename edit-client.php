@@ -49,9 +49,9 @@
 	  <script src="../../assets/js/respond.min.js"></script>
 	<![endif]-->
 	<?= css_nanoscroller() ?>
-        <?= css_select2() ?>
-        <?= css_gritter() ?>
-        <?= css_niftymodals() ?>
+    <?= css_select2() ?>
+    <?= css_gritter() ?>
+    <?= css_niftymodals() ?>
 	<?= css_style() ?>
 
 </head>

@@ -36,6 +36,7 @@
 	<![endif]-->
 	<?= css_nanoscroller() ?>
     <?= css_select2() ?>
+    <?= css_gritter() ?>
     <?= css_niftymodals() ?>
 	<?= css_style() ?>
   
@@ -221,6 +222,27 @@
             </div>
 	</div> 
     </div>
+    <!-- Notificaciones-->
+    <div class="md-modal colored-header info md-effect-10" id="mod-alert">
+        <div class="md-content ">
+          <div class="modal-header">
+            <h3><?= txt_proveedor_title_registrado() ?></h3>
+            <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div id="modal-body-center-edit" class="text-center">
+                <div class="i-circle primary">
+                    <i class="fa fa-check"></i>
+                </div>
+                <h4 id="hmodal" ></h4>
+            </div>
+          </div>
+            <div class="modal-footer" id="modal-footer-response-add" >
+                <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal" id="btn-redirect" >Aceptar</button>
+            </div>
+        </div>
+    </div>
+
   <?= js_jquery() ?>
   <?= js_jquery_ui() ?>
   <?= js_bootstrap_datetimepicker() ?>
@@ -234,6 +256,7 @@
   <?= js_i18n_es() ?>
   <?= js_gritter() ?>
   <?= js_select2() ?>
+  <?= js_niftymodals() ?>
  
     <script type="text/javascript">
       $(document).ready(function(){
@@ -255,17 +278,8 @@
                     }
                 }).done(function(response){
                     if (response.status == "1") {
-                        $.gritter.removeAll({
-                            after_close: function(){
-                              $.gritter.add({
-                                position: 'bottom-right',
-                                title: "<?= txt_proveedor_title_registrado() ?>",
-                                text: response.msg,
-                                class_name: 'clean'
-                              });
-                            }
-                          });
-                          location.href='list-suppliers.php';
+                        $("#mod-alert").addClass("md-show");
+                        $("#hmodal").html(response.msg);
                     }
                     else {
                         $.gritter.add({
@@ -292,6 +306,8 @@
         });
 
       });
+      $("#btn-redirect").click(function(){ location.href='list-suppliers.php'; });                    
+
         function nuevoRegistro(mant,valor){
             var pserv={
                 "tipo":{ "url": "ajax/supplier-types.php","option":"add","reg":"tipoAgregar"},

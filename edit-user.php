@@ -206,7 +206,7 @@
                                             <input class="form-control" type="text" name="correo2" id="correo2" value="<?= $usuario['email_2'] ?>" >
                                         </div>
                                     </div>
-                                    <div class="form-group">
+                                                                        <div class="form-group">
                                         <label class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
                                             
@@ -228,15 +228,119 @@
 
                                             if($query->rowCount()>0){}
                                             foreach ($permisosArray as $value) {
-                                                $upermiso= (in_array($value['idpermiso'], $apermisos) ) ? "checked" : "" ; 
+                                                $upermiso= (in_array($value['idpermiso'], $apermisos) ) ? "checked" : "" ;
+
+                                            }
+
+
                                             ?>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox" name="<?= "op_".$value['idpermiso'] ?>" <?= $upermiso ?> >
-                                                    <?= $value['permiso'] ?>
-                                                </label>
-                                            </div>
-                                            <?php } ?>
+                                            <table class="blue">
+                                                <thead>
+                                                    <tr>
+                                                        <th>&nbsp;</th>
+                                                        <th class="right">Agregar</th>
+                                                        <th class="right">Editar</th>
+                                                        <th class="right">Eliminar</th>
+                                                        <th class="right">Exportar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="no-border-x">
+                                                    <tr>
+                                                        <td style="width:40%;">Vendedores</td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_1" <?php if(in_array("1", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_2" <?php if(in_array("2", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_3" <?php if(in_array("3", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_4" <?php if(in_array("4", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:40%;">Clientes</td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_5" <?php if(in_array("5", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_6" <?php if(in_array("6", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_7" <?php if(in_array("7", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_8" <?php if(in_array("8", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:40%;">Proveedores</td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_9" <?php if(in_array("9", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_10" <?php if(in_array("10", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_11" <?php if(in_array("11", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_12" <?php if(in_array("12", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
                                         </div>
                                     </div>
                                     

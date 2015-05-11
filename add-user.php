@@ -158,20 +158,115 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
-                                            <?php 
-                                            $query=$connection->prepare(sql_select_permisos_all());
-                                            $query->execute();
-                                            $permisosArray=$query->fetchAll();
-                                            if($query->rowCount()>0){}
-                                            foreach ($permisosArray as $value) {
-                                            ?>
-                                            <div class="checkbox-inline">
-                                                <label>
-                                                    <input type="checkbox" name="<?= "op_".$value['idpermiso'] ?>" >
-                                                    <?= $value['permiso'] ?>
-                                                </label>
-                                            </div>
-                                            <?php } ?>
+                                            <table class="blue">
+                                                <thead>
+                                                    <tr>
+                                                        <th>&nbsp;</th>
+                                                        <th class="right">Agregar</th>
+                                                        <th class="right">Editar</th>
+                                                        <th class="right">Eliminar</th>
+                                                        <th class="right">Exportar</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody class="no-border-x">
+                                                    <tr>
+                                                        <td style="width:40%;">Vendedores</td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_1" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_2" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_3" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_4" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:40%;">Clientes</td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_5" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_6" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_7" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_8" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="width:40%;">Proveedores</td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_9" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_10" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_11" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_12" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+
+
                                         </div>
                                     </div>
                                     

@@ -37,8 +37,7 @@
 
 	<!-- Bootstrap core CSS -->
 	<?= css_bootstrap() ?>
-        <?= css_gritter() ?>
-        <?= css_font_awesome() ?>
+    <?= css_font_awesome() ?>
 
 	<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!--[if lt IE 9]>
@@ -47,6 +46,8 @@
 	<![endif]-->
 	<?= css_nanoscroller() ?>
     <?= css_select2() ?>
+    <?= css_gritter() ?>
+    <?= css_niftymodals() ?>
 	<?= css_style() ?>
 
 </head>
@@ -173,6 +174,27 @@
             </div>
 	</div> 
     </div>
+    <!-- Notificaciones-->
+    <div class="md-modal colored-header info md-effect-10" id="mod-alert">
+        <div class="md-content ">
+          <div class="modal-header">
+            <h3><?= txt_contacto_proveedor_title_actualizado() ?></h3>
+            <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div id="modal-body-center-edit" class="text-center">
+                <div class="i-circle primary">
+                    <i class="fa fa-check"></i>
+                </div>
+                <h4 id="hmodal" ></h4>
+            </div>
+          </div>
+            <div class="modal-footer" id="modal-footer-response-add" >
+                <button type="button" class="btn btn-primary btn-flat" data-dismiss="modal" id="btn-redirect" >Aceptar</button>
+            </div>
+        </div>
+    </div>
+    <div class="md-overlay"></div>
   <?= js_jquery() ?>
   <?= js_jquery_ui() ?>
   <?= js_bootstrap_datetimepicker() ?>
@@ -186,6 +208,7 @@
   <?= js_i18n_es() ?>
   <?= js_gritter() ?>
   <?= js_select2() ?>
+  <?= js_niftymodals() ?>
      
 	
 
@@ -207,17 +230,9 @@
                     }
                 }).done(function(response){
                     if (response.status == "1") {
-                        $.gritter.removeAll({
-                            after_close: function(){
-                              $.gritter.add({
-                                position: 'bottom-right',
-                                title: "<?= txt_contacto_proveedor_title_actualizado()?>",
-                                text: response.msg,
-                                class_name: 'clean'
-                              });
-                            }
-                          });
-                          location.href='contacts-supplier.php?sup=<?= encryptString($contacto_proveedor['idproveedor']) ?>';
+                         $("#mod-alert").addClass("md-show");
+                        $("#hmodal").html(response.msg);
+                         
                     }
                     else {
                         $.gritter.add({
@@ -236,6 +251,9 @@
         });
         
       });
+
+    $("#btn-redirect").click(function(){ location.href='contacts-supplier.php?sup=<?= encryptString($contacto_proveedor['idproveedor']) ?>';  });
+
     function nuevoRegistro(mant,valor){
             var pserv={
                 "cargo":{ "url": "ajax/position-contact.php","option":"add","reg":"cargoAgregar"} 

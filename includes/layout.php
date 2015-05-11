@@ -285,6 +285,21 @@ function selectRubro($id,$name,$class,$required,$onchange,$idSelected){
     $select.='</select>';
     return $select;
 }
+function selectNewsletter($id,$name,$class,$required,$onchange,$recibir){
+    $selectedRecibir = null;
+    $selectedNoRecibir = null;
+    if($recibir){
+        $selectedRecibir = 'selected="selected"';
+    }
+    else{
+        $selectedNoRecibir = 'selected="selected"';
+    }
+    $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'">'
+            .'<option value="1" '.$selectedRecibir.'>Recibir correos</option>'
+            .'<option value="0" '.$selectedNoRecibir.'>No recibir correos</option>';
+    $select.='</select>';
+    return $select;
+}
 function selectValidez($id,$name,$class,$required,$onchange,$idSelected){
     $connection= openConnection();
     $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'">';

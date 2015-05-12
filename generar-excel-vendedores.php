@@ -249,24 +249,24 @@ $proveedoresExist = $consultaProveedores->rowCount();
 $lastRow = 9;
 $contadorGlobal = 1;
 if ($proveedoresExist > 0) {
-    $objPHPExcel->getActiveSheet()->mergeCells("A6:Y6");
-    $objPHPExcel->getActiveSheet()->getStyle("A6:Y6")->applyFromArray($separador);
+    $objPHPExcel->getActiveSheet()->mergeCells("A6:N6");
+    $objPHPExcel->getActiveSheet()->getStyle("A6:N6")->applyFromArray($separador);
     $objPHPExcel->setActiveSheetIndex(0)->setCellValue("A6", "Vendedores");
-    $objPHPExcel->getActiveSheet()->mergeCells('A7:B8');
-    $objPHPExcel->getActiveSheet()->mergeCells('C7:D8');
-    $objPHPExcel->getActiveSheet()->mergeCells('E7:F8');
-    $objPHPExcel->getActiveSheet()->mergeCells('G7:H8');
-    $objPHPExcel->getActiveSheet()->mergeCells('I7:J8');
-    $objPHPExcel->getActiveSheet()->mergeCells('K7:L8');
-    $objPHPExcel->getActiveSheet()->getStyle('A7:L8')->applyFromArray($cabecera1);
-    $objPHPExcel->getActiveSheet()->getStyle('A7:L8')->getAlignment()->setWrapText(TRUE);
+    $objPHPExcel->getActiveSheet()->mergeCells('A7:C8');
+    $objPHPExcel->getActiveSheet()->mergeCells('D7:E8');
+    $objPHPExcel->getActiveSheet()->mergeCells('F7:G8');
+    $objPHPExcel->getActiveSheet()->mergeCells('H7:I8');
+    $objPHPExcel->getActiveSheet()->mergeCells('J7:L8');
+    $objPHPExcel->getActiveSheet()->mergeCells('M7:N8');
+    $objPHPExcel->getActiveSheet()->getStyle('A7:N8')->applyFromArray($cabecera1);
+    $objPHPExcel->getActiveSheet()->getStyle('A7:N8')->getAlignment()->setWrapText(TRUE);
     $objPHPExcel->setActiveSheetIndex(0)
             ->setCellValue('A7', 'Nombre')
-            ->setCellValue('C7', 'Cargo')
-            ->setCellValue('E7', 'Teléfono 1')
-            ->setCellValue('G7', 'Teléfono 2')
-            ->setCellValue('I7', 'Correo 1')
-            ->setCellValue('K7', 'Correo 2')
+            ->setCellValue('D7', 'Cargo')
+            ->setCellValue('F7', 'Teléfono 1')
+            ->setCellValue('H7', 'Teléfono 2')
+            ->setCellValue('J7', 'Correo 1')
+            ->setCellValue('M7', 'Correo 2')
     ;
 
 
@@ -275,29 +275,30 @@ if ($proveedoresExist > 0) {
         $jplus1 = $lastRow + 1;
         $jplus2 = $lastRow + 2;
         $jplus3 = $lastRow + 3;
-        $objPHPExcel->getActiveSheet()->mergeCells("A$lastRow:B$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("C$lastRow:D$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("E$lastRow:F$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("G$lastRow:H$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("I$lastRow:J$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("K$lastRow:L$jplus1");
+        $objPHPExcel->getActiveSheet()->mergeCells("A$lastRow:C$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("D$lastRow:E$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("F$lastRow:G$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("H$lastRow:I$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("J$lastRow:L$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("M$lastRow:N$lastRow");
         
 
             $objPHPExcel->setActiveSheetIndex(0)
                     ->setCellValue("A$lastRow", $proveedor['nombre']." ".$proveedor['apellido'])
-                    ->setCellValue("C$lastRow", $proveedor['perfil'])
-                    ->setCellValue("E$lastRow", $proveedor['telefono_1'])
-                    ->setCellValue("G$lastRow", $proveedor['telefono_2'])
-                    ->setCellValue("I$lastRow", $proveedor['email_1'])
-                    ->setCellValue("K$lastRow", $proveedor['email_2'])
+                    ->setCellValue("D$lastRow", $proveedor['perfil'])
+                    ->setCellValue("F$lastRow", $proveedor['telefono_1'])
+                    ->setCellValue("H$lastRow", $proveedor['telefono_2'])
+                    ->setCellValue("J$lastRow", $proveedor['email_1'])
+                    ->setCellValue("M$lastRow", $proveedor['email_2'])
             ;
 
-        $lastRow = $lastRow + 2;
+        $lastRow++;
         
         $contadorGlobal++;
     }
-    $objPHPExcel->getActiveSheet()->getStyle("A9:Y$lastRow")->applyFromArray($cuerpo1);
-    $objPHPExcel->getActiveSheet()->getStyle("A9:Y$lastRow")->getAlignment()->setWrapText(TRUE);
+    $lastRow--;
+    $objPHPExcel->getActiveSheet()->getStyle("A9:N$lastRow")->applyFromArray($cuerpo1);
+    $objPHPExcel->getActiveSheet()->getStyle("A9:N$lastRow")->getAlignment()->setWrapText(TRUE);
     $lastRowBrakeDown = $lastRow + 4;
     $cellUltimoEquipo = $lastRow - 1;
 

@@ -285,17 +285,17 @@ if ($proveedoresExist > 0) {
         $jplus1 = $lastRow + 1;
         $jplus2 = $lastRow + 2;
         $jplus3 = $lastRow + 3;
-        $objPHPExcel->getActiveSheet()->mergeCells("A$lastRow:B$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("C$lastRow:D$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("E$lastRow:F$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("G$lastRow:H$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("I$lastRow:J$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("K$lastRow:L$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("M$lastRow:N$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("O$lastRow:P$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("Q$lastRow:R$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("S$lastRow:U$jplus1");
-        $objPHPExcel->getActiveSheet()->mergeCells("V$lastRow:Y$jplus1");
+        $objPHPExcel->getActiveSheet()->mergeCells("A$lastRow:B$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("C$lastRow:D$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("E$lastRow:F$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("G$lastRow:H$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("I$lastRow:J$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("K$lastRow:L$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("M$lastRow:N$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("O$lastRow:P$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("Q$lastRow:R$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("S$lastRow:U$lastRow");
+        $objPHPExcel->getActiveSheet()->mergeCells("V$lastRow:Y$lastRow");
         
         
 
@@ -315,11 +315,12 @@ if ($proveedoresExist > 0) {
 
 
 
-        $lastRow = $lastRow + 2;
+        $lastRow++;
 
         
         $contadorGlobal++;
     }
+    $lastRow--;
     $objPHPExcel->getActiveSheet()->getStyle("A9:Y$lastRow")->applyFromArray($cuerpo1);
     $objPHPExcel->getActiveSheet()->getStyle("A9:Y$lastRow")->getAlignment()->setWrapText(TRUE);
     $lastRowBrakeDown = $lastRow + 4;

@@ -105,59 +105,59 @@ function sql_update_contacto(){
     return 'UPDATE contactos SET nombre_contacto=?, idcargo=?, email_1=?, email_2=?, telefono_1=?,telefono_2=?,telefono_3=?, recibir_correos=? WHERE idcontacto=?';
 }
 function sql_select_clientes_extended(){
-    return 'SELECT clientes.*, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
+    return 'SELECT clientes.*, municipios.municipio, departamentos.departamento, rubros_clientes.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
          .' FROM clientes' 
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
          .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
-         .' INNER JOIN rubros ON clientes.idrubro=rubros.idrubro'
+         .' INNER JOIN rubros_clientes ON clientes.idrubro=rubros_clientes.idrubro'
          .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario WHERE clientes.active = 1';
 }
 function sql_select_total_clientes(){
     return 'SELECT count(idcliente) AS total_clientes from clientes WHERE active=1';
 }
 function sql_select_clientes_extended_order_alph(){
-    return 'SELECT clientes.*, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
+    return 'SELECT clientes.*, municipios.municipio, departamentos.departamento, rubros_clientes.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
          .' FROM clientes' 
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
          .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
-         .' INNER JOIN rubros ON clientes.idrubro=rubros.idrubro'
+         .' INNER JOIN rubros_clientes ON clientes.idrubro=rubros_clientes.idrubro'
          .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario WHERE clientes.active = 1 ORDER BY clientes.nombre_cliente ASC';
 }
 function sql_select_clientes_extended_by_idvendedor(){
-    return 'SELECT clientes.*, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
+    return 'SELECT clientes.*, municipios.municipio, departamentos.departamento, rubros_clientes.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
          .' FROM clientes' 
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
          .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
-         .' INNER JOIN rubros ON clientes.idrubro=rubros.idrubro'
+         .' INNER JOIN rubros_clientes ON clientes.idrubro=rubros_clientes.idrubro'
          .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario WHERE clientes.active = 1 AND clientes.idvendedor=?';
 }
 function sql_select_contactos_clientes_extended(){
-    return 'SELECT contactos.*, clientes.*, contactos_cargos.cargo, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
+    return 'SELECT contactos.*, clientes.*, contactos_cargos.cargo, municipios.municipio, departamentos.departamento, rubros_clientes.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
          .' FROM contactos' 
         . ' INNER JOIN contactos_cargos ON contactos.idcargo = contactos_cargos.idcontacto_cargo'
         . ' INNER JOIN clientes ON contactos.idcliente = clientes.idcliente'
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
          .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
-         .' INNER JOIN rubros ON clientes.idrubro=rubros.idrubro'
+         .' INNER JOIN rubros_clientes ON clientes.idrubro=rubros_clientes.idrubro'
          .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario WHERE clientes.active = 1';
 }
 function sql_select_contactos_clientes_extended_by_idvendedor(){
-    return 'SELECT contactos.*, clientes.*, contactos_cargos.cargo, municipios.municipio, departamentos.departamento, rubros.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
+    return 'SELECT contactos.*, clientes.*, contactos_cargos.cargo, municipios.municipio, departamentos.departamento, rubros_clientes.rubro, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor'
          .' FROM contactos' 
         . ' INNER JOIN contactos_cargos ON contactos.idcargo = contactos_cargos.idcontacto_cargo'
         . ' INNER JOIN clientes ON contactos.idcliente = clientes.idcliente'
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
          .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
-         .' INNER JOIN rubros ON clientes.idrubro=rubros.idrubro'
+         .' INNER JOIN rubros_clientes ON clientes.idrubro=rubros_clientes.idrubro'
          .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario WHERE clientes.active = 1 AND clientes.idvendedor = ?';
 }
 function sql_select_cliente_extended_by_idcliente(){
-    return 'SELECT clientes.*, municipios.idmunicipio, departamentos.iddepartamento, rubros.idrubro, usuarios.idusuario, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, '
+    return 'SELECT clientes.*, municipios.idmunicipio, departamentos.iddepartamento, rubros_clientes.idrubro, usuarios.idusuario, CONCAT(usuarios.nombre,\' \', usuarios.apellido) AS nombre_vendedor, '
          .' contactos.*'
          .' FROM clientes' 
          .' INNER JOIN municipios ON clientes.idmunicipio=municipios.idmunicipio'
          .' INNER JOIN departamentos ON municipios.iddepartamento=departamentos.iddepartamento'
-         .' INNER JOIN rubros ON clientes.idrubro=rubros.idrubro'
+         .' INNER JOIN rubros_clientes ON clientes.idrubro=rubros_clientes.idrubro'
          .' INNER JOIN usuarios ON clientes.idvendedor=usuarios.idusuario'
          .' INNER JOIN contactos ON clientes.idcliente=contactos.idcliente'
          .' WHERE clientes.idcliente=? LIMIT 1';

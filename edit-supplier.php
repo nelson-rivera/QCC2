@@ -159,6 +159,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label">Sitio web</label>
+                                        <div class="col-sm-6">
+                                            <input class="form-control" type="url" name="website" id="website"  parsley-type="url" value="<?= $proveedor['website'] ?>" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button id="btnSave" class="btn btn-primary" type="submit">Guardar</button>
                                             <button id="btnCancel" type="button" onclick="javascript: location.href='contacts-suppliers.php?sup'+<?= encryptString(decryptString( $_GET['sup'])) ?>;" class="btn btn-default">Cancelar</button>

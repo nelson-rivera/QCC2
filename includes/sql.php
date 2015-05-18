@@ -298,7 +298,7 @@ function sql_delete_proveedor(){
 
 function sql_select_contactos_proveedores_bydIdproveedor(){
     return 'SELECT `idcontacto_proveedor`, `nombre_contacto`, `contactos_proveedores_cargos`.*,'
-           .' `email_1`, `email_2`, `email_3`, `telefono_1`, `telefono_2`, `telefono_3`, `fecha_creacion`'
+           .' `email_1`, `email_2`, `telefono_1`, `telefono_2`, `telefono_3`, `fecha_creacion`'
            .' FROM `contactos_proveedores`'
            .' INNER JOIN `contactos_proveedores_cargos` ON `contactos_proveedores_cargos`.`idcontactos_proveedores_cargos` = `contactos_proveedores`.`idcontactos_proveedores_cargos`'
            .' WHERE idproveedor=:idproveedor ';
@@ -306,7 +306,7 @@ function sql_select_contactos_proveedores_bydIdproveedor(){
 
 function sql_select_contactos_proveedores_bydIcontacto_proveedor(){
     return 'SELECT `idcontacto_proveedor`,`idproveedor`, `nombre_contacto`, `idcontactos_proveedores_cargos`, '
-           .'`email_1`, `email_2`, `email_3`, `telefono_1`, `telefono_2`, `telefono_3`, '
+           .'`email_1`, `email_2`,  `telefono_1`, `telefono_2`, `telefono_3`, '
            .'`fecha_creacion` FROM `contactos_proveedores` WHERE idcontacto_proveedor=:idcontacto_proveedor';
 }
 

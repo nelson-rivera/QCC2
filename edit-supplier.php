@@ -99,7 +99,7 @@
                                 <h3>Datos del proveedor</h3>
                             </div>
                             <div class="content">
-                                <form id="frm-edit-supplier" name="frm-edit-supplier" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-edit-supplier" name="frm-edit-supplier" class="form-horizontal" style="border-radius: 0px;" action="#" data-parsley-validate >
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre Empresa</label>
                                         <div class="col-sm-6">
@@ -166,7 +166,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button id="btnSave" class="btn btn-primary" type="submit">Guardar</button>
+                                            <button id="btnSave" class="btn btn-primary" type="button">Guardar</button>
                                             <button id="btnCancel" type="button" onclick="javascript: location.href='contacts-suppliers.php?sup'+<?= encryptString(decryptString( $_GET['sup'])) ?>;" class="btn btn-default">Cancelar</button>
                                         </div>
                                     </div>
@@ -220,9 +220,9 @@
         App.init();
          $("#tipo").select2();$("#rubro").select2();$("#sub_rubro").select2();
         window.ParsleyValidator.setLocale('es');
-        $("#frm-edit-supplier").parsley().subscribe('parsley:form:validate', function (formInstance) {
-            formInstance.submitEvent.preventDefault();
-                if(formInstance.isValid('', true)){
+
+        $("#btnSave").click(function(event){
+            if($( '#frm-edit-supplier' ).parsley().validate()){ 
                     $.ajax({
                     url:"ajax/supplier.php",
                     type:'POST',

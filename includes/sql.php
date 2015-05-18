@@ -34,7 +34,7 @@ function sql_disable_user(){
 }
 
 function sql_get_user_password_by_user(){
-    return 'SELECT usuarios.*, perfiles.`perfil` FROM usuarios '
+    return 'SELECT usuarios.*, perfiles.`perfil`, perfiles.`idnivel` FROM usuarios '
            . 'INNER JOIN perfiles ON perfiles.`idperfil` = usuarios.`idperfil` '
            . 'WHERE usuarios.`activo`=1 and usuarios.`email_1`=?';
 }
@@ -224,8 +224,8 @@ function sql_select_sub_rubros_all(){
 }
 
 function sql_save_proveedor(){
-    return 'INSERT INTO `proveedores`(`proveedor`, `idtipos_empresas`, `idrubro`, `idsub_rubro`, `fecha_creacion`,`website`) '
-            . ' VALUES (:proveedor,:idtipos_empresas,:idrubro,:idsub_rubro,:fecha_creacion,:website)';
+    return 'INSERT INTO `proveedores`(`proveedor`, `idtipos_empresas`, `idrubro`, `idsub_rubro`, `fecha_creacion`,`website`,`idusuario`) '
+            . ' VALUES (:proveedor,:idtipos_empresas,:idrubro,:idsub_rubro,:fecha_creacion,:website,:idusuario)';
 }
 
 function sql_save_contacto_proveedor(){
@@ -474,4 +474,24 @@ function sql_delete_perfil(){
     return 'DELETE FROM `perfiles` WHERE `idperfil` = :idperfil';
 }
 
+function sql_select_contactos_proveedores_bydIdproveedor_nivel(){
+    return ' SELECT `contactos_proveedores`.`idcontacto_proveedor`, `contactos_proveedores`.`nombre_contacto`, `contactos_proveedores_cargos`.*, '
+            .' `contactos_proveedores`.`email_1`, `contactos_proveedores`.`email_2`, `contactos_proveedores`.`telefono_1`, `contactos_proveedores`.`telefono_2`, `contactos_proveedores`.`telefono_3`, `contactos_proveedores`.`fecha_creacion` '
+            .' FROM `contactos_proveedores` '
+            .' INNER JOIN `proveedores` ON `proveedores`.`idproveedor` = `contactos_proveedores`.`idproveedor` '
+            .' INNER JOIN `contactos_proveedores_cargos` ON `contactos_proveedores_cargos`.`idcontactos_proveedores_cargos` = `contactos_proveedores`.`idcontactos_proveedores_cargos` '
+            .' INNER JOIN `usuarios` ON `usuarios`.`idusuario` = `proveedores`.`idusuario` '
+            .' INNER JOIN `perfiles` ON `perfiles`.`idperfil` = `usuarios`.`idperfil` '
+            .' WHERE proveedores.idproveedor=:idproveedor AND ( `perfiles`.idnivel = :idnivel OR `proveedores`.`idusuario`= :idusuario); ';
+}
 
+function sql_select_contactos_proveedores_bydIdproveedor_usuario(){
+    return 'SELECT `contactos_proveedores`.`idcontacto_proveedor`, `contactos_proveedores`.`nombre_contacto`, `contactos_proveedores_cargos`.*,'
+            .' `contactos_proveedores`.`email_1`, `contactos_proveedores`.`email_2`, `contactos_proveedores`.`telefono_1`, `contactos_proveedores`.`telefono_2`, `contactos_proveedores`.`telefono_3`, `contactos_proveedores`.`fecha_creacion`'
+            .' FROM `contactos_proveedores`'
+            .' INNER JOIN `proveedores` ON `proveedores`.`idproveedor` = `contactos_proveedores`.`idproveedor`'
+            .' INNER JOIN `contactos_proveedores_cargos` ON `contactos_proveedores_cargos`.`idcontactos_proveedores_cargos` = `contactos_proveedores`.`idcontactos_proveedores_cargos`'
+            .' INNER JOIN `usuarios` ON `usuarios`.`idusuario` = `proveedores`.`idusuario`'
+            .' INNER JOIN `perfiles` ON `perfiles`.`idperfil` = `usuarios`.`idperfil`'
+            .' WHERE proveedores.idproveedor=:idproveedor AND `proveedores`.`idusuario`= :idusuario;';
+}

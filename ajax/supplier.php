@@ -23,6 +23,7 @@ if($option=="save"){
     $correo1=$_POST['email_1'];
     $correo2=$_POST['email_2'];
     $website=$_POST['website'];
+    $idusuario=$_SESSION['idusuario'];
     
     $idproveedor=null;
     $now=date("Y-m-d H:i:s");
@@ -37,6 +38,7 @@ if($option=="save"){
         $query->bindParam(':idsub_rubro', $sub_rubro);
         $query->bindParam(':fecha_creacion', $now);
         $query->bindParam(':website', $website);
+        $query->bindParam(':idusuario', $idusuario);
         $query->execute();
         $idproveedor = $connection->lastInsertId();
         

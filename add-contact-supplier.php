@@ -93,7 +93,7 @@
                     <div class="col-md-12">
                         <div class="block-flat">
                             <div class="content">
-                                <form id="frm-add-contacto-proveedor" name="frm-add-contacto-proveedor" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-add-contacto-proveedor" name="frm-add-contacto-proveedor" class="form-horizontal" style="border-radius: 0px;" action="#" data-parsley-validate >
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Contacto</label>
                                         <div class="col-sm-6">
@@ -136,24 +136,18 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" name="email_1" id="email_1" required email >
+                                            <input class="form-control" type="email" name="email_1" id="email_1" required email >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" name="email_2" id="email_2" email >
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="col-sm-3 control-label">Correo 3</label>
-                                        <div class="col-sm-6">
-                                            <input class="form-control" type="text" name="email_3" id="email_3" email >
+                                            <input class="form-control" type="email" name="email_2" id="email_2" email >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button id="btnSave" class="btn btn-primary" type="submit">Agregar</button>
+                                            <button id="btnSave" class="btn btn-primary" type="button">Agregar</button>
                                             <button id="btnCancel" type="button" onclick="javascript: location.href='contacts-supplier.php?sup=<?= encryptString(decryptString($_GET['sup'])) ?>';" class="btn btn-default">Cancelar</button>
                                         </div>
                                     </div>
@@ -207,10 +201,9 @@
       $(document).ready(function(){
         //initialize the javascript
         App.init();
-        $("#frm-add-contacto-proveedor").parsley().subscribe('parsley:form:validate', function (formInstance) {
-            formInstance.submitEvent.preventDefault();
-                if(formInstance.isValid('', true)){
-                    $.ajax({
+        $("#btnSave").click(function(event){
+            if($( '#frm-add-contacto-proveedor' ).parsley().validate()){
+                $.ajax({
                     url:"ajax/contact-supplier.php",
                     type:'POST',
                     dataType:"json",

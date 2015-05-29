@@ -23,7 +23,9 @@ try{
                 $_SESSION['idusuario']=$passwordArray['idusuario'];
                 $_SESSION['nombre']=$passwordArray['nombre']." ".$passwordArray['apellido'];
                 $_SESSION['idperfil']=$passwordArray['idperfil'];
+                $_SESSION['idnivel']=$passwordArray['idnivel'];
                 
+
                 $query=$connection->prepare(sql_select_permisos_byIdusuario() );
                 $query->bindParam(':idusuario', $passwordArray['idusuario'],PDO::PARAM_INT);
                 $query->execute();

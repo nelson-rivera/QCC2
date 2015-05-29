@@ -90,7 +90,7 @@
                                 <h3>Datos del usuario</h3>
                             </div>
                             <div class="content">
-                                <form name="frm-add-user" id="frm-add-user" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form name="frm-add-user" id="frm-add-user" class="form-horizontal" style="border-radius: 0px;" action="#" data-parsley-validate >
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre</label>
                                         <div class="col-sm-6">
@@ -146,13 +146,13 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" name="correo1" id="correo1" required >
+                                            <input class="form-control" type="email" name="correo1" id="correo1" required >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" name="correo2" id="correo2" >
+                                            <input class="form-control" type="email" name="correo2" id="correo2" >
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -273,7 +273,7 @@
                                     
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button class="btn btn-primary" id="btnSave" type="submit">Agregar</button>
+                                            <button class="btn btn-primary" id="btnSave" type="button">Agregar</button>
                                             <button type="button" id="btnReset" class="btn btn-danger btn-redirect">Cancelar</button>
                                         </div>
                                     </div>
@@ -328,9 +328,9 @@
         //initialize the javascript
         App.init();
         window.ParsleyValidator.setLocale('es');
-        $("#frm-add-user").parsley().subscribe('parsley:form:validate', function (formInstance) {
-            formInstance.submitEvent.preventDefault();
-                if(formInstance.isValid('', true)){
+
+        $("#btnSave").click(function(event){
+            if($( '#frm-add-user' ).parsley().validate()){
                     $.ajax({
                     url:"ajax/user.php",
                     type:'POST',

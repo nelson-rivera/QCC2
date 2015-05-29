@@ -154,7 +154,7 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
-                                            <input name="input-email-2" class="form-control" type="text" value="<?= $contactoArray['email_2'] ?>" >
+                                            <input name="input-email-2" class="form-control" type="email" value="<?= $contactoArray['email_2'] ?>" >
                                         </div>
                                     </div>
                                     <div class="form-group">
@@ -255,7 +255,7 @@
       function nuevoRegistro(mant,valor){
         var pserv={
             "rubro":{ "url": "ajax/clients-category.php","option":"add","reg":"rubroAgregar"},
-            "cargo":{ "url": "ajax/position-contact-client.php","option":"add","reg":"cargoAgregar"}, 
+            "cargo":{ "url": "ajax/position-contact-client.php","option":"add","reg":"cargoAgregar"} 
             }; 
 
         $.ajax({

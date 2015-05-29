@@ -16,7 +16,6 @@ if($option=="save"){
     $telefono3=$_POST['telefono_3'];
     $correo1=$_POST['email_1'];
     $correo2=$_POST['email_2'];
-    $correo3=$_POST['email_3'];
     $idproveedor=  decryptString($_POST['sup']);
     
     $now=date("Y-m-d H:i:s");
@@ -32,7 +31,6 @@ if($option=="save"){
         $query->bindParam(':idproveedor', $idproveedor);
         $query->bindParam(':email_1', $correo1);
         $query->bindParam(':email_2', $correo2);
-        $query->bindParam(':email_3', $correo3);
         $query->bindParam(':telefono_1', $telefono1);
         $query->bindParam(':telefono_2', $telefono2);
         $query->bindParam(':telefono_3', $telefono3);
@@ -59,7 +57,6 @@ if($option=="update"){
     $telefono3=$_POST['telefono_3'];
     $correo1=$_POST['email_1'];
     $correo2=$_POST['email_2'];
-    $correo3=$_POST['email_3'];
     $contacto_proveedor=  decryptString($_POST['cp']);
    
     $connection=openConnection();
@@ -71,7 +68,6 @@ if($option=="update"){
         $query->bindParam(':idcontactos_proveedores_cargos', $cargo);
         $query->bindParam(':email_1', $correo1);
         $query->bindParam(':email_2', $correo2);
-        $query->bindParam(':email_3', $correo3);
         $query->bindParam(':telefono_1', $telefono1);
         $query->bindParam(':telefono_2', $telefono2);
         $query->bindParam(':telefono_3', $telefono3);

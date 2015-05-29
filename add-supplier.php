@@ -92,7 +92,7 @@
                                 <h3>Datos del Proveedor</h3>
                             </div>
                             <div class="content">
-                                <form id="frm-add-supplier" class="form-horizontal" style="border-radius: 0px;" action="#">
+                                <form id="frm-add-supplier" class="form-horizontal" style="border-radius: 0px;" action="#" data-parsley-validate >
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Nombre Empresa</label>
                                         <div class="col-sm-6">
@@ -191,24 +191,24 @@
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 1</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" name="email_1" id="email_1" required email >
+                                            <input class="form-control" type="email" name="email_1" id="email_1" required email >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class="col-sm-3 control-label">Correo 2</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" name="email_2" id="email_2" email >
+                                            <input class="form-control" type="email" name="email_2" id="email_2" email >
                                         </div>
                                     </div>
                                     <div class="form-group">
-                                        <label class="col-sm-3 control-label">Correo 3</label>
+                                        <label class="col-sm-3 control-label">Sitio web</label>
                                         <div class="col-sm-6">
-                                            <input class="form-control" type="text" name="email_3" id="email_3" email >
+                                            <input class="form-control" type="url" name="website" id="website"  parsley-type="url" >
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
-                                            <button id="btnSave" class="btn btn-primary" type="submit">Agregar</button>
+                                            <button id="btnSave" class="btn btn-primary" type="button">Agregar</button>
                                             <button id="btnCancel" type="button" onclick="javascript: location.href='list-suppliers.php';" class="btn btn-default">Cancelar</button>
                                         </div>
                                     </div>
@@ -265,9 +265,9 @@
         App.init();
         
         window.ParsleyValidator.setLocale('es');
-        $("#frm-add-supplier").parsley().subscribe('parsley:form:validate', function (formInstance) {
-            formInstance.submitEvent.preventDefault();
-                if(formInstance.isValid('', true)){
+        
+        $("#btnSave").click(function(event){
+            if($( '#frm-add-supplier' ).parsley().validate()){
                     $.ajax({
                     url:"ajax/supplier.php",
                     type:'POST',

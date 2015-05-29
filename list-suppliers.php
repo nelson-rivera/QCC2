@@ -98,7 +98,7 @@
                                             <th>Nombre</th>
                                             <th>Tipo</th>
                                             <th>Rubro principal</th>
-                                            <th>Contacto</th>
+                                            <th>Sub-Rubro</th>
                                             <th>Acciones</th>
                                         </tr>
                                 </thead>
@@ -114,7 +114,7 @@
                                         <td id="sup_<?= $num ?>" ><?= $value['proveedor'] ?></td>
                                         <td><?= $value['tipo'] ?></td>
                                         <td><?= $value['rubro'] ?></td>
-                                        <td><?= $value['contacto'] ?></td>
+                                        <td><?= $value['sub_rubro'] ?></td>
                                         <td class="center">
                                             <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contacto" href="contacts-supplier.php?sup=<?= encryptString($value['idproveedor']) ?>">
                                                 <i class="fa fa-user"></i>

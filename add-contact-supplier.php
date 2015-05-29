@@ -146,6 +146,12 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label">Contacto Privado</label>
+                                        <div class="col-sm-6">
+                                            <?= selectPrivateContact('input-Private','input-Private','form-control','required',null,false) ?>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <div class="col-sm-offset-2 col-sm-10">
                                             <button id="btnSave" class="btn btn-primary" type="button">Agregar</button>
                                             <button id="btnCancel" type="button" onclick="javascript: location.href='contacts-supplier.php?sup=<?= encryptString(decryptString($_GET['sup'])) ?>';" class="btn btn-default">Cancelar</button>

@@ -243,7 +243,22 @@ $objPHPExcel->getActiveSheet()->mergeCells('A2:C3');
 //Exportar proveedores
 
 // Cabecera de la tabla
+
+if($_SESSION['idnivel']=="1"){
 $consultaProveedores = $conexion->prepare(sql_select_contactos_proveedores_extended());
+
+} else if($_SESSION['idnivel']=="2"){
+    $consultaProveedores=$conexion->prepare(sql_select_contactos_proveedores_bydIdproveedor_nivel_excel());
+    $consultaProveedores->bindParam(':idnivel', $_SESSION['idnivel']); //Debería ser nivel  2
+    $consultaProveedores->bindParam(':idusuario', $_SESSION['idusuario']);
+
+} else if($_SESSION['idnivel']=="3"){
+      $consultaProveedores=$conexion->prepare(sql_select_contactos_proveedores_bydIdproveedor_usuario_excel());
+      $consultaProveedores->bindParam(':idusuario', $_SESSION['idusuario']);
+      $consultaProveedores->bindParam(':idnivel', $_SESSION['idnivel']);
+}
+
+
 $consultaProveedores->execute();
 $proveedoresExist = $consultaProveedores->rowCount();
 $lastRow = 9;

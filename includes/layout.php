@@ -364,4 +364,16 @@ function selectIva($id,$name,$class,$required,$onchange,$idSelected){
     $select.='</select>';
     return $select;
 }
+function selectPrivateContact($id,$name,$class,$required,$onchange,$privado){
+    $selectedPrivado = null;
+    $selectedNoPrivado  = null;
+    if($privado) $selectedPrivado = 'selected="selected"'; 
+    else $selectedNoPrivado = 'selected="selected"';
+
+    $select= '<select id="'.$id.'" name="'.$name.'" class="'.$class.'" '.$required.' onchange="'.$onchange.'">'
+            .'<option value="1" '.$selectedPrivado.'>Si</option>'
+            .'<option value="0" '.$selectedNoPrivado.'>No</option>';
+    $select.='</select>';
+    return $select;
+}
 ?>

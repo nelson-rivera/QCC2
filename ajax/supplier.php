@@ -24,9 +24,12 @@ if($option=="save"){
     $correo2=$_POST['email_2'];
     $website=$_POST['website'];
     $idusuario=$_SESSION['idusuario'];
-    
+    $privado = $_POST['input-Private']; // cambio para agregar privacidad a los contactos 23-05-2015
+
     $idproveedor=null;
     $now=date("Y-m-d H:i:s");
+    if(!($privado=="1" || $privado=="0")) exit( json_encode(array("status"=>0,"msg"=>"response invalid")) ) ;
+
     $connection=  openConnection();
     $query=$connection->prepare(sql_save_proveedor());
     
@@ -52,6 +55,7 @@ if($option=="save"){
         $query->bindParam(':telefono_2', $telefono2);
         $query->bindParam(':telefono_3', $telefono3);
         $query->bindParam(':fecha_creacion', $now);
+        $query->bindParam(':privado', $privado);
         $query->execute();
 
         $connection->commit();

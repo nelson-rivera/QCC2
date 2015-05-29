@@ -21,19 +21,24 @@
         $proveedor = $query->fetch();
         
         if($_SESSION['idnivel']=="1"){
+
           $query=$connection->prepare(sql_select_contactos_proveedores_bydIdproveedor());
           $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
+
         } else if($_SESSION['idnivel']=="2"){
 
             $query=$connection->prepare(sql_select_contactos_proveedores_bydIdproveedor_nivel());
             $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
-            $query->bindParam(':idnivel', $_SESSION['idnivel']);
+            $query->bindParam(':idnivel', $_SESSION['idnivel']); //Debería ser nivel  2
             $query->bindParam(':idusuario', $_SESSION['idusuario']);
+            //$query->bindParam(':idnivel2', 3); //Nivel 3 en los permisos de los perfiles
 
         } else if($_SESSION['idnivel']=="3"){
+
               $query=$connection->prepare(sql_select_contactos_proveedores_bydIdproveedor_usuario());
               $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
               $query->bindParam(':idusuario', $_SESSION['idusuario']);
+              $query->bindParam(':idnivel', $_SESSION['idnivel']);
         }
 
         $query->execute();
@@ -200,9 +205,9 @@
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
-        <?php if($query->rowCount()>0 && ( $_SESSION['idnivel']=="3" || $_SESSION['idnivel']=="2" )){  ?>
+
           $('<a href="add-contact-supplier.php?sup=<?= encryptString(decryptString($_GET['sup'])) ?>" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
-        <?php } ?>
+
         $('.btn-eliminar-cs').click(function(e){
            var num = $(this).attr("data-num");
            $("#del_name").html( $("#cp_"+num).html());

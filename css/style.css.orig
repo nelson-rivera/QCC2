@@ -706,28 +706,9 @@ body.modal-open,
     text-align: center;
     min-height: 90px;
     padding-top: 20px;
-    color: #c9d4f6;
-    
 }
-.side-logo-container .logo-h{
-    width: 120px;
-}
-.side-logo-container .logo-h{
-    display: block;
-    margin: 0 auto;
-}
-.sb-collapsed .side-logo-container .logo-h{
+.sb-collapsed .side-logo-container p{
     display: none;
-}
-.side-logo-container .logo-v{
-    width: 45px;
-}
-.side-logo-container .logo-v{
-    display: none;
-    margin: 0 auto;
-}
-.sb-collapsed .side-logo-container .logo-v{
-    display: block;
 }
 .cl-sidebar .cl-toggle {
   display: none;
@@ -5831,6 +5812,7 @@ span #del_name{ font-weight: bold; }
 
 .dataTable th{
     font-weight: bold;
+<<<<<<< HEAD
     text-align: center;
 }
 
@@ -5842,8 +5824,11 @@ table tr:nth-child(2n) {
 .page-head h2{ font-size: 25px; }
 table.table {color: #000000;}
 table.table thead{background: none repeat scroll 0 0 #d3eaff;}
+=======
+}
 
 /*overwrite de select2*/
 .select2-container .select2-choice {
     color: #171717;
 }
+>>>>>>> nelson

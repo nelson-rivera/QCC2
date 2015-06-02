@@ -93,7 +93,7 @@ function lytSideMenu($menuSelected){
     //<clientes>
     if( Helper::helpMenuIsAllowed(1) or Helper::helpMenuIsAllowed(2) ){
         $menu .= '<li>
-                <a href="#"><i class="fa fa-users"></i><span>Clientes</span></a>
+                <a href="#"><i class="fa fa-user"></i><span>Clientes</span></a>
                 <ul class="sub-menu">';
     }
     if( Helper::helpMenuIsAllowed(1) ){

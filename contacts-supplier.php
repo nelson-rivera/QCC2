@@ -29,7 +29,7 @@
 
             $query=$connection->prepare(sql_select_contactos_proveedores_bydIdproveedor_nivel());
             $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
-            $query->bindParam(':idnivel', $_SESSION['idnivel']); //Debería ser nivel  2
+            //$query->bindParam(':idnivel', $_SESSION['idnivel']); //Debería ser nivel  2
             $query->bindParam(':idusuario', $_SESSION['idusuario']);
             //$query->bindParam(':idnivel2', 3); //Nivel 3 en los permisos de los perfiles
 
@@ -38,7 +38,7 @@
               $query=$connection->prepare(sql_select_contactos_proveedores_bydIdproveedor_usuario());
               $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
               $query->bindParam(':idusuario', $_SESSION['idusuario']);
-              $query->bindParam(':idnivel', $_SESSION['idnivel']);
+              //$query->bindParam(':idnivel', $_SESSION['idnivel']);
         }
 
         $query->execute();

@@ -156,6 +156,21 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <label class="col-sm-3 control-label">Nivel de Contactos</label>
+                                        <div class="col-sm-6">
+                                            <select id="nivel" name="nivel" style="width: 100%" required >
+                                                <?php 
+                                                $query=$connection->prepare(sql_select_niveles_all());
+                                                $query->execute();
+                                                $nivelesArray=$query->fetchAll();
+                                                if($query->rowCount()>0){}
+                                                foreach ($nivelesArray as $value) { ?>
+                                                    <option value="<?= $value['idnivel']; ?>" ><?= $value['nivel']; ?></option>
+                                                <?php } ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-3 control-label"></label>
                                         <div class="col-sm-6">
                                             <table class="blue">
@@ -357,7 +372,7 @@
             return;
         });
 
-        $("#cargo").select2();
+        $("#cargo").select2();$("#nivel").select2();
 
         $('.select2-search > input.select2-input').on('keyup', function(e) {
            if(e.keyCode === 13) nuevoRegistro($( '.select2-dropdown-open' ).parents().attr('data-select'),$(this).val())

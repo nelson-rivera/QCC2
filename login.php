@@ -32,8 +32,8 @@
 
 	<div class="middle-login">
             <div class="block-flat">
-                <div class="header">							
-                        <h3 class="text-center"><img class="logo-img" src="images/logo.png" alt="logo"/>QCC</h3>
+                <div class="header text-center">							
+                        <img class="login-logo-h" src="images/logo-h.png" alt="logo"/>
                 </div>
                 <div>
                     <form id="frm-login" name="frm-login" style="margin-bottom: 0px !important;" class="form-horizontal">

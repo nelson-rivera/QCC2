@@ -19,6 +19,7 @@ if($option=="save"){
     $telefono2=$_POST['telefono2'];
     $correo1=$_POST['correo1'];
     $correo2=$_POST['correo2'];
+    $idnivel=$_POST['nivel'];//cambio realizado el 31/mayo
     $idusuario=null;
     $now=date("Y-m-d H:i:s");
     $PassHash=password_hash($password, PASSWORD_BCRYPT, array("cost" => 10));
@@ -37,6 +38,7 @@ if($option=="save"){
         $query->bindParam(':telefono_2', $telefono2);
         $query->bindParam(':email_1', $correo1);
         $query->bindParam(':email_2', $correo2);
+        $query->bindParam(':idnivel', $idnivel);
         $query->bindParam(':fecha_creacion', $now);
         $query->execute();
 
@@ -78,6 +80,7 @@ if($option=="update"){
     $telefono2=$_POST['telefono2'];
     $correo1=$_POST['correo1'];
     $correo2=$_POST['correo2'];
+    $idnivel=$_POST['nivel'];
     $now=date("Y-m-d H:i:s");
     if(!empty($password)) $PassHash=password_hash($password, PASSWORD_BCRYPT, array("cost" => 10));
     $sql = ( empty($password) ) ? sql_update_user_no_password() : sql_update_user();
@@ -96,6 +99,7 @@ if($option=="update"){
         $query->bindParam(':telefono_2', $telefono2);
         $query->bindParam(':email_1', $correo1);
         $query->bindParam(':email_2', $correo2);
+        $query->bindParam(':idnivel', $idnivel);
         $query->execute();
 
         //eliminamos los permisos

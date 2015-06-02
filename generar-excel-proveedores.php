@@ -255,7 +255,6 @@ $consultaProveedores = $conexion->prepare(sql_select_contactos_proveedores_exten
 } else if($_SESSION['idnivel']=="3"){
       $consultaProveedores=$conexion->prepare(sql_select_contactos_proveedores_bydIdproveedor_usuario_excel());
       $consultaProveedores->bindParam(':idusuario', $_SESSION['idusuario']);
-      $consultaProveedores->bindParam(':idnivel', $_SESSION['idnivel']);
 }
 
 

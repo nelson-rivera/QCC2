@@ -31,6 +31,7 @@
         $selectClientes=$connection->prepare(sql_select_clientes_extended_by_idvendedor());
         $selectClientes->execute(array($_SESSION['idusuario']));
         $clientesVendedor = $selectClientes->rowCount();
+        $porc = ($clientesVendedor/$totalClientes)*100;
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -102,8 +103,10 @@
                             <div class="row">
                                 <div class="col-sm-9 pull-left" >
                                     <button id="btn-excel" type="button" class="btn btn-success">Generar Excel</button> 
-                                    <a href="view-client-gallery.php" class="btn btn-primary">Ver logos</a>
-                                    <strong><span id="nombre-vendedor"><?= $_SESSION['nombre'] ?></span> tiene <span id="cantidad-clientes"><?= $clientesVendedor ?></span> clientes de un total de <?= $totalClientes ?></strong>
+                                    <a href="view-client-gallery.php" class="btn btn-primary">Ver logos</a>                                
+                                    <div class="label label-success">
+                                        <strong><span id="cantidad-clientes"><?= $clientesVendedor ?></span> de <span id="cantidad-clientes-tot"><?= $totalClientes ?></span> Clientes (<span id="cantidad-clientes-porc"><?= $porc ?></span>%) </strong>
+                                     </div>
                                 </div>
                                 <div class="col-sm-3 pull-right" >
                                     <form  action="#" class="form-horizontal">
@@ -253,6 +256,7 @@
         
         $("#input-vendedor").change(function(){
             var id = $(this).val();
+            var porc = 0.00;
             $("#nombre-vendedor").html($("#input-vendedor option:selected").text());
             $.ajax({
                 url:"ajax/client.php",
@@ -266,10 +270,15 @@
                         $("#btn-excel").attr('disabled',false);
                         oTable.fnAddData(response.data);
                         oTable.fnAdjustColumnSizing();
+
                         $("#cantidad-clientes").html(oTable.fnSettings().fnRecordsTotal());
+                        porc = parseFloat( (oTable.fnSettings().fnRecordsTotal() /$("#cantidad-clientes-tot").html()) * 100).toFixed(2);
+
+                        $("#cantidad-clientes-porc").html( porc );
                     }
                     else{
                         $("#cantidad-clientes").html('0');
+                        $("#cantidad-clientes-porc").html( porc );
                         $("#btn-excel").attr('disabled',true);
                     }
                 }

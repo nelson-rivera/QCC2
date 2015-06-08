@@ -52,7 +52,7 @@ function lytSideMenu($menuSelected){
     
     //<proveedores>
     if( Helper::helpMenuIsAllowed(5) or Helper::helpMenuIsAllowed(6) ){
-        $menu .= '<li><a href="#"><i class="fa fa-list-alt"></i><span>Proveedores</span></a>
+        $menu .= '<li><a href="#"><i class="fa fa-cart-arrow-down"></i><span>Proveedores</span></a>
                       <ul class="sub-menu">';
     }
     
@@ -72,7 +72,7 @@ function lytSideMenu($menuSelected){
     
     //<vendedores>
     if( Helper::helpMenuIsAllowed(3) or Helper::helpMenuIsAllowed(4) ){            
-        $menu .= '<li><a href="#"><i class="fa fa-lightbulb-o"></i><span>SISTECORP</span></a>
+        $menu .= '<li><a href="#"><i class="fa fa-exchange"></i><span>SISTECORP</span></a>
                       <ul class="sub-menu">';
     }
     
@@ -93,7 +93,7 @@ function lytSideMenu($menuSelected){
     //<clientes>
     if( Helper::helpMenuIsAllowed(1) or Helper::helpMenuIsAllowed(2) ){
         $menu .= '<li>
-                <a href="#"><i class="fa fa-user"></i><span>Clientes</span></a>
+                <a href="#"><i class="fa fa-book"></i><span>Clientes</span></a>
                 <ul class="sub-menu">';
     }
     if( Helper::helpMenuIsAllowed(1) ){
@@ -247,7 +247,7 @@ function selectVendedor($id,$name,$class,$required,$onchange,$idSelected, $allOp
     foreach ($queryUsuarios->fetchAll() as $usuario){
         if($idSelected==$usuario['idusuario'])
                 $selected='selected="true"';
-        $select.='<option '.$selected.' value="'.$usuario['idusuario'].'">'.utf8_encode($usuario['nombre'].' '.$usuario['apellido']).'</option>';
+        $select.='<option '.$selected.' value="'.$usuario['idusuario'].'">'.$usuario['nombre'].' '.$usuario['apellido'].'</option>';
         $selected='';
     }
     $select.='</select>';

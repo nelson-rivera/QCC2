@@ -104,7 +104,7 @@
                                 <div class="col-sm-9 pull-left" >
                                     <button id="btn-excel" type="button" class="btn btn-success">Generar Excel</button> 
                                     <a href="view-client-gallery.php" class="btn btn-primary">Ver logos</a>                                
-                                    <div class="label label-success">
+                                    <div class="lbl_sistecorp_clients">
                                         <strong><span id="cantidad-clientes"><?= $clientesVendedor ?></span> de <span id="cantidad-clientes-tot"><?= $totalClientes ?></span> Clientes (<span id="cantidad-clientes-porc"><?= $porc ?></span>%) </strong>
                                      </div>
                                 </div>

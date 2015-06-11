@@ -12,7 +12,7 @@
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(2); // 2 - Agregar,editar,eliminar clientes
+        Helper::helpIsAllowed(5); // 2 - Agregar,editar,eliminar clientes
         
         $connection = openConnection();
         ?>

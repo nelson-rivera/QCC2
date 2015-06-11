@@ -12,7 +12,7 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(5); // 5 - Listado de proveedores
+        //Helper::helpIsAllowed(5); // 5 - Listado de proveedores
         
         $connection = openConnection();
         $query=$connection->prepare(sql_select_proveedor_byId());
@@ -206,8 +206,9 @@
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
 
+        <?php if( Helper::helpMenuIsAllowed(9) ){ ?>
           $('<a href="add-contact-supplier.php?sup=<?= encryptString(decryptString($_GET['sup'])) ?>" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
-
+        <?php } ?>
         $('.btn-eliminar-cs').click(function(e){
            var num = $(this).attr("data-num");
            $("#del_name").html( $("#cp_"+num).html());

@@ -12,7 +12,7 @@
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(6); // 5 - Agregar, editar y eliminar proveedores
+        Helper::helpIsAllowed(9); // 5 - Agregar, editar y eliminar proveedores
         $connection=  openConnection();
         ?>
 	<meta charset="utf-8">

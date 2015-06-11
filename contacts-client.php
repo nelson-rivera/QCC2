@@ -11,7 +11,7 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(1); // 1 - Listado de clientes
+        //Helper::helpIsAllowed(1); // 1 - Listado de clientes
         $connection=  openConnection();
         if(empty($_GET['id'])){
             header('location: list-clients.php');
@@ -184,7 +184,9 @@
         //Search input style
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
-        $('<a href="add-contact-client.php?id=<?=  encryptString($idCliente) ?>" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
+        <?php if( Helper::helpMenuIsAllowed(5) ){ ?>
+            $('<a href="add-contact-client.php?id=<?=  encryptString($idCliente) ?>" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
+        <?php } ?>
         var selectedRow;
         var idC;
         $('#datatable-icons tbody').on( 'click', '.btn-danger', function () {

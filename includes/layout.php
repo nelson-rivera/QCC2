@@ -116,30 +116,30 @@ function lytSideMenu($menuSelected){
     
      //<cotizaciones>
     //if( Helper::helpMenuIsAllowed(2) ){
-        $menu .= '<li><a href="#"><i class="fa fa-table"></i><span>Cotizaciones</span></a>
-                      <ul class="sub-menu">';
+    //    $menu .= '<li><a href="#"><i class="fa fa-table"></i><span>Cotizaciones</span></a>
+    //                  <ul class="sub-menu">';
     //}
     
     //if( Helper::helpMenuIsAllowed(2) ){
-        $menu .= '<li class="'.$isActiveM7.'"><a href="list-quotes.php">Listado de Cotizaciones</a></li>';
+    //    $menu .= '<li class="'.$isActiveM7.'"><a href="list-quotes.php">Listado de Cotizaciones</a></li>';
     //}
     
     //if( Helper::helpMenuIsAllowed(2) ){
-        $menu .= '<li class="'.$isActiveM8.'"><a href="add-quote.php">Crear Cotización</a></li>';
+    //    $menu .= '<li class="'.$isActiveM8.'"><a href="add-quote.php">Crear Cotización</a></li>';
     //}
     
     //if( Helper::helpMenuIsAllowed(2) ){
-        $menu .= '</ul>
-                    </li>';                         
+    //    $menu .= '</ul>
+    //                </li>';                         
     //}
     //</cotizaciones>
 
     //<reportes>
-    if( Helper::helpMenuIsAllowed(9) ){
+    /*  if( Helper::helpMenuIsAllowed(9) ){
         $menu .= '<li class="'.$isActiveM9.'">
                       <a href="charts.php"><i class="fa fa-signal nav-icon"></i><span>Reportes</span></a>
                     </li>';
-    }
+    } */ 
     //<reportes>
     
     //<mantenimientos>

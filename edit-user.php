@@ -12,7 +12,7 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(4); // 4 - Agregar, editar y eliminar vendedores
+        Helper::helpIsAllowed(2); // 2 - Editar vendedores
         
         $connection = openConnection();
         $query=$connection->prepare(sql_select_usuario_byId());

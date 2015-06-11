@@ -13,7 +13,7 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(2); // 2 - Agregar,editar,eliminar clientes
+        Helper::helpIsAllowed(6); // 2 - Agregar,editar,eliminar clientes
         
         $connection=  openConnection();
         if(empty($_GET['id'])){

@@ -116,7 +116,7 @@
                                         <td><?= $value['rubro'] ?></td>
                                         <td><?= $value['sub_rubro'] ?></td>
                                         <td class="center">
-                                            <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contacto" href="contacts-supplier.php?sup=<?= encryptString($value['idproveedor']) ?>">
+                                            <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contactos" href="contacts-supplier.php?sup=<?= encryptString($value['idproveedor']) ?>">
                                                 <i class="fa fa-user"></i>
                                             </a>
                                             <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar" href="edit-supplier.php?sup=<?= encryptString($value['idproveedor']) ?>">

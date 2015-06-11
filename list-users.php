@@ -113,7 +113,7 @@
                                                     <td><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['email_1'] ?></a></td>
                                                     <td class="center"><?= $value['telefono_1'] ?></td>
                                                     <td class="center">
-                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contacto" href="list-clients.php?us=<?= encryptString($value['idusuario']) ?>">
+                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contactos" href="list-clients.php?us=<?= encryptString($value['idusuario']) ?>">
                                                             <i class="fa fa-user"></i>
                                                         </a>
                                                         <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar" href="edit-user.php?us=<?= encryptString($value['idusuario']) ?>">

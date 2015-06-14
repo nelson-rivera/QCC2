@@ -11,7 +11,7 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        //Helper::helpIsAllowed(1); // 1 - Listado de clientes
+        Helper::helpIsAllowed(14); // 14 - Listado de clientes
         $connection=  openConnection();
         if(empty($_GET['id'])){
             header('location: list-clients.php');
@@ -87,7 +87,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Clientes <i class="fa fa-angle-double-right"></i> Contactos de <a href="edit-client.php?id=<?=  encryptString($idCliente) ?>"><?= utf8_encode($clientArray['nombre_cliente']) ?></a></h2>
+                <h2>Clientes <i class="fa fa-angle-double-right"></i> <a href="list-clients.php">Listado de Clientes</a> <i class="fa fa-angle-double-right"></i> Contactos de <a href="edit-client.php?id=<?=  encryptString($idCliente) ?>"><?= $clientArray['nombre_cliente'] ?></a></h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">

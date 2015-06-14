@@ -143,12 +143,9 @@ function lytSideMenu($menuSelected){
     //<reportes>
     
     //<mantenimientos>
-    //if( Helper::helpMenuIsAllowed(2) ){
+    /*
         $menu .= '<li><a href="#"><i class="fa fa-cogs fa-fw"></i><span>Mantenimientos</span></a>
                       <ul class="sub-menu">';
-    //}
-    
-    //if( Helper::helpMenuIsAllowed(2) ){
         $menu .= '<li ><a href="list-suppliers-types.php">Tipo de Proveedores</a></li>';
         $menu .= '<li ><a href="list-suppliers-category.php">Rubro de Proveedores</a></li>';
         $menu .= '<li ><a href="list-suppliers-subcategory.php">Sub Rubro de Proveedores</a></li>';
@@ -156,13 +153,9 @@ function lytSideMenu($menuSelected){
         $menu .= '<li ><a href="list-clients-category.php">Rubro de Clientes</a></li>';
         $menu .= '<li ><a href="list-positions-users.php">Cargo de Usuarios</a></li>';
         $menu .= '<li ><a href="list-position-client.php">Cargos de Clientes</a></li>';
-    //}
-    
-  
-    //if( Helper::helpMenuIsAllowed(2) ){
         $menu .= '</ul>
-                    </li>';                         
-    //}
+                    </li>';
+    */                         
     //</mantenimientos>
     
     

@@ -12,7 +12,7 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        //Helper::helpIsAllowed(5); // 5 - Listado de proveedores
+        Helper::helpIsAllowed(15); // 15 - Listado de proveedores
         $connection=  openConnection();
         ?>
 	<meta charset="utf-8">
@@ -68,10 +68,11 @@
                     <?= lytSideMenu(5) ?>
                   </div>
                 </div>
-                
+                <?php if( Helper::helpMenuIsAllowed(12) ){ ?>
                 <div class="text-right collapse-button" style="padding:7px 9px;">
                   <button id="sidebar-collapse" class="btn btn-default" style=""><i style="color:#fff;" class="fa fa-angle-left"></i></button>
                 </div>
+                <?php } ?>
             </div>
 	</div>
 	
@@ -97,7 +98,7 @@
                                         <tr>
                                             <th>Nombre</th>
                                             <th>Tipo</th>
-                                            <th>Rubro principal</th>
+                                            <th>Rubro Principal</th>
                                             <th>Sub-Rubro</th>
                                             <th>Acciones</th>
                                         </tr>

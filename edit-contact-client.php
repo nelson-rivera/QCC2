@@ -88,7 +88,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Clientes <i class="fa fa-angle-double-right"></i> Editar Contacto <?= $contactoArray['nombre_contacto'] ?></h2>
+                <h2>Clientes <i class="fa fa-angle-double-right"></i> <a href="list-clients.php">Listado de Clientes</a> <i class="fa fa-angle-double-right"></i> <a href="contacts-client.php?id=<?=  encryptString($contactoArray['idcliente']) ?>">Contactos de  <?= $contactoArray['nombre_cliente'] ?></a> <i class="fa fa-angle-double-right"></i> Editar Contacto <?= $contactoArray['nombre_contacto'] ?></h2>
             </div>
             <div class="cl-mcont">
                 

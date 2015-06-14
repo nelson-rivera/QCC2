@@ -71,3 +71,5 @@ function txt_pc_actualizado(){return "Actualización realizada con éxito";}
 function txt_pc_msg_actualizado_fail(){return "Lo sentimos, algo hemos hecho mal";}
 function txt_pc_eliminado(){return "Registro eliminado exitosamente";}
 function txt_error_pc_eliminado(){return "Ocurrio un problema al intentar eliminar el registro";}
+
+function txt_permiso_denegado(){ return "Permiso denegado"; }

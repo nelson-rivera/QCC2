@@ -9,6 +9,9 @@ include_once './includes/file_const.php';
 include_once './includes/connection.php';
 include_once './includes/sql.php';
 require_once './includes/phpexcel/Classes/PHPExcel.php';
+include_once './includes/class/Helper.php';
+Helper::helpSession();
+Helper::helpIsAllowed(4); // 4 - Generar excel de vendedores
 
 $conexion = openConnection();
 

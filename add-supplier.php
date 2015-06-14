@@ -12,7 +12,7 @@
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(9); // 5 - Agregar, editar y eliminar proveedores
+        Helper::helpIsAllowed(9); // 9 - Agregar proveedores
         $connection=  openConnection();
         ?>
 	<meta charset="utf-8">
@@ -80,7 +80,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Proveedores <i class="fa fa-angle-double-right"></i> Agregar Proveedor</h2>
+                <h2>Proveedores <i class="fa fa-angle-double-right"></i> <a href="list-suppliers.php">Listado de Proveedores</a> <i class="fa fa-angle-double-right"></i> Agregar Proveedor</h2>
             </div>
             <div class="cl-mcont">
                 

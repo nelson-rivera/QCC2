@@ -13,7 +13,8 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(5); // 2 - Agregar,editar,eliminar clientes
+        Helper::helpIsAllowed(5); // 5 - Agregar clientes
+
         $connection=  openConnection();
         if(empty($_GET['id'])){
             header('location: list-clients.php');
@@ -91,7 +92,7 @@
 	</div>
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Clientes <i class="fa fa-angle-double-right"></i> Agregar contacto de <a href="edit-client.php?id=<?= $_GET['id'] ?>"><?= $clienteArray['nombre_cliente'] ?></a></h2>
+                <h2>Clientes <i class="fa fa-angle-double-right"></i> <a href="list-clients.php">Listado de Clientes</a> <i class="fa fa-angle-double-right"></i> <a href="contacts-client.php?id=<?= $_GET['id'] ?>">Contactos de  <?= $clienteArray['nombre_cliente'] ?></a> <i class="fa fa-angle-double-right"></i> Agregar Contacto de <a href="edit-client.php?id=<?= $_GET['id'] ?>"><?= $clienteArray['nombre_cliente'] ?></a></h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
@@ -176,8 +177,52 @@
                         </div>
                     </div>
                 </div>
+                <!-- Listado de contactos de clientes -->
+                <?php
+                $idCliente=  decryptString($_GET['id']);
+                $getCliente=$connection->prepare(sql_select_cliente_extended_by_idcliente());
+                $getCliente->execute(array($idCliente));
+                if($getCliente->rowCount()<1){
+                    header('location: list-clients.php');
+                    exit(); 
+                }
+                $clientArray=$getCliente->fetch(); 
+                ?>
                 
-                
+                 <div class="row">
+                    <div class="col-md-12">
+                        <div class="block-flat">
+                                    
+                            <table class="table table-bordered" id="datatable-icons" >
+                                <thead>
+                                        <tr>
+                                            <th>Cotacto</th>
+                                            <th>Cargo</th>
+                                            <th>Teléfono 1</th>
+                                            <th>Correo 1</th>
+                                        </tr>
+                                </thead>
+                                <tbody>
+                                    <?php
+                                    $getContactos = $connection->prepare(sql_select_contactos_by_idcliente());
+                                    $getContactos->execute(array($idCliente));
+                                    foreach ($getContactos->fetchAll() as $contacto){
+                                    ?>
+                                        <tr class="odd">
+                                            <td><?= $contacto['nombre_contacto'] ?></td>
+                                            <td><?= $contacto['cargo'] ?></td>
+                                            <td><?= $contacto['telefono_1'] ?></td>
+                                            <td><?= $contacto['email_1'] ?></td>
+                                        </tr>
+                                    <?php
+                                    }
+                                    ?>                                     
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 	</div> 
     </div>

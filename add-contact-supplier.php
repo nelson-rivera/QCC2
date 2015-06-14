@@ -13,13 +13,15 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(9); // 5 - Agregar, editar y eliminar proveedores
+        Helper::helpIsAllowed(9); // 9 - Agregar  proveedores
         
         $connection = openConnection();
-        $query=$connection->prepare(sql_select_contactos_proveedores_bydIdproveedor());
+        $query=$connection->prepare(sql_select_proveedor_byId());
         $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
         $query->execute();
-        if($query->rowCount()>0){}
+        if($query->rowCount() < 0){}
+        $proveedor = $query->fetch();
+
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,7 +86,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Proveedores <i class="fa fa-angle-double-right"></i> Agregar Contacto</h2>
+                <h2>Proveedores <i class="fa fa-angle-double-right"></i> <a href="list-suppliers.php">Listado de Proveedores</a> <i class="fa fa-angle-double-right"></i> <a href="contacts-supplier.php?sup=<?= encryptString($proveedor['idproveedor']) ?>">Contactos de  <?= $proveedor['proveedor'] ?></a> <i class="fa fa-angle-double-right"></i> Agregar Contacto</h2>
             </div>
             <div class="cl-mcont">
                 
@@ -162,9 +164,75 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Tabla de contactos del proveedor X-->
+                <?php 
+                    $query=$connection->prepare(sql_select_proveedor_byId());
+                    $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
+                    $query->execute();
+                    $proveedor = $query->fetch();
+                    
+                    if($_SESSION['idnivel']=="1"){
+
+                      $query=$connection->prepare(sql_select_contactos_proveedores_bydIdproveedor());
+                      $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
+
+                    } else if($_SESSION['idnivel']=="2"){
+
+                        $query=$connection->prepare(sql_select_contactos_proveedores_bydIdproveedor_nivel());
+                        $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
+                        //$query->bindParam(':idnivel', $_SESSION['idnivel']); //Debería ser nivel  2
+                        $query->bindParam(':idusuario', $_SESSION['idusuario']);
+                        //$query->bindParam(':idnivel2', 3); //Nivel 3 en los permisos de los perfiles
+
+                    } else if($_SESSION['idnivel']=="3"){
+
+                          $query=$connection->prepare(sql_select_contactos_proveedores_bydIdproveedor_usuario());
+                          $query->bindParam(':idproveedor', decryptString($_GET['sup']),PDO::PARAM_INT);
+                          $query->bindParam(':idusuario', $_SESSION['idusuario']);
+                          //$query->bindParam(':idnivel', $_SESSION['idnivel']);
+                    }
+
+                    $query->execute();
+
+                ?>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <table class="table" >
+                            <thead>
+                                    <tr>
+                                        <th>Cotacto</th>
+                                        <th>Cargo</th>
+                                        <th>Teléfono 1</th>
+                                        <th>Correo 1</th>
+                                    </tr>
+                            </thead>
+                            <tbody>
+                                    <?php
+                                        
+                                        $contactos_proveedores=$query->fetchAll();
+                                        $num=1;
+                                        foreach ($contactos_proveedores as $value) {
+                                        ?>
+                                            <tr class="odd gradeA">
+                                                <td id="cp_<?= $num ?>" ><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['nombre_contacto'] ?></a></td>
+                                                <td><?= $value['cargo'] ?></td>
+                                                <td class="center"><?= $value['telefono_1'] ?></td>
+                                                <td class="center"><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['email_1'] ?></a></td>
+                                            </tr>
+                                        <?php $num++; } ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
             </div>
-	</div> 
+	   </div> 
     </div>
+
+
+
     <!-- Notificaciones-->
     <div class="md-modal colored-header info md-effect-10" id="mod-alert">
         <div class="md-content ">

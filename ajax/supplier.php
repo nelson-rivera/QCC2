@@ -5,6 +5,8 @@ include_once '../includes/connection.php';
 include_once '../includes/sql.php';
 include_once '../includes/functions.php';
 include_once '../includes/lang/text.es.php';
+include_once '../includes/class/Helper.php';
+Helper::helpSession();
 
 $option = $_POST['option'];
 
@@ -29,6 +31,12 @@ if($option=="save"){
     $idproveedor=null;
     $now=date("Y-m-d H:i:s");
     if(!($privado=="1" || $privado=="0")) exit( json_encode(array("status"=>0,"msg"=>"response invalid")) ) ;
+
+    if( !Helper::helpMenuIsAllowed(9) ){
+        $response['status']=0;
+        $response['msg']= txt_permiso_denegado();
+        echo json_encode($response);
+    }
 
     $connection=  openConnection();
     $query=$connection->prepare(sql_save_proveedor());
@@ -77,6 +85,12 @@ if($option=="update"){
     $rubro=$_POST['rubro'];
     $sub_rubro=$_POST['sub_rubro'];
     $website=$_POST['website'];
+
+    if( !Helper::helpMenuIsAllowed(10) ){
+        $response['status']=0;
+        $response['msg']= txt_permiso_denegado();
+        echo json_encode($response);
+    }
    
     $connection=openConnection();
     
@@ -106,6 +120,12 @@ if($option=="update"){
 if($option=="delete"){
     $idproveedor= decryptString($_POST['sup']);
     
+    if( !Helper::helpMenuIsAllowed(11) ){
+        $response['status']=0;
+        $response['msg']= txt_permiso_denegado();
+        echo json_encode($response);
+    }
+
     $connection=openConnection();
     try {
         $connection->beginTransaction();

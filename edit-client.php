@@ -13,7 +13,7 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(2); // 2 - Agregar,editar,eliminar clientes
+        Helper::helpIsAllowed(6); // 6 - Editarclientes
         
         $connection=  openConnection();
         if(empty($_GET['id'])){
@@ -93,7 +93,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Clientes <i class="fa fa-angle-double-right"></i> Editar Cliente</h2>
+                <h2>Clientes <i class="fa fa-angle-double-right"></i> <a href="list-clients.php">Listado de Clientes</a> <i class="fa fa-angle-double-right"></i> Editar Cliente</h2>
             </div>
             <div class="cl-mcont">
                 

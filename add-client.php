@@ -12,7 +12,7 @@
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(2); // 2 - Agregar,editar,eliminar clientes
+        Helper::helpIsAllowed(5); // 5 - Agregar Clientes
         
         $connection = openConnection();
         ?>
@@ -79,7 +79,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Clientes <i class="fa fa-angle-double-right"></i> Agregar Cliente</h2>
+                <h2>Clientes <i class="fa fa-angle-double-right"></i> <a href="list-clients.php">Listado de Clientes</a> <i class="fa fa-angle-double-right"></i> Agregar Cliente</h2>
             </div>
             <div class="cl-mcont">
                 

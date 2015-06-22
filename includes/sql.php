@@ -205,7 +205,9 @@ function sql_select_contactos_by_idcliente(){
         .' WHERE idcliente=? and activo=1'; 
 }
 function sql_select_contacto_by_idcontacto(){
-    return 'SELECT * FROM contactos WHERE idcontacto=?';
+    return 'SELECT contactos.*, clientes.idcliente, clientes.nombre_cliente FROM contactos '
+            .' INNER JOIN clientes ON clientes.idcliente = contactos.idcliente '
+            .' WHERE idcontacto=?';
 }
 function sql_select_contacto_by_idcontacto_list(){
     return 'SELECT * FROM contactos WHERE idcontacto IN (?)';
@@ -308,9 +310,11 @@ function sql_select_contactos_proveedores_bydIdproveedor(){
 }
 
 function sql_select_contactos_proveedores_bydIcontacto_proveedor(){
-    return 'SELECT `idcontacto_proveedor`,`idproveedor`, `nombre_contacto`, `idcontactos_proveedores_cargos`, '
-           .'`email_1`, `email_2`,  `telefono_1`, `telefono_2`, `telefono_3`, '
-           .'`fecha_creacion`,`privado` FROM `contactos_proveedores` WHERE idcontacto_proveedor=:idcontacto_proveedor';
+    return 'SELECT `contactos_proveedores`.`idcontacto_proveedor`,`proveedores`.`idproveedor`, `proveedores`.`proveedor` , `contactos_proveedores`.`nombre_contacto`, `contactos_proveedores`.`idcontactos_proveedores_cargos`, '
+           .'`contactos_proveedores`.`email_1`, `contactos_proveedores`.`email_2`,  `contactos_proveedores`.`telefono_1`, `contactos_proveedores`.`telefono_2`, `contactos_proveedores`.`telefono_3`, '
+           .'`contactos_proveedores`.`fecha_creacion`,`contactos_proveedores`.`privado` FROM `contactos_proveedores` '
+           .' INNER JOIN proveedores ON proveedores.idproveedor = contactos_proveedores.idproveedor '
+           .' WHERE `contactos_proveedores`.idcontacto_proveedor=:idcontacto_proveedor';
 }
 
 function  sql_update_contacto_proveedor(){

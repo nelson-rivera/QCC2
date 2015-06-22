@@ -12,7 +12,7 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(3); // 3 - Listado de vendedores
+        Helper::helpIsAllowed(13); // 13 - Listado de vendedores
         $connection=  openConnection();
         ?>
 	<meta charset="utf-8">
@@ -67,10 +67,11 @@
                     <?= lytSideMenu(3) ?>
                   </div>
                 </div>
-                
+                <?php if( Helper::helpMenuIsAllowed(4) ){ ?>
                 <div class="text-right collapse-button" style="padding:7px 9px;">
                   <button id="sidebar-collapse" class="btn btn-default" style=""><i style="color:#fff;" class="fa fa-angle-left"></i></button>
                 </div>
+                <?php } ?>
             </div>
 	</div>
 	
@@ -82,6 +83,7 @@
                 <div class="row">
                     <div class="col-md-12">
                         <div class="block-flat">
+                            
                             <div class="col-sm-3 pull-right" >
                               <form  action="#" class="form-horizontal">
                                 <div class="form-group">
@@ -89,6 +91,7 @@
                                 </div>
                               </form>
                             </div>
+
                             <table class="table table-bordered" id="datatable-users" >
                                 <thead>
                                         <tr>
@@ -113,7 +116,7 @@
                                                     <td><a href="mailto:<?= $value['email_1'] ?>" title="Click para enviar correo" ><?= $value['email_1'] ?></a></td>
                                                     <td class="center"><?= $value['telefono_1'] ?></td>
                                                     <td class="center">
-                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contacto" href="list-clients.php?us=<?= encryptString($value['idusuario']) ?>">
+                                                        <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contactos" href="list-clients.php?us=<?= encryptString($value['idusuario']) ?>">
                                                             <i class="fa fa-user"></i>
                                                         </a>
                                                         <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar" href="edit-user.php?us=<?= encryptString($value['idusuario']) ?>">

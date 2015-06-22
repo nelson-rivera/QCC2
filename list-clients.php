@@ -11,7 +11,7 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(1); // 1 - Listado de clientes
+        Helper::helpIsAllowed(14); // 14 - Listado de clientes
         $connection=openConnection();
         
         if(!empty($_GET['us'])){
@@ -32,6 +32,7 @@
         $selectClientes->execute(array($_SESSION['idusuario']));
         $clientesVendedor = $selectClientes->rowCount();
         $porc = ($clientesVendedor/$totalClientes)*100;
+        $porc = number_format($porc, 2, '.', '');
         ?>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -105,7 +106,7 @@
                                 <div class="col-sm-9 pull-left" >
                                     <button id="btn-excel" type="button" class="btn btn-success">Generar Excel</button> 
                                     <a href="view-client-gallery.php" class="btn btn-primary">Ver logos</a>                                
-                                    <div class="lbl_sistecorp_clients">
+                                    <div class="btn btn-success">
                                         <strong><span id="cantidad-clientes"><?= $clientesVendedor ?></span> de <span id="cantidad-clientes-tot"><?= $totalClientes ?></span> Clientes (<span id="cantidad-clientes-porc"><?= $porc ?></span>%) </strong>
                                      </div>
                                 </div>
@@ -141,13 +142,13 @@
                                         ?>
                                             <tr class="odd gradeA">
                                                 <td class="text-center send-email-container"><input type="checkbox" class="send_email_cb" data-id="<?= $cliente['idcliente'] ?>" id="send_email_<?= encryptString($cliente['idcliente'])?>" name="send_email_<?= encryptString($cliente['idcliente'])?>"/></td>
-                                                <td><?= utf8_decode($cliente['nombre_cliente']) ?></td>
-                                                <td><?= utf8_encode($cliente['rubro']) ?></td>
-                                                <td><?= utf8_encode($cliente['nombre_vendedor']) ?></td>
-                                                <td><?= utf8_encode($cliente['departamento']) ?></td>
-                                                <td class="center"><?= utf8_encode($cliente['municipio']) ?></td>
+                                                <td><?= $cliente['nombre_cliente'] ?></td>
+                                                <td><?= $cliente['rubro'] ?></td>
+                                                <td><?= $cliente['nombre_vendedor'] ?></td>
+                                                <td><?= $cliente['departamento'] ?></td>
+                                                <td class="center"><?=  utf8_encode($cliente['municipio']) ?></td>
                                                 <td class="center">
-                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contacto" href="contacts-client.php?id=<?= encryptString($cliente['idcliente']) ?>">
+                                                    <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Contactos" href="contacts-client.php?id=<?= encryptString($cliente['idcliente']) ?>">
                                                         <i class="fa fa-user"></i>
                                                     </a>
                                                     <a class="btn btn-primary btn-xs" data-toggle="tooltip" data-original-title="Editar" href="edit-client.php?id=<?= encryptString($cliente['idcliente']) ?>">

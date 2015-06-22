@@ -9,7 +9,7 @@
         include_once './includes/connection.php';
         include_once './includes/sql.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(1); // 1 - Listado de clientes
+        //Helper::helpIsAllowed(1); // 1 - Listado de clientes
         $connection = openConnection();
         ?>
 	<meta charset="utf-8">

@@ -13,7 +13,7 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(6); // 5 - Agregar, editar y eliminar proveedores
+        Helper::helpIsAllowed(10); // 10 - Editar proveedores
         
         $connection = openConnection();
         $query=$connection->prepare(sql_select_contactos_proveedores_bydIcontacto_proveedor());
@@ -89,7 +89,8 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Proveedores <i class="fa fa-angle-double-right"></i> <?= $contacto_proveedor['nombre_contacto'] ?></h2>
+                <!-- <h2>Proveedores <i class="fa fa-angle-double-right"></i> <?= $contacto_proveedor['nombre_contacto'] ?></h2> -->
+                <h2>Proveedores <i class="fa fa-angle-double-right"></i> <a href="list-suppliers.php">Listado de Proveedores</a> <i class="fa fa-angle-double-right"></i> <a href="contacts-supplier.php?sup=<?= encryptString($contacto_proveedor['idproveedor']) ?>">Contactos de  <?= $contacto_proveedor['proveedor'] ?></a> <i class="fa fa-angle-double-right"></i> <?= $contacto_proveedor['nombre_contacto'] ?> </h2>
             </div>
             <div class="cl-mcont">
                 

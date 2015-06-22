@@ -6,6 +6,8 @@ include_once '../includes/sql.php';
 include_once '../includes/functions.php';
 include_once '../includes/lang/text.es.php';
 include_once '../includes/password.php';
+include_once '../includes/class/Helper.php';
+Helper::helpSession();
 
 $option = $_POST['option'];
 
@@ -23,6 +25,12 @@ if($option=="save"){
     $idusuario=null;
     $now=date("Y-m-d H:i:s");
     $PassHash=password_hash($password, PASSWORD_BCRYPT, array("cost" => 10));
+
+    if( !Helper::helpMenuIsAllowed(1) ){
+        $response['status']=0;
+        $response['msg']= txt_permiso_denegado();
+        echo json_encode($response);
+    }
 
     $connection=  openConnection();
     $query=$connection->prepare(sql_save_user());
@@ -85,6 +93,12 @@ if($option=="update"){
     if(!empty($password)) $PassHash=password_hash($password, PASSWORD_BCRYPT, array("cost" => 10));
     $sql = ( empty($password) ) ? sql_update_user_no_password() : sql_update_user();
     
+    if( !Helper::helpMenuIsAllowed(2)){
+        $response['status']=0;
+        $response['msg']= txt_permiso_denegado();
+        echo json_encode($response);
+    }
+
     $connection=openConnection();
     
     try {
@@ -137,6 +151,12 @@ if($option=="delete"){
     $idusuario= decryptString($_POST['us']);
     $now=date("Y-m-d H:i:s");
     
+    if( !Helper::helpMenuIsAllowed(3) ){
+        $response['status']=0;
+        $response['msg']= txt_permiso_denegado();
+        echo json_encode($response);
+    }
+
     $connection=openConnection();
     try {
     $connection->beginTransaction();

@@ -12,7 +12,7 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(4); // 4 - Agregar, editar y eliminar vendedores
+        Helper::helpIsAllowed(2); // 2 - Editar vendedores
         
         $connection = openConnection();
         $query=$connection->prepare(sql_select_usuario_byId());
@@ -85,7 +85,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>SISTECORP <i class="fa fa-angle-double-right"></i> Editar Contacto: <?= $usuario['nombre'] ?></h2>
+                <h2>SISTECORP <i class="fa fa-angle-double-right"></i> <a href="list-users.php">Listado de Contactos SISTECORP</a> <i class="fa fa-angle-double-right"></i> Editar Contacto: <?= $usuario['nombre'] ?></h2>
             </div>
             <div class="cl-mcont">
                 
@@ -255,6 +255,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>&nbsp;</th>
+                                                        <th class="right">Ver</th>
                                                         <th class="right">Agregar</th>
                                                         <th class="right">Editar</th>
                                                         <th class="right">Eliminar</th>
@@ -264,6 +265,13 @@
                                                 <tbody class="no-border-x">
                                                     <tr>
                                                         <td style="width:40%;">Vendedores</td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_13" <?php if(in_array("13", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
                                                         <td class="text-right">
                                                             <div class="checkbox-inline">
                                                                 <label>
@@ -298,6 +306,13 @@
                                                         <td class="text-right">
                                                             <div class="checkbox-inline">
                                                                 <label>
+                                                                    <input type="checkbox" name="op_14" <?php if(in_array("14", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
                                                                     <input type="checkbox" name="op_5" <?php if(in_array("5", $apermisos) ) echo "checked" ; ?> >
                                                                 </label>
                                                             </div>
@@ -326,6 +341,13 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="width:40%;">Proveedores</td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_15" <?php if(in_array("15", $apermisos) ) echo "checked" ; ?> >
+                                                                </label>
+                                                            </div>
+                                                        </td>
                                                         <td class="text-right">
                                                             <div class="checkbox-inline">
                                                                 <label>

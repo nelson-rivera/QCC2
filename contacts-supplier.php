@@ -12,7 +12,7 @@
         include_once './includes/functions.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(5); // 5 - Listado de proveedores
+        Helper::helpIsAllowed(15); // 15 - Listado de proveedores
         
         $connection = openConnection();
         $query=$connection->prepare(sql_select_proveedor_byId());
@@ -43,7 +43,6 @@
 
         $query->execute();
         
-        if($query->rowCount()>0 && ( $_SESSION['idnivel']=="3" || $_SESSION['idnivel']=="2" )){ }
 
         ?>
 	<meta charset="utf-8">
@@ -108,7 +107,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>Proveedores <i class="fa fa-angle-double-right"></i> Contactos de <a href="edit-supplier.php"><?= $proveedor['proveedor'] ?></a></h2>
+                <h2>Proveedores <i class="fa fa-angle-double-right"></i> <a href="list-suppliers.php">Listado de Proveedores</a> <i class="fa fa-angle-double-right"></i> Contactos de <a href="edit-supplier.php?sup=<?= encryptString($proveedor['idproveedor']) ?>"><?= $proveedor['proveedor'] ?></a></h2>
             </div>
             <div class="cl-mcont">
                 <div class="row">
@@ -206,8 +205,9 @@
         $('.dataTables_filter input').addClass('form-control').attr('placeholder','Search');
         $('.dataTables_length select').addClass('form-control');
 
+        <?php if( Helper::helpMenuIsAllowed(9) ){ ?>
           $('<a href="add-contact-supplier.php?sup=<?= encryptString(decryptString($_GET['sup'])) ?>" class="btn btn-info" type="button" ><i class="fa fa-user"></i> Agrega contacto</a><span>&nbsp;</span>').appendTo('div.dataTables_filter');
-
+        <?php } ?>
         $('.btn-eliminar-cs').click(function(e){
            var num = $(this).attr("data-num");
            $("#del_name").html( $("#cp_"+num).html());

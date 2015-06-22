@@ -11,7 +11,7 @@
         include_once './includes/libraries.php';
         include_once './includes/class/Helper.php';
         Helper::helpSession();
-        Helper::helpIsAllowed(4); // 4 - Agregar, editar y eliminar vendedores
+        Helper::helpIsAllowed(1); // 1 - Agregar vendedores
         $connection=  openConnection();
         ?>
 	<meta charset="utf-8">
@@ -78,7 +78,7 @@
 	
 	<div class="container-fluid" id="pcont">
             <div class="page-head">
-                <h2>SISTECORP <i class="fa fa-angle-double-right"></i> Agregar Contacto</h2>
+                <h2>SISTECORP <i class="fa fa-angle-double-right"></i> <a href="list-users.php">Listado de Contactos SISTECORP</a> <i class="fa fa-angle-double-right"></i> Agregar Contacto</h2>
             </div>
             <div class="cl-mcont">
                 
@@ -177,6 +177,7 @@
                                                 <thead>
                                                     <tr>
                                                         <th>&nbsp;</th>
+                                                        <th class="right">Ver</th>
                                                         <th class="right">Agregar</th>
                                                         <th class="right">Editar</th>
                                                         <th class="right">Eliminar</th>
@@ -186,6 +187,13 @@
                                                 <tbody class="no-border-x">
                                                     <tr>
                                                         <td style="width:40%;">Vendedores</td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_13" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
                                                         <td class="text-right">
                                                             <div class="checkbox-inline">
                                                                 <label>
@@ -220,6 +228,13 @@
                                                         <td class="text-right">
                                                             <div class="checkbox-inline">
                                                                 <label>
+                                                                    <input type="checkbox" name="op_14" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
                                                                     <input type="checkbox" name="op_5" >
                                                                 </label>
                                                             </div>
@@ -248,6 +263,13 @@
                                                     </tr>
                                                     <tr>
                                                         <td style="width:40%;">Proveedores</td>
+                                                        <td class="text-right">
+                                                            <div class="checkbox-inline">
+                                                                <label>
+                                                                    <input type="checkbox" name="op_15" >
+                                                                </label>
+                                                            </div>
+                                                        </td>
                                                         <td class="text-right">
                                                             <div class="checkbox-inline">
                                                                 <label>

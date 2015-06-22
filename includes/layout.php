@@ -51,62 +51,63 @@ function lytSideMenu($menuSelected){
     $menu = '<div class="side-logo-container"><img class="logo-v" src="images/logo-v.png" /><img class="logo-h" src="images/logo-h.png" /></div><ul class="cl-vnavigation"> '; 
     
     //<proveedores>
-    if( Helper::helpMenuIsAllowed(5) or Helper::helpMenuIsAllowed(6) ){
+    //if( Helper::helpMenuIsAllowed(5) or Helper::helpMenuIsAllowed(6) ){
         $menu .= '<li><a href="#"><i class="fa fa-cart-arrow-down"></i><span>Proveedores</span></a>
                       <ul class="sub-menu">';
-    }
+    //}
     
-    if( Helper::helpMenuIsAllowed(5) ){
+    //if( Helper::helpMenuIsAllowed(5) ){
         $menu .= '<li class="'.$isActiveM5.'"><a href="list-suppliers.php">Listado de Proveedores</a></li>';
+    //}
+    
+    if( Helper::helpMenuIsAllowed(9) ){
+        $menu .= '<li class="'.$isActiveM6.'"><a href="add-supplier.php">Agregar Proveedor</a></li>';
     }
     
-    if( Helper::helpMenuIsAllowed(6) ){
-        $menu .= '<li class="'.$isActiveM6.'"><a href="add-supplier.php">Agregar proveedor</a></li>';
-    }
-    
-    if(Helper::helpMenuIsAllowed(5) or Helper::helpMenuIsAllowed(6) ){
+    //if(Helper::helpMenuIsAllowed(5) or Helper::helpMenuIsAllowed(6) ){
         $menu .= '</ul>
                     </li>';
-    }
-     //</vendedores>
+    //}
+     //</proveedores>
     
     //<vendedores>
-    if( Helper::helpMenuIsAllowed(3) or Helper::helpMenuIsAllowed(4) ){            
-        $menu .= '<li><a href="#"><i class="fa fa-exchange"></i><span>SISTECORP</span></a>
+    //if( Helper::helpMenuIsAllowed(1) or Helper::helpMenuIsAllowed(4) ){            
+        $menu .= '<li><a href="#"><i class="fa fa-refresh"></i><span>SISTECORP</span></a>
                       <ul class="sub-menu">';
-    }
+    //}
     
-    if( Helper::helpMenuIsAllowed(3) ){
+    //if( Helper::helpMenuIsAllowed(1) or Helper::helpMenuIsAllowed(2) ){
         $menu .= '<li class="'.$isActiveM3.'"><a href="list-users.php">Listado de Contactos</a></li>';
-    }
+    //}
     
-    if( Helper::helpMenuIsAllowed(4) ){
+    if( Helper::helpMenuIsAllowed(1) ){
         $menu .= '<li class="'.$isActiveM4.'"><a href="add-user.php">Agregar Contacto</a></li>';
     }
     
-    if( Helper::helpMenuIsAllowed(3) or Helper::helpMenuIsAllowed(4) ){
+    //if( Helper::helpMenuIsAllowed(3) or Helper::helpMenuIsAllowed(4) ){
         $menu .= '</ul>
                     </li>';
-    }
+    //}
     //</vendedores>
     
     //<clientes>
-    if( Helper::helpMenuIsAllowed(1) or Helper::helpMenuIsAllowed(2) ){
+    //if( Helper::helpMenuIsAllowed(1) or Helper::helpMenuIsAllowed(2) ){
         $menu .= '<li>
                 <a href="#"><i class="fa fa-book"></i><span>Clientes</span></a>
                 <ul class="sub-menu">';
-    }
-    if( Helper::helpMenuIsAllowed(1) ){
-        $menu .= '<li class="'.$isActiveM1.'"><a href="list-clients.php">Listado de clientes</a></li>';
-    }
-    if( Helper::helpMenuIsAllowed(2) ){
-        $menu .= '<li class="'.$isActiveM2.'"><a href="add-client.php">Agregar cliente</a></li>';
+    //}
+    //if( Helper::helpMenuIsAllowed(1) ){
+        $menu .= '<li class="'.$isActiveM1.'"><a href="list-clients.php">Listado de Clientes</a></li>';
+    //}
+
+    if( Helper::helpMenuIsAllowed(5) ){
+        $menu .= '<li class="'.$isActiveM2.'"><a href="add-client.php">Agregar Cliente</a></li>';
     }
     
-    if( Helper::helpMenuIsAllowed(1) or Helper::helpMenuIsAllowed(2) ){
+    //if( Helper::helpMenuIsAllowed(1) or Helper::helpMenuIsAllowed(2) ){
          $menu .='</ul>
                  </li>';    
-     }
+     //}
    //</clientes>
     
     
@@ -115,53 +116,46 @@ function lytSideMenu($menuSelected){
     
      //<cotizaciones>
     //if( Helper::helpMenuIsAllowed(2) ){
-        $menu .= '<li><a href="#"><i class="fa fa-table"></i><span>Cotizaciones</span></a>
-                      <ul class="sub-menu">';
+    //    $menu .= '<li><a href="#"><i class="fa fa-table"></i><span>Cotizaciones</span></a>
+    //                  <ul class="sub-menu">';
     //}
     
     //if( Helper::helpMenuIsAllowed(2) ){
-        $menu .= '<li class="'.$isActiveM7.'"><a href="list-quotes.php">Listado de cotizaciones</a></li>';
+    //    $menu .= '<li class="'.$isActiveM7.'"><a href="list-quotes.php">Listado de Cotizaciones</a></li>';
     //}
     
     //if( Helper::helpMenuIsAllowed(2) ){
-        $menu .= '<li class="'.$isActiveM8.'"><a href="add-quote.php">Crear Cotización</a></li>';
+    //    $menu .= '<li class="'.$isActiveM8.'"><a href="add-quote.php">Crear Cotización</a></li>';
     //}
     
     //if( Helper::helpMenuIsAllowed(2) ){
-        $menu .= '</ul>
-                    </li>';                         
+    //    $menu .= '</ul>
+    //                </li>';                         
     //}
     //</cotizaciones>
 
     //<reportes>
-    if( Helper::helpMenuIsAllowed(9) ){
+    /*  if( Helper::helpMenuIsAllowed(9) ){
         $menu .= '<li class="'.$isActiveM9.'">
                       <a href="charts.php"><i class="fa fa-signal nav-icon"></i><span>Reportes</span></a>
                     </li>';
-    }
+    } */ 
     //<reportes>
     
     //<mantenimientos>
-    //if( Helper::helpMenuIsAllowed(2) ){
+    /*
         $menu .= '<li><a href="#"><i class="fa fa-cogs fa-fw"></i><span>Mantenimientos</span></a>
                       <ul class="sub-menu">';
-    //}
-    
-    //if( Helper::helpMenuIsAllowed(2) ){
-        $menu .= '<li ><a href="list-suppliers-types.php">Tipo de proveedores</a></li>';
-        $menu .= '<li ><a href="list-suppliers-category.php">Rubro de proveedores</a></li>';
-        $menu .= '<li ><a href="list-suppliers-subcategory.php">Sub rubro de proveedores</a></li>';
-        $menu .= '<li ><a href="list-position-contact.php">Cargo de contacto de proveedores</a></li>';
-        $menu .= '<li ><a href="list-clients-category.php">Rubro de clientes</a></li>';
-        $menu .= '<li ><a href="list-positions-users.php">Cargo de usuarios</a></li>';
-        $menu .= '<li ><a href="list-position-client.php">Cargos de clientes</a></li>';
-    //}
-    
-  
-    //if( Helper::helpMenuIsAllowed(2) ){
+        $menu .= '<li ><a href="list-suppliers-types.php">Tipo de Proveedores</a></li>';
+        $menu .= '<li ><a href="list-suppliers-category.php">Rubro de Proveedores</a></li>';
+        $menu .= '<li ><a href="list-suppliers-subcategory.php">Sub Rubro de Proveedores</a></li>';
+        $menu .= '<li ><a href="list-position-contact.php">Cargo de Contacto de Proveedores</a></li>';
+        $menu .= '<li ><a href="list-clients-category.php">Rubro de Clientes</a></li>';
+        $menu .= '<li ><a href="list-positions-users.php">Cargo de Usuarios</a></li>';
+        $menu .= '<li ><a href="list-position-client.php">Cargos de Clientes</a></li>';
         $menu .= '</ul>
-                    </li>';                         
-    //}
+                    </li>';
+    */                         
     //</mantenimientos>
     
     

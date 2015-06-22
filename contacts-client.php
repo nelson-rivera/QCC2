@@ -97,7 +97,7 @@
                             <table class="table table-bordered" id="datatable-icons" >
                                 <thead>
                                         <tr>
-                                            <th>Cotacto</th>
+                                            <th>Contacto</th>
                                             <th>Cargo</th>
                                             <th>Teléfono 1</th>
                                             <th>Teléfono 2</th>

@@ -53,6 +53,7 @@
 	<![endif]-->
 	<?= css_nanoscroller() ?>
 	<?= css_datatable() ?>
+        <?= css_niftymodals() ?>
 	<?= css_style() ?>
 
 </head>
@@ -124,6 +125,7 @@
                                 <table class="table table-bordered" id="datatable-icons" >
                                     <thead>
                                             <tr>
+                                                <th><input type="checkbox" id="master-checkbox"/></th>
                                                 <th>Nombre</th>
                                                 <th>Rubro</th>
                                                 <th>Vendedor</th>
@@ -138,6 +140,7 @@
                                         foreach ($selectClientes->fetchAll() as $cliente) {
                                         ?>
                                             <tr class="odd gradeA">
+                                                <td class="text-center send-email-container"><input type="checkbox" class="send_email_cb" data-id="<?= $cliente['idcliente'] ?>" id="send_email_<?= encryptString($cliente['idcliente'])?>" name="send_email_<?= encryptString($cliente['idcliente'])?>"/></td>
                                                 <td><?= utf8_decode($cliente['nombre_cliente']) ?></td>
                                                 <td><?= utf8_encode($cliente['rubro']) ?></td>
                                                 <td><?= utf8_encode($cliente['nombre_vendedor']) ?></td>
@@ -162,6 +165,7 @@
                                         ?>
                                     </tbody>
                                 </table>
+                            <button type="button" class="btn btn-primary" id="btn-send-emails"><i class="fa fa-envelope"></i> Enviar correo de mercadeo</button>
                            
                         </div>
                     </div>
@@ -172,9 +176,8 @@
     </div>
     
     <!-- Modal -->
-    <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
+    <div class="md-modal md-effect-10" id="modal-delete">
+        <div class="md-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
             <h4 class="modal-title" id="myModalLabel">Eliminar Cliente</h4>
@@ -188,8 +191,37 @@
             <button id="btn-eliminar" type="button" class="btn btn-danger">Sí, eliminar</button>
           </div>
         </div>
-      </div>
     </div>
+    <div class="md-overlay"></div>
+    
+    <div class="md-modal colored-header info md-effect-10" id="mod-alert">
+        <div class="md-content">
+          <div class="modal-header">
+            <h3>Enviar Correo de Mercadeo</h3>
+            <button type="button" class="close md-close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          </div>
+          <div class="modal-body">
+            <div id="modal-body-center-edit" class="text-center">
+                Por favor seleccione a los destinatarios:
+                <table id="table-destinatarios">
+                    <thead>
+                        <th></th>
+                        <th>Nombre</th>
+                        <th>Email</th>
+                        <th>Empresa</th>
+                    </thead>
+                    <tbody>
+                        
+                    </tbody>
+                </table>
+            </div>
+          </div>
+            <div class="modal-footer" id="modal-footer-response-add" >
+                <a class="btn btn-primary btn-flat" data-dismiss="modal" id="btn-confirm-send" >Enviar</a>
+            </div>
+        </div>
+    </div>
+    <div class="md-overlay"></div>
     
    <?= js_jquery() ?>
   <?= js_jquery_ui() ?>
@@ -201,12 +233,14 @@
   <?= js_bootstrap_slider() ?>
   <?= js_jquery_datatable() ?>
   <?= js_jquery_datatable_adapter() ?>
+  <?= js_niftymodals() ?>
   <?= js_general() ?>
      
 	
 
     <script type="text/javascript">
       $(document).ready(function(){
+        
         var idVendedor = parseInt(<?= $idVendedor ?>);
         App.init();
         var oTable=$('#datatable-icons').dataTable({  
@@ -214,6 +248,9 @@
                     [25, 50, 100, 200, -1],
                     [25, 50, 100, 200, "Todos"]
                 ],
+                aoColumnDefs: [
+                    { 'bSortable': false, 'aTargets': [ 0 ] }
+                 ],
                 iDisplayLength: -1
         });
     
@@ -225,7 +262,7 @@
         var selectedRow;
         var idC;
         $('#datatable-icons tbody').on( 'click', '.btn-danger', function () {
-            $('#modal-delete').modal('show');
+            $('#modal-delete').addClass("md-show");;
             selectedRow = $(this).closest("tr").get(0);
             idC = $(this).children(".input-cliente").val();
             
@@ -292,6 +329,54 @@
         if(idVendedor > 0){
             $("#input-vendedor").val(idVendedor).change();
         }
+        $("#master-checkbox").change(function(){
+           if($(this).is(':checked')){
+               $(".send-email-container").each(function(){
+                   $(this).children('input[type=checkbox]').prop('checked',true);
+               });
+           } 
+           else{
+               $(".send-email-container").each(function(){
+                   $(this).children('input[type=checkbox]').prop('checked', false);
+               });
+           }
+        });
+        $("#btn-send-emails").click(function(){
+            var idArray = [];
+            $(".send_email_cb").each(function(){
+                if($(this).is(':checked')){
+                    idArray.push($(this).data('id'));
+                }
+            });
+            if(idArray.length<1){
+                alert('Por favor seleccione al menos un cliente');
+            }
+            else{
+                var ids = idArray.join();
+                $.ajax({
+                    url:"ajax/client.php",
+                    type:'POST',
+                    dataType:"json",
+                    data: {'opt':8, 'ids':ids},
+                }).done(function(response){
+                    $("#table-destinatarios tbody").html('');
+                    if (response.status == "0") {
+                        var jsonObj = $.parseJSON(response.data)
+                        $.each(jsonObj,function(index,contacto){
+                            $("#table-destinatarios tbody").append('<tr><td><input type="checkbox" checked="true" /></td><td>'+contacto.nombre_contacto+'</td><td class="contacto-email">'+contacto.email_1+'</td><td>'+contacto.nombre_cliente+'</td></tr>');
+                            var existingMails = $("#btn-confirm-send").prop('href');
+                            var newMails = existingMails + 'bcc:'+contacto.email_1+';';
+                            $("#btn-confirm-send").prop('href',newMails);
+                        });
+                        $("#mod-alert").addClass("md-show");
+                    }
+                    else{
+                        alert('ocurrio un error, por favor intentelo mas tarde');
+                    }
+                }); 
+            }
+            
+        });
       });
     </script>
 

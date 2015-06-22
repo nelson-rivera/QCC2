@@ -267,6 +267,27 @@ switch ($opt) {
             $response['error']= '108';
         }
         break;
+    case 8:
+        if(!empty($_POST['ids'])){
+            $listIdCliente=$_POST['ids'];
+            $ids = explode(',', $listIdCliente);
+            $queryContactos = $connection->prepare("SELECT contactos.*, clientes.nombre_cliente FROM contactos INNER JOIN clientes ON contactos.idcliente = clientes.idcliente WHERE contactos.idcliente IN ($listIdCliente) AND contactos.activo = 1");
+                
+            $queryContactos->execute();
+            $contactoArray = [];
+            foreach($queryContactos->fetchAll(PDO::FETCH_ASSOC) as $contacto){
+                $contactoArray[] = $contacto;
+            }
+            
+            $response['data'] = json_encode($contactoArray);   
+            $response['status']=0;
+        }
+        else{
+            $response['status']=1;
+            $response['msg']= 'A su petición le falta un argumento';
+            $response['error']= '108';
+        }
+        break;
     default:
         $response['status']=1;
         $response['msg']= 'A su petición le falta un argumento';

@@ -207,6 +207,9 @@ function sql_select_contactos_by_idcliente(){
 function sql_select_contacto_by_idcontacto(){
     return 'SELECT * FROM contactos WHERE idcontacto=?';
 }
+function sql_select_contacto_by_idcontacto_list(){
+    return 'SELECT * FROM contactos WHERE idcontacto IN (?)';
+}
 
 function sql_select_tipos_empresas_all(){
     return 'SELECT tipos_empresas.* from tipos_empresas ';
